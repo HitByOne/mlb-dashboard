@@ -9,8 +9,10 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os
 import dash
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 import dash
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dash import dcc, html, Input, Output, State, dash_table
 import plotly.express as px
 
@@ -1112,14 +1114,13 @@ def get_days_matchups(date_str):
 def build_bvp_section(pitcher_id, pitcher_name, opp_team_id, opp_team_name, min_ab=3):
     """For one pitcher vs one team, fetch all BvP stats and return a rendered block."""
     batters = get_team_roster(opp_team_id)
-    rows = []
-    for b in batters:
+    def fetch_one_bvp(b):
         stat = get_bvp_stats(b["id"], pitcher_id)
         if not stat:
-            continue
+            return None
         ab = stat.get("atBats", 0)
         if ab < min_ab:
-            continue
+            return None
         avg = stat.get("avg", ".000")
         ops = stat.get("ops", ".000")
         try:
@@ -1130,19 +1131,21 @@ def build_bvp_section(pitcher_id, pitcher_name, opp_team_id, opp_team_name, min_
             ops_f = float(ops)
         except (ValueError, TypeError):
             ops_f = 0.0
-        rows.append({
-            "Batter": b["name"],
-            "AB":     ab,
-            "H":      stat.get("hits", 0),
-            "HR":     stat.get("homeRuns", 0),
-            "RBI":    stat.get("rbi", 0),
-            "K":      stat.get("strikeOuts", 0),
-            "BB":     stat.get("baseOnBalls", 0),
-            "AVG":    avg,
-            "OPS":    ops,
-            "_avg_f": avg_f,
-            "_ops_f": ops_f,
-        })
+        return {
+            "Batter": b["name"], "AB": ab,
+            "H":  stat.get("hits", 0),    "HR":  stat.get("homeRuns", 0),
+            "RBI":stat.get("rbi", 0),     "K":   stat.get("strikeOuts", 0),
+            "BB": stat.get("baseOnBalls", 0),
+            "AVG": avg, "OPS": ops, "_avg_f": avg_f, "_ops_f": ops_f,
+        }
+
+    rows = []
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        futures = [ex.submit(fetch_one_bvp, b) for b in batters]
+        for fut in as_completed(futures):
+            result = fut.result()
+            if result:
+                rows.append(result)
 
     if not rows:
         return html.Div(
@@ -1411,16 +1414,19 @@ def load_hotcold(_, team_id, sort_by):
         return html.Div("Could not load roster.", style={"color": C["red"]})
 
     rows = []
-    for b in batters:
+    def fetch_hc(b):
         stats = get_batter_hot_cold(b["id"])
         if not stats:
-            continue
-        rows.append({
-            "name":   b["name"],
-            "last7":  stats["last7"],
-            "last14": stats["last14"],
-            "season": stats["season"],
-        })
+            return None
+        return {"name": b["name"], "last7": stats["last7"],
+                "last14": stats["last14"], "season": stats["season"]}
+
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        futures = {ex.submit(fetch_hc, b): b for b in batters}
+        for fut in as_completed(futures):
+            result = fut.result()
+            if result:
+                rows.append(result)
 
     if not rows:
         return html.Div("No data found.", style={"color": C["muted"]})
@@ -1664,16 +1670,25 @@ def load_cheatsheet(_, date_str):
 
             # Get team roster and stats
             batters = get_team_roster(bat_tid)
-            for b in batters:
-                # BvP history
+
+            def fetch_batter_cs(b):
                 bvp = get_bvp_stats(b["id"], pit_id)
+                hc  = get_batter_hot_cold(b["id"])
+                return b, bvp, hc
+
+            batter_data_cs = []
+            with ThreadPoolExecutor(max_workers=20) as ex:
+                futs = [ex.submit(fetch_batter_cs, b) for b in batters]
+                batter_data_cs = [f.result() for f in as_completed(futs)]
+
+            for b, bvp, hc in batter_data_cs:
+                # BvP history
                 bvp_ab  = bvp.get("atBats", 0) if bvp else 0
                 bvp_avg = float(bvp.get("avg", "0") or 0) if bvp else 0.0
                 bvp_hr  = bvp.get("homeRuns", 0) if bvp else 0
                 bvp_ops = float(bvp.get("ops", "0") or 0) if bvp else 0.0
 
                 # Hot/cold
-                hc = get_batter_hot_cold(b["id"])
                 if not hc:
                     continue
                 l7_avg  = hc["last7"]["_avg"]
@@ -2165,51 +2180,47 @@ def load_hr_leaders(_, __, league_filter):
         r["Pit HR Allow"]= info.get("hr_allowed", "—")
         r["Pit Hand"]    = info.get("hand", "—")
 
-        # Fetch batter platoon splits
-        r["vs L AVG"] = "—"
-        r["vs R AVG"] = "—"
-        r["vs L HR"]  = "—"
-        r["vs R HR"]  = "—"
-        r["Plat AVG"] = "—"  # split relevant to today's pitcher hand
-        r["Plat HR"]  = "—"
-        r["Matchup"]  = "—"
+        # Initialize defaults
+        r["vs L AVG"] = "—"; r["vs R AVG"] = "—"
+        r["vs L HR"]  = "—"; r["vs R HR"]  = "—"
+        r["Plat AVG"] = "—"; r["Plat HR"]  = "—"
+        r["Matchup"]  = "—"; r["L10 HR"]   = "—"
+        r["L5 HR"]    = "—"; r["🔥"]       = ""
 
-        if r.get("pid"):
-            vl, vr = get_batter_platoon_splits(r["pid"])
-            if vl:
-                r["vs L AVG"] = vl.get("avg", "—")
-                r["vs L HR"]  = vl.get("homeRuns", "—")
-            if vr:
-                r["vs R AVG"] = vr.get("avg", "—")
-                r["vs R HR"]  = vr.get("homeRuns", "—")
+    # Parallel fetch platoon splits + HR pace for all players
+    def fetch_hr_extras(r):
+        pid  = r.get("pid")
+        info = pitcher_map.get(r["Team"], {})
+        hand = info.get("hand", "?")
+        if not pid:
+            return r
+        vl, vr = get_batter_platoon_splits(pid)
+        if vl:
+            r["vs L AVG"] = vl.get("avg", "—")
+            r["vs L HR"]  = vl.get("homeRuns", "—")
+        if vr:
+            r["vs R AVG"] = vr.get("avg", "—")
+            r["vs R HR"]  = vr.get("homeRuns", "—")
+        if hand == "L" and vl:
+            r["Plat AVG"] = vl.get("avg", "—")
+            r["Plat HR"]  = vl.get("homeRuns", "—")
+            r["Matchup"]  = "vs LHP"
+        elif hand == "R" and vr:
+            r["Plat AVG"] = vr.get("avg", "—")
+            r["Plat HR"]  = vr.get("homeRuns", "—")
+            r["Matchup"]  = "vs RHP"
+        hr10, hr5, ab10 = get_hr_pace(pid)
+        if hr10 is not None:
+            r["L10 HR"] = hr10
+            r["L5 HR"]  = hr5
+            r["🔥"] = "🔥🔥" if hr5 >= 3 else ("🔥" if hr5 >= 2 else ("▲" if hr5 == 1 else ""))
+        return r
 
-            # Highlight the relevant split based on pitcher hand
-            hand = info.get("hand", "?")
-            if hand == "L" and vl:
-                r["Plat AVG"] = vl.get("avg", "—")
-                r["Plat HR"]  = vl.get("homeRuns", "—")
-                r["Matchup"]  = "vs LHP"
-            elif hand == "R" and vr:
-                r["Plat AVG"] = vr.get("avg", "—")
-                r["Plat HR"]  = vr.get("homeRuns", "—")
-                r["Matchup"]  = "vs RHP"
-
-        # Last 10 / Last 5 HR pace
-        r["L10 HR"] = "—"
-        r["L5 HR"]  = "—"
-        r["🔥"]     = ""
-        if r.get("pid"):
-            hr10, hr5, ab10 = get_hr_pace(r["pid"])
-            if hr10 is not None:
-                r["L10 HR"] = hr10
-                r["L5 HR"]  = hr5
-                # Hot flag if they have HRs in last 5
-                if hr5 >= 3:
-                    r["🔥"] = "🔥🔥"
-                elif hr5 >= 2:
-                    r["🔥"] = "🔥"
-                elif hr5 == 1:
-                    r["🔥"] = "▲"
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        futures = [ex.submit(fetch_hr_extras, r) for r in rows]
+        rows = [f.result() for f in as_completed(futures)]
+    if True:  # keep indent level consistent
+        pass
 
     leader = rows[0] if rows else {}
     playing_today = [r for r in rows if r["Today"] == "✅"]
@@ -2353,53 +2364,39 @@ def load_hits_leaders(_, __, sort_col):
     # Get today's pitcher matchups (reuse existing function)
     pitcher_map = get_todays_pitcher_hrs()
 
-    records = []
-    for r in rows:
-        pid = r.get("pid")
-
-        # Attach today's matchup
+    def fetch_hits_extras(r):
+        pid     = r.get("pid")
         info    = pitcher_map.get(r["Team"], {})
         playing = bool(info)
         hand    = info.get("hand", "—")
-
-        # Pace stats
-        pace   = get_batter_hits_pace(pid) if pid else None
-        l10_h  = pace["last10"]["H"]   if pace else 0
-        l10_tb = pace["last10"]["TB"]  if pace else 0
-        l10_avg= pace["last10"]["AVG"] if pace else 0.0
-        l5_h   = pace["last5"]["H"]    if pace else 0
-        l5_tb  = pace["last5"]["TB"]   if pace else 0
-
-        # Platoon splits
-        plat_avg   = "—"
-        plat_h     = "—"
-        plat_avg_f = 0.0
-        matchup    = "—"
+        pace    = get_batter_hits_pace(pid) if pid else None
+        l10_h   = pace["last10"]["H"]   if pace else 0
+        l10_tb  = pace["last10"]["TB"]  if pace else 0
+        l10_avg = pace["last10"]["AVG"] if pace else 0.0
+        l5_h    = pace["last5"]["H"]    if pace else 0
+        l5_tb   = pace["last5"]["TB"]   if pace else 0
+        plat_avg = "—"; plat_h = "—"; plat_avg_f = 0.0; matchup = "—"
         if pid:
             vl, vr = get_batter_platoon_splits(pid)
             if hand == "L" and vl:
-                plat_avg   = vl.get("avg", "—")
-                plat_h     = vl.get("hits", "—")
-                matchup    = "vs LHP"
+                plat_avg = vl.get("avg", "—"); plat_h = vl.get("hits", "—"); matchup = "vs LHP"
             elif hand == "R" and vr:
-                plat_avg   = vr.get("avg", "—")
-                plat_h     = vr.get("hits", "—")
-                matchup    = "vs RHP"
+                plat_avg = vr.get("avg", "—"); plat_h = vr.get("hits", "—"); matchup = "vs RHP"
             try:
                 plat_avg_f = float("0" + str(plat_avg)) if str(plat_avg).startswith(".") else float(plat_avg)
             except (ValueError, TypeError):
                 plat_avg_f = 0.0
+        hot = "🔥🔥" if l5_h >= 10 else ("🔥" if l5_h >= 7 else ("▲" if l5_h >= 5 else ""))
+        return (r, playing, hand, info, l10_h, l10_tb, l10_avg, l5_h, l5_tb,
+                plat_avg, plat_h, plat_avg_f, matchup, hot)
 
-        # Hot flag
-        if l5_h >= 10:
-            hot = "🔥🔥"
-        elif l5_h >= 7:
-            hot = "🔥"
-        elif l5_h >= 5:
-            hot = "▲"
-        else:
-            hot = ""
+    records = []
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        futures = {ex.submit(fetch_hits_extras, r): r for r in rows}
+        hits_results = [f.result() for f in as_completed(futures)]
 
+    for (r, playing, hand, info, l10_h, l10_tb, l10_avg, l5_h, l5_tb,
+         plat_avg, plat_h, plat_avg_f, matchup, hot) in hits_results:
         records.append({
             "Player":      r["Player"],
             "Team":        r["Team"],
@@ -2747,12 +2744,24 @@ def load_toppicks(_, date_str):
                 pass
 
             batters = get_team_roster(bat_tid)
-            for b in batters:
+
+            def fetch_batter_tp(b):
+                hc     = get_batter_hot_cold(b["id"])
+                bvp    = get_bvp_stats(b["id"], pit_id)
+                vl, vr = get_batter_platoon_splits(b["id"])
+                pace   = get_batter_hits_pace(b["id"])
+                return b, hc, bvp, vl, vr, pace
+
+            batter_data = []
+            with ThreadPoolExecutor(max_workers=20) as ex:
+                futs = [ex.submit(fetch_batter_tp, b) for b in batters]
+                batter_data = [f.result() for f in as_completed(futs)]
+
+            for b, hc, bvp, vl, vr, pace in batter_data:
                 bid   = b["id"]
                 bname = b["name"]
 
                 # Hot/cold
-                hc = get_batter_hot_cold(bid)
                 if not hc:
                     continue
                 l7_avg  = hc["last7"]["_avg"]
@@ -2765,7 +2774,6 @@ def load_toppicks(_, date_str):
                 l7_ab   = hc["last7"]["AB"]
 
                 # BvP
-                bvp      = get_bvp_stats(bid, pit_id)
                 bvp_ab   = bvp.get("atBats", 0) if bvp else 0
                 bvp_avg  = float(bvp.get("avg", 0) or 0) if bvp else 0.0
                 bvp_hr   = bvp.get("homeRuns", 0) if bvp else 0
@@ -2773,15 +2781,13 @@ def load_toppicks(_, date_str):
                 bvp_h    = bvp.get("hits", 0) if bvp else 0
 
                 # Platoon splits
-                vl, vr = get_batter_platoon_splits(bid)
                 plat = vl if hand == "L" else vr
                 plat_avg = float(plat.get("avg", 0) or 0) if plat else 0.0
                 plat_hr  = plat.get("homeRuns", 0) if plat else 0
                 plat_h   = plat.get("hits", 0) if plat else 0
                 matchup_label = f"vs {'LHP' if hand == 'L' else 'RHP'}"
 
-                # Hits pace (last 10)
-                pace   = get_batter_hits_pace(bid)
+                # Hits pace
                 l10_h  = pace["last10"]["H"]  if pace else 0
                 l5_h   = pace["last5"]["H"]   if pace else 0
                 l10_tb = pace["last10"]["TB"] if pace else 0
