@@ -9,9 +9,11 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os
 import dash
+from flask_caching import Cache
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 import dash
+from flask_caching import Cache
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dash import dcc, html, Input, Output, State, dash_table
 import plotly.express as px
@@ -22,6 +24,7 @@ BASE = "https://statsapi.mlb.com/api/v1"
 # API helpers
 # ─────────────────────────────────────────────
 
+@cache.memoize(timeout=600)
 def get_standings():
     year = datetime.now().year
     url = f"{BASE}/standings?leagueId=103,104&season={year}&standingsTypes=regularSeason"
@@ -45,6 +48,7 @@ def get_standings():
     return pd.DataFrame(rows)
 
 
+@cache.memoize(timeout=600)
 def get_scores(days_back=7):
     rows = []
     today = datetime.now()
@@ -142,6 +146,14 @@ def get_hit_streaks():
 # App setup
 # ─────────────────────────────────────────────
 app = dash.Dash(__name__, title="MLB Dashboard")
+
+# Cache — stores API results for 10 minutes
+# SimpleCache works locally and on Render free tier
+cache = Cache(app.server, config={
+    "CACHE_TYPE": "SimpleCache",
+    "CACHE_DEFAULT_TIMEOUT": 600,  # 10 minutes
+})
+
 
 C = dict(
     bg="#0d1117", card="#161b22", border="#30363d",
@@ -286,7 +298,12 @@ app.layout = html.Div(style={
         dcc.Tab(label="⭐ Top Picks",            value="toppicks",   style=TAB_STYLE, selected_style=TAB_SEL),
     ]),
 
-    html.Div(id="tab-content", style={"paddingTop": "16px"}),
+    dcc.Loading(
+        id="tab-loading",
+        type="circle",
+        color=C["blue"],
+        children=html.Div(id="tab-content", style={"paddingTop": "16px"}),
+    ),
 ])
 
 
@@ -370,7 +387,8 @@ def scores_layout():
                        marks={i: str(i) for i in [1, 3, 7, 10, 14]},
                        tooltip={"placement": "bottom"}),
         ]),
-        html.Div(id="scores-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="scores-results")),
     ])
 
 
@@ -420,7 +438,8 @@ def streaks_layout():
         html.Div("Loading hit streaks — this takes a few seconds...",
                  style={"color": C["muted"], "marginBottom": "12px", "fontSize": "13px"}),
         dcc.Interval(id="streaks-trigger", interval=300, max_intervals=1),
-        html.Div(id="streaks-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="streaks-results")),
     ])
 
 
@@ -572,7 +591,8 @@ def pitchers_layout():
         html.Div("Loading pitcher data...",
                  style={"color": C["muted"], "marginBottom": "12px", "fontSize": "13px"}),
         dcc.Interval(id="pitchers-trigger", interval=300, max_intervals=1),
-        html.Div(id="pitchers-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="pitchers-results")),
     ])
 
 
@@ -663,6 +683,7 @@ def load_pitchers(n):
 # ─────────────────────────────────────────────
 # K Matchup Engine
 # ─────────────────────────────────────────────
+@cache.memoize(timeout=600)
 def get_pitcher_k_rate():
     """Top 50 pitchers by strikeouts this season."""
     year = datetime.now().year
@@ -707,6 +728,7 @@ def get_pitcher_k_rate():
     return result, None
 
 
+@cache.memoize(timeout=600)
 def get_team_k_vulnerability():
     """
     For each team, calculate avg Ks allowed per game vs starting pitchers
@@ -779,6 +801,7 @@ def get_actual_starter_ks(game_pk):
             result[team_name] = {"name": best["name"], "ip": best["ip_str"], "k": best["k"]}
     return result
 
+@cache.memoize(timeout=600)
 def get_todays_matchups(date_str=None):
     """Get probable pitchers, their opponents, game status and pk for a given date."""
     if not date_str:
@@ -818,7 +841,6 @@ def get_todays_matchups(date_str=None):
 
 def kmatch_layout():
     today = datetime.now().strftime("%Y-%m-%d")
-    tomorrow = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
     return html.Div([
         section([
             html.Div([
@@ -831,7 +853,7 @@ def kmatch_layout():
                         style={"fontFamily": "IBM Plex Mono"},
                     ),
                 ], style={"marginRight": "16px"}),
-                html.Button("Load Matchups", id="kmatch-btn", style={
+                html.Button("Load", id="kmatch-btn", style={
                     "marginTop": "20px", "padding": "8px 20px",
                     "backgroundColor": C["blue"], "color": C["bg"],
                     "border": "none", "borderRadius": "6px",
@@ -839,17 +861,20 @@ def kmatch_layout():
                 }),
             ], style={"display": "flex", "alignItems": "flex-end", "gap": "12px"}),
         ]),
-        html.Div(id="kmatch-results"),
+        dcc.Interval(id="kmatch-trigger", interval=300, max_intervals=1),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="kmatch-results")),
     ])
 
 
 @app.callback(
     Output("kmatch-results", "children"),
     Input("kmatch-btn", "n_clicks"),
+    Input("kmatch-trigger", "n_intervals"),
     State("kmatch-date", "date"),
     prevent_initial_call=False,
 )
-def load_kmatch(n_clicks, selected_date):
+def load_kmatch(n_clicks, n_intervals, selected_date):
     if not selected_date:
         selected_date = datetime.now().strftime("%Y-%m-%d")
 
@@ -1036,6 +1061,7 @@ def load_kmatch(n_clicks, selected_date):
 # ─────────────────────────────────────────────
 # Batter vs Pitcher
 # ─────────────────────────────────────────────
+@cache.memoize(timeout=600)
 def get_team_roster(team_id):
     """Get active batters for a team."""
     url = f"{BASE}/teams/{team_id}/roster?rosterType=active&season={datetime.now().year}"
@@ -1054,6 +1080,7 @@ def get_team_roster(team_id):
     return batters
 
 
+@cache.memoize(timeout=600)
 def get_bvp_stats(batter_id, pitcher_id):
     """Get career batter vs pitcher stats."""
     url = (f"{BASE}/people/{batter_id}/stats"
@@ -1081,6 +1108,7 @@ def get_all_teams_with_ids():
                   key=lambda x: x["name"])
 
 
+@cache.memoize(timeout=600)
 def get_days_matchups(date_str):
     url = f"{BASE}/schedule?sportId=1&date={date_str}&gameType=R&hydrate=probablePitcher"
     matchups = []
@@ -1235,7 +1263,8 @@ def bvp_layout():
         ]),
         html.Div("Select a date and hit Load — takes ~30 seconds to pull all matchups.",
                  style={"color": C["muted"], "fontSize": "12px", "marginBottom": "12px"}),
-        html.Div(id="bvp-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="bvp-results")),
     ])
 
 
@@ -1294,6 +1323,7 @@ def load_bvp(_, date_str, min_ab):
 # ─────────────────────────────────────────────
 # Hot/Cold Batter Report
 # ─────────────────────────────────────────────
+@cache.memoize(timeout=600)
 def get_batter_hot_cold(player_id, last_n_games=14):
     """
     Pull game log and compute rolling stats over last N games.
@@ -1394,7 +1424,8 @@ def hotcold_layout():
         ]),
         html.Div("Pick a team and hit Load — pulls last 7 and 14 game rolling stats for every batter.",
                  style={"color": C["muted"], "fontSize": "12px", "marginBottom": "12px"}),
-        html.Div(id="hc-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="hc-results")),
     ])
 
 
@@ -1611,7 +1642,8 @@ def cheatsheet_layout():
         ]),
         html.Div("Combines BvP history + hot/cold streaks + pitcher K rate into ranked prop targets.",
                  style={"color": C["muted"], "fontSize": "12px", "marginBottom": "12px"}),
-        html.Div(id="cs-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="cs-results")),
     ])
 
 
@@ -1861,6 +1893,7 @@ def load_cheatsheet(_, date_str):
 # ─────────────────────────────────────────────
 # HR Leaders
 # ─────────────────────────────────────────────
+@cache.memoize(timeout=600)
 def get_todays_pitcher_hrs():
     """
     Returns dict: team_name -> {pitcher_name, pitcher_hr_allowed}
@@ -1920,6 +1953,7 @@ def get_todays_pitcher_hrs():
 
 
 
+@cache.memoize(timeout=600)
 def get_hr_pace(player_id, last_n=10):
     """Pull game log and return HR count over last N games."""
     year = datetime.now().year
@@ -1946,6 +1980,7 @@ def get_hr_pace(player_id, last_n=10):
 
     return hr10, hr5, ab10
 
+@cache.memoize(timeout=600)
 def get_pitcher_hand(pitcher_id):
     """Return L or R for pitcher throwing hand."""
     try:
@@ -1955,6 +1990,7 @@ def get_pitcher_hand(pitcher_id):
         return "?"
 
 
+@cache.memoize(timeout=600)
 def get_batter_platoon_splits(batter_id):
     """Return dict with vs_left and vs_right stat blocks."""
     year = datetime.now().year
@@ -1975,6 +2011,7 @@ def get_batter_platoon_splits(batter_id):
             vs_right = stat
     return vs_left, vs_right
 
+@cache.memoize(timeout=600)
 def get_hr_leaders(limit=75):
     year = datetime.now().year
     url  = (f"{BASE}/stats/leaders?leaderCategories=homeRuns"
@@ -2026,7 +2063,8 @@ def hrleaders_layout():
             ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px"}),
         ]),
         dcc.Interval(id="hr-trigger", interval=300, max_intervals=1),
-        html.Div(id="hr-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="hr-results")),
     ])
 
 
@@ -2162,6 +2200,22 @@ def load_hr_leaders(_, __, league_filter):
     # Fetch today's pitcher matchups
     pitcher_map = get_todays_pitcher_hrs()
 
+    # Get today's schedule to determine home/away for park factors
+    today_str   = datetime.now().strftime("%Y-%m-%d")
+    home_lookup = {}
+    try:
+        sched = requests.get(
+            f"{BASE}/schedule?sportId=1&date={today_str}&gameType=R", timeout=10
+        ).json()
+        for day in sched.get("dates", []):
+            for g in day.get("games", []):
+                home = g["teams"]["home"]["team"]["name"]
+                away = g["teams"]["away"]["team"]["name"]
+                home_lookup[home] = home
+                home_lookup[away] = home
+    except Exception:
+        pass
+
     # Attach matchup info + platoon splits to each row
     for r in rows:
         info = pitcher_map.get(r["Team"], {})
@@ -2219,8 +2273,11 @@ def load_hr_leaders(_, __, league_filter):
     with ThreadPoolExecutor(max_workers=20) as ex:
         futures = [ex.submit(fetch_hr_extras, r) for r in rows]
         rows = [f.result() for f in as_completed(futures)]
-    if True:  # keep indent level consistent
-        pass
+
+    # Re-sort by HR descending after parallel fetch (as_completed is unordered)
+    rows = sorted(rows, key=lambda x: x.get("HR", 0), reverse=True)
+    for i, r in enumerate(rows):
+        r["Rank"] = i + 1
 
     leader = rows[0] if rows else {}
     playing_today = [r for r in rows if r["Today"] == "✅"]
@@ -2243,6 +2300,7 @@ def load_hr_leaders(_, __, league_filter):
 # ─────────────────────────────────────────────
 # Hits & Total Bases Leaders
 # ─────────────────────────────────────────────
+@cache.memoize(timeout=600)
 def get_hits_tb_leaders(limit=75):
     """Fetch top players by hits and total bases this season."""
     year = datetime.now().year
@@ -2284,6 +2342,7 @@ def get_hits_tb_leaders(limit=75):
     return combined, None
 
 
+@cache.memoize(timeout=600)
 def get_batter_hits_pace(player_id):
     """Return H and TB totals for last 10 and last 5 games."""
     year = datetime.now().year
@@ -2344,7 +2403,8 @@ def hitsleaders_layout():
             ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px"}),
         ]),
         dcc.Interval(id="hits-trigger", interval=300, max_intervals=1),
-        html.Div(id="hits-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="hits-results")),
     ])
 
 
@@ -2527,7 +2587,8 @@ def toppicks_layout():
         ]),
         html.Div("Analyzes every batter facing today's starters. Combines hit streak, BvP history, platoon splits, and pitcher vulnerability into ranked picks.",
                  style={"color": C["muted"], "fontSize": "12px", "marginBottom": "16px"}),
-        html.Div(id="tp-results"),
+        dcc.Loading(type="circle", color=C["blue"],
+                    children=html.Div(id="tp-results")),
     ])
 
 
