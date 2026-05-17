@@ -1,1 +1,1 @@
-web: python mlb_dashboard.py
+web: python refresh_data.py && python mlb_dashboard.py
