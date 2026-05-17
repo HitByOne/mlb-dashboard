@@ -1,165 +1,128 @@
 """
 MLB Interactive Dashboard
-Install: pip install dash plotly requests pandas
+=========================
+Reads from pre-fetched CSV files in ./data/ folder.
+Run refresh_data.py first to populate data files.
+
+Install: pip install dash plotly pandas flask-caching
 Run:     python mlb_dashboard.py -> open http://127.0.0.1:8050
 """
 
-import requests
+import os
+import json
+import threading
 import pandas as pd
-from datetime import datetime, timedelta
-import os
 import dash
-from flask_caching import Cache
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import os
-import dash
-from flask_caching import Cache
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from dash import dcc, html, Input, Output, State, dash_table
 import plotly.express as px
-
-BASE = "https://statsapi.mlb.com/api/v1"
+from datetime import datetime
+from flask_caching import Cache
 
 # ─────────────────────────────────────────────
-# API helpers
+# App + Cache
 # ─────────────────────────────────────────────
+app   = dash.Dash(__name__, title="⚾ MLB Dashboard")
+cache = Cache(app.server, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 300})
 
-@cache.memoize(timeout=600)
-def get_standings():
-    year = datetime.now().year
-    url = f"{BASE}/standings?leagueId=103,104&season={year}&standingsTypes=regularSeason"
-    data = requests.get(url, timeout=10).json()
-    rows = []
-    for record in data.get("records", []):
-        for tr in record.get("teamRecords", []):
-            pct_raw = tr.get("winningPercentage", 0)
-            try:
-                pct = round(float(pct_raw), 3)
-            except (TypeError, ValueError):
-                pct = 0.0
-            rows.append({
-                "Team":   tr.get("team", {}).get("name", "Unknown"),
-                "W":      tr.get("wins", 0),
-                "L":      tr.get("losses", 0),
-                "PCT":    pct,
-                "GB":     tr.get("gamesBack", "-"),
-                "Streak": tr.get("streak", {}).get("streakCode", "-"),
-            })
-    return pd.DataFrame(rows)
+DATA_DIR = "data"
 
-
-@cache.memoize(timeout=600)
-def get_scores(days_back=7):
-    rows = []
-    today = datetime.now()
-    for d in range(days_back, -1, -1):
-        date_str = (today - timedelta(days=d)).strftime("%Y-%m-%d")
-        url = f"{BASE}/schedule?sportId=1&date={date_str}&gameType=R"
-        try:
-            data = requests.get(url, timeout=10).json()
-        except Exception:
-            continue
-        for day in data.get("dates", []):
-            for g in day.get("games", []):
-                if g.get("status", {}).get("detailedState", "") not in ("Final", "Game Over"):
-                    continue
-                away = g["teams"]["away"]
-                home = g["teams"]["home"]
-                rows.append({
-                    "Date":   day["date"],
-                    "Away":   away["team"]["name"],
-                    "Away_R": away.get("score", 0),
-                    "Home":   home["team"]["name"],
-                    "Home_R": home.get("score", 0),
-                    "Winner": home["team"]["name"] if home.get("isWinner") else away["team"]["name"],
-                })
-    return pd.DataFrame(rows)
-
-
-def get_hit_streaks():
-    """
-    1. Fetch top 50 players by batting average to get player IDs
-    2. Pull each player's game log
-    3. Count consecutive games with hits from most recent backwards
-    """
-    year = datetime.now().year
-    rows = []
-
-    url = (f"{BASE}/stats/leaders?leaderCategories=battingAverage"
-           f"&season={year}&sportId=1&statGroup=hitting&limit=50")
+# ─────────────────────────────────────────────
+# File readers
+# ─────────────────────────────────────────────
+def read(name, default_cols=None):
+    path = os.path.join(DATA_DIR, f"{name}.csv")
+    if not os.path.exists(path):
+        return pd.DataFrame(columns=default_cols or [])
     try:
-        data = requests.get(url, timeout=10).json()
-    except Exception as e:
-        return pd.DataFrame(), str(e)
+        return pd.read_csv(path)
+    except Exception:
+        return pd.DataFrame(columns=default_cols or [])
 
-    leaders = data.get("leagueLeaders", [{}])[0].get("leaders", [])
+def read_json(name):
+    path = os.path.join(DATA_DIR, f"{name}.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except Exception:
+        return {}
 
-    for entry in leaders:
-        person_id   = entry.get("person", {}).get("id")
-        player_name = entry.get("person", {}).get("fullName", "Unknown")
-        team_name   = entry.get("team", {}).get("name", "Unknown")
-        season_avg  = entry.get("value", ".000")
-        if not person_id:
-            continue
-
-        log_url = (f"{BASE}/people/{person_id}/stats"
-                   f"?stats=gameLog&group=hitting&season={year}&sportId=1")
-        try:
-            log_data = requests.get(log_url, timeout=10).json()
-        except Exception:
-            continue
-
-        splits = log_data.get("stats", [{}])[0].get("splits", [])
-        if not splits:
-            continue
-
-        # Most recent game last — reverse so index 0 = most recent
-        splits = list(reversed(splits))
-
-        streak = 0
-        for game in splits:
-            h = game.get("stat", {}).get("hits", 0)
-            try:
-                h = int(h)
-            except (TypeError, ValueError):
-                h = 0
-            if h >= 1:
-                streak += 1
-            else:
-                break
-
-        if streak >= 1:
-            rows.append({
-                "Player": player_name,
-                "Team":   team_name,
-                "Streak": streak,
-                "AVG":    season_avg,
-            })
-
-    df = pd.DataFrame(rows)
-    if not df.empty:
-        df = df.sort_values("Streak", ascending=False).reset_index(drop=True)
-    return df, None
-
+def data_date():
+    meta = read_json("metadata")
+    return meta.get("refreshed_at", "—")
 
 # ─────────────────────────────────────────────
-# App setup
+# Park Factors
 # ─────────────────────────────────────────────
-app = dash.Dash(__name__, title="MLB Dashboard")
+PARK_FACTORS = {
+    "Colorado Rockies":          {"hit": 1.15, "hr": 1.28},
+    "Athletics":                 {"hit": 1.12, "hr": 1.18},
+    "Cincinnati Reds":           {"hit": 1.08, "hr": 1.23},
+    "Baltimore Orioles":         {"hit": 1.07, "hr": 1.20},
+    "Kansas City Royals":        {"hit": 1.06, "hr": 1.15},
+    "Los Angeles Dodgers":       {"hit": 1.05, "hr": 1.18},
+    "Detroit Tigers":            {"hit": 1.04, "hr": 1.12},
+    "Minnesota Twins":           {"hit": 1.03, "hr": 1.08},
+    "Texas Rangers":             {"hit": 1.03, "hr": 1.06},
+    "Philadelphia Phillies":     {"hit": 1.02, "hr": 1.05},
+    "Chicago Cubs":              {"hit": 1.02, "hr": 1.04},
+    "Boston Red Sox":            {"hit": 1.02, "hr": 0.89},
+    "Miami Marlins":             {"hit": 1.01, "hr": 1.03},
+    "New York Yankees":          {"hit": 1.00, "hr": 1.02},
+    "Milwaukee Brewers":         {"hit": 1.00, "hr": 1.06},
+    "Houston Astros":            {"hit": 1.00, "hr": 0.99},
+    "St. Louis Cardinals":       {"hit": 0.99, "hr": 0.87},
+    "Washington Nationals":      {"hit": 0.99, "hr": 0.98},
+    "Atlanta Braves":            {"hit": 0.99, "hr": 1.01},
+    "Tampa Bay Rays":            {"hit": 0.98, "hr": 0.96},
+    "Arizona Diamondbacks":      {"hit": 0.98, "hr": 0.94},
+    "Chicago White Sox":         {"hit": 0.98, "hr": 1.00},
+    "Toronto Blue Jays":         {"hit": 0.97, "hr": 0.97},
+    "Cleveland Guardians":       {"hit": 0.97, "hr": 0.96},
+    "New York Mets":             {"hit": 0.97, "hr": 0.95},
+    "Los Angeles Angels":        {"hit": 0.96, "hr": 0.95},
+    "Pittsburgh Pirates":        {"hit": 0.96, "hr": 0.66},
+    "San Francisco Giants":      {"hit": 0.95, "hr": 0.88},
+    "San Diego Padres":          {"hit": 0.94, "hr": 0.90},
+    "Seattle Mariners":          {"hit": 0.93, "hr": 0.85},
+}
 
-# Cache — stores API results for 10 minutes
-# SimpleCache works locally and on Render free tier
-cache = Cache(app.server, config={
-    "CACHE_TYPE": "SimpleCache",
-    "CACHE_DEFAULT_TIMEOUT": 600,  # 10 minutes
-})
+def get_park_factor(team, stat="hr"):
+    return PARK_FACTORS.get(team, {"hit": 1.0, "hr": 1.0}).get(stat, 1.0)
 
+def park_label(f):
+    if f >= 1.20:   return f"🔥🔥 {f:.2f}x"
+    elif f >= 1.10: return f"🔥 {f:.2f}x"
+    elif f >= 1.03: return f"▲ {f:.2f}x"
+    elif f >= 0.97: return f"— {f:.2f}x"
+    elif f >= 0.90: return f"▼ {f:.2f}x"
+    else:           return f"❄️ {f:.2f}x"
 
+def park_color(f):
+    if f >= 1.15:   return C["red"]
+    elif f >= 1.05: return C["yellow"]
+    elif f >= 0.97: return C["text"]
+    elif f >= 0.90: return C["muted"]
+    else:           return C["blue"]
+
+# ─────────────────────────────────────────────
+# Colors + Styles
+# ─────────────────────────────────────────────
 C = dict(
     bg="#0d1117", card="#161b22", border="#30363d",
     green="#39d353", red="#f85149", yellow="#e3b341",
     blue="#58a6ff", text="#e6edf3", muted="#8b949e",
 )
+
+CARD = {"background": C["card"], "border": f"1px solid {C['border']}",
+        "borderRadius": "8px", "padding": "18px", "marginBottom": "16px"}
+
+TAB_STYLE = {"backgroundColor": C["bg"], "color": C["muted"],
+             "border": f"1px solid {C['border']}", "borderRadius": "6px 6px 0 0",
+             "padding": "10px 20px", "fontFamily": "monospace", "fontSize": "13px"}
+TAB_SEL   = {**TAB_STYLE, "backgroundColor": C["card"],
+             "color": C["blue"], "borderBottom": f"2px solid {C['blue']}"}
 
 DT_CELL   = {"backgroundColor": C["card"], "color": C["text"],
              "border": f"1px solid {C['border']}", "fontFamily": "IBM Plex Mono",
@@ -169,1453 +132,553 @@ DT_HEADER = {"backgroundColor": C["bg"], "color": C["muted"], "fontWeight": "bol
              "border": f"1px solid {C['border']}"}
 DT_COND   = [{"if": {"row_index": "odd"}, "backgroundColor": "#0f1419"}]
 
-# ─────────────────────────────────────────────
-# Park Factors (2025-2026 Statcast data)
-# 100 = league average. >100 = hitter friendly, <100 = pitcher friendly
-# ─────────────────────────────────────────────
-PARK_FACTORS = {
-    # Team name -> {hit_factor, hr_factor}  (scale: 1.0 = average)
-    "Colorado Rockies":          {"hit": 1.15, "hr": 1.28},  # Coors — extreme hitter park
-    "Athletics":                 {"hit": 1.12, "hr": 1.18},  # Sutter Health — bandbox
-    "Cincinnati Reds":           {"hit": 1.08, "hr": 1.23},  # GABP — HR factory
-    "Baltimore Orioles":         {"hit": 1.07, "hr": 1.20},  # Camden Yards — launching pad
-    "Kansas City Royals":        {"hit": 1.06, "hr": 1.15},  # Kauffman — fences moved in 2026
-    "Los Angeles Dodgers":       {"hit": 1.05, "hr": 1.18},  # Dodger Stadium — best HR park
-    "Detroit Tigers":            {"hit": 1.04, "hr": 1.12},  # Comerica — improved
-    "Minnesota Twins":           {"hit": 1.03, "hr": 1.08},  # Target Field
-    "Texas Rangers":             {"hit": 1.03, "hr": 1.06},  # Globe Life Field
-    "Philadelphia Phillies":     {"hit": 1.02, "hr": 1.05},  # Citizens Bank Park
-    "Chicago Cubs":              {"hit": 1.02, "hr": 1.04},  # Wrigley — weather dependent
-    "Boston Red Sox":            {"hit": 1.02, "hr": 0.89},  # Fenway — lots of doubles not HRs
-    "Miami Marlins":             {"hit": 1.01, "hr": 1.03},  # loanDepot
-    "New York Yankees":          {"hit": 1.00, "hr": 1.02},  # Yankee Stadium — avg
-    "Milwaukee Brewers":         {"hit": 1.00, "hr": 1.06},  # American Family Field
-    "Houston Astros":            {"hit": 1.00, "hr": 0.99},  # Minute Maid — neutral
-    "St. Louis Cardinals":       {"hit": 0.99, "hr": 0.87},  # Busch — tough HR park
-    "Washington Nationals":      {"hit": 0.99, "hr": 0.98},  # Nationals Park
-    "Atlanta Braves":            {"hit": 0.99, "hr": 1.01},  # Truist Park
-    "Tampa Bay Rays":            {"hit": 0.98, "hr": 0.96},  # Tropicana — pitcher friendly
-    "Arizona Diamondbacks":      {"hit": 0.98, "hr": 0.94},  # Chase Field
-    "Chicago White Sox":         {"hit": 0.98, "hr": 1.00},  # Guaranteed Rate
-    "Toronto Blue Jays":         {"hit": 0.97, "hr": 0.97},  # Rogers Centre
-    "Cleveland Guardians":       {"hit": 0.97, "hr": 0.96},  # Progressive Field
-    "New York Mets":             {"hit": 0.97, "hr": 0.95},  # Citi Field — tough for righties
-    "Los Angeles Angels":        {"hit": 0.96, "hr": 0.95},  # Angel Stadium
-    "Pittsburgh Pirates":        {"hit": 0.96, "hr": 0.66},  # PNC — worst HR park in MLB
-    "San Francisco Giants":      {"hit": 0.95, "hr": 0.88},  # Oracle — marine layer
-    "San Diego Padres":          {"hit": 0.94, "hr": 0.90},  # Petco — pitcher park
-    "Seattle Mariners":          {"hit": 0.93, "hr": 0.85},  # T-Mobile — toughest park
-}
-
-def get_park_factor(home_team, stat="hr"):
-    """Return park factor multiplier for a given team's home park."""
-    pf = PARK_FACTORS.get(home_team, {"hit": 1.0, "hr": 1.0})
-    return pf.get(stat, 1.0)
-
-def park_label(factor):
-    """Return a human-readable label for a park factor."""
-    if factor >= 1.20:
-        return f"🔥🔥 {factor:.2f}x"
-    elif factor >= 1.10:
-        return f"🔥 {factor:.2f}x"
-    elif factor >= 1.03:
-        return f"▲ {factor:.2f}x"
-    elif factor >= 0.97:
-        return f"— {factor:.2f}x"
-    elif factor >= 0.90:
-        return f"▼ {factor:.2f}x"
-    else:
-        return f"❄️ {factor:.2f}x"
-
-def park_color(factor):
-    if factor >= 1.15:   return C["red"]
-    elif factor >= 1.05: return C["yellow"]
-    elif factor >= 0.97: return C["text"]
-    elif factor >= 0.90: return C["muted"]
-    else:                return C["blue"]
-
-
-CARD = {
-    "background": C["card"], "border": f"1px solid {C['border']}",
-    "borderRadius": "8px", "padding": "18px", "marginBottom": "16px",
-}
-
-TAB_STYLE = {
-    "backgroundColor": C["bg"], "color": C["muted"],
-    "border": f"1px solid {C['border']}", "borderRadius": "6px 6px 0 0",
-    "padding": "10px 20px", "fontFamily": "monospace", "fontSize": "13px",
-}
-TAB_SEL = {**TAB_STYLE, "backgroundColor": C["card"],
-           "color": C["blue"], "borderBottom": f"2px solid {C['blue']}"}
-
-
 def section(children):
     return html.Div(children, style=CARD)
-
 
 def lbl(txt):
     return html.Div(txt, style={"color": C["muted"], "fontSize": "11px",
                                 "textTransform": "uppercase", "letterSpacing": "1px",
                                 "marginBottom": "6px"})
 
-
 def th_style(left=False):
     return {"padding": "7px 10px", "color": C["muted"], "fontSize": "11px",
             "borderBottom": f"1px solid {C['border']}",
             "textAlign": "left" if left else "center"}
 
-
 def td_style(**kw):
     return {"padding": "6px 10px", **kw}
 
+def no_data(msg="No data — run refresh_data.py first"):
+    return html.Div(msg, style={"color": C["muted"], "padding": "20px", "fontSize": "13px"})
 
 # ─────────────────────────────────────────────
 # Layout
 # ─────────────────────────────────────────────
 app.layout = html.Div(style={
     "backgroundColor": C["bg"], "minHeight": "100vh",
-    "fontFamily": "'IBM Plex Mono', monospace",
-    "color": C["text"], "padding": "24px",
+    "fontFamily": "'IBM Plex Mono', monospace", "color": C["text"], "padding": "24px",
 }, children=[
     html.Div([
         html.Span("⚾", style={"fontSize": "26px"}),
         html.Span("  MLB Dashboard", style={"fontSize": "20px", "fontWeight": "bold", "marginLeft": "8px"}),
-        html.Span(f"  {datetime.now().strftime('%b %d, %Y')}",
-                  style={"color": C["muted"], "fontSize": "13px", "marginLeft": "12px"}),
+        html.Span(id="data-date", style={"color": C["muted"], "fontSize": "12px", "marginLeft": "16px"}),
     ], style={"marginBottom": "20px"}),
 
     dcc.Tabs(id="tabs", value="standings", children=[
-        dcc.Tab(label="📊 Standings",  value="standings", style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🎯 Scores",     value="scores",    style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🔥 Hit Streaks", value="streaks",  style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="⚾ Pitcher Targets", value="pitchers", style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🎲 K Matchups",       value="kmatch",   style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="⚔️ Batter vs Pitcher",  value="bvp",      style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🌡️ Hot/Cold Report",      value="hotcold",  style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="📋 Cheat Sheet",          value="cheatsheet", style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="💣 HR Leaders",           value="hrleaders",  style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🎯 Hits & Bases",          value="hitsleaders", style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="⭐ Top Picks",            value="toppicks",   style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="📊 Standings",        value="standings",   style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="🎯 Scores",           value="scores",      style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="🔥 Hit Streaks",      value="streaks",     style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="⚾ Pitcher Targets",  value="pitchers",    style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="🎲 K Matchups",       value="kmatch",      style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="⚔️ Batter vs Pitcher", value="bvp",        style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="🌡️ Hot/Cold Report",   value="hotcold",    style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="💣 HR Leaders",        value="hrleaders",  style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="🎯 Hits & Bases",      value="hitsleaders",style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="⭐ Top Picks",         value="toppicks",   style=TAB_STYLE, selected_style=TAB_SEL),
     ]),
 
-    dcc.Loading(
-        id="tab-loading",
-        type="circle",
-        color=C["blue"],
-        children=html.Div(id="tab-content", style={"paddingTop": "16px"}),
-    ),
+    dcc.Loading(type="circle", color=C["blue"],
+                children=html.Div(id="tab-content", style={"paddingTop": "16px"})),
 ])
 
+@app.callback(Output("data-date", "children"), Input("tabs", "value"))
+def update_date(_):
+    d = data_date()
+    return f"Data: {d}" if d != "—" else "⚠️ No data — run refresh_data.py"
 
-# ─────────────────────────────────────────────
-# Tab router
-# ─────────────────────────────────────────────
 @app.callback(Output("tab-content", "children"), Input("tabs", "value"))
 def render_tab(tab):
-    if tab == "standings":
-        return standings_layout()
-    elif tab == "scores":
-        return scores_layout()
-    elif tab == "streaks":
-        return streaks_layout()
-    elif tab == "pitchers":
-        return pitchers_layout()
-    elif tab == "kmatch":
-        return kmatch_layout()
-    elif tab == "bvp":
-        return bvp_layout()
-    elif tab == "hotcold":
-        return hotcold_layout()
-    elif tab == "cheatsheet":
-        return cheatsheet_layout()
-    elif tab == "hrleaders":
-        return hrleaders_layout()
-    elif tab == "hitsleaders":
-        return hitsleaders_layout()
-    elif tab == "toppicks":
-        return toppicks_layout()
-
+    tabs = {
+        "standings":   standings_layout,
+        "scores":      scores_layout,
+        "streaks":     streaks_layout,
+        "pitchers":    pitchers_layout,
+        "kmatch":      kmatch_layout,
+        "bvp":         bvp_layout,
+        "hotcold":     hotcold_layout,
+        "hrleaders":   hrleaders_layout,
+        "hitsleaders": hitsleaders_layout,
+        "toppicks":    toppicks_layout,
+    }
+    return tabs.get(tab, standings_layout)()
 
 # ─────────────────────────────────────────────
-# Standings
+# STANDINGS
 # ─────────────────────────────────────────────
 def standings_layout():
-    try:
-        df = get_standings()
-    except Exception as e:
-        return html.Div(f"Error: {e}", style={"color": C["red"]})
-
+    df = read("standings")
+    if df.empty:
+        return no_data()
     df = df.sort_values("PCT", ascending=False).reset_index(drop=True)
-
-    rows = []
-    for i, r in df.iterrows():
-        bar = html.Div(
-            html.Div(style={"width": f"{r['PCT']*100:.0f}%", "height": "5px",
-                            "backgroundColor": C["blue"], "borderRadius": "3px"}),
-            style={"width": "100px", "backgroundColor": C["border"], "borderRadius": "3px"},
-        )
-        rows.append(html.Tr([
-            html.Td(i + 1,             style=td_style(color=C["muted"], textAlign="center", fontSize="12px")),
-            html.Td(r["Team"],         style=td_style(whiteSpace="nowrap")),
-            html.Td(r["W"],            style=td_style(textAlign="center", color=C["green"], fontWeight="bold")),
-            html.Td(r["L"],            style=td_style(textAlign="center", color=C["red"])),
-            html.Td(f"{r['PCT']:.3f}", style=td_style(textAlign="center")),
-            html.Td(r["GB"],           style=td_style(textAlign="center", color=C["muted"])),
-            html.Td(r["Streak"],       style=td_style(textAlign="center")),
-            html.Td(bar,               style=td_style()),
-        ], style={"borderBottom": f"1px solid {C['border']}"}))
-
-    table = html.Table([
-        html.Thead(html.Tr([
-            html.Th(h, style=th_style(left=(h == "Team")))
-            for h in ["#", "Team", "W", "L", "PCT", "GB", "Streak", "Win %"]
-        ])),
-        html.Tbody(rows),
-    ], style={"width": "100%", "borderCollapse": "collapse", "fontSize": "13px"})
-
-    return section(table)
-
+    df.insert(0, "Rank", range(1, len(df)+1))
+    return section(dash_table.DataTable(
+        data=df.to_dict("records"),
+        columns=[{"name": c, "id": c} for c in ["Rank","Team","W","L","PCT","GB","Streak"]],
+        sort_action="native", sort_mode="single",
+        style_table={"overflowX": "auto"}, style_cell=DT_CELL,
+        style_header=DT_HEADER, page_action="none",
+        style_data_conditional=DT_COND + [
+            {"if": {"column_id": "W"}, "color": C["green"], "fontWeight": "bold"},
+            {"if": {"column_id": "L"}, "color": C["red"]},
+        ],
+    ))
 
 # ─────────────────────────────────────────────
-# Scores
+# SCORES
 # ─────────────────────────────────────────────
 def scores_layout():
     return html.Div([
-        section([
-            lbl("Days to look back"),
-            dcc.Slider(1, 14, 1, value=7, id="scores-days",
-                       marks={i: str(i) for i in [1, 3, 7, 10, 14]},
-                       tooltip={"placement": "bottom"}),
-        ]),
+        section([lbl("Days to look back"),
+                 dcc.Slider(1,7,1,value=3,id="scores-days",
+                            marks={i:str(i) for i in [1,3,5,7]},
+                            tooltip={"placement":"bottom"})]),
         dcc.Loading(type="circle", color=C["blue"],
                     children=html.Div(id="scores-results")),
     ])
 
-
-@app.callback(Output("scores-results", "children"), Input("scores-days", "value"))
+@app.callback(Output("scores-results","children"), Input("scores-days","value"))
 def update_scores(days):
-    try:
-        df = get_scores(days_back=days)
-    except Exception as e:
-        return html.Div(f"Error: {e}", style={"color": C["red"]})
-
+    df = read("scores")
     if df.empty:
-        return html.Div("No completed games found.", style={"color": C["muted"]})
-
-    records = []
-    for _, r in df.sort_values("Date", ascending=False).iterrows():
-        records.append({
-            "Date":    r["Date"],
-            "Away":    r["Away"],
-            "Away R":  r["Away_R"],
-            "Home R":  r["Home_R"],
-            "Home":    r["Home"],
-            "Winner":  r["Winner"],
-            "Total R": int(r["Away_R"]) + int(r["Home_R"]),
-        })
-
-    table = dash_table.DataTable(
-        data=records,
-        columns=[{"name": c, "id": c} for c in ["Date","Away","Away R","Home R","Home","Winner","Total R"]],
+        return no_data()
+    df = df.sort_values("Date", ascending=False).head(days * 15)
+    return section(dash_table.DataTable(
+        data=df.to_dict("records"),
+        columns=[{"name": c, "id": c} for c in ["Date","Away","Away_R","Home_R","Home","Winner","Total_R"]],
         sort_action="native", sort_mode="single",
-        style_table={"overflowX": "auto"},
-        style_cell=DT_CELL,
-        style_header=DT_HEADER,
+        style_table={"overflowX": "auto"}, style_cell=DT_CELL,
+        style_header=DT_HEADER, page_action="native", page_size=20,
         style_data_conditional=DT_COND + [
             {"if": {"column_id": "Winner"}, "color": C["green"], "fontWeight": "bold"},
-            {"if": {"column_id": "Total R"}, "color": C["blue"]},
+            {"if": {"column_id": "Total_R"}, "color": C["blue"]},
         ],
-        page_action="native", page_size=25,
-    )
-    return section(table)
-
+    ))
 
 # ─────────────────────────────────────────────
-# Hit Streaks
+# HIT STREAKS
 # ─────────────────────────────────────────────
 def streaks_layout():
-    return html.Div([
-        html.Div("Loading hit streaks — this takes a few seconds...",
-                 style={"color": C["muted"], "marginBottom": "12px", "fontSize": "13px"}),
-        dcc.Interval(id="streaks-trigger", interval=300, max_intervals=1),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="streaks-results")),
-    ])
-
-
-@app.callback(Output("streaks-results", "children"), Input("streaks-trigger", "n_intervals"))
-def load_streaks(n):
-    if n is None or n < 1:
-        return ""
-
-    df, err = get_hit_streaks()
-
-    if err:
-        return html.Div(f"Error: {err}", style={"color": C["red"]})
-
+    df = read("hit_streaks")
     if df.empty:
-        return html.Div("No active hit streaks found.", style={"color": C["muted"]})
+        return no_data()
+    df = df.sort_values("Streak", ascending=False).reset_index(drop=True)
+    df.insert(0, "Rank", range(1, len(df)+1))
 
-    rows = []
-    for i, r in df.iterrows():
-        streak_color = C["red"] if r["Streak"] >= 20 else (C["yellow"] if r["Streak"] >= 10 else C["green"])
-        flame = "🔥" if r["Streak"] >= 15 else ("⚡" if r["Streak"] >= 10 else "")
-        rows.append(html.Tr([
-            html.Td(i + 1,        style=td_style(color=C["muted"], textAlign="center", fontSize="12px")),
-            html.Td(r["Player"],  style=td_style(whiteSpace="nowrap", fontWeight="bold")),
-            html.Td(r["Team"],    style=td_style(color=C["muted"], whiteSpace="nowrap")),
-            html.Td([
-                html.Span(f"{r['Streak']}G", style={"color": streak_color, "fontWeight": "bold", "fontSize": "14px"}),
-                html.Span(f" {flame}"),
-            ], style=td_style(textAlign="center")),
-            html.Td(r["AVG"],     style=td_style(textAlign="center")),
-        ], style={"borderBottom": f"1px solid {C['border']}"}))
-
-    table = html.Table([
-        html.Thead(html.Tr([
-            html.Th(h, style=th_style(left=(h in ["Player", "Team"])))
-            for h in ["#", "Player", "Team", "Streak", "AVG"]
-        ])),
-        html.Tbody(rows),
-    ], style={"width": "100%", "borderCollapse": "collapse", "fontSize": "13px"})
+    def flame(s):
+        if s >= 15: return "🔥🔥"
+        elif s >= 10: return "⚡"
+        return ""
+    df["Hot"] = df["Streak"].apply(flame)
 
     return html.Div([
-        html.Div("Active Hit Streaks — Top 50 Hitters by AVG",
-                 style={"fontSize": "12px", "color": C["muted"], "marginBottom": "12px",
-                        "borderLeft": f"3px solid {C['green']}", "paddingLeft": "10px"}),
-        section(table),
+        section(dash_table.DataTable(
+            data=df.to_dict("records"),
+            columns=[{"name": c, "id": c} for c in ["Rank","Player","Team","Streak","Hot","AVG"]],
+            sort_action="native", sort_mode="single",
+            style_table={"overflowX": "auto"}, style_cell=DT_CELL,
+            style_header=DT_HEADER, page_action="none",
+            style_data_conditional=DT_COND + [
+                {"if": {"column_id": "Streak", "filter_query": "{Streak} >= 15"}, "color": C["red"],    "fontWeight": "bold"},
+                {"if": {"column_id": "Streak", "filter_query": "{Streak} >= 10"}, "color": C["yellow"], "fontWeight": "bold"},
+                {"if": {"column_id": "Streak", "filter_query": "{Streak} >= 5"},  "color": C["green"]},
+            ],
+        ))
     ])
 
-
 # ─────────────────────────────────────────────
-# Run
+# PITCHER TARGETS
 # ─────────────────────────────────────────────
-
-# ─────────────────────────────────────────────
-# Pitcher Targets
-# ─────────────────────────────────────────────
-def get_leaky_pitchers():
-    """
-    Fetch pitchers giving up the most hits and HRs this season.
-    Also pulls today's schedule to flag which ones are starting today.
-    """
-    year = datetime.now().year
-    rows = []
-
-    # Get top 50 pitchers by hits allowed
-    url = (f"{BASE}/stats/leaders?leaderCategories=hits"
-           f"&season={year}&sportId=1&statGroup=pitching&limit=50")
-    try:
-        data = requests.get(url, timeout=10).json()
-    except Exception as e:
-        return pd.DataFrame(), pd.DataFrame(), str(e)
-
-    leaders = data.get("leagueLeaders", [{}])[0].get("leaders", [])
-
-    person_ids = {}
-    for entry in leaders:
-        pid  = entry.get("person", {}).get("id")
-        name = entry.get("person", {}).get("fullName", "Unknown")
-        team = entry.get("team", {}).get("name", "Unknown")
-        hits = entry.get("value", 0)
-        if pid:
-            person_ids[pid] = {"Player": name, "Team": team, "H_allowed": int(float(hits))}
-
-    # For each pitcher get full season stats (ERA, HR allowed, IP, WHIP)
-    for pid, info in person_ids.items():
-        stat_url = (f"{BASE}/people/{pid}/stats"
-                    f"?stats=season&group=pitching&season={year}&sportId=1")
-        try:
-            sdata = requests.get(stat_url, timeout=8).json()
-        except Exception:
-            continue
-        splits = sdata.get("stats", [{}])[0].get("splits", [])
-        if not splits:
-            continue
-        s = splits[0].get("stat", {})
-        info.update({
-            "IP":   s.get("inningsPitched", "0.0"),
-            "ERA":  s.get("era", "-"),
-            "HR_allowed": s.get("homeRuns", 0),
-            "WHIP": s.get("whip", "-"),
-            "BB":   s.get("baseOnBalls", 0),
-            "H9":   s.get("hitsPer9Inn", "-"),
-        })
-        rows.append(info)
-
-    df = pd.DataFrame(rows)
-    if not df.empty:
-        df = df.sort_values("H_allowed", ascending=False).reset_index(drop=True)
-
-    # Pull today's probable starters
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    sched_url = f"{BASE}/schedule?sportId=1&date={today_str}&gameType=R&hydrate=probablePitcher"
-    try:
-        sched = requests.get(sched_url, timeout=10).json()
-    except Exception:
-        return df, pd.DataFrame(), None
-
-    today_rows = []
-    for day in sched.get("dates", []):
-        for g in day.get("games", []):
-            away_team = g["teams"]["away"]["team"]["name"]
-            home_team = g["teams"]["home"]["team"]["name"]
-            for side, opp in [("away", home_team), ("home", away_team)]:
-                pitcher = g["teams"][side].get("probablePitcher", {})
-                if pitcher:
-                    pid  = pitcher.get("id")
-                    name = pitcher.get("fullName", "Unknown")
-                    # look up their stats from our df
-                    match = df[df["Player"] == name] if not df.empty else pd.DataFrame()
-                    today_rows.append({
-                        "Pitcher":    name,
-                        "Team":       g["teams"][side]["team"]["name"],
-                        "Opponent":   opp,
-                        "H_allowed":  int(match["H_allowed"].values[0]) if not match.empty else "-",
-                        "HR_allowed": int(match["HR_allowed"].values[0]) if not match.empty else "-",
-                        "ERA":        match["ERA"].values[0] if not match.empty else "-",
-                        "WHIP":       match["WHIP"].values[0] if not match.empty else "-",
-                        "H9":         match["H9"].values[0] if not match.empty else "-",
-                    })
-
-    today_df = pd.DataFrame(today_rows)
-    # Ensure numeric columns are numeric
-    for col in ["H_allowed", "HR_allowed"]:
-        if col in today_df.columns:
-            today_df[col] = pd.to_numeric(today_df[col], errors="coerce").fillna(0).astype(int)
-    return df, today_df, None
-
-
 def pitchers_layout():
-    return html.Div([
-        html.Div("Loading pitcher data...",
-                 style={"color": C["muted"], "marginBottom": "12px", "fontSize": "13px"}),
-        dcc.Interval(id="pitchers-trigger", interval=300, max_intervals=1),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="pitchers-results")),
-    ])
-
-
-@app.callback(Output("pitchers-results", "children"), Input("pitchers-trigger", "n_intervals"))
-def load_pitchers(n):
-    if n is None or n < 1:
-        return ""
-
-    df, today_df, err = get_leaky_pitchers()
-
-    if err:
-        return html.Div(f"Error: {err}", style={"color": C["red"]})
+    df       = read("leaky_pitchers")
+    matchups = read("matchups")
     if df.empty:
-        return html.Div("No pitcher data found.", style={"color": C["muted"]})
+        return no_data()
 
-    def make_table(data, columns, colors={}):
-        rows = []
-        for i, r in data.iterrows():
-            cells = []
-            for col in columns:
-                val = r.get(col, "-")
-                style = td_style(textAlign="center")
-                if col in ["Pitcher", "Player", "Opponent", "Team"]:
-                    style = td_style(whiteSpace="nowrap", fontWeight="bold" if col in ["Pitcher", "Player"] else "normal")
-                if col in colors and val != "-":
-                    try:
-                        style["color"] = colors[col](float(str(val).replace("-", "0")))
-                    except Exception:
-                        pass
-                cells.append(html.Td(val, style=style))
-            rows.append(html.Tr(cells, style={"borderBottom": f"1px solid {C['border']}"}))
-
-        header = html.Thead(html.Tr([
-            html.Th(c, style=th_style(left=(c in ["Pitcher", "Player", "Team", "Opponent"])))
-            for c in columns
-        ]))
-        return html.Table([header, html.Tbody(rows)],
-                          style={"width": "100%", "borderCollapse": "collapse", "fontSize": "13px"})
-
-    def hr_color(v):
-        return C["red"] if v >= 10 else (C["yellow"] if v >= 5 else C["text"])
-
-    def era_color(v):
-        return C["red"] if v >= 5.0 else (C["yellow"] if v >= 4.0 else C["green"])
+    # Today's starters
+    today_rows = []
+    if not matchups.empty:
+        for _, m in matchups.iterrows():
+            for side, opp in [("away","home"),("home","away")]:
+                pit_name = m.get(f"{side}_pitcher","TBD")
+                pit_team = m.get(f"{side}_team","")
+                opp_team = m.get(f"{opp}_team","")
+                match    = df[df["Player"] == pit_name]
+                today_rows.append({
+                    "Pitcher":    pit_name,
+                    "Team":       pit_team,
+                    "Opponent":   opp_team,
+                    "H_allowed":  int(match["H_allowed"].values[0]) if not match.empty else "-",
+                    "HR_allowed": int(match["HR_allowed"].values[0]) if not match.empty else "-",
+                    "ERA":        match["ERA"].values[0] if not match.empty else "-",
+                    "WHIP":       match["WHIP"].values[0] if not match.empty else "-",
+                })
 
     sections = []
-
-    # Today's probable starters
-    if not today_df.empty:
-        today_sorted = today_df.sort_values("H_allowed", ascending=False)
+    if today_rows:
+        tdf = pd.DataFrame(today_rows)
         sections.append(html.Div([
-            html.Div("🎯 Today's Probable Starters — Target These Pitchers",
-                     style={"fontSize": "13px", "fontWeight": "bold", "color": C["yellow"],
-                            "marginBottom": "12px", "borderLeft": f"3px solid {C['yellow']}",
-                            "paddingLeft": "10px"}),
-            html.Div("Sorted by hits allowed — higher = more hittable",
-                     style={"fontSize": "11px", "color": C["muted"], "marginBottom": "10px"}),
-            section(make_table(
-                today_sorted,
-                ["Pitcher", "Team", "Opponent", "H_allowed", "HR_allowed", "ERA", "WHIP", "H9"],
-                colors={
-                    "HR_allowed": hr_color,
-                    "ERA": era_color,
-                }
+            html.Div("🎯 Today's Probable Starters",
+                     style={"fontSize":"13px","fontWeight":"bold","color":C["yellow"],
+                            "borderLeft":f"3px solid {C['yellow']}","paddingLeft":"10px","marginBottom":"10px"}),
+            section(dash_table.DataTable(
+                data=tdf.to_dict("records"),
+                columns=[{"name":c,"id":c} for c in ["Pitcher","Team","Opponent","H_allowed","HR_allowed","ERA","WHIP"]],
+                sort_action="native", sort_mode="single",
+                style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+                style_header=DT_HEADER, page_action="none",
+                style_data_conditional=DT_COND,
             )),
         ]))
 
-    # Full season leaderboard
     sections.append(html.Div([
-        html.Div("📋 Most Hits Allowed — Full Season Leaderboard",
-                 style={"fontSize": "13px", "fontWeight": "bold", "color": C["blue"],
-                        "marginBottom": "12px", "borderLeft": f"3px solid {C['blue']}",
-                        "paddingLeft": "10px"}),
-        section(make_table(
-            df.head(30),
-            ["Player", "Team", "H_allowed", "HR_allowed", "ERA", "WHIP", "IP"],
-            colors={
-                "HR_allowed": hr_color,
-                "ERA": era_color,
-            }
+        html.Div("📋 Most Hits Allowed — Season Leaderboard",
+                 style={"fontSize":"13px","fontWeight":"bold","color":C["blue"],
+                        "borderLeft":f"3px solid {C['blue']}","paddingLeft":"10px","marginBottom":"10px"}),
+        section(dash_table.DataTable(
+            data=df.head(30).to_dict("records"),
+            columns=[{"name":c,"id":c} for c in ["Player","Team","H_allowed","HR_allowed","ERA","WHIP","IP"]],
+            sort_action="native", sort_mode="single",
+            style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+            style_header=DT_HEADER, page_action="none",
+            style_data_conditional=DT_COND,
         )),
     ]))
 
     return html.Div(sections)
 
-
-
 # ─────────────────────────────────────────────
-# K Matchup Engine
+# K MATCHUPS
 # ─────────────────────────────────────────────
-@cache.memoize(timeout=600)
-def get_pitcher_k_rate():
-    """Top 50 pitchers by strikeouts this season."""
-    year = datetime.now().year
-    url = (f"{BASE}/stats/leaders?leaderCategories=strikeouts"
-           f"&season={year}&sportId=1&statGroup=pitching&limit=50")
-    try:
-        data = requests.get(url, timeout=10).json()
-    except Exception as e:
-        return {}, str(e)
-
-    result = {}
-    for entry in data.get("leagueLeaders", [{}])[0].get("leaders", []):
-        pid  = entry.get("person", {}).get("id")
-        name = entry.get("person", {}).get("fullName", "Unknown")
-        team = entry.get("team", {}).get("name", "Unknown")
-        ks   = int(float(entry.get("value", 0)))
-        if not pid:
-            continue
-        # Get full season stats for K/9, IP, ERA
-        stat_url = (f"{BASE}/people/{pid}/stats"
-                    f"?stats=season&group=pitching&season={year}&sportId=1")
-        try:
-            sdata = requests.get(stat_url, timeout=8).json()
-        except Exception:
-            continue
-        splits = sdata.get("stats", [{}])[0].get("splits", [])
-        if not splits:
-            continue
-        s = splits[0].get("stat", {})
-        try:
-            ip = float(s.get("inningsPitched", 0))
-            k9 = round((ks / ip) * 9, 1) if ip > 0 else 0.0
-        except (TypeError, ValueError, ZeroDivisionError):
-            k9 = 0.0
-        result[pid] = {
-            "name": name, "team": team,
-            "K":  ks,
-            "K9": k9,
-            "ERA": s.get("era", "-"),
-            "IP":  s.get("inningsPitched", "-"),
-        }
-    return result, None
-
-
-@cache.memoize(timeout=600)
-def get_team_k_vulnerability():
-    """
-    For each team, calculate avg Ks allowed per game vs starting pitchers
-    by pulling the last 15 game logs and averaging strikeouts.
-    """
-    year = datetime.now().year
-    url = f"{BASE}/teams?sportId=1"
-    try:
-        teams_data = requests.get(url, timeout=10).json()
-    except Exception as e:
-        return {}, str(e)
-
-    teams = {t["id"]: t["name"] for t in teams_data.get("teams", [])}
-    result = {}
-
-    for tid, tname in teams.items():
-        # Get team batting game logs (shows Ks per game)
-        log_url = (f"{BASE}/teams/{tid}/stats"
-                   f"?stats=gameLog&group=hitting&season={year}&sportId=1&limit=15")
-        try:
-            ldata = requests.get(log_url, timeout=8).json()
-        except Exception:
-            continue
-        splits = ldata.get("stats", [{}])[0].get("splits", [])
-        if not splits:
-            continue
-        ks_per_game = []
-        for g in splits[-15:]:
-            k = g.get("stat", {}).get("strikeOuts", 0)
-            try:
-                ks_per_game.append(int(k))
-            except (TypeError, ValueError):
-                pass
-        if ks_per_game:
-            result[tid] = {
-                "name":    tname,
-                "avg_k":   round(sum(ks_per_game) / len(ks_per_game), 1),
-                "max_k":   max(ks_per_game),
-                "games":   len(ks_per_game),
-            }
-
-    return result, None
-
-
-
-def get_actual_starter_ks(game_pk):
-    """Pull boxscore and return starting pitcher (most IP) and their actual Ks."""
-    url = f"{BASE}/game/{game_pk}/boxscore"
-    try:
-        box = requests.get(url, timeout=8).json()
-    except Exception:
-        return {}
-
-    result = {}
-    for side in ["away", "home"]:
-        team_name = box["teams"][side]["team"]["name"]
-        best = {"name": None, "ip_float": 0.0, "ip_str": "0.0", "k": 0}
-        for pid, pdata in box["teams"][side]["players"].items():
-            stats = pdata.get("stats", {}).get("pitching", {})
-            ip_str = stats.get("inningsPitched", "0.0")
-            ks = stats.get("strikeOuts", 0)
-            try:
-                parts = str(ip_str).split(".")
-                ip_float = int(parts[0]) + (int(parts[1]) / 3 if len(parts) > 1 else 0)
-            except (ValueError, TypeError):
-                ip_float = 0.0
-            if ip_float > best["ip_float"]:
-                best = {"name": pdata["person"]["fullName"], "ip_float": ip_float, "ip_str": ip_str, "k": ks}
-        if best["name"]:
-            result[team_name] = {"name": best["name"], "ip": best["ip_str"], "k": best["k"]}
-    return result
-
-@cache.memoize(timeout=600)
-def get_todays_matchups(date_str=None):
-    """Get probable pitchers, their opponents, game status and pk for a given date."""
-    if not date_str:
-        date_str = datetime.now().strftime("%Y-%m-%d")
-    url = f"{BASE}/schedule?sportId=1&date={date_str}&gameType=R&hydrate=probablePitcher"
-    try:
-        data = requests.get(url, timeout=10).json()
-    except Exception:
-        return []
-
-    matchups = []
-    for day in data.get("dates", []):
-        for g in day.get("games", []):
-            game_time = g.get("gameDate", "")[:16].replace("T", " ")
-            status    = g.get("status", {}).get("detailedState", "")
-            game_pk   = g.get("gamePk")
-            is_final  = status in ("Final", "Game Over")
-            for side, opp_side in [("away", "home"), ("home", "away")]:
-                pitcher = g["teams"][side].get("probablePitcher", {})
-                opp_team_id   = g["teams"][opp_side]["team"]["id"]
-                opp_team_name = g["teams"][opp_side]["team"]["name"]
-                pit_team      = g["teams"][side]["team"]["name"]
-                if pitcher:
-                    matchups.append({
-                        "pitcher_id":   pitcher.get("id"),
-                        "pitcher_name": pitcher.get("fullName", "Unknown"),
-                        "pitcher_team": pit_team,
-                        "opp_team_id":  opp_team_id,
-                        "opp_team":     opp_team_name,
-                        "game_time":    game_time,
-                        "status":       status,
-                        "is_final":     is_final,
-                        "game_pk":      game_pk,
-                    })
-    return matchups
-
-
 def kmatch_layout():
-    today = datetime.now().strftime("%Y-%m-%d")
-    return html.Div([
-        section([
-            html.Div([
-                html.Div([
-                    lbl("Select Date"),
-                    dcc.DatePickerSingle(
-                        id="kmatch-date",
-                        date=today,
-                        display_format="MMM DD, YYYY",
-                        style={"fontFamily": "IBM Plex Mono"},
-                    ),
-                ], style={"marginRight": "16px"}),
-                html.Button("Load", id="kmatch-btn", style={
-                    "marginTop": "20px", "padding": "8px 20px",
-                    "backgroundColor": C["blue"], "color": C["bg"],
-                    "border": "none", "borderRadius": "6px",
-                    "cursor": "pointer", "fontFamily": "IBM Plex Mono", "fontWeight": "bold",
-                }),
-            ], style={"display": "flex", "alignItems": "flex-end", "gap": "12px"}),
-        ]),
-        dcc.Interval(id="kmatch-trigger", interval=300, max_intervals=1),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="kmatch-results")),
-    ])
+    matchups = read("matchups")
+    k_rates  = read("pitcher_k_rates")
+    team_k   = read("team_k_vulnerability")
+    pit_stats= read("pitcher_stats")
 
+    if matchups.empty:
+        return no_data()
 
-@app.callback(
-    Output("kmatch-results", "children"),
-    Input("kmatch-btn", "n_clicks"),
-    Input("kmatch-trigger", "n_intervals"),
-    State("kmatch-date", "date"),
-    prevent_initial_call=False,
-)
-def load_kmatch(n_clicks, n_intervals, selected_date):
-    if not selected_date:
-        selected_date = datetime.now().strftime("%Y-%m-%d")
+    # Build lookup dicts
+    k_map    = {r["name"]: r for _, r in k_rates.iterrows()} if not k_rates.empty else {}
+    vuln_map = {int(r["team_id"]): r for _, r in team_k.iterrows()} if not team_k.empty else {}
 
-    # Load all three data sources
-    pitcher_stats, err1 = get_pitcher_k_rate()
-    team_vuln, err2     = get_team_k_vulnerability()
-    matchups            = get_todays_matchups(selected_date)
-
-    if err1:
-        return html.Div(f"Pitcher data error: {err1}", style={"color": C["red"]})
-    if err2:
-        return html.Div(f"Team data error: {err2}", style={"color": C["red"]})
-    if not matchups:
-        return html.Div(f"No games found for {selected_date}.", style={"color": C["muted"]})
-
-    # Pre-fetch actual Ks for all final games (one boxscore call per game)
-    final_ks = {}  # game_pk -> {team_name -> {name, ip, k}}
-    seen_pks = set()
-    for m in matchups:
-        pk = m.get("game_pk")
-        if m["is_final"] and pk and pk not in seen_pks:
-            final_ks[pk] = get_actual_starter_ks(pk)
-            seen_pks.add(pk)
-
-    # Build matchup rows
     rows = []
-    for m in matchups:
-        pid      = m["pitcher_id"]
-        opp_tid  = m["opp_team_id"]
-        p_stats  = pitcher_stats.get(pid, {})
-        t_stats  = team_vuln.get(opp_tid, {})
+    for _, m in matchups.iterrows():
+        for side, opp in [("away","home"),("home","away")]:
+            pit_name = m.get(f"{side}_pitcher","TBD")
+            pit_team = m.get(f"{side}_team","")
+            opp_tid  = int(m.get(f"{opp}_team_id",0))
+            opp_team = m.get(f"{opp}_team","")
 
-        p_k9     = p_stats.get("K9", "-")
-        p_ks     = p_stats.get("K", "-")
-        p_era    = p_stats.get("ERA", "-")
-        t_avg_k  = t_stats.get("avg_k", "-")
-        t_max_k  = t_stats.get("max_k", "-")
+            pk = k_map.get(pit_name, {})
+            pk9  = float(pk.get("K9", 0) or 0)
+            pera = float(str(pk.get("ERA",4.5)).replace("-","4.5") or 4.5)
+            pks  = pk.get("K", "-")
 
-        # Actual Ks if game is final
-        actual_k = "-"
-        if m["is_final"] and m.get("game_pk") in final_ks:
-            box_data = final_ks[m["game_pk"]].get(m["pitcher_team"], {})
-            if box_data:
-                actual_k = f"{box_data['k']} ({box_data['ip']} IP)"
+            tv   = vuln_map.get(opp_tid, {})
+            opp_avg_k = float(tv.get("avg_k", 7.0) or 7.0)
 
-        # 7-inning K projection: average pitcher K/9 with opponent avg K/game
-        try:
-            pitcher_k7 = round((float(p_k9) / 9) * 7, 1)
-        except (TypeError, ValueError):
-            pitcher_k7 = "-"
+            k7      = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
+            opp_k7  = round((opp_avg_k/9)*7, 1)
+            blend   = round((k7+opp_k7)/2, 1)
+            score   = round(pk9*3 + opp_avg_k*2, 1)
 
-        try:
-            # Blend: average pitcher pace with opponent tendency, scaled to 7 IP
-            blended_k7 = round((float(p_k9) / 9 * 7 + float(t_avg_k)) / 2 * (7 / 9) * 2, 1)
-            # Simpler and more intuitive: just average the two 7-inning projections
-            opp_k7 = round(float(t_avg_k) / 9 * 7, 1)
-            blended_k7 = round((pitcher_k7 + opp_k7) / 2, 1)
-        except (TypeError, ValueError):
-            blended_k7 = "-"
+            if score >= 45:   rating, rc = "🔥🔥 Elite",  C["red"]
+            elif score >= 35: rating, rc = "🔥 Strong",   C["yellow"]
+            elif score >= 25: rating, rc = "✅ Solid",    C["green"]
+            else:             rating, rc = "—",           C["muted"]
 
-        # Score: pitcher K9 + team avg Ks allowed — higher = juicier K spot
-        try:
-            score = round(float(p_k9) + float(t_avg_k), 1)
-        except (TypeError, ValueError):
-            score = 0.0
-
-        # Color code the score
-        if score >= 18:
-            score_color = C["red"]
-            rating = "🔥🔥 Elite"
-        elif score >= 14:
-            score_color = C["yellow"]
-            rating = "🔥 Strong"
-        elif score >= 10:
-            score_color = C["green"]
-            rating = "✅ Solid"
-        else:
-            score_color = C["muted"]
-            rating = "—"
-
-        rows.append({
-            "Pitcher":        m["pitcher_name"],
-            "Pit Team":       m["pitcher_team"],
-            "Opponent":       m["opp_team"],
-            "Status":         "✅ Final" if m["is_final"] else "🕐 " + m["status"],
-            "Actual Ks":      actual_k,
-            "K Proj (7 IP)":  pitcher_k7,
-            "Blended Proj":   blended_k7,
-            "K9":             p_k9,
-            "Opp Avg K/G":    t_avg_k,
-            "Season Ks":      p_ks,
-            "ERA":            p_era,
-            "Score":          score if score > 0 else "-",
-            "Rating":         rating,
-            "_score_color":   score_color,
-            "_is_final":      m["is_final"],
-        })
-
-    rows.sort(key=lambda x: float(x["Score"]) if str(x["Score"]) != "-" else 0, reverse=True)
-
-    # Build table
-    cols = ["Pitcher", "Pit Team", "Opponent", "Status", "Actual Ks", "K Proj (7 IP)", "Blended Proj", "K9", "Opp Avg K/G", "Season Ks", "ERA", "Score", "Rating"]
-    left_cols = {"Pitcher", "Pit Team", "Opponent", "Rating", "Status", "Actual Ks"}
-
-    thead = html.Thead(html.Tr([
-        html.Th(c, style=th_style(left=(c in left_cols))) for c in cols
-    ]))
-
-    trows = []
-    for r in rows:
-        cells = []
-        for c in cols:
-            val = r[c]
-            if c == "Score":
-                cell = html.Td(val, style=td_style(textAlign="center", color=r["_score_color"],
-                                                    fontWeight="bold", fontSize="14px"))
-            elif c == "Rating":
-                cell = html.Td(val, style=td_style(whiteSpace="nowrap", color=r["_score_color"]))
-            elif c == "K9":
-                try:
-                    col = C["red"] if float(val) >= 10 else (C["yellow"] if float(val) >= 8 else C["text"])
-                except (TypeError, ValueError):
-                    col = C["text"]
-                cell = html.Td(val, style=td_style(textAlign="center", color=col, fontWeight="bold"))
-            elif c == "Actual Ks":
-                is_final = r.get("_is_final", False)
-                if val == "-" and not is_final:
-                    cell = html.Td("—", style=td_style(textAlign="center", color=C["muted"]))
-                else:
-                    # Extract just the number for coloring
-                    try:
-                        k_num = int(str(val).split(" ")[0])
-                        col = C["red"] if k_num >= 9 else (C["yellow"] if k_num >= 6 else C["green"])
-                    except (ValueError, TypeError):
-                        col = C["text"]
-                    cell = html.Td(val, style=td_style(whiteSpace="nowrap", color=col, fontWeight="bold", fontSize="13px"))
-            elif c == "K Proj (7 IP)":
-                try:
-                    col = C["red"] if float(val) >= 8 else (C["yellow"] if float(val) >= 6 else C["text"])
-                except (TypeError, ValueError):
-                    col = C["text"]
-                cell = html.Td(val, style=td_style(textAlign="center", color=col, fontWeight="bold"))
-            elif c == "Blended Proj":
-                try:
-                    col = C["red"] if float(val) >= 8 else (C["yellow"] if float(val) >= 6 else C["text"])
-                except (TypeError, ValueError):
-                    col = C["text"]
-                cell = html.Td(val, style=td_style(textAlign="center", color=col, fontWeight="bold", fontSize="14px"))
-            elif c == "Opp Avg K/G":
-                try:
-                    col = C["red"] if float(val) >= 9 else (C["yellow"] if float(val) >= 7 else C["text"])
-                except (TypeError, ValueError):
-                    col = C["text"]
-                cell = html.Td(val, style=td_style(textAlign="center", color=col))
-            elif c in left_cols:
-                cell = html.Td(val, style=td_style(whiteSpace="nowrap",
-                                                    fontWeight="bold" if c == "Pitcher" else "normal"))
-            else:
-                cell = html.Td(val, style=td_style(textAlign="center"))
-            cells.append(cell)
-        trows.append(html.Tr(cells, style={"borderBottom": f"1px solid {C['border']}"}))
-
-    table = html.Table([thead, html.Tbody(trows)],
-                       style={"width": "100%", "borderCollapse": "collapse", "fontSize": "13px"})
-
-    legend = html.Div([
-        html.Span("K Proj = pitcher pace over 7 IP  |  Blended = avg of pitcher + opponent projections  |  ",
-                  style={"color": C["muted"], "fontSize": "11px"}),
-        html.Span("🔥🔥 Elite ≥18  ", style={"color": C["red"],    "fontSize": "11px"}),
-        html.Span("🔥 Strong ≥14  ",  style={"color": C["yellow"], "fontSize": "11px"}),
-        html.Span("✅ Solid ≥10",     style={"color": C["green"],  "fontSize": "11px"}),
-    ], style={"marginBottom": "12px"})
-
-    return html.Div([
-        html.Div("🎲 Today's K Matchups — Best Strikeout Spots",
-                 style={"fontSize": "13px", "fontWeight": "bold", "color": C["blue"],
-                        "marginBottom": "8px", "borderLeft": f"3px solid {C['blue']}",
-                        "paddingLeft": "10px"}),
-        legend,
-        section(table),
-    ])
-
-
-# ─────────────────────────────────────────────
-# Batter vs Pitcher
-# ─────────────────────────────────────────────
-@cache.memoize(timeout=600)
-def get_team_roster(team_id):
-    """Get active batters for a team."""
-    url = f"{BASE}/teams/{team_id}/roster?rosterType=active&season={datetime.now().year}"
-    try:
-        data = requests.get(url, timeout=10).json()
-    except Exception:
-        return []
-    batters = []
-    for p in data.get("roster", []):
-        pos_type = p.get("position", {}).get("type", "")
-        if pos_type not in ("Pitcher",):
-            batters.append({
-                "id":   p["person"]["id"],
-                "name": p["person"]["fullName"],
+            rows.append({
+                "Pitcher": pit_name, "Team": pit_team, "Opponent": opp_team,
+                "K9": pk9, "Season Ks": pks, "ERA": pk.get("ERA","-"),
+                "Opp Avg K/G": opp_avg_k,
+                "K Proj (7IP)": k7, "Blended Proj": blend,
+                "Score": score, "Rating": rating,
+                "_score": score,
             })
-    return batters
 
+    rows.sort(key=lambda x: x["_score"], reverse=True)
+    df = pd.DataFrame(rows)
 
-@cache.memoize(timeout=600)
-def get_bvp_stats(batter_id, pitcher_id):
-    """Get career batter vs pitcher stats."""
-    url = (f"{BASE}/people/{batter_id}/stats"
-           f"?stats=vsPlayer&group=hitting&opposingPlayerId={pitcher_id}&sportId=1")
-    try:
-        data = requests.get(url, timeout=8).json()
-    except Exception:
-        return None
-    for s in data.get("stats", []):
-        if s.get("type", {}).get("displayName") == "vsPlayerTotal":
-            splits = s.get("splits", [])
-            if splits:
-                return splits[0].get("stat", {})
-    return None
+    return section(dash_table.DataTable(
+        data=df.to_dict("records"),
+        columns=[{"name":c,"id":c} for c in
+                 ["Pitcher","Team","Opponent","K9","Season Ks","ERA",
+                  "Opp Avg K/G","K Proj (7IP)","Blended Proj","Score","Rating"]],
+        sort_action="native", sort_mode="single",
+        style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+        style_header=DT_HEADER, page_action="none",
+        style_data_conditional=DT_COND + [
+            {"if":{"column_id":"K9","filter_query":"{K9} >= 10"},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"K9","filter_query":"{K9} >= 8"}, "color":C["yellow"],"fontWeight":"bold"},
+            {"if":{"column_id":"Blended Proj","filter_query":"{Blended Proj} >= 8"},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Blended Proj","filter_query":"{Blended Proj} >= 6"},"color":C["yellow"],"fontWeight":"bold"},
+            {"if":{"column_id":"Score","filter_query":"{_score} >= 45"},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Score","filter_query":"{_score} >= 35"},"color":C["yellow"],"fontWeight":"bold"},
+        ],
+        hidden_columns=["_score"],
+    ))
 
-
-def get_all_teams_with_ids():
-    """Return list of {id, name} for all MLB teams."""
-    url = f"{BASE}/teams?sportId=1"
-    try:
-        data = requests.get(url, timeout=10).json()
-    except Exception:
-        return []
-    return sorted([{"id": t["id"], "name": t["name"]} for t in data.get("teams", [])],
-                  key=lambda x: x["name"])
-
-
-@cache.memoize(timeout=600)
-def get_days_matchups(date_str):
-    url = f"{BASE}/schedule?sportId=1&date={date_str}&gameType=R&hydrate=probablePitcher"
-    matchups = []
-    try:
-        data = requests.get(url, timeout=10).json()
-        for day in data.get("dates", []):
-            for g in day.get("games", []):
-                away_pitcher = g["teams"]["away"].get("probablePitcher", {})
-                home_pitcher = g["teams"]["home"].get("probablePitcher", {})
-                away_team    = g["teams"]["away"]["team"]
-                home_team    = g["teams"]["home"]["team"]
-                matchups.append({
-                    "away_team":       away_team["name"],
-                    "away_team_id":    away_team["id"],
-                    "home_team":       home_team["name"],
-                    "home_team_id":    home_team["id"],
-                    "away_pitcher":    away_pitcher.get("fullName", "TBD"),
-                    "away_pitcher_id": away_pitcher.get("id"),
-                    "home_pitcher":    home_pitcher.get("fullName", "TBD"),
-                    "home_pitcher_id": home_pitcher.get("id"),
-                    # Park factors always based on home team's park
-                    "park_hit":  get_park_factor(home_team["name"], "hit"),
-                    "park_hr":   get_park_factor(home_team["name"], "hr"),
-                    "park_name": home_team["name"],
-                })
-    except Exception:
-        pass
-    return matchups
-
-
-def build_bvp_section(pitcher_id, pitcher_name, opp_team_id, opp_team_name, min_ab=3):
-    """For one pitcher vs one team, fetch all BvP stats and return a rendered block."""
-    batters = get_team_roster(opp_team_id)
-    def fetch_one_bvp(b):
-        stat = get_bvp_stats(b["id"], pitcher_id)
-        if not stat:
-            return None
-        ab = stat.get("atBats", 0)
-        if ab < min_ab:
-            return None
-        avg = stat.get("avg", ".000")
-        ops = stat.get("ops", ".000")
-        try:
-            avg_f = float(avg)
-        except (ValueError, TypeError):
-            avg_f = 0.0
-        try:
-            ops_f = float(ops)
-        except (ValueError, TypeError):
-            ops_f = 0.0
-        return {
-            "Batter": b["name"], "AB": ab,
-            "H":  stat.get("hits", 0),    "HR":  stat.get("homeRuns", 0),
-            "RBI":stat.get("rbi", 0),     "K":   stat.get("strikeOuts", 0),
-            "BB": stat.get("baseOnBalls", 0),
-            "AVG": avg, "OPS": ops, "_avg_f": avg_f, "_ops_f": ops_f,
-        }
-
-    rows = []
-    with ThreadPoolExecutor(max_workers=20) as ex:
-        futures = [ex.submit(fetch_one_bvp, b) for b in batters]
-        for fut in as_completed(futures):
-            result = fut.result()
-            if result:
-                rows.append(result)
-
-    if not rows:
-        return html.Div(
-            f"No history (min {min_ab} AB) between {pitcher_name} and {opp_team_name} roster.",
-            style={"color": C["muted"], "fontSize": "12px", "padding": "8px 0"}
-        )
-
-    rows.sort(key=lambda x: x["_ops_f"], reverse=True)
-
-    def avg_color(v):
-        return C["red"] if v >= 0.350 else (C["yellow"] if v >= 0.280 else (C["green"] if v >= 0.200 else C["muted"]))
-
-    def ops_color(v):
-        return C["red"] if v >= 0.900 else (C["yellow"] if v >= 0.750 else (C["green"] if v >= 0.600 else C["muted"]))
-
-    cols = ["Batter", "AB", "H", "HR", "RBI", "K", "BB", "AVG", "OPS"]
-    thead = html.Thead(html.Tr([
-        html.Th(c, style=th_style(left=(c == "Batter"))) for c in cols
-    ]))
-    trows = []
-    for r in rows:
-        cells = []
-        for c in cols:
-            val = r[c]
-            if c == "AVG":
-                cell = html.Td(val, style=td_style(textAlign="center", color=avg_color(r["_avg_f"]), fontWeight="bold"))
-            elif c == "OPS":
-                cell = html.Td(val, style=td_style(textAlign="center", color=ops_color(r["_ops_f"]), fontWeight="bold"))
-            elif c == "HR" and val > 0:
-                cell = html.Td(f"💣{val}", style=td_style(textAlign="center", color=C["red"], fontWeight="bold"))
-            elif c == "Batter":
-                cell = html.Td(val, style=td_style(whiteSpace="nowrap", fontWeight="bold"))
-            else:
-                cell = html.Td(val, style=td_style(textAlign="center"))
-            cells.append(cell)
-        trows.append(html.Tr(cells, style={"borderBottom": f"1px solid {C['border']}"}))
-
-    table = html.Table([thead, html.Tbody(trows)],
-                       style={"width": "100%", "borderCollapse": "collapse", "fontSize": "12px"})
-
-    # quick callouts
-    hot       = [r["Batter"].split()[-1] for r in rows if r["_avg_f"] >= 0.300]
-    hr_guys   = [f"{r['Batter'].split()[-1]}({r['HR']})" for r in rows if r["HR"] > 0]
-    callouts  = []
-    if hot:
-        callouts.append(html.Span(f"🔥 .300+: {', '.join(hot[:4])}  ",
-                                  style={"color": C["yellow"], "fontSize": "11px"}))
-    if hr_guys:
-        callouts.append(html.Span(f"💣 HR: {', '.join(hr_guys[:4])}",
-                                  style={"color": C["red"], "fontSize": "11px"}))
-
-    return html.Div([
-        html.Div(callouts, style={"marginBottom": "6px"}),
-        table,
-    ])
-
-
+# ─────────────────────────────────────────────
+# BATTER VS PITCHER
+# ─────────────────────────────────────────────
 def bvp_layout():
-    today_str = datetime.now().strftime("%Y-%m-%d")
+    matchups = read("matchups")
     dd = {"backgroundColor": C["card"], "color": C["text"],
           "border": f"1px solid {C['border']}", "borderRadius": "6px",
           "fontFamily": "IBM Plex Mono"}
+
+    options = []
+    if not matchups.empty:
+        for _, m in matchups.iterrows():
+            for side, opp in [("away","home"),("home","away")]:
+                pit_name = m.get(f"{side}_pitcher","TBD")
+                pit_id   = m.get(f"{side}_pitcher_id","")
+                opp_team = m.get(f"{opp}_team","")
+                opp_tid  = m.get(f"{opp}_team_id","")
+                if pit_id and str(pit_id) != "nan":
+                    label = f"{pit_name} vs {opp_team}"
+                    value = f"{int(float(pit_id))}|{pit_name}|{int(float(opp_tid))}|{opp_team}"
+                    options.append({"label": label, "value": value})
+
     return html.Div([
         section([
             html.Div([
                 html.Div([
-                    lbl("Date"),
-                    dcc.DatePickerSingle(
-                        id="bvp-date",
-                        date=today_str,
-                        display_format="MMM DD, YYYY",
-                        style={"fontFamily": "IBM Plex Mono"},
-                    ),
-                ]),
+                    lbl("Select Matchup"),
+                    dcc.Dropdown(options=options, id="bvp-matchup",
+                                 placeholder="Select pitching matchup...",
+                                 style={**dd, "minWidth": "400px"}),
+                ], style={"flex":"1"}),
                 html.Div([
                     lbl("Min AB"),
                     dcc.Input(id="bvp-min-ab", type="number", value=3, min=1, max=50,
-                              style={**dd, "padding": "8px", "width": "70px"}),
+                              style={**dd, "padding":"8px","width":"70px"}),
                 ]),
-                html.Button("Load", id="bvp-load-btn", style={
-                    "marginTop": "20px", "padding": "8px 20px",
-                    "backgroundColor": C["blue"], "color": C["bg"],
-                    "border": "none", "borderRadius": "6px",
-                    "cursor": "pointer", "fontFamily": "IBM Plex Mono", "fontWeight": "bold",
+                html.Button("Search", id="bvp-btn", style={
+                    "marginTop":"20px","padding":"8px 20px",
+                    "backgroundColor":C["blue"],"color":C["bg"],
+                    "border":"none","borderRadius":"6px","cursor":"pointer",
+                    "fontFamily":"IBM Plex Mono","fontWeight":"bold",
                 }),
-            ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px"}),
+            ], style={"display":"flex","alignItems":"flex-end","gap":"16px","flexWrap":"wrap"}),
         ]),
-        html.Div("Select a date and hit Load — takes ~30 seconds to pull all matchups.",
-                 style={"color": C["muted"], "fontSize": "12px", "marginBottom": "12px"}),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="bvp-results")),
+        html.Div(id="bvp-results"),
     ])
 
-
 @app.callback(
-    Output("bvp-results", "children"),
-    Input("bvp-load-btn", "n_clicks"),
-    State("bvp-date", "date"),
-    State("bvp-min-ab", "value"),
+    Output("bvp-results","children"),
+    Input("bvp-btn","n_clicks"),
+    State("bvp-matchup","value"),
+    State("bvp-min-ab","value"),
     prevent_initial_call=True,
 )
-def load_bvp(_, date_str, min_ab):
-    if not date_str:
-        date_str = datetime.now().strftime("%Y-%m-%d")
-    min_ab   = int(min_ab or 3)
-    matchups = get_days_matchups(date_str)
+def load_bvp(_, matchup_val, min_ab):
+    if not matchup_val:
+        return html.Div("Please select a matchup.", style={"color":C["yellow"]})
+    min_ab = int(min_ab or 3)
+    parts  = matchup_val.split("|")
+    pit_id, pit_name, opp_tid, opp_team = int(parts[0]), parts[1], int(parts[2]), parts[3]
 
-    if not matchups:
-        return html.Div(f"No games found for {date_str}.", style={"color": C["muted"]})
+    bvp    = read("bvp")
+    roster = read("rosters")
+    hc     = read("hot_cold")
 
-    sections = []
-    for m in matchups:
-        game_header = html.Div(
-            f"⚾ {m['away_team']} @ {m['home_team']}",
-            style={"fontSize": "14px", "fontWeight": "bold", "color": C["text"],
-                   "borderBottom": f"1px solid {C['border']}", "paddingBottom": "8px",
-                   "marginBottom": "12px"}
-        )
+    if bvp.empty or roster.empty:
+        return no_data()
 
-        # Away pitcher vs home batters
-        away_block = html.Div()
-        if m["away_pitcher_id"]:
-            away_block = html.Div([
-                html.Div(f"🔵 {m['away_pitcher']} (pitching) vs {m['home_team']} batters",
-                         style={"fontSize": "12px", "color": C["blue"],
-                                "fontWeight": "bold", "marginBottom": "8px"}),
-                build_bvp_section(m["away_pitcher_id"], m["away_pitcher"],
-                                  m["home_team_id"], m["home_team"], min_ab),
-            ], style={"marginBottom": "16px"})
+    # Filter BvP for this pitcher vs this team's batters
+    team_batters = roster[roster["team_id"] == opp_tid]["player_id"].tolist()
+    bvp_f = bvp[(bvp["pitcher_id"] == pit_id) & (bvp["batter_id"].isin(team_batters)) & (bvp["ab"] >= min_ab)]
 
-        # Home pitcher vs away batters
-        home_block = html.Div()
-        if m["home_pitcher_id"]:
-            home_block = html.Div([
-                html.Div(f"🔴 {m['home_pitcher']} (pitching) vs {m['away_team']} batters",
-                         style={"fontSize": "12px", "color": C["red"],
-                                "fontWeight": "bold", "marginBottom": "8px"}),
-                build_bvp_section(m["home_pitcher_id"], m["home_pitcher"],
-                                  m["away_team_id"], m["away_team"], min_ab),
-            ])
+    if bvp_f.empty:
+        return section(html.Div(f"No history (min {min_ab} AB) for {pit_name} vs {opp_team} roster.",
+                                style={"color":C["muted"]}))
 
-        sections.append(section(html.Div([game_header, away_block, home_block])))
+    # Merge with player names
+    bvp_f = bvp_f.merge(roster[["player_id","name"]].rename(columns={"player_id":"batter_id","name":"Batter"}),
+                         on="batter_id", how="left")
 
-    return html.Div(sections)
+    # Add L7 AVG from hot_cold
+    if not hc.empty:
+        hc_m = hc[["player_id","l7_avg","l7_hr"]].rename(columns={"player_id":"batter_id"})
+        bvp_f = bvp_f.merge(hc_m, on="batter_id", how="left")
+        bvp_f["L7 AVG"] = bvp_f["l7_avg"].apply(lambda x: f".{str(round(x,3)).split('.')[-1][:3].ljust(3,'0')}" if pd.notna(x) else "—")
+        bvp_f["🔥"] = bvp_f["l7_avg"].apply(lambda x: "🔥" if pd.notna(x) and x >= 0.300 else "")
+    else:
+        bvp_f["L7 AVG"] = "—"
+        bvp_f["🔥"] = ""
 
-
-# ─────────────────────────────────────────────
-# Hot/Cold Batter Report
-# ─────────────────────────────────────────────
-@cache.memoize(timeout=600)
-def get_batter_hot_cold(player_id, last_n_games=14):
-    """
-    Pull game log and compute rolling stats over last N games.
-    Returns dict with last7, last14, season averages.
-    """
-    year = datetime.now().year
-    url  = (f"{BASE}/people/{player_id}/stats"
-            f"?stats=gameLog&group=hitting&season={year}&sportId=1")
     try:
-        data = requests.get(url, timeout=8).json()
+        bvp_f["_ops"] = bvp_f["ops"].apply(lambda x: float("0"+str(x)) if str(x).startswith(".") else float(x))
     except Exception:
-        return None
+        bvp_f["_ops"] = 0.0
+    bvp_f = bvp_f.sort_values("_ops", ascending=False)
 
-    stats_list = data.get("stats", [])
-    if not stats_list:
-        return None
-    splits = stats_list[0].get("splits", [])
-    if not splits:
-        return None
+    display = bvp_f[["Batter","ab","h","hr","rbi","k","bb","avg","ops","L7 AVG","🔥"]].rename(
+        columns={"ab":"AB","h":"H","hr":"HR","rbi":"RBI","k":"K","bb":"BB","avg":"AVG","ops":"OPS"})
 
-    # Most recent last
-    def calc(games):
-        ab   = sum(g.get("stat", {}).get("atBats", 0) for g in games)
-        h    = sum(g.get("stat", {}).get("hits", 0) for g in games)
-        hr   = sum(g.get("stat", {}).get("homeRuns", 0) for g in games)
-        rbi  = sum(g.get("stat", {}).get("rbi", 0) for g in games)
-        bb   = sum(g.get("stat", {}).get("baseOnBalls", 0) for g in games)
-        k    = sum(g.get("stat", {}).get("strikeOuts", 0) for g in games)
-        tb   = sum(g.get("stat", {}).get("totalBases", 0) for g in games)
-        avg  = round(h / ab, 3) if ab > 0 else 0.0
-        obp  = round((h + bb) / (ab + bb) if (ab + bb) > 0 else 0.0, 3)
-        slg  = round(tb / ab if ab > 0 else 0.0, 3)
-        ops  = round(obp + slg, 3)
-        return {"G": len(games), "AB": ab, "H": h, "HR": hr,
-                "RBI": rbi, "K": k, "BB": bb,
-                "AVG": f".{str(avg).split('.')[1][:3].ljust(3, '0')}",
-                "OPS": f".{str(ops).split('.')[1][:3].ljust(3, '0')}",
-                "_avg": avg, "_ops": ops}
+    hot    = [r["Batter"].split()[-1] for _, r in bvp_f.iterrows() if r.get("l7_avg",0) >= 0.300]
+    hr_guys= [f"{r['Batter'].split()[-1]}({int(r['hr'])}HR)" for _, r in bvp_f.iterrows() if int(r.get("hr",0)) > 0]
 
-    last7  = calc(splits[-7:])
-    last14 = calc(splits[-14:])
-    season = calc(splits)
-    return {"last7": last7, "last14": last14, "season": season}
+    callouts = []
+    if hot:
+        callouts.append(html.Div(f"🔥 Hot (L7 .300+): {', '.join(hot[:5])}",
+                                 style={"color":C["yellow"],"fontSize":"12px","marginBottom":"6px"}))
+    if hr_guys:
+        callouts.append(html.Div(f"💣 HR history: {', '.join(hr_guys[:5])}",
+                                 style={"color":C["red"],"fontSize":"12px","marginBottom":"10px"}))
 
+    return html.Div([
+        html.Div(f"⚔️ {pit_name} vs {opp_team} — Career History",
+                 style={"fontSize":"13px","fontWeight":"bold","color":C["blue"],
+                        "borderLeft":f"3px solid {C['blue']}","paddingLeft":"10px","marginBottom":"8px"}),
+        *callouts,
+        section(dash_table.DataTable(
+            data=display.to_dict("records"),
+            columns=[{"name":c,"id":c} for c in display.columns],
+            sort_action="native", sort_mode="single",
+            style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+            style_header=DT_HEADER, page_action="none",
+            style_data_conditional=DT_COND + [
+                {"if":{"column_id":"HR","filter_query":"{HR} > 0"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"L7 AVG","filter_query":"{L7 AVG} >= .300"},"color":C["red"]},
+            ],
+        )),
+    ])
 
+# ─────────────────────────────────────────────
+# HOT/COLD
+# ─────────────────────────────────────────────
 def hotcold_layout():
-    today_str = datetime.now().year
+    matchups = read("matchups")
     dd = {"backgroundColor": C["card"], "color": C["text"],
           "border": f"1px solid {C['border']}", "borderRadius": "6px",
           "fontFamily": "IBM Plex Mono"}
 
-    # Get all teams for dropdown
-    url = f"{BASE}/teams?sportId=1"
-    try:
-        tdata = requests.get(url, timeout=10).json()
-        team_options = sorted(
-            [{"label": t["name"], "value": t["id"]} for t in tdata.get("teams", [])],
-            key=lambda x: x["label"]
-        )
-    except Exception:
-        team_options = []
+    # Build team options from today's matchups
+    teams = {}
+    if not matchups.empty:
+        for _, m in matchups.iterrows():
+            teams[m["away_team_id"]] = m["away_team"]
+            teams[m["home_team_id"]] = m["home_team"]
+    team_options = [{"label": v, "value": k} for k, v in sorted(teams.items(), key=lambda x: x[1])]
 
     return html.Div([
         section([
             html.Div([
                 html.Div([
                     lbl("Team"),
-                    dcc.Dropdown(
-                        options=team_options,
-                        id="hc-team",
-                        placeholder="Select a team...",
-                        style={**dd, "minWidth": "220px"},
-                    ),
-                ], style={"flex": "1"}),
+                    dcc.Dropdown(options=team_options, id="hc-team",
+                                 placeholder="Select team...",
+                                 style={**dd,"minWidth":"220px"}),
+                ], style={"flex":"1"}),
                 html.Div([
                     lbl("Sort By"),
                     dcc.Dropdown(
                         options=[
-                            {"label": "AVG (Last 7)",  "value": "avg7"},
-                            {"label": "AVG (Last 14)", "value": "avg14"},
-                            {"label": "OPS (Last 7)",  "value": "ops7"},
-                            {"label": "OPS (Last 14)", "value": "ops14"},
-                            {"label": "HR (Last 14)",  "value": "hr14"},
+                            {"label":"AVG (Last 7)",  "value":"l7_avg"},
+                            {"label":"AVG (Last 14)", "value":"l14_avg"},
+                            {"label":"OPS (Last 7)",  "value":"l7_ops"},
+                            {"label":"HR (Last 14)",  "value":"l14_hr"},
                         ],
-                        value="avg7",
-                        id="hc-sort",
-                        style={**dd, "minWidth": "180px"},
-                        clearable=False,
+                        value="l7_avg", id="hc-sort", clearable=False,
+                        style={**dd,"minWidth":"180px"},
                     ),
                 ]),
                 html.Button("Load", id="hc-btn", style={
-                    "marginTop": "20px", "padding": "8px 20px",
-                    "backgroundColor": C["blue"], "color": C["bg"],
-                    "border": "none", "borderRadius": "6px",
-                    "cursor": "pointer", "fontFamily": "IBM Plex Mono", "fontWeight": "bold",
+                    "marginTop":"20px","padding":"8px 20px",
+                    "backgroundColor":C["blue"],"color":C["bg"],
+                    "border":"none","borderRadius":"6px","cursor":"pointer",
+                    "fontFamily":"IBM Plex Mono","fontWeight":"bold",
                 }),
-            ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px", "flexWrap": "wrap"}),
+            ], style={"display":"flex","alignItems":"flex-end","gap":"16px","flexWrap":"wrap"}),
         ]),
-        html.Div("Pick a team and hit Load — pulls last 7 and 14 game rolling stats for every batter.",
-                 style={"color": C["muted"], "fontSize": "12px", "marginBottom": "12px"}),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="hc-results")),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="hc-results")),
     ])
 
-
-@app.callback(
-    Output("hc-results", "children"),
-    Input("hc-btn", "n_clicks"),
-    State("hc-team", "value"),
-    State("hc-sort", "value"),
-    prevent_initial_call=True,
-)
-def load_hotcold(_, team_id, sort_by):
+@app.callback(Output("hc-results","children"),
+              Input("hc-btn","n_clicks"),
+              State("hc-team","value"),
+              State("hc-sort","value"),
+              prevent_initial_call=True)
+def load_hotcold(_, team_id, sort_col):
     if not team_id:
-        return html.Div("Please select a team.", style={"color": C["yellow"]})
+        return html.Div("Please select a team.", style={"color":C["yellow"]})
+    hc = read("hot_cold")
+    if hc.empty:
+        return no_data()
 
-    batters = get_team_roster(team_id)
-    if not batters:
-        return html.Div("Could not load roster.", style={"color": C["red"]})
+    df = hc[hc["team_id"] == int(team_id)].copy()
+    if df.empty:
+        return html.Div("No data for this team.", style={"color":C["muted"]})
 
-    rows = []
-    def fetch_hc(b):
-        stats = get_batter_hot_cold(b["id"])
-        if not stats:
-            return None
-        return {"name": b["name"], "last7": stats["last7"],
-                "last14": stats["last14"], "season": stats["season"]}
+    df = df.sort_values(sort_col, ascending=False).reset_index(drop=True)
 
-    with ThreadPoolExecutor(max_workers=20) as ex:
-        futures = {ex.submit(fetch_hc, b): b for b in batters}
-        for fut in as_completed(futures):
-            result = fut.result()
-            if result:
-                rows.append(result)
+    def fmt_avg(v):
+        try: return f".{str(round(float(v),3)).split('.')[-1][:3].ljust(3,'0')}"
+        except: return ".000"
+    def fmt_ops(v):
+        try: return f".{str(round(float(v),3)).split('.')[-1][:3].ljust(3,'0')}"
+        except: return ".000"
+    def temp(v):
+        if v >= 0.350: return "🔥 HOT"
+        elif v >= 0.280: return "▲ Warm"
+        elif v >= 0.200: return "— Neutral"
+        else: return "▼ Cold"
 
-    if not rows:
-        return html.Div("No data found.", style={"color": C["muted"]})
-
-    # Sort
-    sort_map = {
-        "avg7":  lambda r: r["last7"]["_avg"],
-        "avg14": lambda r: r["last14"]["_avg"],
-        "ops7":  lambda r: r["last7"]["_ops"],
-        "ops14": lambda r: r["last14"]["_ops"],
-        "hr14":  lambda r: r["last14"]["HR"],
-    }
-    rows.sort(key=sort_map.get(sort_by, sort_map["avg7"]), reverse=True)
-
-    def temp_bar(avg):
-        """Visual heat bar based on AVG."""
-        if avg >= 0.350:
-            color, label = C["red"],    "🔥 HOT"
-        elif avg >= 0.280:
-            color, label = C["yellow"], "▲ Warm"
-        elif avg >= 0.200:
-            color, label = C["green"],  "— Neutral"
-        else:
-            color, label = C["muted"],  "▼ Cold"
-        return html.Span(label, style={"color": color, "fontWeight": "bold", "fontSize": "11px"})
-
-    def avg_col(v):
-        return C["red"] if v >= 0.350 else (C["yellow"] if v >= 0.280 else (C["green"] if v >= 0.200 else C["muted"]))
-
-    def ops_col(v):
-        return C["red"] if v >= 0.900 else (C["yellow"] if v >= 0.750 else (C["green"] if v >= 0.600 else C["muted"]))
-
-    # Header
-    def multi_th(label, colspan):
-        return html.Th(label, colSpan=colspan,
-                       style={"padding": "6px 8px", "textAlign": "center",
-                              "color": C["blue"], "fontSize": "11px",
-                              "borderBottom": f"1px solid {C['border']}",
-                              "borderRight": f"1px solid {C['border']}"})
-
-    def sub_th(label):
-        return html.Th(label, style={"padding": "5px 8px", "textAlign": "center",
-                                     "color": C["muted"], "fontSize": "10px",
-                                     "borderBottom": f"1px solid {C['border']}"})
-
-    thead = html.Thead([
-        html.Tr([
-            html.Th("", colSpan=2,
-                    style={"borderBottom": f"1px solid {C['border']}"}),
-            multi_th("— Last 7 Games —", 4),
-            multi_th("— Last 14 Games —", 4),
-            multi_th("— Season —", 3),
-        ]),
-        html.Tr([
-            html.Th("Batter", style={**th_style(left=True), "minWidth": "140px"}),
-            html.Th("Temp",   style=th_style()),
-            sub_th("AVG"), sub_th("OPS"), sub_th("HR"), sub_th("K"),
-            sub_th("AVG"), sub_th("OPS"), sub_th("HR"), sub_th("K"),
-            sub_th("AVG"), sub_th("OPS"), sub_th("HR"),
-        ]),
-    ])
-
-    trows = []
-    for r in rows:
-        l7  = r["last7"]
-        l14 = r["last14"]
-        s   = r["season"]
-        trows.append(html.Tr([
-            html.Td(r["name"],  style=td_style(whiteSpace="nowrap", fontWeight="bold")),
-            html.Td(temp_bar(l7["_avg"]), style=td_style(textAlign="center")),
-            # Last 7
-            html.Td(l7["AVG"],  style=td_style(textAlign="center", color=avg_col(l7["_avg"]), fontWeight="bold")),
-            html.Td(l7["OPS"],  style=td_style(textAlign="center", color=ops_col(l7["_ops"]))),
-            html.Td(f"💣{l7['HR']}" if l7["HR"] > 0 else l7["HR"],
-                    style=td_style(textAlign="center", color=C["red"] if l7["HR"] > 0 else C["muted"])),
-            html.Td(l7["K"],    style=td_style(textAlign="center", color=C["muted"])),
-            # Last 14
-            html.Td(l14["AVG"], style=td_style(textAlign="center", color=avg_col(l14["_avg"]), fontWeight="bold")),
-            html.Td(l14["OPS"], style=td_style(textAlign="center", color=ops_col(l14["_ops"]))),
-            html.Td(f"💣{l14['HR']}" if l14["HR"] > 0 else l14["HR"],
-                    style=td_style(textAlign="center", color=C["red"] if l14["HR"] > 0 else C["muted"])),
-            html.Td(l14["K"],   style=td_style(textAlign="center", color=C["muted"])),
-            # Season
-            html.Td(s["AVG"],   style=td_style(textAlign="center", color=avg_col(s["_avg"]))),
-            html.Td(s["OPS"],   style=td_style(textAlign="center", color=ops_col(s["_ops"]))),
-            html.Td(f"💣{s['HR']}" if s["HR"] > 0 else s["HR"],
-                    style=td_style(textAlign="center", color=C["red"] if s["HR"] > 0 else C["muted"])),
-        ], style={"borderBottom": f"1px solid {C['border']}"}))
-
-    # Build flat records for DataTable
     records = []
-    for r in rows:
-        l7  = r["last7"]
-        l14 = r["last14"]
-        s   = r["season"]
+    for _, r in df.iterrows():
         records.append({
-            "Player":    r["name"],
-            "Temp":      "🔥 HOT" if l7["_avg"] >= 0.350 else ("▲ Warm" if l7["_avg"] >= 0.280 else ("— Neutral" if l7["_avg"] >= 0.200 else "▼ Cold")),
-            "L7 AVG":   l7["AVG"],
-            "L7 OPS":   l7["OPS"],
-            "L7 HR":    l7["HR"],
-            "L7 K":     l7["K"],
-            "L14 AVG":  l14["AVG"],
-            "L14 OPS":  l14["OPS"],
-            "L14 HR":   l14["HR"],
-            "L14 K":    l14["K"],
-            "SEA AVG":  s["AVG"],
-            "SEA OPS":  s["OPS"],
-            "SEA HR":   s["HR"],
-            "_l7_avg":  l7["_avg"],
-            "_l7_ops":  l7["_ops"],
-            "_l14_avg": l14["_avg"],
-            "_hr14":    l14["HR"],
+            "Player":   r["name"],
+            "Temp":     temp(r["l7_avg"]),
+            "L7 AVG":   fmt_avg(r["l7_avg"]),
+            "L7 OPS":   fmt_ops(r["l7_ops"]),
+            "L7 HR":    int(r["l7_hr"]),
+            "L7 K":     int(r["l7_k"]),
+            "L14 AVG":  fmt_avg(r["l14_avg"]),
+            "L14 OPS":  fmt_ops(r["l14_ops"]),
+            "L14 HR":   int(r["l14_hr"]),
+            "SEA AVG":  fmt_avg(r["sea_avg"]),
+            "SEA OPS":  fmt_ops(r["sea_ops"]),
+            "SEA HR":   int(r["sea_hr"]),
+            "_l7":      r["l7_avg"],
+            "_l14":     r["l14_avg"],
         })
 
-    table = dash_table.DataTable(
-        data=records,
-        columns=[{"name": c, "id": c} for c in
-                 ["Player","Temp","L7 AVG","L7 OPS","L7 HR","L7 K",
-                  "L14 AVG","L14 OPS","L14 HR","L14 K","SEA AVG","SEA OPS","SEA HR"]],
-        sort_action="native", sort_mode="single",
-        style_table={"overflowX": "auto"},
-        style_cell=DT_CELL,
-        style_header=DT_HEADER,
-        style_data_conditional=DT_COND + [
-            {"if": {"column_id": "L7 AVG",  "filter_query": "{_l7_avg} >= 0.350"},  "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "L7 AVG",  "filter_query": "{_l7_avg} >= 0.280"},  "color": C["yellow"], "fontWeight": "bold"},
-            {"if": {"column_id": "L14 AVG", "filter_query": "{_l14_avg} >= 0.350"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "L14 AVG", "filter_query": "{_l14_avg} >= 0.280"}, "color": C["yellow"], "fontWeight": "bold"},
-            {"if": {"column_id": "L7 HR",   "filter_query": "{L7 HR} > 0"},         "color": C["red"]},
-            {"if": {"column_id": "L14 HR",  "filter_query": "{L14 HR} > 0"},        "color": C["red"]},
-            {"if": {"column_id": "Temp", "filter_query": '{Temp} = "🔥 HOT"'},    "color": C["red"]},
-            {"if": {"column_id": "Temp", "filter_query": '{Temp} = "▲ Warm"'},    "color": C["yellow"]},
-            {"if": {"column_id": "Temp", "filter_query": '{Temp} = "▼ Cold"'},    "color": C["muted"]},
-        ],
-        hidden_columns=["_l7_avg","_l7_ops","_l14_avg","_hr14"],
-        page_action="none",
-    )
-
-    hot3  = [r["name"].split()[-1] for r in rows[:3]  if r["last7"]["_avg"] >= 0.280]
-    cold3 = [r["name"].split()[-1] for r in rows[-3:] if r["last7"]["_avg"] <  0.200]
+    hot3  = [r["Player"].split()[-1] for r in records[:3]  if r["_l7"] >= 0.280]
+    cold3 = [r["Player"].split()[-1] for r in records[-3:] if r["_l7"] <  0.200]
 
     return html.Div([
         html.Div([
-            html.Span(f"🔥 Hottest (L7): {', '.join(hot3)}  " if hot3 else "",
-                      style={"color": C["yellow"], "fontSize": "12px"}),
-            html.Span(f"❄️ Coldest (L7): {', '.join(cold3)}" if cold3 else "",
-                      style={"color": C["muted"], "fontSize": "12px"}),
-        ], style={"marginBottom": "10px"}),
-        section(table),
+            html.Span(f"🔥 Hot (L7): {', '.join(hot3)}  " if hot3 else "",
+                      style={"color":C["yellow"],"fontSize":"12px"}),
+            html.Span(f"❄️ Cold (L7): {', '.join(cold3)}" if cold3 else "",
+                      style={"color":C["muted"],"fontSize":"12px"}),
+        ], style={"marginBottom":"10px"}),
+        section(dash_table.DataTable(
+            data=records,
+            columns=[{"name":c,"id":c} for c in
+                     ["Player","Temp","L7 AVG","L7 OPS","L7 HR","L7 K",
+                      "L14 AVG","L14 OPS","L14 HR","SEA AVG","SEA OPS","SEA HR"]],
+            sort_action="native", sort_mode="single",
+            style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+            style_header=DT_HEADER, page_action="none",
+            style_data_conditional=DT_COND + [
+                {"if":{"column_id":"L7 HR","filter_query":"{L7 HR} > 0"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"L14 HR","filter_query":"{L14 HR} > 0"},"color":C["red"]},
+                {"if":{"column_id":"Temp","filter_query":'{Temp} = "🔥 HOT"'},"color":C["red"]},
+                {"if":{"column_id":"Temp","filter_query":'{Temp} = "▲ Warm"'},"color":C["yellow"]},
+                {"if":{"column_id":"Temp","filter_query":'{Temp} = "▼ Cold"'},"color":C["muted"]},
+            ],
+            hidden_columns=["_l7","_l14"],
+        )),
     ])
 
-
 # ─────────────────────────────────────────────
-# Daily Prop Cheat Sheet
+# HR LEADERS
 # ─────────────────────────────────────────────
-def cheatsheet_layout():
-    today_str = datetime.now().strftime("%Y-%m-%d")
+def hrleaders_layout():
     dd = {"backgroundColor": C["card"], "color": C["text"],
           "border": f"1px solid {C['border']}", "borderRadius": "6px",
           "fontFamily": "IBM Plex Mono"}
@@ -1623,756 +686,159 @@ def cheatsheet_layout():
         section([
             html.Div([
                 html.Div([
-                    lbl("Date"),
-                    dcc.DatePickerSingle(
-                        id="cs-date",
-                        date=today_str,
-                        display_format="MMM DD, YYYY",
-                        style={"fontFamily": "IBM Plex Mono"},
-                    ),
-                ]),
-                html.Button("Generate Cheat Sheet", id="cs-btn", style={
-                    "marginTop": "20px", "padding": "8px 24px",
-                    "backgroundColor": C["blue"], "color": C["bg"],
-                    "border": "none", "borderRadius": "6px",
-                    "cursor": "pointer", "fontFamily": "IBM Plex Mono", "fontWeight": "bold",
-                    "fontSize": "14px",
-                }),
-            ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px"}),
-        ]),
-        html.Div("Combines BvP history + hot/cold streaks + pitcher K rate into ranked prop targets.",
-                 style={"color": C["muted"], "fontSize": "12px", "marginBottom": "12px"}),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="cs-results")),
-    ])
-
-
-@app.callback(
-    Output("cs-results", "children"),
-    Input("cs-btn", "n_clicks"),
-    State("cs-date", "date"),
-    prevent_initial_call=True,
-)
-def load_cheatsheet(_, date_str):
-    if not date_str:
-        date_str = datetime.now().strftime("%Y-%m-%d")
-
-    matchups = get_days_matchups(date_str)
-    if not matchups:
-        return html.Div(f"No games found for {date_str}.", style={"color": C["muted"]})
-
-    # Get pitcher K stats for K prop scoring
-    year = datetime.now().year
-    k_url = (f"{BASE}/stats/leaders?leaderCategories=strikeouts"
-             f"&season={year}&sportId=1&statGroup=pitching&limit=100")
-    try:
-        kdata = requests.get(k_url, timeout=10).json()
-    except Exception:
-        kdata = {}
-    pitcher_k9 = {}
-    for entry in kdata.get("leagueLeaders", [{}])[0].get("leaders", []):
-        pid  = entry.get("person", {}).get("id")
-        ks   = int(float(entry.get("value", 0)))
-        stat_url = f"{BASE}/people/{pid}/stats?stats=season&group=pitching&season={year}&sportId=1"
-        try:
-            sd = requests.get(stat_url, timeout=8).json()
-            sp = sd.get("stats", [{}])[0].get("splits", [{}])[0].get("stat", {})
-            ip = float(sp.get("inningsPitched", 1))
-            pitcher_k9[pid] = round((ks / ip) * 9, 1) if ip > 0 else 0.0
-        except Exception:
-            pitcher_k9[pid] = 0.0
-
-    hit_rows = []
-    hr_rows  = []
-    k_rows   = []
-
-    for m in matchups:
-        for pit_side, bat_side in [("away", "home"), ("home", "away")]:
-            pit_id   = m[f"{pit_side}_pitcher_id"]
-            pit_name = m[f"{pit_side}_pitcher"]
-            bat_tid  = m[f"{bat_side}_team_id"]
-            bat_team = m[f"{bat_side}_team"]
-            opp_team = m[f"{pit_side}_team"]
-
-            if not pit_id:
-                continue
-
-            # Pitcher K/9
-            pk9 = pitcher_k9.get(pit_id, 0.0)
-
-            # Get team roster and stats
-            batters = get_team_roster(bat_tid)
-
-            def fetch_batter_cs(b):
-                bvp = get_bvp_stats(b["id"], pit_id)
-                hc  = get_batter_hot_cold(b["id"])
-                return b, bvp, hc
-
-            batter_data_cs = []
-            with ThreadPoolExecutor(max_workers=20) as ex:
-                futs = [ex.submit(fetch_batter_cs, b) for b in batters]
-                batter_data_cs = [f.result() for f in as_completed(futs)]
-
-            for b, bvp, hc in batter_data_cs:
-                # BvP history
-                bvp_ab  = bvp.get("atBats", 0) if bvp else 0
-                bvp_avg = float(bvp.get("avg", "0") or 0) if bvp else 0.0
-                bvp_hr  = bvp.get("homeRuns", 0) if bvp else 0
-                bvp_ops = float(bvp.get("ops", "0") or 0) if bvp else 0.0
-
-                # Hot/cold
-                if not hc:
-                    continue
-                l7_avg  = hc["last7"]["_avg"]
-                l7_ops  = hc["last7"]["_ops"]
-                l7_hr   = hc["last7"]["HR"]
-                l14_avg = hc["last14"]["_avg"]
-                sea_avg = hc["season"]["_avg"]
-                l7_k    = hc["last7"]["K"]
-                l7_ab   = hc["last7"]["AB"]
-
-                # ── HIT SCORE ──────────────────────────────
-                # Components: season avg (30%) + L7 avg (40%) + BvP avg (30%)
-                # Weighted more toward recent form
-                hit_score = 0.0
-                if sea_avg > 0:
-                    hit_score += sea_avg * 30
-                if l7_avg > 0:
-                    hit_score += l7_avg * 40
-                if bvp_avg > 0 and bvp_ab >= 3:
-                    hit_score += bvp_avg * 30
-                elif bvp_avg == 0:
-                    # no BvP data — fall back to season
-                    hit_score += sea_avg * 30
-                hit_score = round(hit_score, 1)
-
-                # ── HR SCORE ───────────────────────────────
-                # BvP HR + recent HR pace + season power
-                hr_score = 0.0
-                hr_score += bvp_hr * 15          # career HRs vs this pitcher
-                hr_score += l7_hr * 20           # recent HR pace
-                hr_score += l7_ops * 10          # recent OPS as power proxy
-                hr_score += bvp_ops * 5          # career OPS vs pitcher
-                hr_score = round(hr_score, 1)
-
-                # ── K SCORE (batter strikeout risk) ────────
-                # High = pitcher likely to K this batter
-                k_score = 0.0
-                k_score += pk9 * 3               # pitcher K rate
-                bvp_k_rate = (bvp.get("strikeOuts", 0) / bvp_ab) if bvp and bvp_ab > 0 else 0
-                k_score += bvp_k_rate * 20       # historical K rate vs this pitcher
-                if l7_ab > 0:
-                    l7_k_rate = l7_k / l7_ab
-                    k_score += l7_k_rate * 15    # recent K rate
-                k_score = round(k_score, 1)
-
-                entry = {
-                    "Batter":    b["name"],
-                    "Team":      bat_team,
-                    "Pitcher":   pit_name,
-                    "Opp":       opp_team,
-                    "L7 AVG":    hc["last7"]["AVG"],
-                    "L14 AVG":   hc["last14"]["AVG"],
-                    "BvP AVG":   bvp.get("avg", "-") if bvp and bvp_ab >= 3 else "-",
-                    "BvP AB":    bvp_ab if bvp_ab >= 3 else "-",
-                    "BvP HR":    bvp_hr if bvp_hr > 0 else "-",
-                    "L7 HR":     l7_hr if l7_hr > 0 else "-",
-                    "Pitcher K9": pk9 if pk9 > 0 else "-",
-                    "_hit_score": hit_score,
-                    "_hr_score":  hr_score,
-                    "_k_score":   k_score,
-                    "_l7_avg":    l7_avg,
-                    "_bvp_avg":   bvp_avg,
-                }
-                hit_rows.append(entry)
-                hr_rows.append(entry)
-                k_rows.append(entry)
-
-    if not hit_rows:
-        return html.Div("No data found — probable pitchers may not be announced yet.", style={"color": C["muted"]})
-
-    hit_rows = sorted(hit_rows, key=lambda x: x["_hit_score"], reverse=True)[:15]
-    hr_rows  = sorted(hr_rows,  key=lambda x: x["_hr_score"],  reverse=True)[:10]
-    k_rows   = sorted(k_rows,   key=lambda x: x["_k_score"],   reverse=True)[:10]
-
-    def score_badge(score, thresholds, colors):
-        for t, c in zip(thresholds, colors):
-            if score >= t:
-                return html.Span(f"{score}", style={"color": c, "fontWeight": "bold", "fontSize": "14px"})
-        return html.Span(f"{score}", style={"color": C["muted"]})
-
-    def build_table(rows, cols, score_key, thresholds, colors, score_label="Score"):
-        thead = html.Thead(html.Tr([
-            html.Th(score_label, style=th_style()),
-            *[html.Th(c, style=th_style(left=(c in ["Batter", "Team", "Pitcher"]))) for c in cols]
-        ]))
-        trows = []
-        for i, r in enumerate(rows):
-            medal = ["🥇", "🥈", "🥉"][i] if i < 3 else f"{i+1}."
-            cells = [html.Td(
-                [html.Span(medal + " ", style={"fontSize": "12px"}),
-                 score_badge(r[score_key], thresholds, colors)],
-                style=td_style(textAlign="center", whiteSpace="nowrap")
-            )]
-            for c in cols:
-                val = r.get(c, "-")
-                if c == "L7 AVG":
-                    try:
-                        av = float(str(val).replace(".", "0.", 1) if not str(val).startswith(".") else "0" + str(val))
-                    except Exception:
-                        av = 0.0
-                    col = C["red"] if av >= 0.350 else (C["yellow"] if av >= 0.280 else C["text"])
-                    cell = html.Td(val, style=td_style(textAlign="center", color=col, fontWeight="bold"))
-                elif c == "BvP AVG" and val != "-":
-                    try:
-                        av = float("0" + str(val)) if str(val).startswith(".") else float(val)
-                    except Exception:
-                        av = 0.0
-                    col = C["red"] if av >= 0.350 else (C["yellow"] if av >= 0.280 else C["text"])
-                    cell = html.Td(val, style=td_style(textAlign="center", color=col))
-                elif c == "Pitcher K9" and val != "-":
-                    try:
-                        col = C["red"] if float(val) >= 10 else (C["yellow"] if float(val) >= 8 else C["text"])
-                    except Exception:
-                        col = C["text"]
-                    cell = html.Td(val, style=td_style(textAlign="center", color=col))
-                elif c in ["Batter", "Team", "Pitcher"]:
-                    cell = html.Td(val, style=td_style(whiteSpace="nowrap",
-                                   fontWeight="bold" if c == "Batter" else "normal"))
-                else:
-                    cell = html.Td(val, style=td_style(textAlign="center"))
-                cells.append(cell)
-            trows.append(html.Tr(cells, style={"borderBottom": f"1px solid {C['border']}"}))
-        return html.Table([thead, html.Tbody(trows)],
-                          style={"width": "100%", "borderCollapse": "collapse", "fontSize": "13px"})
-
-    def card(title, color, table, note):
-        return html.Div([
-            html.Div(title, style={"fontSize": "14px", "fontWeight": "bold", "color": color,
-                                   "borderLeft": f"3px solid {color}", "paddingLeft": "10px",
-                                   "marginBottom": "6px"}),
-            html.Div(note, style={"fontSize": "11px", "color": C["muted"], "marginBottom": "10px"}),
-            section(table),
-        ], style={"marginBottom": "24px"})
-
-    hit_table = build_table(
-        hit_rows,
-        ["Batter", "Team", "Pitcher", "L7 AVG", "L14 AVG", "BvP AVG", "BvP AB"],
-        "_hit_score", [25, 18, 12], [C["red"], C["yellow"], C["green"]],
-        "Hit Score"
-    )
-    hr_table = build_table(
-        hr_rows,
-        ["Batter", "Team", "Pitcher", "BvP HR", "L7 HR", "BvP AVG", "L7 AVG"],
-        "_hr_score", [20, 12, 6], [C["red"], C["yellow"], C["green"]],
-        "HR Score"
-    )
-    k_table = build_table(
-        k_rows,
-        ["Batter", "Team", "Pitcher", "Pitcher K9", "L7 AVG", "BvP AVG", "BvP AB"],
-        "_k_score", [40, 28, 18], [C["red"], C["yellow"], C["green"]],
-        "K Score"
-    )
-
-    return html.Div([
-        html.Div(f"📋 Daily Prop Cheat Sheet — {date_str}",
-                 style={"fontSize": "16px", "fontWeight": "bold", "color": C["text"],
-                        "marginBottom": "20px"}),
-        card("🎯 Top Hit Props",
-             C["green"], hit_table,
-             "Score = weighted avg of Season AVG (30%) + Last 7 AVG (40%) + BvP AVG (30%)"),
-        card("💣 Top HR Props",
-             C["red"], hr_table,
-             "Score = career HRs vs pitcher + recent HR pace + OPS as power proxy"),
-        card("⚡ Top K Props (batter strikeout risk)",
-             C["yellow"], k_table,
-             "Score = pitcher K/9 + historical K rate vs this pitcher + recent K rate"),
-    ])
-
-
-# ─────────────────────────────────────────────
-# HR Leaders
-# ─────────────────────────────────────────────
-@cache.memoize(timeout=600)
-def get_todays_pitcher_hrs():
-    """
-    Returns dict: team_name -> {pitcher_name, pitcher_hr_allowed}
-    for today's probable starters.
-    """
-    year      = datetime.now().year
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    url = f"{BASE}/schedule?sportId=1&date={today_str}&gameType=R&hydrate=probablePitcher"
-    try:
-        data = requests.get(url, timeout=10).json()
-    except Exception:
-        return {}
-
-    # Collect pitcher ids keyed by the team they are FACING
-    matchups = {}  # batting_team_name -> {pitcher_name, pitcher_id, pitcher_team}
-    for day in data.get("dates", []):
-        for g in day.get("games", []):
-            for pit_side, bat_side in [("away", "home"), ("home", "away")]:
-                pitcher = g["teams"][pit_side].get("probablePitcher", {})
-                if not pitcher:
-                    continue
-                bat_team = g["teams"][bat_side]["team"]["name"]
-                matchups[bat_team] = {
-                    "pitcher_name": pitcher.get("fullName", "TBD"),
-                    "pitcher_id":   pitcher.get("id"),
-                    "pitcher_team": g["teams"][pit_side]["team"]["name"],
-                }
-
-    # Now fetch HR allowed for each pitcher
-    result = {}
-    for bat_team, info in matchups.items():
-        pid = info["pitcher_id"]
-        if not pid:
-            result[bat_team] = {**info, "hr_allowed": "-"}
-            continue
-        stat_url = (f"{BASE}/people/{pid}/stats"
-                    f"?stats=season&group=pitching&season={year}&sportId=1")
-        try:
-            sdata  = requests.get(stat_url, timeout=8).json()
-            splits = sdata.get("stats", [])
-            hr_allowed = "-"
-            if splits:
-                hr_allowed = splits[0].get("splits", [{}])[0].get("stat", {}).get("homeRuns", "-")
-        except Exception:
-            hr_allowed = "-"
-        # Get pitcher throwing hand
-        hand = "?"
-        try:
-            pdata = requests.get(f"{BASE}/people/{pid}", timeout=8).json()
-            hand  = pdata.get("people", [{}])[0].get("pitchHand", {}).get("code", "?")
-        except Exception:
-            pass
-        result[bat_team] = {**info, "hr_allowed": hr_allowed, "hand": hand}
-
-    return result
-
-
-
-
-@cache.memoize(timeout=600)
-def get_hr_pace(player_id, last_n=10):
-    """Pull game log and return HR count over last N games."""
-    year = datetime.now().year
-    url  = (f"{BASE}/people/{player_id}/stats"
-            f"?stats=gameLog&group=hitting&season={year}&sportId=1")
-    try:
-        data = requests.get(url, timeout=8).json()
-    except Exception:
-        return None, None, None
-
-    stats_list = data.get("stats", [])
-    if not stats_list:
-        return None, None, None
-    splits = stats_list[0].get("splits", [])
-    if not splits:
-        return None, None, None
-
-    last10 = splits[-10:]
-    last5  = splits[-5:]
-
-    hr10 = sum(g.get("stat", {}).get("homeRuns", 0) for g in last10)
-    hr5  = sum(g.get("stat", {}).get("homeRuns", 0) for g in last5)
-    ab10 = sum(g.get("stat", {}).get("atBats", 0)   for g in last10)
-
-    return hr10, hr5, ab10
-
-@cache.memoize(timeout=600)
-def get_pitcher_hand(pitcher_id):
-    """Return L or R for pitcher throwing hand."""
-    try:
-        data = requests.get(f"{BASE}/people/{pitcher_id}", timeout=8).json()
-        return data.get("people", [{}])[0].get("pitchHand", {}).get("code", "?")
-    except Exception:
-        return "?"
-
-
-@cache.memoize(timeout=600)
-def get_batter_platoon_splits(batter_id):
-    """Return dict with vs_left and vs_right stat blocks."""
-    year = datetime.now().year
-    url  = (f"{BASE}/people/{batter_id}/stats"
-            f"?stats=statSplits&group=hitting&season={year}&sportId=1&sitCodes=vl,vr")
-    try:
-        data = requests.get(url, timeout=8).json()
-    except Exception:
-        return None, None
-
-    vs_left = vs_right = None
-    for s in data.get("stats", [{}])[0].get("splits", []):
-        code = s.get("split", {}).get("code", "")
-        stat = s.get("stat", {})
-        if code == "vl":
-            vs_left  = stat
-        elif code == "vr":
-            vs_right = stat
-    return vs_left, vs_right
-
-@cache.memoize(timeout=600)
-def get_hr_leaders(limit=75):
-    year = datetime.now().year
-    url  = (f"{BASE}/stats/leaders?leaderCategories=homeRuns"
-            f"&season={year}&sportId=1&statGroup=hitting&limit={limit}")
-    try:
-        data = requests.get(url, timeout=10).json()
-    except Exception as e:
-        return [], str(e)
-
-    rows = []
-    for entry in data.get("leagueLeaders", [{}])[0].get("leaders", []):
-        rows.append({
-            "Rank":   entry.get("rank", "-"),
-            "Player": entry.get("person", {}).get("fullName", "Unknown"),
-            "Team":   entry.get("team", {}).get("name", "Unknown"),
-            "League": entry.get("league", {}).get("name", "-"),
-            "HR":     int(float(entry.get("value", 0))),
-            "pid":    entry.get("person", {}).get("id"),
-        })
-    return rows, None
-
-
-def hrleaders_layout():
-    return html.Div([
-        section([
-            html.Div([
-                html.Div([
-                    lbl("League Filter"),
+                    lbl("League"),
                     dcc.Dropdown(
-                        options=[
-                            {"label": "All",             "value": "all"},
-                            {"label": "American League", "value": "AL"},
-                            {"label": "National League", "value": "NL"},
-                        ],
-                        value="all",
-                        id="hr-league",
-                        clearable=False,
-                        style={"backgroundColor": C["card"], "color": C["text"],
-                               "border": f"1px solid {C['border']}", "borderRadius": "6px",
-                               "fontFamily": "IBM Plex Mono", "minWidth": "180px"},
+                        options=[{"label":"All","value":"all"},
+                                 {"label":"American League","value":"AL"},
+                                 {"label":"National League","value":"NL"}],
+                        value="all", id="hr-league", clearable=False,
+                        style={**dd,"minWidth":"180px"},
                     ),
                 ]),
-                html.Button("Refresh", id="hr-btn", style={
-                    "marginTop": "20px", "padding": "8px 20px",
-                    "backgroundColor": C["blue"], "color": C["bg"],
-                    "border": "none", "borderRadius": "6px",
-                    "cursor": "pointer", "fontFamily": "IBM Plex Mono", "fontWeight": "bold",
-                }),
-            ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px"}),
+            ], style={"display":"flex","alignItems":"flex-end","gap":"16px"}),
         ]),
-        dcc.Interval(id="hr-trigger", interval=300, max_intervals=1),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="hr-results")),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="hr-results")),
     ])
 
+@app.callback(Output("hr-results","children"),
+              Input("hr-league","value"))
+def load_hr_leaders(league_filter):
+    hr  = read("hr_leaders")
+    hc  = read("hot_cold")
+    plt = read("platoon_splits")
+    matchups = read("matchups")
+    pit_stats = read("pitcher_stats")
 
-def build_hr_table(rows):
-    if not rows:
-        return html.Div("No data found.", style={"color": C["muted"]})
+    if hr.empty:
+        return no_data()
+
+    if league_filter == "AL":
+        hr = hr[hr["League"].str.contains("American", na=False)]
+    elif league_filter == "NL":
+        hr = hr[hr["League"].str.contains("National", na=False)]
+
+    # Build pitcher map from matchups
+    pit_map = {}  # batting_team -> {pitcher_name, hand, hr_allowed}
+    if not matchups.empty and not pit_stats.empty:
+        ps_map = {int(r["pitcher_id"]): r for _, r in pit_stats.iterrows()}
+        for _, m in matchups.iterrows():
+            for side, opp in [("away","home"),("home","away")]:
+                pid = m.get(f"{side}_pitcher_id")
+                bat_team = m.get(f"{opp}_team","")
+                if pid and str(pid) != "nan":
+                    ps = ps_map.get(int(float(pid)), {})
+                    pit_map[bat_team] = {
+                        "pitcher": m.get(f"{side}_pitcher","—"),
+                        "hand":    ps.get("hand","?"),
+                        "hr_all":  int(ps.get("HR_allowed",0) or 0),
+                    }
+
+    # Merge hot/cold
+    hc_map = {}
+    if not hc.empty:
+        for _, r in hc.iterrows():
+            hc_map[int(r["player_id"])] = r
+
+    plt_map = {}
+    if not plt.empty:
+        for _, r in plt.iterrows():
+            plt_map[int(r["player_id"])] = r
 
     records = []
-    for r in rows:
-        pit_hr = r.get("Pit HR Allow", "—")
-        l10    = r.get("L10 HR", "—")
-        l5     = r.get("L5 HR", "—")
-        try:
-            pit_hr_n = int(pit_hr)
-        except (ValueError, TypeError):
-            pit_hr_n = 0
-        try:
-            l10_n = int(l10)
-        except (ValueError, TypeError):
-            l10_n = 0
-        try:
-            l5_n = int(l5)
-        except (ValueError, TypeError):
-            l5_n = 0
-        try:
-            plat_avg_f = float("0" + str(r.get("Plat AVG","0"))) if str(r.get("Plat AVG","0")).startswith(".") else float(r.get("Plat AVG", 0))
-        except (ValueError, TypeError):
-            plat_avg_f = 0.0
-        try:
-            plat_hr_n = int(r.get("Plat HR", 0))
-        except (ValueError, TypeError):
-            plat_hr_n = 0
+    for _, r in hr.iterrows():
+        pid  = int(r["player_id"]) if pd.notna(r["player_id"]) else None
+        team = r["Team"]
+        info = pit_map.get(team, {})
+        playing = bool(info)
+
+        hcr  = hc_map.get(pid, {}) if pid else {}
+        l10_hr = int(hcr.get("l10_hr", 0) or 0)
+        l5_hr  = int(hcr.get("l5_hr",  0) or 0)
+        hot    = "🔥🔥" if l5_hr >= 3 else ("🔥" if l5_hr >= 2 else ("▲" if l5_hr == 1 else ""))
+
+        hand = info.get("hand","—")
+        pltr = plt_map.get(pid, {}) if pid else {}
+        if hand == "L":
+            plat_avg = pltr.get("vl_avg","—"); plat_hr = int(pltr.get("vl_hr",0) or 0); matchup = "vs LHP"
+        elif hand == "R":
+            plat_avg = pltr.get("vr_avg","—"); plat_hr = int(pltr.get("vr_hr",0) or 0); matchup = "vs RHP"
+        else:
+            plat_avg = "—"; plat_hr = 0; matchup = "—"
+
+        home_team = team  # approximate
+        pf_hr  = get_park_factor(home_team, "hr")
+        pf_hit = get_park_factor(home_team, "hit")
+
+        try: plat_avg_f = float("0"+str(plat_avg)) if str(plat_avg).startswith(".") else float(plat_avg)
+        except: plat_avg_f = 0.0
 
         records.append({
-            "Rank":       r["Rank"],
-            "Player":     r["Player"],
-            "Team":       r["Team"],
-            "HR":         r["HR"],
-            "L10 HR":     l10_n,
-            "L5 HR":      l5_n,
-            "Hot":        r.get("🔥", ""),
-            "Today":      r.get("Today", "—"),
-            "Opp Pitcher":r.get("Opp Pitcher", "—"),
-            "Hand":       r.get("Pit Hand", "—"),
-            "Pit HR":     pit_hr_n,
-            "Park HR":    r.get("Park HR", "—"),
-            "Park Hit":   r.get("Park Hit", "—"),
-            "Matchup":    r.get("Matchup", "—"),
-            "Plat AVG":   r.get("Plat AVG", "—"),
-            "Plat HR":    plat_hr_n,
-            "_hr":        r["HR"],
-            "_pit_hr":    pit_hr_n,
-            "_l10":       l10_n,
-            "_l5":        l5_n,
-            "_plat_avg":  plat_avg_f,
-            "_plat_hr":   plat_hr_n,
+            "Rank":        r["Rank"],
+            "Player":      r["Player"],
+            "Team":        team,
+            "HR":          int(r["HR"]),
+            "L10 HR":      l10_hr,
+            "L5 HR":       l5_hr,
+            "Hot":         hot,
+            "Today":       "✅" if playing else "—",
+            "Opp Pitcher": info.get("pitcher","—") if playing else "—",
+            "Hand":        hand if playing else "—",
+            "Pit HR":      info.get("hr_all","—") if playing else "—",
+            "Park HR":     park_label(pf_hr),
+            "Matchup":     matchup if playing else "—",
+            "Plat AVG":    plat_avg if playing else "—",
+            "Plat HR":     plat_hr if playing else 0,
+            "_hr":         int(r["HR"]),
+            "_l10":        l10_hr,
+            "_l5":         l5_hr,
+            "_plat_avg":   plat_avg_f,
+            "_park_hr":    pf_hr,
+            "_pit_hr":     info.get("hr_all",0) if playing else 0,
         })
 
-    return dash_table.DataTable(
-        data=records,
-        columns=[{"name": c, "id": c} for c in
-                 ["Rank","Player","Team","HR","L10 HR","L5 HR","Hot",
-                  "Today","Opp Pitcher","Hand","Pit HR","Park HR","Park Hit","Matchup","Plat AVG","Plat HR"]],
-        sort_action="native", sort_mode="single",
-        style_table={"overflowX": "auto"},
-        style_cell=DT_CELL,
-        style_header=DT_HEADER,
-        style_data_conditional=DT_COND + [
-            # HR column
-            {"if": {"column_id": "HR", "filter_query": "{_hr} >= 15"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "HR", "filter_query": "{_hr} >= 10"}, "color": C["yellow"], "fontWeight": "bold"},
-            {"if": {"column_id": "HR", "filter_query": "{_hr} < 10"},  "color": C["blue"],   "fontWeight": "bold"},
-            # L10 HR
-            {"if": {"column_id": "L10 HR", "filter_query": "{_l10} >= 4"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "L10 HR", "filter_query": "{_l10} >= 2"}, "color": C["yellow"], "fontWeight": "bold"},
-            # L5 HR
-            {"if": {"column_id": "L5 HR", "filter_query": "{_l5} >= 3"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "L5 HR", "filter_query": "{_l5} >= 1"}, "color": C["yellow"], "fontWeight": "bold"},
-            # Pit HR
-            {"if": {"column_id": "Pit HR", "filter_query": "{_pit_hr} >= 15"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "Pit HR", "filter_query": "{_pit_hr} >= 10"}, "color": C["yellow"], "fontWeight": "bold"},
-            # Plat AVG
-            {"if": {"column_id": "Plat AVG", "filter_query": "{_plat_avg} >= 0.300"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "Plat AVG", "filter_query": "{_plat_avg} >= 0.250"}, "color": C["yellow"], "fontWeight": "bold"},
-            # Plat HR
-            {"if": {"column_id": "Plat HR", "filter_query": "{_plat_hr} >= 8"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "Plat HR", "filter_query": "{_plat_hr} >= 4"}, "color": C["yellow"], "fontWeight": "bold"},
-            # Today playing — green bg
-            {"if": {"filter_query": '{Today} = "✅"'}, "backgroundColor": "#1a2a1a"},
-            # Hand color
-            {"if": {"column_id": "Hand", "filter_query": '{Hand} = "L"'}, "color": C["blue"],  "fontWeight": "bold"},
-            {"if": {"column_id": "Hand", "filter_query": '{Hand} = "R"'}, "color": C["red"],   "fontWeight": "bold"},
-            # Top 3
-            {"if": {"row_index": 0}, "backgroundColor": "#1f1a00"},
-            {"if": {"row_index": 1}, "backgroundColor": "#1a1a1a"},
-            {"if": {"row_index": 2}, "backgroundColor": "#1a1500"},
-            # Park factors
-            {"if": {"column_id": "Park HR",  "filter_query": "{_park_hr} >= 1.15"},  "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "Park HR",  "filter_query": "{_park_hr} >= 1.05"},  "color": C["yellow"]},
-            {"if": {"column_id": "Park HR",  "filter_query": "{_park_hr} <= 0.90"},  "color": C["blue"]},
-            {"if": {"column_id": "Park Hit", "filter_query": "{_park_hit} >= 1.10"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "Park Hit", "filter_query": "{_park_hit} >= 1.03"}, "color": C["yellow"]},
-            {"if": {"column_id": "Park Hit", "filter_query": "{_park_hit} <= 0.95"}, "color": C["blue"]},
-        ],
-        hidden_columns=["_hr","_pit_hr","_l10","_l5","_plat_avg","_plat_hr","_park_hr","_park_hit"],
-        page_action="native", page_size=30,
-    )
-
-
-@app.callback(
-    Output("hr-results", "children"),
-    Input("hr-trigger", "n_intervals"),
-    Input("hr-btn", "n_clicks"),
-    State("hr-league", "value"),
-)
-def load_hr_leaders(_, __, league_filter):
-    rows, err = get_hr_leaders(limit=75)
-    if err:
-        return html.Div(f"Error: {err}", style={"color": C["red"]})
-    if not rows:
-        return html.Div("No data.", style={"color": C["muted"]})
-
-    # Filter by league
-    if league_filter == "AL":
-        rows = [r for r in rows if "American" in r["League"] or r["League"] == "AL"]
-    elif league_filter == "NL":
-        rows = [r for r in rows if "National" in r["League"] or r["League"] == "NL"]
-
-    # Re-rank after filter
-    for i, r in enumerate(rows):
-        r["Rank"] = i + 1
-
-    # Fetch today's pitcher matchups
-    pitcher_map = get_todays_pitcher_hrs()
-
-    # Get today's schedule to determine home/away for park factors
-    today_str   = datetime.now().strftime("%Y-%m-%d")
-    home_lookup = {}
-    try:
-        sched = requests.get(
-            f"{BASE}/schedule?sportId=1&date={today_str}&gameType=R", timeout=10
-        ).json()
-        for day in sched.get("dates", []):
-            for g in day.get("games", []):
-                home = g["teams"]["home"]["team"]["name"]
-                away = g["teams"]["away"]["team"]["name"]
-                home_lookup[home] = home
-                home_lookup[away] = home
-    except Exception:
-        pass
-
-    # Attach matchup info + platoon splits to each row
-    for r in rows:
-        info = pitcher_map.get(r["Team"], {})
-        playing = bool(info)
-        r["Today"]       = "✅" if playing else "—"
-        # Park factors
-        home_team = home_lookup.get(r["Team"], r["Team"])
-        pf_hr     = get_park_factor(home_team, "hr")
-        pf_hit    = get_park_factor(home_team, "hit")
-        r["Park HR"]   = park_label(pf_hr)
-        r["Park Hit"]  = park_label(pf_hit)
-        r["_park_hr"]  = pf_hr
-        r["_park_hit"] = pf_hit
-        r["Opp Pitcher"] = info.get("pitcher_name", "—")
-        r["Pit Team"]    = info.get("pitcher_team", "—")
-        r["Pit HR Allow"]= info.get("hr_allowed", "—")
-        r["Pit Hand"]    = info.get("hand", "—")
-
-        # Initialize defaults
-        r["vs L AVG"] = "—"; r["vs R AVG"] = "—"
-        r["vs L HR"]  = "—"; r["vs R HR"]  = "—"
-        r["Plat AVG"] = "—"; r["Plat HR"]  = "—"
-        r["Matchup"]  = "—"; r["L10 HR"]   = "—"
-        r["L5 HR"]    = "—"; r["🔥"]       = ""
-
-    # Parallel fetch platoon splits + HR pace for all players
-    def fetch_hr_extras(r):
-        pid  = r.get("pid")
-        info = pitcher_map.get(r["Team"], {})
-        hand = info.get("hand", "?")
-        if not pid:
-            return r
-        vl, vr = get_batter_platoon_splits(pid)
-        if vl:
-            r["vs L AVG"] = vl.get("avg", "—")
-            r["vs L HR"]  = vl.get("homeRuns", "—")
-        if vr:
-            r["vs R AVG"] = vr.get("avg", "—")
-            r["vs R HR"]  = vr.get("homeRuns", "—")
-        if hand == "L" and vl:
-            r["Plat AVG"] = vl.get("avg", "—")
-            r["Plat HR"]  = vl.get("homeRuns", "—")
-            r["Matchup"]  = "vs LHP"
-        elif hand == "R" and vr:
-            r["Plat AVG"] = vr.get("avg", "—")
-            r["Plat HR"]  = vr.get("homeRuns", "—")
-            r["Matchup"]  = "vs RHP"
-        hr10, hr5, ab10 = get_hr_pace(pid)
-        if hr10 is not None:
-            r["L10 HR"] = hr10
-            r["L5 HR"]  = hr5
-            r["🔥"] = "🔥🔥" if hr5 >= 3 else ("🔥" if hr5 >= 2 else ("▲" if hr5 == 1 else ""))
-        return r
-
-    with ThreadPoolExecutor(max_workers=20) as ex:
-        futures = [ex.submit(fetch_hr_extras, r) for r in rows]
-        rows = [f.result() for f in as_completed(futures)]
-
-    # Re-sort by HR descending after parallel fetch (as_completed is unordered)
-    rows = sorted(rows, key=lambda x: x.get("HR", 0), reverse=True)
-    for i, r in enumerate(rows):
-        r["Rank"] = i + 1
-
-    leader = rows[0] if rows else {}
-    playing_today = [r for r in rows if r["Today"] == "✅"]
+    records.sort(key=lambda x: x["_hr"], reverse=True)
+    leader = records[0] if records else {}
 
     return html.Div([
         html.Div([
-            html.Span(f"💣 HR Leader: ",
-                      style={"color": C["muted"], "fontSize": "12px"}),
-            html.Span(f"{leader.get('Player', '')} ({leader.get('Team', '')})",
-                      style={"color": C["yellow"], "fontWeight": "bold", "fontSize": "12px"}),
-            html.Span(f"  —  {leader.get('HR', '')} HR  |  ",
-                      style={"color": C["red"], "fontWeight": "bold", "fontSize": "12px"}),
-            html.Span(f"{len(playing_today)} of top {len(rows)} playing today",
-                      style={"color": C["muted"], "fontSize": "12px"}),
-        ], style={"marginBottom": "12px"}),
-        section(build_hr_table(rows)),
+            html.Span("💣 HR Leader: ", style={"color":C["muted"],"fontSize":"12px"}),
+            html.Span(f"{leader.get('Player','')} — {leader.get('HR','')} HR",
+                      style={"color":C["yellow"],"fontWeight":"bold","fontSize":"12px"}),
+            html.Span(f"  |  {sum(1 for r in records if r['Today']=='✅')} playing today",
+                      style={"color":C["muted"],"fontSize":"12px"}),
+        ], style={"marginBottom":"12px"}),
+        section(dash_table.DataTable(
+            data=records,
+            columns=[{"name":c,"id":c} for c in
+                     ["Rank","Player","Team","HR","L10 HR","L5 HR","Hot",
+                      "Today","Opp Pitcher","Hand","Pit HR","Park HR","Matchup","Plat AVG","Plat HR"]],
+            sort_action="native", sort_mode="single",
+            style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+            style_header=DT_HEADER, page_action="native", page_size=30,
+            style_data_conditional=DT_COND + [
+                {"if":{"column_id":"HR","filter_query":"{_hr} >= 15"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"HR","filter_query":"{_hr} >= 10"},"color":C["yellow"],"fontWeight":"bold"},
+                {"if":{"column_id":"L10 HR","filter_query":"{_l10} >= 4"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"L10 HR","filter_query":"{_l10} >= 2"},"color":C["yellow"]},
+                {"if":{"column_id":"L5 HR","filter_query":"{_l5} >= 3"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"L5 HR","filter_query":"{_l5} >= 1"},"color":C["yellow"]},
+                {"if":{"column_id":"Pit HR","filter_query":"{_pit_hr} >= 15"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"Pit HR","filter_query":"{_pit_hr} >= 10"},"color":C["yellow"]},
+                {"if":{"column_id":"Plat AVG","filter_query":"{_plat_avg} >= 0.300"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"Plat AVG","filter_query":"{_plat_avg} >= 0.250"},"color":C["yellow"]},
+                {"if":{"filter_query":'{Today} = "✅"'},"backgroundColor":"#1a2a1a"},
+                {"if":{"column_id":"Hand","filter_query":'{Hand} = "L"'},"color":C["blue"],"fontWeight":"bold"},
+                {"if":{"column_id":"Hand","filter_query":'{Hand} = "R"'},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"Park HR","filter_query":"{_park_hr} >= 1.15"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"Park HR","filter_query":"{_park_hr} >= 1.05"},"color":C["yellow"]},
+            ],
+            hidden_columns=["_hr","_l10","_l5","_plat_avg","_park_hr","_pit_hr"],
+        )),
     ])
 
-
 # ─────────────────────────────────────────────
-# Hits & Total Bases Leaders
+# HITS & BASES LEADERS
 # ─────────────────────────────────────────────
-@cache.memoize(timeout=600)
-def get_hits_tb_leaders(limit=75):
-    """Fetch top players by hits and total bases this season."""
-    year = datetime.now().year
-    rows_hits = {}
-    rows_tb   = {}
-
-    for cat in ["hits", "totalBases"]:
-        url = (f"{BASE}/stats/leaders?leaderCategories={cat}"
-               f"&season={year}&sportId=1&statGroup=hitting&limit={limit}")
-        try:
-            data = requests.get(url, timeout=10).json()
-        except Exception:
-            continue
-        for entry in data.get("leagueLeaders", [{}])[0].get("leaders", []):
-            pid  = entry.get("person", {}).get("id")
-            name = entry.get("person", {}).get("fullName", "Unknown")
-            team = entry.get("team", {}).get("name", "Unknown")
-            val  = int(float(entry.get("value", 0)))
-            league = entry.get("league", {}).get("name", "-")
-            if cat == "hits":
-                rows_hits[pid] = {"pid": pid, "Player": name, "Team": team,
-                                  "League": league, "H": val, "TB": 0,
-                                  "Rank H": entry.get("rank", "-")}
-            else:
-                if pid in rows_hits:
-                    rows_hits[pid]["TB"] = val
-                    rows_hits[pid]["Rank TB"] = entry.get("rank", "-")
-                else:
-                    rows_tb[pid] = {"pid": pid, "Player": name, "Team": team,
-                                    "League": league, "H": 0, "TB": val,
-                                    "Rank H": "-", "Rank TB": entry.get("rank", "-")}
-
-    # Merge
-    combined = list(rows_hits.values())
-    for pid, r in rows_tb.items():
-        if pid not in rows_hits:
-            combined.append(r)
-
-    return combined, None
-
-
-@cache.memoize(timeout=600)
-def get_batter_hits_pace(player_id):
-    """Return H and TB totals for last 10 and last 5 games."""
-    year = datetime.now().year
-    url  = (f"{BASE}/people/{player_id}/stats"
-            f"?stats=gameLog&group=hitting&season={year}&sportId=1")
-    try:
-        data = requests.get(url, timeout=8).json()
-    except Exception:
-        return None
-
-    stats_list = data.get("stats", [])
-    if not stats_list:
-        return None
-    splits = stats_list[0].get("splits", [])
-    if not splits:
-        return None
-
-    def calc(games):
-        h  = sum(g.get("stat", {}).get("hits", 0)       for g in games)
-        tb = sum(g.get("stat", {}).get("totalBases", 0)  for g in games)
-        ab = sum(g.get("stat", {}).get("atBats", 0)      for g in games)
-        avg = round(h / ab, 3) if ab > 0 else 0.0
-        return {"H": h, "TB": tb, "AB": ab, "AVG": avg}
-
-    return {
-        "last5":  calc(splits[-5:]),
-        "last10": calc(splits[-10:]),
-    }
-
-
 def hitsleaders_layout():
     dd = {"backgroundColor": C["card"], "color": C["text"],
           "border": f"1px solid {C['border']}", "borderRadius": "6px",
@@ -2381,749 +847,424 @@ def hitsleaders_layout():
         section([
             html.Div([
                 html.Div([
-                    lbl("Sort Leaders By"),
+                    lbl("Sort By"),
                     dcc.Dropdown(
-                        options=[
-                            {"label": "Season Hits",       "value": "H"},
-                            {"label": "Season Tot Bases",  "value": "TB"},
-                            {"label": "L10 Hits",          "value": "L10 H"},
-                            {"label": "L10 Tot Bases",     "value": "L10 TB"},
-                            {"label": "L5 Hits",           "value": "L5 H"},
-                        ],
+                        options=[{"label":"Season Hits","value":"H"},
+                                 {"label":"Season Total Bases","value":"TB"},
+                                 {"label":"L10 Hits","value":"l10_h"},
+                                 {"label":"L5 Hits","value":"l5_h"}],
                         value="H", id="hits-sort", clearable=False,
-                        style={**dd, "minWidth": "200px"},
+                        style={**dd,"minWidth":"200px"},
                     ),
                 ]),
-                html.Button("Load", id="hits-btn", style={
-                    "marginTop": "20px", "padding": "8px 20px",
-                    "backgroundColor": C["blue"], "color": C["bg"],
-                    "border": "none", "borderRadius": "6px",
-                    "cursor": "pointer", "fontFamily": "IBM Plex Mono", "fontWeight": "bold",
-                }),
-            ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px"}),
+            ], style={"display":"flex","alignItems":"flex-end","gap":"16px"}),
         ]),
-        dcc.Interval(id="hits-trigger", interval=300, max_intervals=1),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="hits-results")),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="hits-results")),
     ])
 
+@app.callback(Output("hits-results","children"),
+              Input("hits-sort","value"))
+def load_hits_leaders(sort_col):
+    hits = read("hits_leaders")
+    hc   = read("hot_cold")
+    plt  = read("platoon_splits")
+    matchups  = read("matchups")
+    pit_stats = read("pitcher_stats")
 
-@app.callback(
-    Output("hits-results", "children"),
-    Input("hits-trigger", "n_intervals"),
-    Input("hits-btn", "n_clicks"),
-    State("hits-sort", "value"),
-)
-def load_hits_leaders(_, __, sort_col):
-    rows, err = get_hits_tb_leaders(limit=75)
-    if err:
-        return html.Div(f"Error: {err}", style={"color": C["red"]})
-    if not rows:
-        return html.Div("No data.", style={"color": C["muted"]})
+    if hits.empty:
+        return no_data()
 
-    # Get today's pitcher matchups (reuse existing function)
-    pitcher_map = get_todays_pitcher_hrs()
+    hc_map  = {int(r["player_id"]): r for _, r in hc.iterrows()} if not hc.empty else {}
+    plt_map = {int(r["player_id"]): r for _, r in plt.iterrows()} if not plt.empty else {}
 
-    def fetch_hits_extras(r):
-        pid     = r.get("pid")
-        info    = pitcher_map.get(r["Team"], {})
-        playing = bool(info)
-        hand    = info.get("hand", "—")
-        pace    = get_batter_hits_pace(pid) if pid else None
-        l10_h   = pace["last10"]["H"]   if pace else 0
-        l10_tb  = pace["last10"]["TB"]  if pace else 0
-        l10_avg = pace["last10"]["AVG"] if pace else 0.0
-        l5_h    = pace["last5"]["H"]    if pace else 0
-        l5_tb   = pace["last5"]["TB"]   if pace else 0
-        plat_avg = "—"; plat_h = "—"; plat_avg_f = 0.0; matchup = "—"
-        if pid:
-            vl, vr = get_batter_platoon_splits(pid)
-            if hand == "L" and vl:
-                plat_avg = vl.get("avg", "—"); plat_h = vl.get("hits", "—"); matchup = "vs LHP"
-            elif hand == "R" and vr:
-                plat_avg = vr.get("avg", "—"); plat_h = vr.get("hits", "—"); matchup = "vs RHP"
-            try:
-                plat_avg_f = float("0" + str(plat_avg)) if str(plat_avg).startswith(".") else float(plat_avg)
-            except (ValueError, TypeError):
-                plat_avg_f = 0.0
-        hot = "🔥🔥" if l5_h >= 10 else ("🔥" if l5_h >= 7 else ("▲" if l5_h >= 5 else ""))
-        return (r, playing, hand, info, l10_h, l10_tb, l10_avg, l5_h, l5_tb,
-                plat_avg, plat_h, plat_avg_f, matchup, hot)
+    pit_map = {}
+    if not matchups.empty and not pit_stats.empty:
+        ps_map = {int(r["pitcher_id"]): r for _, r in pit_stats.iterrows()}
+        for _, m in matchups.iterrows():
+            for side, opp in [("away","home"),("home","away")]:
+                pid = m.get(f"{side}_pitcher_id")
+                bat_team = m.get(f"{opp}_team","")
+                if pid and str(pid) != "nan":
+                    ps = ps_map.get(int(float(pid)), {})
+                    pit_map[bat_team] = {"pitcher": m.get(f"{side}_pitcher","—"),
+                                         "hand": ps.get("hand","?")}
 
     records = []
-    with ThreadPoolExecutor(max_workers=20) as ex:
-        futures = {ex.submit(fetch_hits_extras, r): r for r in rows}
-        hits_results = [f.result() for f in as_completed(futures)]
+    for _, r in hits.iterrows():
+        pid  = int(r["player_id"]) if pd.notna(r.get("player_id")) else None
+        team = r["Team"]
+        info = pit_map.get(team, {})
+        playing = bool(info)
+        hcr  = hc_map.get(pid, {}) if pid else {}
+        pltr = plt_map.get(pid, {}) if pid else {}
+        l10_h  = int(hcr.get("l10_h",  0) or 0)
+        l10_tb = int(hcr.get("l10_tb", 0) or 0)
+        l5_h   = int(hcr.get("l5_h",   0) or 0)
+        l5_tb  = int(hcr.get("l5_tb",  0) or 0)
+        l10_avg= float(hcr.get("l7_avg", 0) or 0)
+        hot = "🔥🔥" if l5_h >= 10 else ("🔥" if l5_h >= 7 else ("▲" if l5_h >= 5 else ""))
 
-    for (r, playing, hand, info, l10_h, l10_tb, l10_avg, l5_h, l5_tb,
-         plat_avg, plat_h, plat_avg_f, matchup, hot) in hits_results:
+        hand = info.get("hand","—") if playing else "—"
+        if hand == "L":
+            plat_avg = pltr.get("vl_avg","—"); plat_h = int(pltr.get("vl_h",0) or 0); matchup = "vs LHP"
+        elif hand == "R":
+            plat_avg = pltr.get("vr_avg","—"); plat_h = int(pltr.get("vr_h",0) or 0); matchup = "vs RHP"
+        else:
+            plat_avg = "—"; plat_h = 0; matchup = "—"
+
+        try: plat_avg_f = float("0"+str(plat_avg)) if str(plat_avg).startswith(".") else float(plat_avg)
+        except: plat_avg_f = 0.0
+
         records.append({
             "Player":      r["Player"],
-            "Team":        r["Team"],
-            "H":           r["H"],
-            "TB":          r["TB"],
+            "Team":        team,
+            "H":           int(r["H"]),
+            "TB":          int(r["TB"]),
             "L10 H":       l10_h,
             "L10 TB":      l10_tb,
-            "L10 AVG":     f".{str(l10_avg).split('.')[-1][:3].ljust(3,'0')}",
             "L5 H":        l5_h,
-            "L5 TB":       l5_tb,
             "Hot":         hot,
             "Today":       "✅" if playing else "—",
-            "Opp Pitcher": info.get("pitcher_name", "—") if playing else "—",
-            "Hand":        hand if playing else "—",
+            "Opp Pitcher": info.get("pitcher","—") if playing else "—",
+            "Hand":        hand,
             "Matchup":     matchup if playing else "—",
             "Plat AVG":    plat_avg if playing else "—",
-            "Plat H":      plat_h if playing else "—",
-            # hidden sort keys
-            "_h":          r["H"],
-            "_tb":         r["TB"],
+            "Plat H":      plat_h if playing else 0,
+            "_h":          int(r["H"]),
+            "_tb":         int(r["TB"]),
             "_l10h":       l10_h,
-            "_l10tb":      l10_tb,
             "_l5h":        l5_h,
-            "_l10avg":     l10_avg,
             "_plat_avg":   plat_avg_f,
         })
 
-    # Sort
-    sort_map = {
-        "H":      "_h",
-        "TB":     "_tb",
-        "L10 H":  "_l10h",
-        "L10 TB": "_l10tb",
-        "L5 H":   "_l5h",
-    }
-    records.sort(key=lambda x: x.get(sort_map.get(sort_col, "_h"), 0), reverse=True)
-
-    # Add rank after sort
+    sort_map = {"H":"_h","TB":"_tb","l10_h":"_l10h","l5_h":"_l5h"}
+    records.sort(key=lambda x: x.get(sort_map.get(sort_col,"_h"),0), reverse=True)
     for i, r in enumerate(records):
         r["Rank"] = i + 1
 
-    cols = ["Rank","Player","Team","H","TB","L10 H","L10 TB","L10 AVG",
-            "L5 H","L5 TB","Hot","Today","Opp Pitcher","Hand","Matchup","Plat AVG","Plat H"]
-
-    table = dash_table.DataTable(
-        data=records,
-        columns=[{"name": c, "id": c} for c in cols],
-        sort_action="native", sort_mode="single",
-        style_table={"overflowX": "auto"},
-        style_cell=DT_CELL,
-        style_header=DT_HEADER,
-        style_data_conditional=DT_COND + [
-            # Season H
-            {"if": {"column_id": "H",  "filter_query": "{_h} >= 50"},  "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "H",  "filter_query": "{_h} >= 35"},  "color": C["yellow"], "fontWeight": "bold"},
-            # Season TB
-            {"if": {"column_id": "TB", "filter_query": "{_tb} >= 80"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "TB", "filter_query": "{_tb} >= 60"}, "color": C["yellow"], "fontWeight": "bold"},
-            # L10 H
-            {"if": {"column_id": "L10 H",  "filter_query": "{_l10h} >= 14"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "L10 H",  "filter_query": "{_l10h} >= 10"}, "color": C["yellow"], "fontWeight": "bold"},
-            # L10 TB
-            {"if": {"column_id": "L10 TB", "filter_query": "{_l10tb} >= 20"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "L10 TB", "filter_query": "{_l10tb} >= 14"}, "color": C["yellow"], "fontWeight": "bold"},
-            # L5 H
-            {"if": {"column_id": "L5 H", "filter_query": "{_l5h} >= 8"},  "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "L5 H", "filter_query": "{_l5h} >= 5"},  "color": C["yellow"], "fontWeight": "bold"},
-            # L10 AVG
-            {"if": {"column_id": "L10 AVG", "filter_query": "{_l10avg} >= 0.350"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "L10 AVG", "filter_query": "{_l10avg} >= 0.280"}, "color": C["yellow"], "fontWeight": "bold"},
-            # Plat AVG
-            {"if": {"column_id": "Plat AVG", "filter_query": "{_plat_avg} >= 0.300"}, "color": C["red"],    "fontWeight": "bold"},
-            {"if": {"column_id": "Plat AVG", "filter_query": "{_plat_avg} >= 0.250"}, "color": C["yellow"], "fontWeight": "bold"},
-            # Hand color
-            {"if": {"column_id": "Hand", "filter_query": '{Hand} = "L"'},  "color": C["blue"], "fontWeight": "bold"},
-            {"if": {"column_id": "Hand", "filter_query": '{Hand} = "R"'},  "color": C["red"],  "fontWeight": "bold"},
-            # Playing today
-            {"if": {"filter_query": '{Today} = "✅"'},  "backgroundColor": "#1a2a1a"},
-            # Top 3
-            {"if": {"row_index": 0}, "backgroundColor": "#1f1a00"},
-            {"if": {"row_index": 1}, "backgroundColor": "#1a1a1a"},
-            {"if": {"row_index": 2}, "backgroundColor": "#1a1500"},
-        ],
-        hidden_columns=["_h","_tb","_l10h","_l10tb","_l5h","_l10avg","_plat_avg"],
-        page_action="native", page_size=30,
-    )
-
-    leader_h  = next((r for r in records if r["Rank"] == 1), {})
+    leader = records[0] if records else {}
     return html.Div([
         html.Div([
-            html.Span("🎯 Hits Leader: ",
-                      style={"color": C["muted"], "fontSize": "12px"}),
-            html.Span(f"{leader_h.get('Player','')} ({leader_h.get('Team','')})",
-                      style={"color": C["yellow"], "fontWeight": "bold", "fontSize": "12px"}),
-            html.Span(f"  —  {leader_h.get('H','')} H / {leader_h.get('TB','')} TB",
-                      style={"color": C["green"], "fontWeight": "bold", "fontSize": "12px"}),
-        ], style={"marginBottom": "12px"}),
-        section(table),
+            html.Span("🎯 Hits Leader: ", style={"color":C["muted"],"fontSize":"12px"}),
+            html.Span(f"{leader.get('Player','')} — {leader.get('H','')} H / {leader.get('TB','')} TB",
+                      style={"color":C["yellow"],"fontWeight":"bold","fontSize":"12px"}),
+        ], style={"marginBottom":"12px"}),
+        section(dash_table.DataTable(
+            data=records,
+            columns=[{"name":c,"id":c} for c in
+                     ["Rank","Player","Team","H","TB","L10 H","L10 TB","L5 H","Hot",
+                      "Today","Opp Pitcher","Hand","Matchup","Plat AVG","Plat H"]],
+            sort_action="native", sort_mode="single",
+            style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+            style_header=DT_HEADER, page_action="native", page_size=30,
+            style_data_conditional=DT_COND + [
+                {"if":{"column_id":"H", "filter_query":"{_h} >= 50"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"H", "filter_query":"{_h} >= 35"},"color":C["yellow"],"fontWeight":"bold"},
+                {"if":{"column_id":"L10 H","filter_query":"{_l10h} >= 14"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"L10 H","filter_query":"{_l10h} >= 10"},"color":C["yellow"]},
+                {"if":{"column_id":"L5 H","filter_query":"{_l5h} >= 8"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"L5 H","filter_query":"{_l5h} >= 5"},"color":C["yellow"]},
+                {"if":{"column_id":"Plat AVG","filter_query":"{_plat_avg} >= 0.300"},"color":C["red"],"fontWeight":"bold"},
+                {"if":{"column_id":"Plat AVG","filter_query":"{_plat_avg} >= 0.250"},"color":C["yellow"]},
+                {"if":{"filter_query":'{Today} = "✅"'},"backgroundColor":"#1a2a1a"},
+                {"if":{"column_id":"Hand","filter_query":'{Hand} = "L"'},"color":C["blue"],"fontWeight":"bold"},
+                {"if":{"column_id":"Hand","filter_query":'{Hand} = "R"'},"color":C["red"],"fontWeight":"bold"},
+            ],
+            hidden_columns=["_h","_tb","_l10h","_l5h","_plat_avg"],
+        )),
     ])
 
-
 # ─────────────────────────────────────────────
-# Top Picks
+# TOP PICKS
 # ─────────────────────────────────────────────
-def toppicks_layout():
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    dd = {"backgroundColor": C["card"], "color": C["text"],
-          "border": f"1px solid {C['border']}", "borderRadius": "6px",
-          "fontFamily": "IBM Plex Mono"}
-    return html.Div([
-        section([
-            html.Div([
-                html.Div([
-                    lbl("Date"),
-                    dcc.DatePickerSingle(
-                        id="tp-date", date=today_str,
-                        display_format="MMM DD, YYYY",
-                        style={"fontFamily": "IBM Plex Mono"},
-                    ),
-                ]),
-                html.Button("Generate Top Picks", id="tp-btn", style={
-                    "marginTop": "20px", "padding": "10px 28px",
-                    "backgroundColor": C["yellow"], "color": C["bg"],
-                    "border": "none", "borderRadius": "6px", "cursor": "pointer",
-                    "fontFamily": "IBM Plex Mono", "fontWeight": "bold", "fontSize": "14px",
-                }),
-            ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px"}),
-        ]),
-        html.Div("Analyzes every batter facing today's starters. Combines hit streak, BvP history, platoon splits, and pitcher vulnerability into ranked picks.",
-                 style={"color": C["muted"], "fontSize": "12px", "marginBottom": "16px"}),
-        dcc.Loading(type="circle", color=C["blue"],
-                    children=html.Div(id="tp-results")),
-    ])
-
-
 def score_confidence(score, thresholds):
-    """Return confidence label and color based on score."""
-    if score >= thresholds[0]:
-        return "🔥🔥 ELITE",  C["red"]
-    elif score >= thresholds[1]:
-        return "🔥 STRONG",   C["yellow"]
-    elif score >= thresholds[2]:
-        return "✅ SOLID",    C["green"]
-    else:
-        return "— WEAK",      C["muted"]
-
+    if score >= thresholds[0]:   return "🔥🔥 ELITE",  C["red"]
+    elif score >= thresholds[1]: return "🔥 STRONG",   C["yellow"]
+    elif score >= thresholds[2]: return "✅ SOLID",    C["green"]
+    else:                        return "— WEAK",      C["muted"]
 
 def pick_card(rank, prop_type, player, team, pitcher, opp_team, reasons, score, conf_label, conf_color):
-    """Render a single pick card."""
-    medals = {1: "🥇", 2: "🥈", 3: "🥉", 4: "4️⃣", 5: "5️⃣"}
-    medal  = medals.get(rank, str(rank))
-
-    reason_items = [
-        html.Li(r, style={"color": C["muted"], "fontSize": "12px",
-                           "marginBottom": "3px"})
-        for r in reasons
-    ]
-
+    medals = {1:"🥇",2:"🥈",3:"🥉",4:"4️⃣",5:"5️⃣"}
     return html.Div([
         html.Div([
-            # Left — rank + player info
             html.Div([
-                html.Span(f"{medal} ", style={"fontSize": "24px"}),
-                html.Span(player,      style={"fontSize": "16px", "fontWeight": "bold",
-                                               "color": C["text"]}),
+                html.Span(f"{medals.get(rank,str(rank))} ",style={"fontSize":"24px"}),
+                html.Span(player, style={"fontSize":"16px","fontWeight":"bold","color":C["text"]}),
                 html.Div(f"{team}  ·  facing {pitcher} ({opp_team})",
-                         style={"color": C["muted"], "fontSize": "12px", "marginTop": "2px"}),
-            ], style={"flex": "1"}),
-            # Right — prop type + confidence
+                         style={"color":C["muted"],"fontSize":"12px","marginTop":"2px"}),
+            ], style={"flex":"1"}),
             html.Div([
-                html.Div(prop_type, style={"fontSize": "13px", "fontWeight": "bold",
-                                            "color": C["blue"], "textAlign": "right"}),
-                html.Div(conf_label, style={"fontSize": "12px", "color": conf_color,
-                                             "fontWeight": "bold", "textAlign": "right",
-                                             "marginTop": "4px"}),
-                html.Div(f"Score: {score}", style={"fontSize": "11px", "color": C["muted"],
-                                                    "textAlign": "right"}),
+                html.Div(prop_type, style={"fontSize":"13px","fontWeight":"bold","color":C["blue"],"textAlign":"right"}),
+                html.Div(conf_label, style={"fontSize":"12px","color":conf_color,"fontWeight":"bold","textAlign":"right","marginTop":"4px"}),
+                html.Div(f"Score: {score}", style={"fontSize":"11px","color":C["muted"],"textAlign":"right"}),
             ]),
-        ], style={"display": "flex", "alignItems": "flex-start", "gap": "16px"}),
+        ], style={"display":"flex","alignItems":"flex-start","gap":"16px"}),
+        html.Ul([html.Li(r, style={"color":C["muted"],"fontSize":"12px","marginBottom":"3px"}) for r in reasons],
+                style={"marginTop":"10px","paddingLeft":"20px","listStyleType":"›","marginBottom":"0"}),
+    ], style={**CARD, "borderLeft":f"4px solid {conf_color}", "marginBottom":"12px"})
 
-        # Reasons
-        html.Ul(reason_items, style={"marginTop": "10px", "paddingLeft": "20px",
-                                      "listStyleType": "›", "marginBottom": "0"}),
-    ], style={
-        **CARD,
-        "borderLeft": f"4px solid {conf_color}",
-        "marginBottom": "12px",
-    })
+def toppicks_layout():
+    return html.Div([
+        section([
+            html.Div("Generates best hit, HR, and K prop picks from today's data.",
+                     style={"color":C["muted"],"fontSize":"12px","marginBottom":"12px"}),
+            html.Button("Generate Top Picks", id="tp-btn", style={
+                "padding":"10px 28px","backgroundColor":C["yellow"],"color":C["bg"],
+                "border":"none","borderRadius":"6px","cursor":"pointer",
+                "fontFamily":"IBM Plex Mono","fontWeight":"bold","fontSize":"14px",
+            }),
+        ]),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="tp-results")),
+    ])
 
+@app.callback(Output("tp-results","children"), Input("tp-btn","n_clicks"), prevent_initial_call=True)
+def load_toppicks(_):
+    matchups  = read("matchups")
+    hc        = read("hot_cold")
+    bvp       = read("bvp")
+    plt       = read("platoon_splits")
+    pit_stats = read("pitcher_stats")
+    team_k    = read("team_k_vulnerability")
 
+    if matchups.empty or hc.empty:
+        return no_data()
 
-def build_pitcher_k_picks(matchups, pitcher_k9, pitcher_era, date_str):
-    """Score today's starting pitchers for K props."""
-    year = datetime.now().year
-    rows = []
+    hc_map  = {int(r["player_id"]): r for _, r in hc.iterrows()}
+    plt_map = {int(r["player_id"]): r for _, r in plt.iterrows()}
+    ps_map  = {int(r["pitcher_id"]): r for _, r in pit_stats.iterrows()} if not pit_stats.empty else {}
+    tk_map  = {int(r["team_id"]): float(r["avg_k"] or 7) for _, r in team_k.iterrows()} if not team_k.empty else {}
 
-    # Get team strikeout vulnerability (avg Ks allowed per game)
-    team_k_vuln = {}
-    url = f"{BASE}/teams?sportId=1"
-    try:
-        tdata = requests.get(url, timeout=10).json()
-        teams = {t["id"]: t["name"] for t in tdata.get("teams", [])}
-    except Exception:
-        teams = {}
+    bvp_map = {}
+    if not bvp.empty:
+        # Deduplicate — keep highest AB row per batter/pitcher pair
+        bvp_dedup = bvp.sort_values("ab", ascending=False).drop_duplicates(
+            subset=["batter_id","pitcher_id"], keep="first"
+        )
+        for _, r in bvp_dedup.iterrows():
+            bvp_map[(int(r["batter_id"]), int(r["pitcher_id"]))] = r.to_dict()
 
-    for tid, tname in teams.items():
-        log_url = (f"{BASE}/teams/{tid}/stats"
-                   f"?stats=gameLog&group=hitting&season={year}&sportId=1&limit=15")
-        try:
-            ldata  = requests.get(log_url, timeout=8).json()
-            splits = ldata.get("stats", [{}])[0].get("splits", [])
-            ks     = [g.get("stat", {}).get("strikeOuts", 0) for g in splits[-15:]]
-            if ks:
-                team_k_vuln[tid] = round(sum(ks) / len(ks), 1)
-        except Exception:
-            pass
+    all_candidates = []
 
-    for m in matchups:
-        for pit_side, bat_side in [("away", "home"), ("home", "away")]:
-            pit_id    = m[f"{pit_side}_pitcher_id"]
-            pit_name  = m[f"{pit_side}_pitcher"]
-            pit_team  = m[f"{pit_side}_team"]
-            bat_tid   = m[f"{bat_side}_team_id"]
-            bat_team  = m[f"{bat_side}_team"]
-
-            if not pit_id:
+    for _, m in matchups.iterrows():
+        for side, opp in [("away","home"),("home","away")]:
+            pit_id_raw = m.get(f"{side}_pitcher_id")
+            if not pit_id_raw or str(pit_id_raw) == "nan":
                 continue
+            pit_id   = int(float(pit_id_raw))
+            pit_name = m.get(f"{side}_pitcher","Unknown")
+            bat_tid  = int(m.get(f"{opp}_team_id",0))
+            bat_team = m.get(f"{opp}_team","")
+            opp_team = m.get(f"{side}_team","")
+            home_team= m.get("home_team","")
 
-            pk9  = pitcher_k9.get(pit_id, 0.0)
-            pera = pitcher_era.get(pit_id, 4.50)
-            opp_avg_k = team_k_vuln.get(bat_tid, 7.0)
+            ps       = ps_map.get(pit_id, {})
+            pk9      = float(ps.get("K9", 0) or 0)
+            pera     = float(str(ps.get("ERA","4.5")).replace("-","4.5") or 4.5)
+            p_hr_all = int(ps.get("HR_allowed", 0) or 0)
+            p_h_all  = int(ps.get("H_allowed",  0) or 0)
+            hand     = ps.get("hand","?")
+            opp_avg_k= tk_map.get(bat_tid, 7.0)
+            park_hr  = get_park_factor(home_team, "hr")
+            park_hit = get_park_factor(home_team, "hit")
 
-            # 7-inning projections
-            pitcher_k7  = round((pk9 / 9) * 7, 1) if pk9 > 0 else 0.0
-            opp_k7      = round((opp_avg_k / 9) * 7, 1)
-            blended_k7  = round((pitcher_k7 + opp_k7) / 2, 1)
+            # Get batters for this team from hot_cold
+            team_batters = hc[hc["team_id"] == bat_tid]
 
-            # K score
-            k_score = round(pk9 * 3 + opp_avg_k * 2 + (1 / pera if pera > 0 else 0) * 5, 1)
-
-            rows.append({
-                "pitcher":     pit_name,
-                "pit_team":    pit_team,
-                "opp_team":    bat_team,
-                "pk9":         pk9,
-                "pera":        pera,
-                "opp_avg_k":   opp_avg_k,
-                "pitcher_k7":  pitcher_k7,
-                "blended_k7":  blended_k7,
-                "k_score":     k_score,
-            })
-
-    rows.sort(key=lambda x: x["k_score"], reverse=True)
-
-    cards = []
-    for i, r in enumerate(rows[:5]):
-        rank       = i + 1
-        score      = r["k_score"]
-        conf_label, conf_color = score_confidence(score, [45, 35, 25])
-
-        reasons = [
-            f"⚡ {r['pk9']:.1f} K/9 this season",
-            f"🎯 {r['opp_team']} averages {r['opp_avg_k']} Ks/game (last 15)",
-            f"📊 Projected {r['pitcher_k7']} Ks over 7 IP at current pace",
-            f"🔀 Blended projection (pitcher + opp): {r['blended_k7']} Ks",
-        ]
-        if r["pera"] >= 3.50:
-            reasons.append(f"📉 ERA: {r['pera']:.2f}")
-
-        cards.append(pick_card(
-            rank, "⚡ Pitcher K Prop",
-            r["pitcher"], r["pit_team"], "vs", r["opp_team"],
-            reasons[:4], score, conf_label, conf_color
-        ))
-
-    return cards if cards else [html.Div("No pitcher data available.", style={"color": C["muted"]})]
-
-@app.callback(
-    Output("tp-results", "children"),
-    Input("tp-btn", "n_clicks"),
-    State("tp-date", "date"),
-    prevent_initial_call=True,
-)
-def load_toppicks(_, date_str):
-    if not date_str:
-        date_str = datetime.now().strftime("%Y-%m-%d")
-
-    matchups = get_days_matchups(date_str)
-    if not matchups:
-        return html.Div(f"No games found for {date_str}.", style={"color": C["muted"]})
-
-    year = datetime.now().year
-
-    # Pull pitcher K/9 for all starters
-    k_url = (f"{BASE}/stats/leaders?leaderCategories=strikeouts"
-             f"&season={year}&sportId=1&statGroup=pitching&limit=100")
-    try:
-        kdata = requests.get(k_url, timeout=10).json()
-    except Exception:
-        kdata = {}
-    pitcher_k9 = {}
-    pitcher_era = {}
-    pitcher_hr  = {}
-    pitcher_h   = {}
-    for entry in kdata.get("leagueLeaders", [{}])[0].get("leaders", []):
-        pid = entry.get("person", {}).get("id")
-        ks  = int(float(entry.get("value", 0)))
-        try:
-            sd = requests.get(
-                f"{BASE}/people/{pid}/stats?stats=season&group=pitching&season={year}&sportId=1",
-                timeout=8).json()
-            sp = sd.get("stats", [{}])[0].get("splits", [{}])[0].get("stat", {})
-            ip = float(sp.get("inningsPitched", 1) or 1)
-            pitcher_k9[pid]  = round((ks / ip) * 9, 1)
-            pitcher_era[pid] = float(sp.get("era", 4.5) or 4.5)
-            pitcher_hr[pid]  = int(sp.get("homeRuns", 0) or 0)
-            pitcher_h[pid]   = int(sp.get("hits", 0) or 0)
-        except Exception:
-            pitcher_k9[pid] = 0.0
-
-    all_candidates = []  # list of scored candidate dicts
-
-    for m in matchups:
-        for pit_side, bat_side in [("away", "home"), ("home", "away")]:
-            pit_id    = m[f"{pit_side}_pitcher_id"]
-            pit_name  = m[f"{pit_side}_pitcher"]
-            bat_tid   = m[f"{bat_side}_team_id"]
-            bat_team  = m[f"{bat_side}_team"]
-            opp_team  = m[f"{pit_side}_team"]
-
-            if not pit_id:
-                continue
-
-            # Pitcher stats
-            pk9      = pitcher_k9.get(pit_id, 0.0)
-            pera     = pitcher_era.get(pit_id, 4.50)
-            p_hr_all = pitcher_hr.get(pit_id, 0)
-            p_h_all  = pitcher_h.get(pit_id, 0)
-
-            # Pitcher hand
-            hand = "?"
-            try:
-                pd2  = requests.get(f"{BASE}/people/{pit_id}", timeout=8).json()
-                hand = pd2.get("people", [{}])[0].get("pitchHand", {}).get("code", "?")
-            except Exception:
-                pass
-
-            batters = get_team_roster(bat_tid)
-
-            def fetch_batter_tp(b):
-                hc     = get_batter_hot_cold(b["id"])
-                bvp    = get_bvp_stats(b["id"], pit_id)
-                vl, vr = get_batter_platoon_splits(b["id"])
-                pace   = get_batter_hits_pace(b["id"])
-                return b, hc, bvp, vl, vr, pace
-
-            batter_data = []
-            with ThreadPoolExecutor(max_workers=20) as ex:
-                futs = [ex.submit(fetch_batter_tp, b) for b in batters]
-                batter_data = [f.result() for f in as_completed(futs)]
-
-            for b, hc, bvp, vl, vr, pace in batter_data:
-                bid   = b["id"]
+            for _, b in team_batters.iterrows():
+                bid   = int(b["player_id"])
                 bname = b["name"]
 
-                # Hot/cold
-                if not hc:
-                    continue
-                l7_avg  = hc["last7"]["_avg"]
-                l7_ops  = hc["last7"]["_ops"]
-                l7_hr   = hc["last7"]["HR"]
-                l7_h    = hc["last7"]["H"]
-                l14_avg = hc["last14"]["_avg"]
-                sea_avg = hc["season"]["_avg"]
-                l7_k    = hc["last7"]["K"]
-                l7_ab   = hc["last7"]["AB"]
+                l7_avg  = float(b.get("l7_avg",  0) or 0)
+                l7_ops  = float(b.get("l7_ops",  0) or 0)
+                l7_hr   = int(b.get("l7_hr",     0) or 0)
+                l7_h    = int(b.get("l7_h",      0) or 0)
+                l14_avg = float(b.get("l14_avg",  0) or 0)
+                sea_avg = float(b.get("sea_avg",  0) or 0)
+                l7_k    = int(b.get("l7_k",       0) or 0)
+                l7_ab   = int(b.get("l7_ab",      0) or 0)
+                l5_h    = int(b.get("l5_h",       0) or 0)
+                l10_tb  = int(b.get("l10_tb",     0) or 0)
 
-                # BvP
-                bvp_ab   = bvp.get("atBats", 0) if bvp else 0
-                bvp_avg  = float(bvp.get("avg", 0) or 0) if bvp else 0.0
-                bvp_hr   = bvp.get("homeRuns", 0) if bvp else 0
-                bvp_ops  = float(bvp.get("ops", 0) or 0) if bvp else 0.0
-                bvp_h    = bvp.get("hits", 0) if bvp else 0
+                bvp_r   = bvp_map.get((bid, pit_id), {})
+                bvp_ab  = int(bvp_r.get("ab", 0) or 0) if bvp_r else 0
+                bvp_avg = float(str(bvp_r.get("avg",".000")).replace(".","0.",1)[:5] if bvp_r else 0)
+                bvp_hr  = int(bvp_r.get("hr",  0) or 0) if bvp_r else 0
+                bvp_ops = float(str(bvp_r.get("ops",".000")).replace(".","0.",1)[:5] if bvp_r else 0)
 
-                # Platoon splits
-                plat = vl if hand == "L" else vr
-                plat_avg = float(plat.get("avg", 0) or 0) if plat else 0.0
-                plat_hr  = plat.get("homeRuns", 0) if plat else 0
-                plat_h   = plat.get("hits", 0) if plat else 0
-                matchup_label = f"vs {'LHP' if hand == 'L' else 'RHP'}"
+                pltr = plt_map.get(bid, {})
+                plat = pltr.get("vl_avg" if hand=="L" else "vr_avg", ".000")
+                try: plat_avg = float("0"+str(plat)) if str(plat).startswith(".") else float(plat)
+                except: plat_avg = 0.0
+                try: plat_hr = int(float(pltr.get("vl_hr" if hand=="L" else "vr_hr", 0) or 0))
+                except: plat_hr = 0
+                matchup_label = f"vs {'LHP' if hand=='L' else 'RHP'}"
 
-                # Hits pace
-                l10_h  = pace["last10"]["H"]  if pace else 0
-                l5_h   = pace["last5"]["H"]   if pace else 0
-                l10_tb = pace["last10"]["TB"] if pace else 0
-
-                # ── HIT SCORE ──────────────────────────
-                hit_score = 0.0
-                hit_score += sea_avg * 25
-                hit_score += l7_avg  * 35
-                hit_score += l14_avg * 15
-                if bvp_ab >= 3:
-                    hit_score += bvp_avg * 25
-                else:
-                    hit_score += sea_avg * 25
-                if plat_avg > 0:
-                    hit_score += plat_avg * 10
-                # Pitcher is hittable bonus
-                if pera >= 5.0:
-                    hit_score += 5
-                if p_h_all >= 60:
-                    hit_score += 3
-                # Park factor adjustment
-                park_hit = m.get("park_hit", 1.0)
+                # Scores
+                hit_score = (sea_avg*25 + l7_avg*35 + l14_avg*15 +
+                             (bvp_avg*25 if bvp_ab >= 3 else sea_avg*25) +
+                             plat_avg*10)
+                if pera >= 5.0: hit_score += 5
+                if p_h_all >= 60: hit_score += 3
                 hit_score = round(hit_score * park_hit, 1)
 
-                # ── HR SCORE ───────────────────────────
-                hr_score = 0.0
-                hr_score += bvp_hr   * 18
-                hr_score += l7_hr    * 22
-                hr_score += l7_ops   * 12
-                hr_score += plat_hr  * 8
-                hr_score += (p_hr_all / 10) * 5
-                # Park factor adjustment — bigger impact on HRs
-                park_hr  = m.get("park_hr", 1.0)
+                hr_score = (bvp_hr*18 + l7_hr*22 + l7_ops*12 +
+                            plat_hr*8 + (p_hr_all/10)*5)
                 hr_score = round(hr_score * park_hr, 1)
 
-                # ── K SCORE (prop: batter Ks) ──────────
-                k_score = 0.0
-                k_score += pk9 * 3
-                if bvp_ab > 0:
-                    bvp_k_rate = bvp.get("strikeOuts", 0) / bvp_ab if bvp else 0
-                    k_score += bvp_k_rate * 20
-                if l7_ab > 0:
-                    k_score += (l7_k / l7_ab) * 15
-                k_score = round(k_score, 1)
+                tb_score = round((l7_ops*20 + (l10_tb/10)*15 +
+                                  (bvp_ops*15 if bvp_ab>=3 else 0) + plat_avg*10 +
+                                  (5 if pera>=4.5 else 0)) * park_hit, 1)
 
-                # ── TOTAL BASES SCORE ──────────────────
-                tb_score = 0.0
-                tb_score += l7_ops   * 20
-                tb_score += (l10_tb / 10) * 15
-                tb_score += bvp_ops  * 15  if bvp_ab >= 3 else 0
-                tb_score += plat_avg * 10
-                if pera >= 4.5:
-                    tb_score += 5
-                tb_score = round(tb_score, 1)
+                composite = round(hit_score*0.40 + hr_score*0.30 + tb_score*0.30, 1)
 
                 all_candidates.append({
-                    "player":    bname,
-                    "team":      bat_team,
-                    "pitcher":   pit_name,
-                    "opp_team":  opp_team,
-                    "hand":      hand,
-                    "matchup":   matchup_label,
-                    "park_hit":  m.get("park_hit", 1.0),
-                    "park_hr":   m.get("park_hr", 1.0),
-                    "park_name": m.get("park_name", ""),
-                    "hit_score": hit_score,
-                    "hr_score":  hr_score,
-                    "k_score":   k_score,
-                    "tb_score":  tb_score,
-                    # reason data
-                    "l7_avg":    l7_avg,
-                    "l14_avg":   l14_avg,
-                    "sea_avg":   sea_avg,
-                    "bvp_avg":   bvp_avg,
-                    "bvp_ab":    bvp_ab,
-                    "bvp_hr":    bvp_hr,
-                    "l7_hr":     l7_hr,
-                    "l7_h":      l7_h,
-                    "l5_h":      l5_h,
-                    "plat_avg":  plat_avg,
-                    "plat_hr":   plat_hr,
-                    "pk9":       pk9,
-                    "pera":      pera,
-                    "p_hr_all":  p_hr_all,
-                    "l10_tb":    l10_tb,
-                    "l7_ops":    l7_ops,
+                    "player": bname, "team": bat_team,
+                    "pitcher": pit_name, "opp_team": opp_team,
+                    "hand": hand, "matchup": matchup_label,
+                    "hit_score": hit_score, "hr_score": hr_score,
+                    "tb_score": tb_score, "composite": composite,
+                    "l7_avg": l7_avg, "l14_avg": l14_avg, "sea_avg": sea_avg,
+                    "bvp_avg": bvp_avg, "bvp_ab": bvp_ab, "bvp_hr": bvp_hr,
+                    "l7_hr": l7_hr, "l7_h": l7_h, "l5_h": l5_h,
+                    "plat_avg": plat_avg, "plat_hr": plat_hr,
+                    "pk9": pk9, "pera": pera, "p_hr_all": p_hr_all,
+                    "l10_tb": l10_tb, "l7_ops": l7_ops,
+                    "park_hr": park_hr, "park_hit": park_hit,
+                    "home_team": home_team,
                 })
 
     if not all_candidates:
-        return html.Div("No data — probable pitchers may not be announced yet.",
-                        style={"color": C["muted"]})
+        return no_data("No data available — run refresh_data.py first.")
 
-    def build_reasons(c, prop):
+    def reasons(c, prop):
         r = []
         if prop == "Hit":
-            if c["l7_avg"] >= 0.300:
-                r.append(f"🔥 Hitting .{str(c['l7_avg']).split('.')[-1][:3]} over last 7 games")
-            if c["bvp_ab"] >= 3:
-                r.append(f"📊 {c['bvp_avg']:.3f} AVG ({c['bvp_ab']} AB) career vs {c['pitcher']}")
-            if c["plat_avg"] >= 0.280:
-                r.append(f"↔️ .{str(c['plat_avg']).split('.')[-1][:3]} AVG {c['matchup']} this season")
-            if c["pera"] >= 4.5:
-                r.append(f"📉 {c['pitcher']} has a {c['pera']:.2f} ERA — hittable")
-            if c["l5_h"] >= 7:
-                r.append(f"🎯 {c['l5_h']} hits in last 5 games")
-            if c.get("park_hit", 1.0) >= 1.05:
-                r.append(f"🏟️ Park factor: {park_label(c['park_hit'])} for hits ({c['park_name']})")
+            if c["l7_avg"] >= 0.300: r.append(f"🔥 Hitting .{str(c['l7_avg']).split('.')[-1][:3]} last 7 games")
+            if c["bvp_ab"] >= 3: r.append(f"📊 {c['bvp_avg']:.3f} AVG ({c['bvp_ab']} AB) vs {c['pitcher']}")
+            if c["plat_avg"] >= 0.280: r.append(f"↔️ .{str(c['plat_avg']).split('.')[-1][:3]} AVG {c['matchup']}")
+            if c["pera"] >= 4.5: r.append(f"📉 {c['pitcher']} ERA: {c['pera']:.2f}")
+            if c["l5_h"] >= 7: r.append(f"🎯 {c['l5_h']} hits in last 5 games")
+            if c["park_hit"] >= 1.05: r.append(f"🏟️ Hitter-friendly park: {park_label(c['park_hit'])}")
         elif prop == "Home Run":
-            if c["bvp_hr"] > 0:
-                r.append(f"💣 {c['bvp_hr']} career HR vs {c['pitcher']}")
-            if c["l7_hr"] >= 2:
-                r.append(f"🔥 {c['l7_hr']} HR in last 7 games")
-            if c["plat_hr"] >= 5:
-                r.append(f"💪 {c['plat_hr']} HR {c['matchup']} this season")
-            if c["p_hr_all"] >= 10:
-                r.append(f"📉 {c['pitcher']} has allowed {c['p_hr_all']} HR this season")
-            if c["l7_ops"] >= 0.900:
-                r.append(f"⚡ {c['l7_ops']:.3f} OPS over last 7 games")
-            if c.get("park_hr", 1.0) >= 1.05:
-                r.append(f"🏟️ Park factor: {park_label(c['park_hr'])} for HRs ({c['park_name']})")
-            elif c.get("park_hr", 1.0) <= 0.90:
-                r.append(f"⚠️ Tough HR park: {park_label(c['park_hr'])} ({c['park_name']})")
-        elif prop == "Strikeout":
-            r.append(f"⚡ {c['pitcher']} has {c['pk9']:.1f} K/9 this season")
-            if c["bvp_ab"] >= 3:
-                bvp_k = c.get("bvp_k", 0)
-                r.append(f"📊 Career vs {c['pitcher']}: {bvp_k} Ks in {c['bvp_ab']} AB")
-            r.append(f"↔️ Facing {c['pitcher']} ({c['hand']}HP) — {c['matchup']}")
+            if c["bvp_hr"] > 0: r.append(f"💣 {c['bvp_hr']} career HR vs {c['pitcher']}")
+            if c["l7_hr"] >= 2: r.append(f"🔥 {c['l7_hr']} HR in last 7 games")
+            if c["plat_hr"] >= 5: r.append(f"💪 {c['plat_hr']} HR {c['matchup']} this season")
+            if c["p_hr_all"] >= 10: r.append(f"📉 {c['pitcher']} allowed {c['p_hr_all']} HR this season")
+            if c["park_hr"] >= 1.05: r.append(f"🏟️ HR-friendly park: {park_label(c['park_hr'])}")
+            elif c["park_hr"] <= 0.90: r.append(f"⚠️ Tough HR park: {park_label(c['park_hr'])}")
         elif prop == "Total Bases":
-            if c["l10_tb"] >= 18:
-                r.append(f"🔥 {c['l10_tb']} total bases over last 10 games")
-            if c["l7_ops"] >= 0.850:
-                r.append(f"⚡ {c['l7_ops']:.3f} OPS last 7 games")
-            if c["bvp_ab"] >= 3:
-                r.append(f"📊 {c['bvp_avg']:.3f} AVG career vs {c['pitcher']}")
-            if c["pera"] >= 4.5:
-                r.append(f"📉 {c['pitcher']} ERA: {c['pera']:.2f}")
-        if not r:
-            r.append(f"Season AVG: .{str(c['sea_avg']).split('.')[-1][:3]} | facing {c['pitcher']}")
-        return r[:4]  # max 4 reasons
+            if c["l10_tb"] >= 18: r.append(f"🔥 {c['l10_tb']} total bases last 10 games")
+            if c["l7_ops"] >= 0.850: r.append(f"⚡ {c['l7_ops']:.3f} OPS last 7 games")
+            if c["bvp_ab"] >= 3: r.append(f"📊 {c['bvp_avg']:.3f} AVG career vs {c['pitcher']}")
+        if not r: r.append(f"Season AVG: {c['sea_avg']:.3f} | facing {c['pitcher']}")
+        return r[:4]
 
-    # Get top 5 for each category (deduplicated across categories)
-    def top_n(candidates, score_key, n=5):
-        return sorted(candidates, key=lambda x: x[score_key], reverse=True)[:n]
+    # K picks from pitcher data
+    k_rates = read("pitcher_k_rates")
+    tk      = read("team_k_vulnerability")
+    k_picks = []
+    if not k_rates.empty and not matchups.empty:
+        tk_map2 = {int(r["team_id"]): float(r["avg_k"] or 7) for _, r in tk.iterrows()} if not tk.empty else {}
+        kr_map  = {r["name"]: r for _, r in k_rates.iterrows()}
+        for _, m in matchups.iterrows():
+            for side, opp in [("away","home"),("home","away")]:
+                pit_name = m.get(f"{side}_pitcher","TBD")
+                opp_tid  = int(m.get(f"{opp}_team_id",0))
+                opp_team = m.get(f"{opp}_team","")
+                pit_team = m.get(f"{side}_team","")
+                pk = kr_map.get(pit_name, {})
+                pk9  = float(pk.get("K9",0) or 0)
+                pera = float(str(pk.get("ERA","4.5")).replace("-","4.5"))
+                opp_avg_k = tk_map2.get(opp_tid, 7.0)
+                k7    = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
+                opp_k7= round((opp_avg_k/9)*7, 1)
+                blend = round((k7+opp_k7)/2, 1)
+                score = round(pk9*3 + opp_avg_k*2, 1)
+                k_picks.append({
+                    "pitcher": pit_name, "pit_team": pit_team,
+                    "opp_team": opp_team, "pk9": pk9, "pera": pera,
+                    "opp_avg_k": opp_avg_k, "k7": k7, "blend": blend, "score": score,
+                })
+        k_picks.sort(key=lambda x: x["score"], reverse=True)
 
-    top_hits = top_n(all_candidates, "hit_score", 10)
-    top_hrs  = top_n(all_candidates, "hr_score",  10)
-    top_ks   = top_n(all_candidates, "k_score",   10)
-    top_tbs  = top_n(all_candidates, "tb_score",  10)
-
-    # Build overall composite score — weighted across all props
-    for c in all_candidates:
-        c["composite"] = round(
-            c["hit_score"] * 0.40 +
-            c["hr_score"]  * 0.30 +
-            c["tb_score"]  * 0.30,
-            1
-        )
-
-    top_overall = top_n(all_candidates, "composite", 5)
-
-    def section_header(title, color, subtitle):
-        return html.Div([
-            html.Div(title, style={"fontSize": "15px", "fontWeight": "bold", "color": color,
-                                   "borderLeft": f"4px solid {color}", "paddingLeft": "12px",
-                                   "marginBottom": "4px"}),
-            html.Div(subtitle, style={"fontSize": "11px", "color": C["muted"],
-                                       "marginBottom": "14px", "paddingLeft": "16px"}),
-        ])
-
-    def build_picks(candidates, prop, score_key, thresholds, n):
-        cards = []
-        seen  = set()
-        rank  = 1
+    def build_picks(candidates, prop, score_key, thresholds, n=5):
+        cards = []; seen = set(); rank = 1
         for c in sorted(candidates, key=lambda x: x[score_key], reverse=True):
-            if rank > n:
-                break
-            key = (c["player"], prop)
-            if key in seen:
-                continue
-            seen.add(key)
+            if rank > n: break
+            if c["player"] in seen: continue
+            seen.add(c["player"])
             score = c[score_key]
             conf_label, conf_color = score_confidence(score, thresholds)
-            reasons = build_reasons(c, prop)
             cards.append(pick_card(rank, f"📌 {prop} Prop",
                                    c["player"], c["team"], c["pitcher"], c["opp_team"],
-                                   reasons, score, conf_label, conf_color))
+                                   reasons(c, prop), score, conf_label, conf_color))
             rank += 1
         return cards
 
-    # ── TOP 3 OVERALL ─────────────────────────────────────────────────────
-    top3_cards = []
-    seen = set()
-    rank = 1
-    for c in sorted(all_candidates, key=lambda x: x["composite"], reverse=True):
-        if rank > 3:
-            break
-        if c["player"] in seen:
-            continue
-        seen.add(c["player"])
-        # Determine best prop for this player
-        best_prop  = max(
-            [("Hit", c["hit_score"]), ("Home Run", c["hr_score"]),
-             ("Total Bases", c["tb_score"])],
-            key=lambda x: x[1]
-        )
-        score      = c["composite"]
-        conf_label, conf_color = score_confidence(score, [25, 18, 12])
-        reasons    = build_reasons(c, best_prop[0])
-        top3_cards.append(pick_card(rank, f"📌 {best_prop[0]} Prop",
-                                    c["player"], c["team"], c["pitcher"], c["opp_team"],
-                                    reasons, score, conf_label, conf_color))
-        rank += 1
+    def section_hdr(title, color, sub):
+        return html.Div([
+            html.Div(title, style={"fontSize":"15px","fontWeight":"bold","color":color,
+                                   "borderLeft":f"4px solid {color}","paddingLeft":"12px","marginBottom":"4px"}),
+            html.Div(sub,   style={"fontSize":"11px","color":C["muted"],"marginBottom":"14px","paddingLeft":"16px"}),
+        ])
 
-    # ── TOP 5 OVERALL ─────────────────────────────────────────────────────
-    top5_cards = []
-    seen = set()
-    rank = 1
+    # Top 3 + Top 5
+    top3 = []; top5 = []; seen3 = set(); seen5 = set()
     for c in sorted(all_candidates, key=lambda x: x["composite"], reverse=True):
-        if rank > 5:
-            break
-        if c["player"] in seen:
-            continue
-        seen.add(c["player"])
-        best_prop  = max(
-            [("Hit", c["hit_score"]), ("Home Run", c["hr_score"]),
-             ("Total Bases", c["tb_score"])],
-            key=lambda x: x[1]
-        )
-        score      = c["composite"]
-        conf_label, conf_color = score_confidence(score, [25, 18, 12])
-        reasons    = build_reasons(c, best_prop[0])
-        top5_cards.append(pick_card(rank, f"📌 {best_prop[0]} Prop",
-                                    c["player"], c["team"], c["pitcher"], c["opp_team"],
-                                    reasons, score, conf_label, conf_color))
-        rank += 1
+        best = max([("Hit",c["hit_score"]),("Home Run",c["hr_score"]),("Total Bases",c["tb_score"])],key=lambda x:x[1])
+        score = c["composite"]
+        cl, cc = score_confidence(score, [25,18,12])
+        card = pick_card(len(top3)+1 if c["player"] not in seen3 else 0,
+                         f"📌 {best[0]} Prop", c["player"], c["team"],
+                         c["pitcher"], c["opp_team"], reasons(c,best[0]), score, cl, cc)
+        if c["player"] not in seen3 and len(top3) < 3:
+            seen3.add(c["player"]); top3.append(card)
+        if c["player"] not in seen5 and len(top5) < 5:
+            seen5.add(c["player"]); top5.append(card)
+        if len(top3) >= 3 and len(top5) >= 5: break
+
+    k_cards = []
+    for i, k in enumerate(k_picks[:5]):
+        cl, cc = score_confidence(k["score"], [45,35,25])
+        k_cards.append(pick_card(i+1, "⚡ Pitcher K Prop",
+                                 k["pitcher"], k["pit_team"], "vs", k["opp_team"],
+                                 [f"⚡ {k['pk9']:.1f} K/9 this season",
+                                  f"🎯 {k['opp_team']} avg {k['opp_avg_k']} Ks/game",
+                                  f"📊 Projected {k['k7']} Ks over 7 IP",
+                                  f"🔀 Blended projection: {k['blend']} Ks"],
+                                 k["score"], cl, cc))
 
     return html.Div([
-        html.Div(f"⭐ Top Picks — {date_str}",
-                 style={"fontSize": "18px", "fontWeight": "bold", "color": C["text"],
-                        "marginBottom": "6px"}),
-        html.Div("Composite score = Hit (35%) + HR (25%) + Total Bases (25%) + K (15%)",
-                 style={"color": C["muted"], "fontSize": "11px", "marginBottom": "24px"}),
+        html.Div("⭐ Top Picks", style={"fontSize":"18px","fontWeight":"bold",
+                                        "color":C["text"],"marginBottom":"6px"}),
+        html.Div("Composite = Hit (40%) + HR (30%) + Total Bases (30%) with park factors applied",
+                 style={"color":C["muted"],"fontSize":"11px","marginBottom":"24px"}),
 
-        # Top 3
-        section_header("🥇 Best 3 Picks Today", C["yellow"],
-                       "Highest composite scores across all prop types"),
-        *top3_cards,
-
-        html.Div(style={"height": "24px"}),
-
-        # Top 5
-        section_header("⭐ Best 5 Picks Today", C["blue"],
-                       "Extended list — next 2 picks after the top 3"),
-        *top5_cards,
-
-        html.Div(style={"height": "24px"}),
-
-        # By category
-        section_header("🎯 Top 5 Hit Props",       C["green"],  "Sorted by hit score"),
-        *build_picks(all_candidates, "Hit",        "hit_score", [25, 18, 12], 5),
-
-        section_header("💣 Top 5 HR Props",        C["red"],    "Sorted by HR score"),
-        *build_picks(all_candidates, "Home Run",   "hr_score",  [20, 12, 6],  5),
-
-        section_header("⚡ Top 5 K Props — Best Pitchers Today", C["yellow"],
-                       "Pitcher K/9 + opponent avg Ks allowed + 7-inning projection"),
-        *build_pitcher_k_picks(matchups, pitcher_k9, pitcher_era, date_str),
-
-        section_header("📊 Top 5 Total Bases",     C["blue"],   "Sorted by total bases score"),
-        *build_picks(all_candidates, "Total Bases","tb_score",  [20, 14, 8],  5),
+        section_hdr("🥇 Best 3 Picks Today", C["yellow"], "Highest composite scores"),
+        *top3,
+        html.Div(style={"height":"16px"}),
+        section_hdr("⭐ Best 5 Picks Today", C["blue"], "Extended list"),
+        *top5,
+        html.Div(style={"height":"16px"}),
+        section_hdr("🎯 Top 5 Hit Props",       C["green"],  "Sorted by hit score"),
+        *build_picks(all_candidates, "Hit",       "hit_score", [25,18,12]),
+        section_hdr("💣 Top 5 HR Props",         C["red"],    "Sorted by HR score"),
+        *build_picks(all_candidates, "Home Run",  "hr_score",  [20,12,6]),
+        section_hdr("📊 Top 5 Total Bases",      C["blue"],   "Sorted by total bases score"),
+        *build_picks(all_candidates, "Total Bases","tb_score", [20,14,8]),
+        section_hdr("⚡ Top 5 K Props — Pitchers",C["yellow"],"Pitcher K/9 × opponent K vulnerability"),
+        *k_cards,
     ])
 
+# ─────────────────────────────────────────────
+# Run
+# ─────────────────────────────────────────────
 if __name__ == "__main__":
-    print("\n⚾  MLB Dashboard starting...")
-    print("   -> Open http://127.0.0.1:8050 in your browser\n")
-    port = int(os.environ.get("PORT", 8050))
+    if not os.path.exists(DATA_DIR):
+        print("⚠️  No data folder found — run refresh_data.py first!")
+    else:
+        files = os.listdir(DATA_DIR)
+        print(f"⚾  MLB Dashboard — {len(files)} data files loaded")
+    print("   -> Open http://127.0.0.1:8057\n")
+    port = int(os.environ.get("PORT", 8057))
     app.run(host="0.0.0.0", port=port, debug=False)
