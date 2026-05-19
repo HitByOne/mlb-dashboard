@@ -9,6 +9,7 @@ Run:     python mlb_dashboard.py -> open http://127.0.0.1:8050
 """
 
 import os
+import requests
 import json
 import threading
 import pandas as pd
@@ -164,6 +165,13 @@ app.layout = html.Div(style={
         html.Span(id="data-date", style={"color": C["muted"], "fontSize": "12px", "marginLeft": "16px"}),
     ], style={"marginBottom": "20px"}),
 
+    # Live game ticker
+    dcc.Interval(id="ticker-interval", interval=60000, n_intervals=0),  # refresh every 60s
+    html.Div(id="game-ticker", style={
+        "marginBottom": "16px",
+        "overflowX": "auto",
+    }),
+
     dcc.Tabs(id="tabs", value="standings", children=[
         dcc.Tab(label="📊 Standings",        value="standings",   style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🎯 Scores",           value="scores",      style=TAB_STYLE, selected_style=TAB_SEL),
@@ -175,6 +183,7 @@ app.layout = html.Div(style={
         dcc.Tab(label="💣 HR Leaders",        value="hrleaders",  style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🎯 Hits & Bases",      value="hitsleaders",style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="⭐ Top Picks",         value="toppicks",   style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="🌤️ Weather",            value="weather",    style=TAB_STYLE, selected_style=TAB_SEL),
     ]),
 
     dcc.Loading(type="circle", color=C["blue"],
@@ -185,6 +194,128 @@ app.layout = html.Div(style={
 def update_date(_):
     d = data_date()
     return f"Data: {d}" if d != "—" else "⚠️ No data — run refresh_data.py"
+
+
+@app.callback(Output("game-ticker", "children"), Input("ticker-interval", "n_intervals"))
+def update_ticker(n):
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    try:
+        data = requests.get(
+            f"https://statsapi.mlb.com/api/v1/schedule"
+            f"?sportId=1&date={today_str}&gameType=R&hydrate=probablePitcher,linescore",
+            timeout=8
+        ).json()
+    except Exception:
+        return html.Span("⚾ Loading games...", style={"color": C["muted"], "fontSize": "13px"})
+
+    cards = []
+    for day in data.get("dates", []):
+        for g in day.get("games", []):
+            abstract   = g.get("status", {}).get("abstractGameState", "")
+            status     = g.get("status", {}).get("detailedState", "")
+            away_team  = g["teams"]["away"]["team"]["name"]
+            home_team  = g["teams"]["home"]["team"]["name"]
+            away_short = g["teams"]["away"]["team"].get("abbreviation", away_team[:3].upper())
+            home_short = g["teams"]["home"]["team"].get("abbreviation", home_team[:3].upper())
+            away_p     = g["teams"]["away"].get("probablePitcher", {}).get("fullName", "TBD").split()[-1]
+            home_p     = g["teams"]["home"].get("probablePitcher", {}).get("fullName", "TBD").split()[-1]
+
+            # Game time — convert UTC to CT (UTC-5 in CDT)
+            game_time = g.get("gameDate", "")
+            try:
+                dt = datetime.fromisoformat(game_time.replace("Z", "+00:00"))
+                ct_hour = (dt.hour - 5) % 24
+                ampm    = "PM" if ct_hour >= 12 else "AM"
+                hour12  = ct_hour % 12 or 12
+                time_str = f"{hour12}:{dt.strftime('%M')} {ampm} CT"
+            except Exception:
+                time_str = "—"
+
+            # Status indicator + border color
+            if abstract == "Final":
+                status_dot  = html.Span("✅ FINAL", style={"fontSize": "10px", "color": C["muted"],
+                                                            "letterSpacing": "1px"})
+                border_color = C["border"]
+                away_r = g["teams"]["away"].get("score", 0)
+                home_r = g["teams"]["home"].get("score", 0)
+                away_win = away_r > home_r
+                score_block = html.Div([
+                    html.Div([
+                        html.Span(away_short, style={"fontSize": "15px", "fontWeight": "bold",
+                                                      "color": C["green"] if away_win else C["muted"]}),
+                        html.Span(f"  {away_r}", style={"fontSize": "18px", "fontWeight": "bold",
+                                                          "color": C["green"] if away_win else C["muted"]}),
+                    ], style={"display": "flex", "alignItems": "center", "gap": "4px"}),
+                    html.Div([
+                        html.Span(home_short, style={"fontSize": "15px", "fontWeight": "bold",
+                                                      "color": C["green"] if not away_win else C["muted"]}),
+                        html.Span(f"  {home_r}", style={"fontSize": "18px", "fontWeight": "bold",
+                                                          "color": C["green"] if not away_win else C["muted"]}),
+                    ], style={"display": "flex", "alignItems": "center", "gap": "4px"}),
+                ], style={"marginTop": "6px"})
+                pitchers_block = html.Div()
+
+            elif abstract == "Live":
+                linescore    = g.get("linescore", {})
+                inning       = linescore.get("currentInning", "")
+                inning_h     = linescore.get("inningHalf", "Top")
+                arrow        = "▲" if inning_h == "Top" else "▼"
+                away_r       = g["teams"]["away"].get("score", 0)
+                home_r       = g["teams"]["home"].get("score", 0)
+                status_dot   = html.Span([
+                    html.Span("🔴", style={"fontSize": "10px"}),
+                    html.Span(f" {arrow}{inning}", style={"fontSize": "10px", "color": C["red"],
+                                                           "fontWeight": "bold", "letterSpacing": "1px"}),
+                ], style={"display": "inline-flex", "alignItems": "center", "gap": "3px"})
+                border_color = C["red"]
+                score_block = html.Div([
+                    html.Div([
+                        html.Span(away_short, style={"fontSize": "15px", "fontWeight": "bold", "color": C["text"]}),
+                        html.Span(f"  {away_r}", style={"fontSize": "20px", "fontWeight": "bold", "color": C["yellow"]}),
+                    ], style={"display": "flex", "alignItems": "center", "gap": "4px"}),
+                    html.Div([
+                        html.Span(home_short, style={"fontSize": "15px", "fontWeight": "bold", "color": C["text"]}),
+                        html.Span(f"  {home_r}", style={"fontSize": "20px", "fontWeight": "bold", "color": C["yellow"]}),
+                    ], style={"display": "flex", "alignItems": "center", "gap": "4px"}),
+                ], style={"marginTop": "6px"})
+                pitchers_block = html.Div()
+
+            else:
+                status_dot   = html.Span(time_str, style={"fontSize": "10px", "color": C["blue"],
+                                                            "letterSpacing": "1px", "fontWeight": "bold"})
+                border_color = C["border"]
+                score_block  = html.Div([
+                    html.Div(away_short, style={"fontSize": "15px", "fontWeight": "bold", "color": C["muted"]}),
+                    html.Div(home_short, style={"fontSize": "15px", "fontWeight": "bold", "color": C["muted"]}),
+                ], style={"marginTop": "6px"})
+                pitchers_block = html.Div([
+                    html.Div(away_p, style={"fontSize": "10px", "color": C["muted"], "marginTop": "4px"}),
+                    html.Div(home_p, style={"fontSize": "10px", "color": C["muted"]}),
+                ])
+
+            card = html.Div([
+                status_dot,
+                score_block,
+                pitchers_block,
+            ], style={
+                "backgroundColor": C["card"],
+                "border": f"1px solid {border_color}",
+                "borderTop": f"3px solid {border_color}",
+                "borderRadius": "6px",
+                "padding": "10px 14px",
+                "minWidth": "110px",
+                "maxWidth": "140px",
+                "flexShrink": "0",
+            })
+            cards.append(card)
+
+    if not cards:
+        return html.Span("No games today.", style={"color": C["muted"], "fontSize": "13px"})
+
+    return html.Div(cards, style={
+        "display": "flex", "gap": "10px", "overflowX": "auto",
+        "paddingBottom": "4px", "flexWrap": "nowrap",
+    })
 
 @app.callback(Output("tab-content", "children"), Input("tabs", "value"))
 def render_tab(tab):
@@ -199,6 +330,7 @@ def render_tab(tab):
         "hrleaders":   hrleaders_layout,
         "hitsleaders": hitsleaders_layout,
         "toppicks":    toppicks_layout,
+        "weather":     weather_layout,
     }
     return tabs.get(tab, standings_layout)()
 
@@ -1259,12 +1391,282 @@ def load_toppicks(_):
 # ─────────────────────────────────────────────
 # Run
 # ─────────────────────────────────────────────
+
+# ─────────────────────────────────────────────
+# WEATHER
+# ─────────────────────────────────────────────
+
+# Stadium coordinates + orientation info
+# orient_deg = degrees the field faces (home plate direction)
+# outfield_deg = direction toward center field from home plate
+STADIUMS = {
+    "Arizona Diamondbacks":    {"lat": 33.4453, "lon": -112.0667, "dome": True,  "name": "Chase Field"},
+    "Atlanta Braves":          {"lat": 33.8907, "lon": -84.4677,  "dome": False, "name": "Truist Park",        "out_deg": 30},
+    "Baltimore Orioles":       {"lat": 39.2838, "lon": -76.6218,  "dome": False, "name": "Camden Yards",       "out_deg": 60},
+    "Boston Red Sox":          {"lat": 42.3467, "lon": -71.0972,  "dome": False, "name": "Fenway Park",        "out_deg": 60},
+    "Chicago Cubs":            {"lat": 41.9484, "lon": -87.6553,  "dome": False, "name": "Wrigley Field",      "out_deg": 90},
+    "Chicago White Sox":       {"lat": 41.8299, "lon": -87.6338,  "dome": False, "name": "Guaranteed Rate",    "out_deg": 315},
+    "Cincinnati Reds":         {"lat": 39.0979, "lon": -84.5069,  "dome": False, "name": "GABP",               "out_deg": 30},
+    "Cleveland Guardians":     {"lat": 41.4962, "lon": -81.6852,  "dome": False, "name": "Progressive Field",  "out_deg": 330},
+    "Colorado Rockies":        {"lat": 39.7559, "lon": -104.9942, "dome": False, "name": "Coors Field",        "out_deg": 345},
+    "Detroit Tigers":          {"lat": 42.3390, "lon": -83.0485,  "dome": False, "name": "Comerica Park",      "out_deg": 330},
+    "Houston Astros":          {"lat": 29.7573, "lon": -95.3555,  "dome": True,  "name": "Minute Maid Park"},
+    "Kansas City Royals":      {"lat": 39.0517, "lon": -94.4803,  "dome": False, "name": "Kauffman Stadium",   "out_deg": 0},
+    "Los Angeles Angels":      {"lat": 33.8003, "lon": -117.8827, "dome": False, "name": "Angel Stadium",      "out_deg": 315},
+    "Los Angeles Dodgers":     {"lat": 34.0739, "lon": -118.2400, "dome": False, "name": "Dodger Stadium",     "out_deg": 315},
+    "Miami Marlins":           {"lat": 25.7781, "lon": -80.2197,  "dome": True,  "name": "loanDepot Park"},
+    "Milwaukee Brewers":       {"lat": 43.0280, "lon": -87.9712,  "dome": True,  "name": "American Family Field"},
+    "Minnesota Twins":         {"lat": 44.9817, "lon": -93.2781,  "dome": False, "name": "Target Field",       "out_deg": 0},
+    "New York Mets":           {"lat": 40.7571, "lon": -73.8458,  "dome": False, "name": "Citi Field",         "out_deg": 330},
+    "New York Yankees":        {"lat": 40.8296, "lon": -73.9262,  "dome": False, "name": "Yankee Stadium",     "out_deg": 30},
+    "Athletics":               {"lat": 38.5802, "lon": -121.4997, "dome": False, "name": "Sutter Health Park", "out_deg": 0},
+    "Philadelphia Phillies":   {"lat": 39.9057, "lon": -75.1665,  "dome": False, "name": "Citizens Bank Park", "out_deg": 330},
+    "Pittsburgh Pirates":      {"lat": 40.4469, "lon": -80.0057,  "dome": False, "name": "PNC Park",           "out_deg": 330},
+    "San Diego Padres":        {"lat": 32.7073, "lon": -117.1566, "dome": False, "name": "Petco Park",         "out_deg": 315},
+    "San Francisco Giants":    {"lat": 37.7786, "lon": -122.3893, "dome": False, "name": "Oracle Park",        "out_deg": 30},
+    "Seattle Mariners":        {"lat": 47.5914, "lon": -122.3325, "dome": True,  "name": "T-Mobile Park"},
+    "St. Louis Cardinals":     {"lat": 38.6226, "lon": -90.1928,  "dome": False, "name": "Busch Stadium",      "out_deg": 0},
+    "Tampa Bay Rays":          {"lat": 27.7683, "lon": -82.6534,  "dome": True,  "name": "Tropicana Field"},
+    "Texas Rangers":           {"lat": 32.7473, "lon": -97.0842,  "dome": True,  "name": "Globe Life Field"},
+    "Toronto Blue Jays":       {"lat": 43.6414, "lon": -79.3894,  "dome": True,  "name": "Rogers Centre"},
+    "Washington Nationals":    {"lat": 38.8730, "lon": -77.0074,  "dome": False, "name": "Nationals Park",     "out_deg": 0},
+}
+
+
+def get_wind_impact(wind_deg, wind_speed, out_deg):
+    """
+    Calculate wind impact relative to outfield direction.
+    Returns (label, score) where score > 0 = hitter friendly, < 0 = pitcher friendly
+    """
+    import math
+    # Angle between wind direction and outfield direction
+    diff = (wind_deg - out_deg + 360) % 360
+    # cos(0) = 1 (blowing straight out), cos(180) = -1 (blowing straight in)
+    component = math.cos(math.radians(diff))
+    score = round(component * wind_speed, 1)
+
+    if score >= 8:    return "💨 Strong Out", score, "#f85149"   # red - big HR boost
+    elif score >= 4:  return "🌬️ Out",        score, "#e3b341"   # yellow
+    elif score >= -3: return "➡️ Crosswind",  score, "#8b949e"   # neutral
+    elif score >= -8: return "🌬️ In",         score, "#58a6ff"   # blue - pitcher friendly
+    else:             return "💨 Strong In",  score, "#58a6ff"   # blue - suppresses HRs
+
+
+def fetch_weather_for_games(matchups_df):
+    """Fetch weather from Open-Meteo for each today's game."""
+    import math
+    rows = []
+    seen_games = set()
+
+    for _, m in matchups_df.iterrows():
+        game_key = (m["away_team"], m["home_team"])
+        if game_key in seen_games:
+            continue
+        seen_games.add(game_key)
+
+        home_team = m["home_team"]
+        stadium   = STADIUMS.get(home_team, {})
+
+        if not stadium:
+            continue
+
+        dome = stadium.get("dome", False)
+
+        if dome:
+            rows.append({
+                "Matchup":     f"{m['away_team']} @ {m['home_team']}",
+                "Stadium":     stadium.get("name", home_team),
+                "Dome":        "✅ Dome",
+                "Temp (°F)":   "—",
+                "Wind Speed":  "—",
+                "Wind Dir":    "—",
+                "Impact":      "🏟️ Indoor",
+                "HR Effect":   "Neutral",
+                "Rain %":      "—",
+                "_score":      0,
+                "_color":      "#8b949e",
+            })
+            continue
+
+        lat = stadium["lat"]
+        lon = stadium["lon"]
+        out_deg = stadium.get("out_deg", 0)
+
+        try:
+            url = (f"https://api.open-meteo.com/v1/forecast"
+                   f"?latitude={lat}&longitude={lon}"
+                   f"&hourly=temperature_2m,windspeed_10m,winddirection_10m,precipitation_probability"
+                   f"&wind_speed_unit=mph&temperature_unit=fahrenheit"
+                   f"&timezone=auto&forecast_days=1")
+            data = requests.get(url, timeout=10).json()
+            hourly = data.get("hourly", {})
+
+            # Get game time hour — use 7pm local as default
+            times = hourly.get("time", [])
+            game_hour_idx = 19  # 7pm
+            if len(times) > 19:
+                temps  = hourly.get("temperature_2m", [])
+                speeds = hourly.get("windspeed_10m", [])
+                dirs   = hourly.get("winddirection_10m", [])
+                precip = hourly.get("precipitation_probability", [])
+
+                temp      = round(temps[game_hour_idx], 1)  if temps  else "—"
+                wind_spd  = round(speeds[game_hour_idx], 1) if speeds else 0
+                wind_dir  = dirs[game_hour_idx]             if dirs   else 0
+                rain_pct  = precip[game_hour_idx]           if precip else 0
+
+                # Cardinal direction label
+                dirs_label = ["N","NE","E","SE","S","SW","W","NW","N"]
+                cardinal   = dirs_label[round(wind_dir / 45) % 8]
+
+                impact_label, impact_score, impact_color = get_wind_impact(wind_dir, wind_spd, out_deg)
+
+                # Temperature effect
+                if temp != "—":
+                    if temp >= 85:   temp_note = "🌡️ Hot (+HR)"
+                    elif temp >= 70: temp_note = "☀️ Warm"
+                    elif temp <= 50: temp_note = "🥶 Cold (-HR)"
+                    else:            temp_note = "🌤️ Mild"
+                else:
+                    temp_note = "—"
+
+                rows.append({
+                    "Matchup":    f"{m['away_team']} @ {m['home_team']}",
+                    "Stadium":    stadium.get("name", home_team),
+                    "Dome":       "❌ Outdoor",
+                    "Temp (°F)":  f"{temp}°  {temp_note}",
+                    "Wind Speed": f"{wind_spd} mph",
+                    "Wind Dir":   f"{cardinal} ({int(wind_dir)}°)",
+                    "Impact":     impact_label,
+                    "HR Effect":  "🔺 Boost" if impact_score >= 4 else ("🔻 Suppress" if impact_score <= -4 else "➡️ Neutral"),
+                    "Rain %":     f"{rain_pct}%",
+                    "_score":     impact_score,
+                    "_color":     impact_color,
+                })
+        except Exception as e:
+            rows.append({
+                "Matchup":   f"{m['away_team']} @ {m['home_team']}",
+                "Stadium":   stadium.get("name", home_team),
+                "Dome":      "❌ Outdoor",
+                "Temp (°F)": "Error",
+                "Wind Speed":"—","Wind Dir":"—","Impact":"—",
+                "HR Effect": "—","Rain %":"—","_score":0,"_color":"#8b949e",
+            })
+
+    # Sort — outdoor first, then by wind impact score descending
+    rows.sort(key=lambda x: (x["Dome"] == "✅ Dome", -x["_score"]))
+    return rows
+
+
+def weather_layout():
+    matchups = read("matchups")
+    return html.Div([
+        section([
+            html.Div("Live weather pulled from Open-Meteo — game time forecast (7pm local).",
+                     style={"color": C["muted"], "fontSize": "12px", "marginBottom": "10px"}),
+            html.Button("Load Weather", id="wx-btn", style={
+                "padding": "8px 20px", "backgroundColor": C["blue"], "color": C["bg"],
+                "border": "none", "borderRadius": "6px", "cursor": "pointer",
+                "fontFamily": "IBM Plex Mono", "fontWeight": "bold",
+            }),
+        ]),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="wx-results")),
+    ])
+
+
+@app.callback(
+    Output("wx-results", "children"),
+    Input("wx-btn", "n_clicks"),
+    prevent_initial_call=True,
+)
+def load_weather(_):
+    matchups = read("matchups")
+    if matchups.empty:
+        return no_data()
+
+    rows = fetch_weather_for_games(matchups)
+    if not rows:
+        return no_data("No games found.")
+
+    # Build cards
+    cards = []
+    for r in rows:
+        is_dome  = r["Dome"] == "✅ Dome"
+        color    = r["_color"] if not is_dome else C["muted"]
+        score    = r["_score"]
+
+        cards.append(html.Div([
+            html.Div([
+                html.Div([
+                    html.Span(r["Matchup"], style={"fontWeight": "bold", "fontSize": "14px"}),
+                    html.Span(f"  {r['Stadium']}", style={"color": C["muted"], "fontSize": "12px"}),
+                ]),
+                html.Span(r["Dome"], style={"fontSize": "11px", "color": C["muted"]}),
+            ], style={"display": "flex", "justifyContent": "space-between", "marginBottom": "10px"}),
+
+            html.Div([
+                # Temp
+                html.Div([
+                    html.Div("TEMP", style={"fontSize": "10px", "color": C["muted"], "letterSpacing": "1px"}),
+                    html.Div(r["Temp (°F)"], style={"fontSize": "13px", "marginTop": "2px"}),
+                ], style={"flex": "1"}),
+                # Wind
+                html.Div([
+                    html.Div("WIND", style={"fontSize": "10px", "color": C["muted"], "letterSpacing": "1px"}),
+                    html.Div(f"{r['Wind Speed']} {r['Wind Dir']}", style={"fontSize": "13px", "marginTop": "2px"}),
+                ], style={"flex": "1"}),
+                # Impact
+                html.Div([
+                    html.Div("IMPACT", style={"fontSize": "10px", "color": C["muted"], "letterSpacing": "1px"}),
+                    html.Div(r["Impact"], style={"fontSize": "13px", "marginTop": "2px", "color": color, "fontWeight": "bold"}),
+                ], style={"flex": "1"}),
+                # HR Effect
+                html.Div([
+                    html.Div("HR EFFECT", style={"fontSize": "10px", "color": C["muted"], "letterSpacing": "1px"}),
+                    html.Div(r["HR Effect"], style={"fontSize": "13px", "marginTop": "2px", "color": color}),
+                ], style={"flex": "1"}),
+                # Rain
+                html.Div([
+                    html.Div("RAIN", style={"fontSize": "10px", "color": C["muted"], "letterSpacing": "1px"}),
+                    html.Div(r["Rain %"], style={
+                        "fontSize": "13px", "marginTop": "2px",
+                        "color": C["red"] if r["Rain %"] not in ("—","0%") and int(str(r["Rain %"]).replace("%","") or 0) >= 40 else C["text"]
+                    }),
+                ], style={"flex": "1"}),
+            ], style={"display": "flex", "gap": "16px", "flexWrap": "wrap"}),
+
+        ], style={
+            **CARD,
+            "borderLeft": f"4px solid {color}",
+            "marginBottom": "10px",
+            "opacity": "0.6" if is_dome else "1",
+        }))
+
+    # Summary callout
+    hot_games  = [r["Matchup"].split(" @ ")[1] for r in rows if r["_score"] >= 6]
+    cold_games = [r["Matchup"].split(" @ ")[1] for r in rows if r["_score"] <= -6]
+
+    callouts = []
+    if hot_games:
+        callouts.append(html.Div(f"💨 Wind blowing OUT strong: {', '.join(hot_games[:3])} — HR props boosted",
+                                  style={"color": C["red"], "fontSize": "12px", "marginBottom": "6px",
+                                         "fontWeight": "bold"}))
+    if cold_games:
+        callouts.append(html.Div(f"💨 Wind blowing IN strong: {', '.join(cold_games[:3])} — pitcher friendly",
+                                  style={"color": C["blue"], "fontSize": "12px", "marginBottom": "6px",
+                                         "fontWeight": "bold"}))
+
+    return html.Div([
+        html.Div(callouts, style={"marginBottom": "16px"}) if callouts else html.Div(),
+        *cards,
+    ])
+
 if __name__ == "__main__":
     if not os.path.exists(DATA_DIR):
         print("⚠️  No data folder found — run refresh_data.py first!")
     else:
         files = os.listdir(DATA_DIR)
         print(f"⚾  MLB Dashboard — {len(files)} data files loaded")
-    print("   -> Open http://127.0.0.1:8057\n")
-    port = int(os.environ.get("PORT", 8057))
+    print("   -> Open http://127.0.0.1:8050\n")
+    port = int(os.environ.get("PORT", 8050))
     app.run(host="0.0.0.0", port=port, debug=False)
