@@ -2,7 +2,7 @@ name: Daily MLB Data Refresh
 
 on:
   schedule:
-    - cron: '0 13 * * *'  # 9am ET (13:00 UTC) every day
+    - cron: '0 12 * * *'  # 9am ET (13:00 UTC) every day
   workflow_dispatch:        # allows manual trigger from GitHub UI
 
 permissions:
