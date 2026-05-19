@@ -176,7 +176,6 @@ app.layout = html.Div(style={
         dcc.Tab(label="📊 Standings",        value="standings",   style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🎯 Scores",           value="scores",      style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🔥 Hit Streaks",      value="streaks",     style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="⚾ Pitcher Targets",  value="pitchers",    style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🎲 K Matchups",       value="kmatch",      style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="⚔️ Batter vs Pitcher", value="bvp",        style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🌡️ Hot/Cold Report",   value="hotcold",    style=TAB_STYLE, selected_style=TAB_SEL),
@@ -323,7 +322,6 @@ def render_tab(tab):
         "standings":   standings_layout,
         "scores":      scores_layout,
         "streaks":     streaks_layout,
-        "pitchers":    pitchers_layout,
         "kmatch":      kmatch_layout,
         "bvp":         bvp_layout,
         "hotcold":     hotcold_layout,
@@ -390,94 +388,146 @@ def update_scores(days):
 # HIT STREAKS
 # ─────────────────────────────────────────────
 def streaks_layout():
-    df = read("hit_streaks")
+    df        = read("hit_streaks")
+    matchups  = read("matchups")
+    leaky     = read("leaky_pitchers")
+    pit_stats = read("pitcher_stats")
+
     if df.empty:
         return no_data()
-    df = df.sort_values("Streak", ascending=False).reset_index(drop=True)
-    df.insert(0, "Rank", range(1, len(df)+1))
 
-    def flame(s):
-        if s >= 15: return "🔥🔥"
-        elif s >= 10: return "⚡"
-        return ""
-    df["Hot"] = df["Streak"].apply(flame)
+    df = df.sort_values("Streak", ascending=False).reset_index(drop=True)
+
+    # Build pitcher map: batting_team -> {pitcher, h_allowed, hr_allowed, era}
+    pit_map = {}
+    if not matchups.empty:
+        # Build stats lookup from pitcher_stats CSV
+        ps_map = {}
+        if not pit_stats.empty:
+            for _, r in pit_stats.iterrows():
+                ps_map[int(r["pitcher_id"])] = r.to_dict()
+
+        # Also build from leaky_pitchers by name
+        leaky_map = {}
+        if not leaky.empty:
+            for _, r in leaky.iterrows():
+                leaky_map[r["Player"]] = r.to_dict()
+
+        for _, m in matchups.iterrows():
+            for side, opp in [("away","home"),("home","away")]:
+                pid      = m.get(f"{side}_pitcher_id")
+                pit_name = m.get(f"{side}_pitcher","TBD")
+                bat_team = m.get(f"{opp}_team","")
+
+                h_allowed  = "-"
+                hr_allowed = "-"
+                era        = "-"
+
+                # Try pitcher_stats first
+                if pid and str(pid) != "nan":
+                    ps = ps_map.get(int(float(pid)), {})
+                    if ps:
+                        h_allowed  = int(ps.get("H_allowed", 0) or 0)
+                        hr_allowed = int(ps.get("HR_allowed", 0) or 0)
+                        era        = ps.get("ERA", "-")
+
+                # Fall back to leaky_pitchers by name
+                if h_allowed == "-" and pit_name in leaky_map:
+                    lp = leaky_map[pit_name]
+                    h_allowed  = int(lp.get("H_allowed", 0) or 0)
+                    hr_allowed = int(lp.get("HR_allowed", 0) or 0)
+                    era        = lp.get("ERA", "-")
+
+                pit_map[bat_team] = {
+                    "pitcher":    pit_name,
+                    "h_allowed":  h_allowed,
+                    "hr_allowed": hr_allowed,
+                    "era":        era,
+                }
+
+    # Build records
+    records = []
+    for i, r in df.iterrows():
+        streak = int(r["Streak"])
+        team   = r["Team"]
+        info   = pit_map.get(team, {})
+        playing = bool(info)
+
+        if streak >= 15:   hot = "🔥🔥"
+        elif streak >= 10: hot = "⚡"
+        elif streak >= 5:  hot = "🔥"
+        else:              hot = ""
+
+        h_all  = info.get("h_allowed",  "-") if playing else "—"
+        hr_all = info.get("hr_allowed", "-") if playing else "—"
+        era    = info.get("era",        "-") if playing else "—"
+
+        try:    h_all_n  = int(h_all)
+        except: h_all_n  = 0
+        try:    hr_all_n = int(hr_all)
+        except: hr_all_n = 0
+
+        records.append({
+            "Rank":        i + 1,
+            "Player":      r["Player"],
+            "Team":        team,
+            "Streak":      streak,
+            "Hot":         hot,
+            "AVG":         r["AVG"],
+            "Today":       "✅" if playing else "—",
+            "Opp Pitcher": info.get("pitcher", "—") if playing else "—",
+            "H Allowed":   h_all,
+            "HR Allowed":  hr_all,
+            "ERA":         era,
+            "_streak":     streak,
+            "_h_all":      h_all_n,
+            "_hr_all":     hr_all_n,
+        })
+
+    leader = records[0] if records else {}
+    playing_today = [r for r in records if r["Today"] == "✅"]
 
     return html.Div([
+        html.Div([
+            html.Span("🔥 Hit Streak Leader: ", style={"color": C["muted"], "fontSize": "12px"}),
+            html.Span(f"{leader.get('Player','')} ({leader.get('Team','')}) — {leader.get('Streak','')} games",
+                      style={"color": C["yellow"], "fontWeight": "bold", "fontSize": "12px"}),
+            html.Span(f"  |  {len(playing_today)} playing today",
+                      style={"color": C["muted"], "fontSize": "12px"}),
+        ], style={"marginBottom": "12px"}),
         section(dash_table.DataTable(
-            data=df.to_dict("records"),
-            columns=[{"name": c, "id": c} for c in ["Rank","Player","Team","Streak","Hot","AVG"]],
+            data=records,
+            columns=[{"name": c, "id": c} for c in
+                     ["Rank","Player","Team","Streak","Hot","AVG",
+                      "Today","Opp Pitcher","H Allowed","HR Allowed","ERA"]],
             sort_action="native", sort_mode="single",
             style_table={"overflowX": "auto"}, style_cell=DT_CELL,
             style_header=DT_HEADER, page_action="none",
             style_data_conditional=DT_COND + [
-                {"if": {"column_id": "Streak", "filter_query": "{Streak} >= 15"}, "color": C["red"],    "fontWeight": "bold"},
-                {"if": {"column_id": "Streak", "filter_query": "{Streak} >= 10"}, "color": C["yellow"], "fontWeight": "bold"},
-                {"if": {"column_id": "Streak", "filter_query": "{Streak} >= 5"},  "color": C["green"]},
+                # Streak colors
+                {"if": {"column_id": "Streak", "filter_query": "{_streak} >= 15"}, "color": C["red"],    "fontWeight": "bold"},
+                {"if": {"column_id": "Streak", "filter_query": "{_streak} >= 10"}, "color": C["yellow"], "fontWeight": "bold"},
+                {"if": {"column_id": "Streak", "filter_query": "{_streak} >= 5"},  "color": C["green"]},
+                # H Allowed — higher = juicier matchup
+                {"if": {"column_id": "H Allowed",  "filter_query": "{_h_all} >= 60"}, "color": C["red"],    "fontWeight": "bold"},
+                {"if": {"column_id": "H Allowed",  "filter_query": "{_h_all} >= 45"}, "color": C["yellow"]},
+                # HR Allowed
+                {"if": {"column_id": "HR Allowed", "filter_query": "{_hr_all} >= 15"}, "color": C["red"],    "fontWeight": "bold"},
+                {"if": {"column_id": "HR Allowed", "filter_query": "{_hr_all} >= 10"}, "color": C["yellow"]},
+                # Playing today highlight
+                {"if": {"filter_query": '{Today} = "✅"'}, "backgroundColor": "#1a2a1a"},
+                # Top 3
+                {"if": {"row_index": 0}, "backgroundColor": "#1f1a00"},
+                {"if": {"row_index": 1}, "backgroundColor": "#1a1a1a"},
+                {"if": {"row_index": 2}, "backgroundColor": "#1a1500"},
             ],
-        ))
+            hidden_columns=["_streak","_h_all","_hr_all"],
+        )),
     ])
 
 # ─────────────────────────────────────────────
 # PITCHER TARGETS
 # ─────────────────────────────────────────────
-def pitchers_layout():
-    df       = read("leaky_pitchers")
-    matchups = read("matchups")
-    if df.empty:
-        return no_data()
-
-    # Today's starters
-    today_rows = []
-    if not matchups.empty:
-        for _, m in matchups.iterrows():
-            for side, opp in [("away","home"),("home","away")]:
-                pit_name = m.get(f"{side}_pitcher","TBD")
-                pit_team = m.get(f"{side}_team","")
-                opp_team = m.get(f"{opp}_team","")
-                match    = df[df["Player"] == pit_name]
-                today_rows.append({
-                    "Pitcher":    pit_name,
-                    "Team":       pit_team,
-                    "Opponent":   opp_team,
-                    "H_allowed":  int(match["H_allowed"].values[0]) if not match.empty else "-",
-                    "HR_allowed": int(match["HR_allowed"].values[0]) if not match.empty else "-",
-                    "ERA":        match["ERA"].values[0] if not match.empty else "-",
-                    "WHIP":       match["WHIP"].values[0] if not match.empty else "-",
-                })
-
-    sections = []
-    if today_rows:
-        tdf = pd.DataFrame(today_rows)
-        sections.append(html.Div([
-            html.Div("🎯 Today's Probable Starters",
-                     style={"fontSize":"13px","fontWeight":"bold","color":C["yellow"],
-                            "borderLeft":f"3px solid {C['yellow']}","paddingLeft":"10px","marginBottom":"10px"}),
-            section(dash_table.DataTable(
-                data=tdf.to_dict("records"),
-                columns=[{"name":c,"id":c} for c in ["Pitcher","Team","Opponent","H_allowed","HR_allowed","ERA","WHIP"]],
-                sort_action="native", sort_mode="single",
-                style_table={"overflowX":"auto"}, style_cell=DT_CELL,
-                style_header=DT_HEADER, page_action="none",
-                style_data_conditional=DT_COND,
-            )),
-        ]))
-
-    sections.append(html.Div([
-        html.Div("📋 Most Hits Allowed — Season Leaderboard",
-                 style={"fontSize":"13px","fontWeight":"bold","color":C["blue"],
-                        "borderLeft":f"3px solid {C['blue']}","paddingLeft":"10px","marginBottom":"10px"}),
-        section(dash_table.DataTable(
-            data=df.head(30).to_dict("records"),
-            columns=[{"name":c,"id":c} for c in ["Player","Team","H_allowed","HR_allowed","ERA","WHIP","IP"]],
-            sort_action="native", sort_mode="single",
-            style_table={"overflowX":"auto"}, style_cell=DT_CELL,
-            style_header=DT_HEADER, page_action="none",
-            style_data_conditional=DT_COND,
-        )),
-    ]))
-
-    return html.Div(sections)
-
 # ─────────────────────────────────────────────
 # K MATCHUPS
 # ─────────────────────────────────────────────
@@ -532,7 +582,7 @@ def kmatch_layout():
     rows.sort(key=lambda x: x["_score"], reverse=True)
     df = pd.DataFrame(rows)
 
-    return section(dash_table.DataTable(
+    k_table = section(dash_table.DataTable(
         data=df.to_dict("records"),
         columns=[{"name":c,"id":c} for c in
                  ["Pitcher","Team","Opponent","K9","Season Ks","ERA",
@@ -550,6 +600,32 @@ def kmatch_layout():
         ],
         hidden_columns=["_score"],
     ))
+
+    # Most Hits Allowed leaderboard
+    leaky = read("leaky_pitchers")
+    leaky_section = html.Div()
+    if not leaky.empty:
+        leaky_section = html.Div([
+            html.Div("📋 Most Hits Allowed — Season Leaderboard",
+                     style={"fontSize":"13px","fontWeight":"bold","color":C["blue"],
+                            "borderLeft":f"3px solid {C['blue']}","paddingLeft":"10px",
+                            "marginBottom":"10px","marginTop":"8px"}),
+            section(dash_table.DataTable(
+                data=leaky.head(30).to_dict("records"),
+                columns=[{"name":c,"id":c} for c in ["Player","Team","H_allowed","HR_allowed","ERA","WHIP","IP"]],
+                sort_action="native", sort_mode="single",
+                style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+                style_header=DT_HEADER, page_action="none",
+                style_data_conditional=DT_COND + [
+                    {"if":{"column_id":"H_allowed","filter_query":"{H_allowed} >= 60"},"color":C["red"],"fontWeight":"bold"},
+                    {"if":{"column_id":"H_allowed","filter_query":"{H_allowed} >= 45"},"color":C["yellow"]},
+                    {"if":{"column_id":"HR_allowed","filter_query":"{HR_allowed} >= 15"},"color":C["red"],"fontWeight":"bold"},
+                    {"if":{"column_id":"HR_allowed","filter_query":"{HR_allowed} >= 10"},"color":C["yellow"]},
+                ],
+            )),
+        ])
+
+    return html.Div([k_table, leaky_section])
 
 # ─────────────────────────────────────────────
 # BATTER VS PITCHER
@@ -1137,19 +1213,11 @@ def pick_card(rank, prop_type, player, team, pitcher, opp_team, reasons, score, 
 
 def toppicks_layout():
     return html.Div([
-        section([
-            html.Div("Generates best hit, HR, and K prop picks from today's data.",
-                     style={"color":C["muted"],"fontSize":"12px","marginBottom":"12px"}),
-            html.Button("Generate Top Picks", id="tp-btn", style={
-                "padding":"10px 28px","backgroundColor":C["yellow"],"color":C["bg"],
-                "border":"none","borderRadius":"6px","cursor":"pointer",
-                "fontFamily":"IBM Plex Mono","fontWeight":"bold","fontSize":"14px",
-            }),
-        ]),
+        dcc.Interval(id="tp-trigger", interval=300, max_intervals=1),
         dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="tp-results")),
     ])
 
-@app.callback(Output("tp-results","children"), Input("tp-btn","n_clicks"), prevent_initial_call=True)
+@app.callback(Output("tp-results","children"), Input("tp-trigger","n_intervals"))
 def load_toppicks(_):
     matchups  = read("matchups")
     hc        = read("hot_cold")
@@ -1559,27 +1627,19 @@ def fetch_weather_for_games(matchups_df):
 
 
 def weather_layout():
-    matchups = read("matchups")
     return html.Div([
-        section([
-            html.Div("Live weather pulled from Open-Meteo — game time forecast (7pm local).",
-                     style={"color": C["muted"], "fontSize": "12px", "marginBottom": "10px"}),
-            html.Button("Load Weather", id="wx-btn", style={
-                "padding": "8px 20px", "backgroundColor": C["blue"], "color": C["bg"],
-                "border": "none", "borderRadius": "6px", "cursor": "pointer",
-                "fontFamily": "IBM Plex Mono", "fontWeight": "bold",
-            }),
-        ]),
+        dcc.Interval(id="wx-trigger", interval=300, max_intervals=1),
+        dcc.Interval(id="wx-refresh", interval=600000),  # refresh every 10 minutes
         dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="wx-results")),
     ])
 
 
 @app.callback(
     Output("wx-results", "children"),
-    Input("wx-btn", "n_clicks"),
-    prevent_initial_call=True,
+    Input("wx-trigger", "n_intervals"),
+    Input("wx-refresh", "n_intervals"),
 )
-def load_weather(_):
+def load_weather(_, __):
     matchups = read("matchups")
     if matchups.empty:
         return no_data()
@@ -1667,6 +1727,6 @@ if __name__ == "__main__":
     else:
         files = os.listdir(DATA_DIR)
         print(f"⚾  MLB Dashboard — {len(files)} data files loaded")
-    print("   -> Open http://127.0.0.1:8050\n")
-    port = int(os.environ.get("PORT", 8050))
+    print("   -> Open http://127.0.0.1:8055\n")
+    port = int(os.environ.get("PORT", 8055))
     app.run(host="0.0.0.0", port=port, debug=False)
