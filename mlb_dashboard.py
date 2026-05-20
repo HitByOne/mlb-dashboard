@@ -53,17 +53,23 @@ def data_date():
     meta = read_json("metadata")
     return meta.get("refreshed_at", "—")
 
+def today_ct():
+    """Return today's date in Central Time (CT) as YYYY-MM-DD string."""
+    from datetime import timezone, timedelta
+    return (datetime.now(timezone.utc) + timedelta(hours=-5)).strftime("%Y-%m-%d")
+
+def today_ct_compact():
+    """Return today's date in Central Time as YYYYMMDD string."""
+    from datetime import timezone, timedelta
+    return (datetime.now(timezone.utc) + timedelta(hours=-5)).strftime("%Y%m%d")
+
 def read_matchups():
     """Read matchups CSV filtered to today's date only (CT timezone)."""
     df = read("matchups")
     if df.empty:
         return df
-    # Use Central Time so 9am UTC Action doesn't show tomorrow's games
-    from datetime import timezone, timedelta
-    ct_offset = timedelta(hours=-5)  # CDT = UTC-5
-    today = (datetime.now(timezone.utc) + ct_offset).strftime("%Y-%m-%d")
     if "game_date" in df.columns:
-        df = df[df["game_date"] == today]
+        df = df[df["game_date"] == today_ct()]
     return df
 
 # ─────────────────────────────────────────────
@@ -210,7 +216,7 @@ def update_date(_):
 
 @app.callback(Output("game-ticker", "children"), Input("ticker-interval", "n_intervals"))
 def update_ticker(n):
-    today_str = datetime.now().strftime("%Y-%m-%d")
+    today_str = today_ct()
     try:
         data = requests.get(
             f"https://statsapi.mlb.com/api/v1/schedule"
@@ -556,7 +562,7 @@ def get_vegas_k_lines():
     Fetch pitcher K prop lines from Tank01 RapidAPI.
     Returns dict: {mlb_player_id: {'line': float, 'over': str, 'under': str}}
     """
-    today_str = datetime.now().strftime("%Y%m%d")
+    today_str = today_ct_compact()
     try:
         resp = requests.get(
             f"https://{RAPIDAPI_HOST}/getMLBBettingOdds",
