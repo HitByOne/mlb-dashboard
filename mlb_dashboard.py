@@ -419,6 +419,9 @@ def streaks_layout():
     if df.empty:
         return no_data()
 
+    # Fetch Vegas hit odds
+    vegas_hits = get_vegas_hit_lines()
+
     df = df.sort_values("Streak", ascending=False).reset_index(drop=True)
 
     # Build pitcher map: batting_team -> {pitcher, h_allowed, hr_allowed, era}
@@ -490,6 +493,12 @@ def streaks_layout():
         try:    hr_all_n = int(hr_all)
         except: hr_all_n = 0
 
+        # Vegas hit odds
+        pid_str    = str(int(float(r["player_id"]))) if "player_id" in r and pd.notna(r.get("player_id")) else ""
+        vhit       = vegas_hits.get(pid_str, {})
+        hit1_odds  = vhit.get("one", "—")
+        hit2_odds  = vhit.get("two", "—")
+
         records.append({
             "Rank":        i + 1,
             "Player":      r["Player"],
@@ -502,6 +511,8 @@ def streaks_layout():
             "H Allowed":   h_all,
             "HR Allowed":  hr_all,
             "ERA":         era,
+            "1+ Hit":      hit1_odds if playing else "—",
+            "2+ Hits":     hit2_odds if playing else "—",
             "_streak":     streak,
             "_h_all":      h_all_n,
             "_hr_all":     hr_all_n,
@@ -522,7 +533,8 @@ def streaks_layout():
             data=records,
             columns=[{"name": c, "id": c} for c in
                      ["Rank","Player","Team","Streak","Hot","AVG",
-                      "Today","Opp Pitcher","H Allowed","HR Allowed","ERA"]],
+                      "Today","Opp Pitcher","H Allowed","HR Allowed","ERA",
+                      "1+ Hit","2+ Hits"]],
             sort_action="native", sort_mode="single",
             style_table={"overflowX": "auto"}, style_cell=DT_CELL,
             style_header=DT_HEADER, page_action="none",
@@ -539,6 +551,8 @@ def streaks_layout():
                 {"if": {"column_id": "HR Allowed", "filter_query": "{_hr_all} >= 10"}, "color": C["yellow"]},
                 # Playing today highlight
                 {"if": {"filter_query": '{Today} = "✅"'}, "backgroundColor": "#1a2a1a"},
+                {"if": {"column_id": "1+ Hit",  "filter_query": '{1+ Hit} != "—"'}, "color": C["green"],  "fontWeight": "bold"},
+                {"if": {"column_id": "2+ Hits", "filter_query": '{2+ Hits} != "—"'}, "color": C["blue"], "fontWeight": "bold"},
                 # Top 3
                 {"if": {"row_index": 0}, "backgroundColor": "#1f1a00"},
                 {"if": {"row_index": 1}, "backgroundColor": "#1a1a1a"},
@@ -556,7 +570,7 @@ def streaks_layout():
 # ─────────────────────────────────────────────
 
 # ─────────────────────────────────────────────
-# Vegas K Lines — Tank01 RapidAPI
+# Vegas Lines — Tank01 RapidAPI
 # ─────────────────────────────────────────────
 RAPIDAPI_KEY  = "b35c885fafmsha6cc35f949fc4a5p119a14jsn24871cd4b86e"
 RAPIDAPI_HOST = "tank01-mlb-live-in-game-real-time-statistics.p.rapidapi.com"
@@ -595,6 +609,67 @@ def get_vegas_k_lines():
                 except Exception:
                     pass
     return result
+
+def get_vegas_hr_lines():
+    """
+    Fetch batter HR prop odds from Tank01 RapidAPI.
+    Returns dict: {mlb_player_id: odds_string}  e.g. {'621566': '+900'}
+    """
+    today_str = today_ct_compact()
+    try:
+        resp = requests.get(
+            f"https://{RAPIDAPI_HOST}/getMLBBettingOdds",
+            params={"gameDate": today_str, "playerProps": "true", "itemFormat": "list"},
+            headers={"x-rapidapi-key": RAPIDAPI_KEY, "x-rapidapi-host": RAPIDAPI_HOST},
+            timeout=10
+        )
+        data = resp.json()
+    except Exception as e:
+        print(f"Vegas HR lines error: {e}")
+        return {}
+
+    result = {}
+    for game in data.get("body", []):
+        for player in game.get("playerProps", []):
+            pid   = player.get("playerID", "")
+            props = player.get("propBets", {})
+            hr    = props.get("homeruns", {})
+            if pid and hr and "one" in hr:
+                result[str(pid)] = hr["one"]
+    return result
+
+
+def get_vegas_hit_lines():
+    """
+    Fetch batter hit prop odds from Tank01 RapidAPI.
+    Returns dict: {mlb_player_id: {'one': odds, 'two': odds}}
+    """
+    today_str = today_ct_compact()
+    try:
+        resp = requests.get(
+            f"https://{RAPIDAPI_HOST}/getMLBBettingOdds",
+            params={"gameDate": today_str, "playerProps": "true", "itemFormat": "list"},
+            headers={"x-rapidapi-key": RAPIDAPI_KEY, "x-rapidapi-host": RAPIDAPI_HOST},
+            timeout=10
+        )
+        data = resp.json()
+    except Exception as e:
+        print(f"Vegas hit lines error: {e}")
+        return {}
+
+    result = {}
+    for game in data.get("body", []):
+        for player in game.get("playerProps", []):
+            pid   = player.get("playerID", "")
+            props = player.get("propBets", {})
+            hits  = props.get("hits", {})
+            if pid and hits and ("one" in hits or "two" in hits):
+                result[str(pid)] = {
+                    "one": hits.get("one", "—"),
+                    "two": hits.get("two", "—"),
+                }
+    return result
+
 
 def kmatch_layout():
     matchups = read_matchups()
@@ -1013,11 +1088,14 @@ def load_hr_leaders(league_filter):
     hr  = read("hr_leaders")
     hc  = read("hot_cold")
     plt = read("platoon_splits")
-    matchups = read_matchups()
+    matchups  = read_matchups()
     pit_stats = read("pitcher_stats")
 
     if hr.empty:
         return no_data()
+
+    # Fetch Vegas HR odds
+    vegas_hr = get_vegas_hr_lines()
 
     if league_filter == "AL":
         hr = hr[hr["League"].str.contains("American", na=False)]
@@ -1079,6 +1157,10 @@ def load_hr_leaders(league_filter):
         try: plat_avg_f = float("0"+str(plat_avg)) if str(plat_avg).startswith(".") else float(plat_avg)
         except: plat_avg_f = 0.0
 
+        # Vegas HR odds
+        pid_str   = str(pid) if pid else ""
+        vegas_odds = vegas_hr.get(pid_str, "—")
+
         records.append({
             "Rank":        r["Rank"],
             "Player":      r["Player"],
@@ -1095,6 +1177,7 @@ def load_hr_leaders(league_filter):
             "Matchup":     matchup if playing else "—",
             "Plat AVG":    plat_avg if playing else "—",
             "Plat HR":     plat_hr if playing else 0,
+            "HR Odds":     vegas_odds if playing else "—",
             "_hr":         int(r["HR"]),
             "_l10":        l10_hr,
             "_l5":         l5_hr,
@@ -1118,7 +1201,7 @@ def load_hr_leaders(league_filter):
             data=records,
             columns=[{"name":c,"id":c} for c in
                      ["Rank","Player","Team","HR","L10 HR","L5 HR","Hot",
-                      "Today","Opp Pitcher","Hand","Pit HR","Park HR","Matchup","Plat AVG","Plat HR"]],
+                      "Today","Opp Pitcher","Hand","Pit HR","Park HR","Matchup","Plat AVG","Plat HR","HR Odds"]],
             sort_action="native", sort_mode="single",
             style_table={"overflowX":"auto"}, style_cell=DT_CELL,
             style_header=DT_HEADER, page_action="native", page_size=30,
@@ -1138,6 +1221,7 @@ def load_hr_leaders(league_filter):
                 {"if":{"column_id":"Hand","filter_query":'{Hand} = "R"'},"color":C["red"],"fontWeight":"bold"},
                 {"if":{"column_id":"Park HR","filter_query":"{_park_hr} >= 1.15"},"color":C["red"],"fontWeight":"bold"},
                 {"if":{"column_id":"Park HR","filter_query":"{_park_hr} >= 1.05"},"color":C["yellow"]},
+                {"if":{"column_id":"HR Odds","filter_query":'{HR Odds} != "—"'},"color":C["blue"],"fontWeight":"bold"},
             ],
             hidden_columns=["_hr","_l10","_l5","_plat_avg","_park_hr","_pit_hr"],
         )),
