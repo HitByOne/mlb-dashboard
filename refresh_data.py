@@ -21,8 +21,11 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 BASE      = "https://statsapi.mlb.com/api/v1"
 DATA_DIR  = "data"
-TODAY_STR = datetime.now().strftime("%Y-%m-%d")
-YEAR      = datetime.now().year
+# Use Central Time so data matches US baseball schedule
+from datetime import timezone, timedelta
+_CT_NOW   = datetime.now(timezone.utc) + timedelta(hours=-5)
+TODAY_STR = _CT_NOW.strftime("%Y-%m-%d")
+YEAR      = _CT_NOW.year
 
 os.makedirs(DATA_DIR, exist_ok=True)
 
