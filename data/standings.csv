@@ -1,14 +1,14 @@
 Team,W,L,PCT,GB,Streak
 Rays,32,15,0.681,-,W3
-Yankees,29,19,0.604,3.5,W1
-Blue Jays,21,26,0.447,11.0,L1
+Yankees,30,19,0.612,3.0,W2
+Blue Jays,21,27,0.438,11.5,L2
+Red Sox,21,27,0.438,11.5,W2
 Orioles,21,28,0.429,12.0,L2
-Red Sox,20,27,0.426,12.0,W1
 Guardians,28,22,0.56,-,W4
 White Sox,24,23,0.511,2.5,L1
 Twins,22,27,0.449,5.5,L1
-Royals,20,28,0.417,7.0,L1
 Tigers,20,29,0.408,7.5,L4
+Royals,20,29,0.408,7.5,L2
 Athletics,23,24,0.489,-,L3
 Mariners,23,26,0.469,1.0,W1
 Rangers,22,25,0.468,1.0,L1
@@ -19,11 +19,11 @@ Phillies,25,24,0.51,8.0,L1
 Nationals,24,25,0.49,9.0,W1
 Marlins,22,27,0.449,11.0,L1
 Mets,21,27,0.438,11.5,L1
-Cubs,29,19,0.604,-,L3
-Brewers,27,18,0.6,0.5,W1
-Cardinals,27,19,0.587,1.0,L1
-Pirates,24,23,0.511,4.5,L3
+Brewers,28,18,0.609,-,W2
+Cardinals,28,19,0.596,0.5,W1
+Cubs,29,20,0.592,0.5,L4
 Reds,25,24,0.51,4.5,W1
+Pirates,24,24,0.5,5.0,L4
 Padres,29,18,0.617,-,W4
 Dodgers,29,19,0.604,0.5,L1
 D-backs,23,23,0.5,5.5,W2

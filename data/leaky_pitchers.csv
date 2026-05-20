@@ -28,6 +28,7 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 657277,Logan Webb,San Francisco Giants,52,4,5.06,48.0,1.40,9.75
 680694,Kyle Bradish,Baltimore Orioles,51,6,4.13,52.1,1.51,8.77
 650644,Aaron Civale,Athletics,51,6,2.70,46.2,1.39,9.84
+672282,Reid Detmers,Los Angeles Angels,51,4,4.80,54.1,1.27,8.45
 543135,Nathan Eovaldi,Texas Rangers,51,10,3.62,54.2,1.15,8.40
 592332,Kevin Gausman,Toronto Blue Jays,51,6,3.45,57.1,1.05,8.01
 681517,Kyle Leahy,St. Louis Cardinals,51,6,3.94,45.2,1.55,10.05
@@ -41,6 +42,7 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 665795,Edward Cabrera,Chicago Cubs,49,8,4.06,51.0,1.31,8.65
 702070,Noah Cameron,Kansas City Royals,49,5,5.40,41.2,1.51,10.58
 676083,Janson Junk,Miami Marlins,49,6,4.14,50.0,1.24,8.82
+682052,Jacob Lopez,Athletics,49,11,6.14,44.0,1.80,10.02
 669387,Carmen Mlodzinski,Pittsburgh Pirates,49,2,4.40,45.0,1.44,9.80
 701542,Will Warren,New York Yankees,49,6,3.61,52.1,1.18,8.43
 656492,Foster Griffin,Washington Nationals,48,10,4.02,56.0,1.18,7.71

@@ -16,12 +16,12 @@ Rank,Player,Team,League,HR,player_id
 13,Brandon Lowe,Pittsburgh Pirates,NL,12,664040
 13,Mickey Moniak,Colorado Rockies,NL,12,666160
 13,Max Muncy,Los Angeles Dodgers,NL,12,571970
-18,Elly De La Cruz,Cincinnati Reds,NL,11,682829
-18,Hunter Goodman,Colorado Rockies,NL,11,696100
-18,Sal Stewart,Cincinnati Reds,NL,11,701398
-18,Mike Trout,Los Angeles Angels,AL,11,545361
-18,Miguel Vargas,Chicago White Sox,AL,11,678246
-18,Christian Walker,Houston Astros,AL,11,572233
+13,Mike Trout,Los Angeles Angels,AL,12,545361
+19,Elly De La Cruz,Cincinnati Reds,NL,11,682829
+19,Hunter Goodman,Colorado Rockies,NL,11,696100
+19,Sal Stewart,Cincinnati Reds,NL,11,701398
+19,Miguel Vargas,Chicago White Sox,AL,11,678246
+19,Christian Walker,Houston Astros,AL,11,572233
 24,Willson Contreras,Boston Red Sox,AL,10,575929
 24,Oneil Cruz,Pittsburgh Pirates,NL,10,665833
 24,Ian Happ,Chicago Cubs,NL,10,664023
@@ -83,6 +83,7 @@ Rank,Player,Team,League,HR,player_id
 75,J.P. Crawford,Seattle Mariners,AL,6,641487
 75,Rafael Devers,San Francisco Giants,NL,6,646240
 75,Xavier Edwards,Miami Marlins,NL,6,669364
+75,Freddie Freeman,Los Angeles Dodgers,NL,6,518692
 75,Nolan Gorman,St. Louis Cardinals,NL,6,669357
 75,Trent Grisham,New York Yankees,AL,6,663757
 75,Jeremiah Jackson,Baltimore Orioles,AL,6,669236
