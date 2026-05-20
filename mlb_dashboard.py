@@ -64,13 +64,17 @@ def today_ct_compact():
     return (datetime.now(timezone.utc) + timedelta(hours=-5)).strftime("%Y%m%d")
 
 def read_matchups():
-    """Read matchups CSV filtered to today's date only (CT timezone)."""
+    """Read matchups CSV filtered to today's date only (CT timezone).
+    Falls back to all rows if game_date column missing (old CSV format)."""
     df = read("matchups")
     if df.empty:
         return df
-    if "game_date" in df.columns:
-        df = df[df["game_date"] == today_ct()]
-    return df
+    if "game_date" not in df.columns:
+        # Old CSV without game_date — return as-is
+        return df
+    filtered = df[df["game_date"] == today_ct()]
+    # If nothing matches (e.g. stale CSV), return all rows as fallback
+    return filtered if not filtered.empty else df
 
 # ─────────────────────────────────────────────
 # Park Factors
