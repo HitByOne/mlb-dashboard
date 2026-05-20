@@ -419,7 +419,7 @@ def fetch_hit_streaks():
             else: break
         if streak < 1:
             return None
-        return {"Player": name, "Team": team, "Streak": streak, "AVG": avg}
+        return {"player_id": pid, "Player": name, "Team": team, "Streak": streak, "AVG": avg}
 
     rows = []
     with ThreadPoolExecutor(max_workers=20) as ex:
@@ -432,7 +432,7 @@ def fetch_hit_streaks():
     df = pd.DataFrame(rows)
     if not df.empty:
         df = df.sort_values("Streak", ascending=False).reset_index(drop=True)
-    save(df if not df.empty else pd.DataFrame(columns=["Player","Team","Streak","AVG"]), "hit_streaks")
+    save(df if not df.empty else pd.DataFrame(columns=["player_id","Player","Team","Streak","AVG"]), "hit_streaks")
 
 # ─────────────────────────────────────────────
 # 12. PITCHER K RATES + TEAM K VULNERABILITY
