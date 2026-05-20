@@ -19,7 +19,7 @@ pitcher_id,name,team,K,K9,ERA,IP
 650633,Michael King,San Diego Padres,59,9.1,2.31,58.1
 663436,Davis Martin,Chicago White Sox,59,9.5,1.61,56.0
 680694,Kyle Bradish,Baltimore Orioles,58,10.0,4.13,52.1
-672282,Reid Detmers,Los Angeles Angels,58,10.2,4.06,51.0
+672282,Reid Detmers,Los Angeles Angels,58,10.2,4.03,51.1
 691587,Eury Pérez,Miami Marlins,58,10.0,5.33,52.1
 694738,Landen Roupp,San Francisco Giants,58,10.4,3.60,50.0
 669302,Logan Gilbert,Seattle Mariners,57,9.1,4.45,56.2
@@ -46,7 +46,7 @@ pitcher_id,name,team,K,K9,ERA,IP
 608331,Max Fried,New York Yankees,50,7.4,3.21,61.2
 660271,Shohei Ohtani,Los Angeles Dodgers,50,10.2,0.82,44.0
 592662,Robbie Ray,San Francisco Giants,50,8.3,4.28,54.2
-686218,Emmet Sheehan,Los Angeles Dodgers,50,10.7,4.46,42.1
+686218,Emmet Sheehan,Los Angeles Dodgers,50,10.7,4.85,42.2
 607192,Tyler Glasnow,Los Angeles Dodgers,49,11.2,2.72,39.2
 656427,Jack Flaherty,Detroit Tigers,48,10.0,5.77,43.2
 690986,Kyle Harrison,Milwaukee Brewers,48,11.3,2.09,38.2

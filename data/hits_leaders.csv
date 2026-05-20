@@ -20,12 +20,12 @@ player_id,Player,Team,League,H,TB
 676391,Ernie Clement,Toronto Blue Jays,AL,52,74
 669016,Brandon Marsh,Philadelphia Phillies,NL,52,75
 645277,Ozzie Albies,Atlanta Braves,NL,51,83
+676475,Alec Burleson,St. Louis Cardinals,NL,51,83
 665833,Oneil Cruz,Pittsburgh Pirates,NL,51,90
 663538,Nico Hoerner,Chicago Cubs,NL,51,75
 673962,Josh Jung,Texas Rangers,AL,51,80
 695734,Daylen Lile,Washington Nationals,NL,51,84
 805808,Kevin McGonigle,Detroit Tigers,AL,51,73
-676475,Alec Burleson,St. Louis Cardinals,NL,50,79
 661388,William Contreras,Milwaukee Brewers,NL,50,0
 677594,Julio Rodríguez,Seattle Mariners,AL,50,83
 672580,Maikel Garcia,Kansas City Royals,AL,49,73
@@ -59,6 +59,7 @@ player_id,Player,Team,League,H,TB
 687859,Troy Johnston,Colorado Rockies,NL,45,0
 660271,Shohei Ohtani,Los Angeles Dodgers,NL,45,78
 668715,Spencer Steer,Cincinnati Reds,NL,45,75
+662139,Daulton Varsho,Toronto Blue Jays,AL,45,71
 621493,Taylor Ward,Baltimore Orioles,AL,45,0
 666018,Jonathan Aranda,Tampa Bay Rays,AL,44,74
 666182,Bo Bichette,New York Mets,NL,44,0
@@ -68,15 +69,14 @@ player_id,Player,Team,League,H,TB
 701762,Nick Kurtz,Athletics,AL,44,79
 671218,Heliot Ramos,San Francisco Giants,NL,44,0
 677587,Brayan Rocchio,Cleveland Guardians,AL,44,0
+694384,Nolan Schanuel,Los Angeles Angels,AL,44,0
 669477,Casey Schmitt,San Francisco Giants,NL,44,78
-662139,Daulton Varsho,Toronto Blue Jays,AL,44,0
 593428,Xander Bogaerts,San Diego Padres,NL,43,0
 683002,Gunnar Henderson,Baltimore Orioles,AL,43,84
 805367,Chase Meidroth,Chicago White Sox,AL,43,0
 678882,Ceddanne Rafaela,Boston Red Sox,AL,43,0
 608070,José Ramírez,Cleveland Guardians,AL,43,77
 668804,Bryan Reynolds,Pittsburgh Pirates,NL,43,0
-694384,Nolan Schanuel,Los Angeles Angels,AL,43,0
 663656,Kyle Tucker,Los Angeles Dodgers,NL,43,0
 656941,Kyle Schwarber,Philadelphia Phillies,NL,0,111
 808959,Munetaka Murakami,Chicago White Sox,AL,0,93
