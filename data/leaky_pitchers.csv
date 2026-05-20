@@ -2,55 +2,51 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 547179,Michael Lorenzen,Colorado Rockies,76,9,7.03,48.2,1.91,14.05
 663903,Brady Singer,Cincinnati Reds,66,14,6.26,46.0,1.70,12.91
 650911,Cristopher Sánchez,Philadelphia Phillies,63,3,1.82,64.1,1.20,8.81
+607625,Seth Lugo,Kansas City Royals,61,2,3.68,58.2,1.40,9.36
 645261,Sandy Alcantara,Miami Marlins,60,4,3.53,63.2,1.26,8.48
 681347,Mike Burrows,Houston Astros,60,10,5.72,50.1,1.53,10.73
+669461,Matthew Liberatore,St. Louis Cardinals,60,9,4.70,51.2,1.55,10.45
 678394,Brayan Bello,Boston Red Sox,59,10,7.16,44.0,1.80,12.07
+677944,Slade Cecconi,Cleveland Guardians,59,9,5.16,52.1,1.49,10.15
+680573,Simeon Woods Richardson,Minnesota Twins,59,9,7.53,43.0,1.86,12.35
 669923,George Kirby,Seattle Mariners,58,6,3.45,62.2,1.18,8.33
-680573,Simeon Woods Richardson,Minnesota Twins,58,9,7.71,42.0,1.86,12.43
+666200,Jesús Luzardo,Philadelphia Phillies,58,5,4.85,55.2,1.31,9.38
 669358,Shane Baz,Baltimore Orioles,56,6,5.26,51.1,1.52,9.82
-607625,Seth Lugo,Kansas City Royals,56,1,3.76,52.2,1.42,9.57
+664285,Framber Valdez,Detroit Tigers,56,5,4.58,55.0,1.40,9.16
+668678,Zac Gallen,Arizona Diamondbacks,55,7,4.78,49.0,1.43,10.10
 622663,Luis Severino,Athletics,55,7,4.45,54.2,1.57,9.05
 671096,Andrew Abbott,Cincinnati Reds,54,6,4.21,51.1,1.50,9.47
 605135,Chris Bassitt,Baltimore Orioles,54,4,5.44,43.0,1.70,11.30
 676917,Cade Cavalli,Washington Nationals,54,3,4.05,46.2,1.54,10.41
-677944,Slade Cecconi,Cleveland Guardians,54,8,5.60,45.0,1.58,10.80
 669160,Dustin May,St. Louis Cardinals,54,4,4.81,48.2,1.42,9.99
 622491,Luis Castillo,Seattle Mariners,53,7,6.34,44.0,1.57,10.84
 669302,Logan Gilbert,Seattle Mariners,53,11,4.45,56.2,1.15,8.42
-669461,Matthew Liberatore,St. Louis Cardinals,53,9,4.40,47.0,1.51,10.15
-666200,Jesús Luzardo,Philadelphia Phillies,53,5,5.07,49.2,1.33,9.60
 605400,Aaron Nola,Philadelphia Phillies,53,9,5.91,45.2,1.55,10.45
 607067,Colin Rea,Chicago Cubs,53,6,4.98,47.0,1.43,10.15
 605288,Adrian Houser,San Francisco Giants,52,8,5.25,48.0,1.48,9.75
 641816,Tyler Mahle,San Francisco Giants,52,9,5.59,46.2,1.56,10.03
 657277,Logan Webb,San Francisco Giants,52,4,5.06,48.0,1.40,9.75
+680694,Kyle Bradish,Baltimore Orioles,51,6,4.13,52.1,1.51,8.77
 650644,Aaron Civale,Athletics,51,6,2.70,46.2,1.39,9.84
 543135,Nathan Eovaldi,Texas Rangers,51,10,3.62,54.2,1.15,8.40
-668678,Zac Gallen,Arizona Diamondbacks,51,6,5.02,43.0,1.51,10.67
 592332,Kevin Gausman,Toronto Blue Jays,51,6,3.45,57.1,1.05,8.01
 681517,Kyle Leahy,St. Louis Cardinals,51,6,3.94,45.2,1.55,10.05
+691725,Andrew Painter,Philadelphia Phillies,51,7,5.77,43.2,1.49,10.51
 656849,David Peterson,New York Mets,51,2,5.40,43.1,1.57,10.59
 647336,Michael Soroka,Arizona Diamondbacks,51,4,3.49,49.0,1.33,9.37
-664285,Framber Valdez,Detroit Tigers,51,5,4.32,50.0,1.36,9.18
 668909,Gavin Williams,Cleveland Guardians,51,9,3.67,61.1,1.19,7.48
 676440,Tanner Bibee,Cleveland Guardians,50,7,4.15,52.0,1.35,8.65
+592662,Robbie Ray,San Francisco Giants,50,12,4.28,54.2,1.32,8.23
 605488,Jeffrey Springs,Athletics,50,8,3.93,55.0,1.20,8.18
 665795,Edward Cabrera,Chicago Cubs,49,8,4.06,51.0,1.31,8.65
 702070,Noah Cameron,Kansas City Royals,49,5,5.40,41.2,1.51,10.58
 676083,Janson Junk,Miami Marlins,49,6,4.14,50.0,1.24,8.82
 669387,Carmen Mlodzinski,Pittsburgh Pirates,49,2,4.40,45.0,1.44,9.80
+701542,Will Warren,New York Yankees,49,6,3.61,52.1,1.18,8.43
+656492,Foster Griffin,Washington Nationals,48,10,4.02,56.0,1.18,7.71
 571945,Miles Mikolas,Washington Nationals,48,11,6.91,41.2,1.49,10.37
-691725,Andrew Painter,Philadelphia Phillies,48,7,6.21,37.2,1.59,11.47
-680694,Kyle Bradish,Baltimore Orioles,47,5,4.21,47.0,1.53,9.00
+669432,Trevor Rogers,Baltimore Orioles,48,5,6.87,38.0,1.66,11.37
+663623,Jake Irvin,Washington Nationals,47,7,5.59,46.2,1.46,9.06
 641793,Zack Littell,Washington Nationals,47,14,6.10,41.1,1.50,10.23
 663978,Chris Paddack,Cincinnati Reds,47,6,7.07,35.2,1.63,11.86
 669467,Andre Pallante,St. Louis Cardinals,47,6,4.04,49.0,1.35,8.63
-680732,Sean Burke,Chicago White Sox,46,5,4.10,48.1,1.18,8.57
-683004,Jack Leiter,Texas Rangers,46,8,4.35,49.2,1.35,8.34
-691587,Eury Pérez,Miami Marlins,46,10,5.33,52.1,1.41,7.91
-672282,Reid Detmers,Los Angeles Angels,45,4,4.38,49.1,1.26,8.21
-686799,Jack Kochanowicz,Los Angeles Angels,45,5,4.56,51.1,1.36,7.89
-663436,Davis Martin,Chicago White Sox,45,3,1.61,56.0,0.98,7.23
-607259,Nick Martinez,Tampa Bay Rays,45,3,1.51,53.2,1.04,7.55
-593958,Eduardo Rodriguez,Arizona Diamondbacks,45,4,2.53,53.1,1.26,7.59
-608372,Tomoyuki Sugano,Colorado Rockies,45,9,4.02,47.0,1.26,8.62
