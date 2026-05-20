@@ -53,6 +53,16 @@ def data_date():
     meta = read_json("metadata")
     return meta.get("refreshed_at", "—")
 
+def read_matchups():
+    """Read matchups CSV filtered to today's date only."""
+    df = read("matchups")
+    if df.empty:
+        return df
+    today = datetime.now().strftime("%Y-%m-%d")
+    if "game_date" in df.columns:
+        df = df[df["game_date"] == today]
+    return df
+
 # ─────────────────────────────────────────────
 # Park Factors
 # ─────────────────────────────────────────────
@@ -389,7 +399,7 @@ def update_scores(days):
 # ─────────────────────────────────────────────
 def streaks_layout():
     df        = read("hit_streaks")
-    matchups  = read("matchups")
+    matchups  = read_matchups()
     leaky     = read("leaky_pitchers")
     pit_stats = read("pitcher_stats")
 
@@ -574,7 +584,7 @@ def get_vegas_k_lines():
     return result
 
 def kmatch_layout():
-    matchups = read("matchups")
+    matchups = read_matchups()
     k_rates  = read("pitcher_k_rates")
     team_k   = read("team_k_vulnerability")
     pit_stats= read("pitcher_stats")
@@ -707,7 +717,7 @@ def kmatch_layout():
 # BATTER VS PITCHER
 # ─────────────────────────────────────────────
 def bvp_layout():
-    matchups = read("matchups")
+    matchups = read_matchups()
     dd = {"backgroundColor": C["card"], "color": C["text"],
           "border": f"1px solid {C['border']}", "borderRadius": "6px",
           "fontFamily": "IBM Plex Mono"}
@@ -835,7 +845,7 @@ def load_bvp(_, matchup_val, min_ab):
 # HOT/COLD
 # ─────────────────────────────────────────────
 def hotcold_layout():
-    matchups = read("matchups")
+    matchups = read_matchups()
     dd = {"backgroundColor": C["card"], "color": C["text"],
           "border": f"1px solid {C['border']}", "borderRadius": "6px",
           "fontFamily": "IBM Plex Mono"}
@@ -990,7 +1000,7 @@ def load_hr_leaders(league_filter):
     hr  = read("hr_leaders")
     hc  = read("hot_cold")
     plt = read("platoon_splits")
-    matchups = read("matchups")
+    matchups = read_matchups()
     pit_stats = read("pitcher_stats")
 
     if hr.empty:
@@ -1152,7 +1162,7 @@ def load_hits_leaders(sort_col):
     hits = read("hits_leaders")
     hc   = read("hot_cold")
     plt  = read("platoon_splits")
-    matchups  = read("matchups")
+    matchups  = read_matchups()
     pit_stats = read("pitcher_stats")
 
     if hits.empty:
@@ -1295,7 +1305,7 @@ def toppicks_layout():
 
 @app.callback(Output("tp-results","children"), Input("tp-trigger","n_intervals"))
 def load_toppicks(_):
-    matchups  = read("matchups")
+    matchups  = read_matchups()
     hc        = read("hot_cold")
     bvp       = read("bvp")
     plt       = read("platoon_splits")
@@ -1716,7 +1726,7 @@ def weather_layout():
     Input("wx-refresh", "n_intervals"),
 )
 def load_weather(_, __):
-    matchups = read("matchups")
+    matchups = read_matchups()
     if matchups.empty:
         return no_data()
 
