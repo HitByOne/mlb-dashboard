@@ -109,6 +109,7 @@ def fetch_matchups():
             home_t = g["teams"]["home"]["team"]
             matchups.append({
                 "game_pk":        g["gamePk"],
+                "game_date":      TODAY_STR,
                 "away_team":      away_t["name"],
                 "away_team_id":   away_t["id"],
                 "home_team":      home_t["name"],
