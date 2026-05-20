@@ -531,6 +531,48 @@ def streaks_layout():
 # ─────────────────────────────────────────────
 # K MATCHUPS
 # ─────────────────────────────────────────────
+
+# ─────────────────────────────────────────────
+# Vegas K Lines — Tank01 RapidAPI
+# ─────────────────────────────────────────────
+RAPIDAPI_KEY  = "b35c885fafmsha6cc35f949fc4a5p119a14jsn24871cd4b86e"
+RAPIDAPI_HOST = "tank01-mlb-live-in-game-real-time-statistics.p.rapidapi.com"
+
+def get_vegas_k_lines():
+    """
+    Fetch pitcher K prop lines from Tank01 RapidAPI.
+    Returns dict: {mlb_player_id: {'line': float, 'over': str, 'under': str}}
+    """
+    today_str = datetime.now().strftime("%Y%m%d")
+    try:
+        resp = requests.get(
+            f"https://{RAPIDAPI_HOST}/getMLBBettingOdds",
+            params={"gameDate": today_str, "playerProps": "true", "itemFormat": "list"},
+            headers={"x-rapidapi-key": RAPIDAPI_KEY, "x-rapidapi-host": RAPIDAPI_HOST},
+            timeout=10
+        )
+        data = resp.json()
+    except Exception as e:
+        print(f"Vegas K lines error: {e}")
+        return {}
+
+    result = {}
+    for game in data.get("body", []):
+        for player in game.get("playerProps", []):
+            pid   = player.get("playerID", "")
+            props = player.get("propBets", {})
+            ks    = props.get("strikeouts", {})
+            if pid and ks and "total" in ks:
+                try:
+                    result[str(pid)] = {
+                        "line":  float(ks["total"]),
+                        "over":  ks.get("over", "—"),
+                        "under": ks.get("under", "—"),
+                    }
+                except Exception:
+                    pass
+    return result
+
 def kmatch_layout():
     matchups = read("matchups")
     k_rates  = read("pitcher_k_rates")
@@ -543,6 +585,17 @@ def kmatch_layout():
     # Build lookup dicts
     k_map    = {r["name"]: r for _, r in k_rates.iterrows()} if not k_rates.empty else {}
     vuln_map = {int(r["team_id"]): r for _, r in team_k.iterrows()} if not team_k.empty else {}
+
+    # Fetch Vegas K lines — keyed by MLB player ID string
+    vegas_map = get_vegas_k_lines()
+
+    # Tank01 IDs = MLB Stats API IDs — match directly by pitcher_id
+    pid_to_vegas = {}
+    if not pit_stats.empty:
+        for _, r in pit_stats.iterrows():
+            pid_str = str(int(float(r["pitcher_id"])))
+            if pid_str in vegas_map:
+                pid_to_vegas[str(r["name"])] = vegas_map[pid_str]
 
     rows = []
     for _, m in matchups.iterrows():
@@ -570,13 +623,32 @@ def kmatch_layout():
             elif score >= 25: rating, rc = "✅ Solid",    C["green"]
             else:             rating, rc = "—",           C["muted"]
 
+            # Vegas line
+            vl      = pid_to_vegas.get(pit_name, {})
+            vline   = vl.get("line", "—")
+            vover   = vl.get("over", "—")
+            vunder  = vl.get("under", "—")
+            # Edge: our projection vs vegas line
+            if vline != "—" and blend > 0:
+                edge = round(blend - float(vline), 1)
+                edge_str = f"+{edge}" if edge > 0 else str(edge)
+                edge_color = "green" if edge >= 0.5 else ("red" if edge <= -0.5 else "neutral")
+            else:
+                edge_str   = "—"
+                edge_color = "neutral"
+
             rows.append({
                 "Pitcher": pit_name, "Team": pit_team, "Opponent": opp_team,
                 "K9": pk9, "Season Ks": pks, "ERA": pk.get("ERA","-"),
                 "Opp Avg K/G": opp_avg_k,
                 "K Proj (7IP)": k7, "Blended Proj": blend,
+                "Vegas Line": f"{vline} ({vover} / {vunder})" if vline != "—" else "—",
+                "Our Edge": edge_str,
                 "Score": score, "Rating": rating,
                 "_score": score,
+                "_edge": edge_str,
+                "_edge_color": edge_color,
+                "_vline": float(vline) if vline != "—" else 0,
             })
 
     rows.sort(key=lambda x: x["_score"], reverse=True)
@@ -586,7 +658,8 @@ def kmatch_layout():
         data=df.to_dict("records"),
         columns=[{"name":c,"id":c} for c in
                  ["Pitcher","Team","Opponent","K9","Season Ks","ERA",
-                  "Opp Avg K/G","K Proj (7IP)","Blended Proj","Score","Rating"]],
+                  "Opp Avg K/G","K Proj (7IP)","Blended Proj",
+                  "Vegas Line","Our Edge","Score","Rating"]],
         sort_action="native", sort_mode="single",
         style_table={"overflowX":"auto"}, style_cell=DT_CELL,
         style_header=DT_HEADER, page_action="none",
@@ -597,8 +670,11 @@ def kmatch_layout():
             {"if":{"column_id":"Blended Proj","filter_query":"{Blended Proj} >= 6"},"color":C["yellow"],"fontWeight":"bold"},
             {"if":{"column_id":"Score","filter_query":"{_score} >= 45"},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"Score","filter_query":"{_score} >= 35"},"color":C["yellow"],"fontWeight":"bold"},
+            {"if":{"column_id":"Vegas Line","filter_query":'{Vegas Line} != "—"'},"color":C["blue"],"fontWeight":"bold"},
+            {"if":{"column_id":"Our Edge","filter_query":"{_edge_color} = green"},"color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"Our Edge","filter_query":"{_edge_color} = red"},"color":C["red"]},
         ],
-        hidden_columns=["_score"],
+        hidden_columns=["_score","_edge","_edge_color","_vline"],
     ))
 
     # Most Hits Allowed leaderboard
@@ -1727,6 +1803,6 @@ if __name__ == "__main__":
     else:
         files = os.listdir(DATA_DIR)
         print(f"⚾  MLB Dashboard — {len(files)} data files loaded")
-    print("   -> Open http://127.0.0.1:8055\n")
-    port = int(os.environ.get("PORT", 8055))
+    print("   -> Open http://127.0.0.1:8050\n")
+    port = int(os.environ.get("PORT", 8050))
     app.run(host="0.0.0.0", port=port, debug=False)
