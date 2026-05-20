@@ -54,11 +54,14 @@ def data_date():
     return meta.get("refreshed_at", "—")
 
 def read_matchups():
-    """Read matchups CSV filtered to today's date only."""
+    """Read matchups CSV filtered to today's date only (CT timezone)."""
     df = read("matchups")
     if df.empty:
         return df
-    today = datetime.now().strftime("%Y-%m-%d")
+    # Use Central Time so 9am UTC Action doesn't show tomorrow's games
+    from datetime import timezone, timedelta
+    ct_offset = timedelta(hours=-5)  # CDT = UTC-5
+    today = (datetime.now(timezone.utc) + ct_offset).strftime("%Y-%m-%d")
     if "game_date" in df.columns:
         df = df[df["game_date"] == today]
     return df
