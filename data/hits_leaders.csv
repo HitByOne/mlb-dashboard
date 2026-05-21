@@ -25,10 +25,10 @@ player_id,Player,Team,League,H,TB
 676475,Alec Burleson,St. Louis Cardinals,NL,52,84
 663538,Nico Hoerner,Chicago Cubs,NL,52,77
 695734,Daylen Lile,Washington Nationals,NL,52,86
+805808,Kevin McGonigle,Detroit Tigers,AL,52,74
 677594,Julio Rodríguez,Seattle Mariners,AL,52,86
 665833,Oneil Cruz,Pittsburgh Pirates,NL,51,90
 693304,Nick Gonzales,Pittsburgh Pirates,NL,51,0
-805808,Kevin McGonigle,Detroit Tigers,AL,51,73
 665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,50,0
 607043,Brandon Nimmo,Texas Rangers,AL,50,77
 701398,Sal Stewart,Cincinnati Reds,NL,50,95
@@ -82,8 +82,8 @@ player_id,Player,Team,League,H,TB
 663656,Kyle Tucker,Los Angeles Dodgers,NL,44,0
 802139,JJ Wetherholt,St. Louis Cardinals,NL,44,76
 656941,Kyle Schwarber,Philadelphia Phillies,NL,0,111
+664040,Brandon Lowe,Pittsburgh Pirates,NL,0,95
 808959,Munetaka Murakami,Chicago White Sox,AL,0,95
-664040,Brandon Lowe,Pittsburgh Pirates,NL,0,91
 666160,Mickey Moniak,Colorado Rockies,NL,0,91
 695657,Colson Montgomery,Chicago White Sox,AL,0,86
 571970,Max Muncy,Los Angeles Dodgers,NL,0,84
