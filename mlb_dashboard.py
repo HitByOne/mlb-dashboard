@@ -35,6 +35,13 @@ def read(name, default_cols=None):
     if not os.path.exists(path):
         return pd.DataFrame(columns=default_cols or [])
     try:
+        if name == "standings":
+            df = pd.read_csv(path, dtype=str)
+            # Convert numeric columns back
+            for col in ["W","L","PCT"]:
+                if col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors="coerce")
+            return df
         return pd.read_csv(path)
     except Exception:
         return pd.DataFrame(columns=default_cols or [])
@@ -362,17 +369,62 @@ def standings_layout():
     df = read("standings")
     if df.empty:
         return no_data()
+    for col in ["L10", "Home", "Away", "vs .500+", "Streak", "GB"]:
+        if col in df.columns:
+            df[col] = df[col].astype(str)
+
+    # Show columns available — fallback gracefully if old CSV
+    base_cols = ["Rank","Team","W","L","PCT","GB","Streak"]
+    extra_cols = ["L10","Home","Away","vs .500+"]
+    available  = [c for c in extra_cols if c in df.columns]
+    show_cols  = base_cols + available
+
     df = df.sort_values("PCT", ascending=False).reset_index(drop=True)
     df.insert(0, "Rank", range(1, len(df)+1))
+
+    # Group by division if available and has real values
+    has_divisions = "Division" in df.columns and df["Division"].notna().any() and (df["Division"] != "nan").any()
+    if has_divisions:
+        df["Division"] = df["Division"].fillna("Unknown")
+        sections = []
+        for div in df["Division"].unique():
+            div_df = df[df["Division"] == div].copy()
+            sections.append(html.Div([
+                html.Div(div, style={"fontSize":"12px","fontWeight":"bold",
+                                     "color":C["yellow"],"letterSpacing":"1px",
+                                     "textTransform":"uppercase","marginBottom":"6px",
+                                     "marginTop":"12px","paddingLeft":"4px",
+                                     "borderLeft":f"3px solid {C['yellow']}",
+                                     "paddingLeft":"8px"}),
+                dash_table.DataTable(
+                    data=div_df.to_dict("records"),
+                    columns=[{"name":c,"id":c} for c in show_cols if c in div_df.columns],
+                    sort_action="native", sort_mode="single",
+                    style_table={"overflowX":"auto","marginBottom":"4px"},
+                    style_cell=DT_CELL, style_header=DT_HEADER,
+                    page_action="none",
+                    style_data_conditional=DT_COND + [
+                        {"if":{"column_id":"W"},"color":C["green"],"fontWeight":"bold"},
+                        {"if":{"column_id":"L"},"color":C["red"]},
+                        {"if":{"column_id":"Streak","filter_query":'{Streak} contains "W"'},"color":C["green"],"fontWeight":"bold"},
+                        {"if":{"column_id":"Streak","filter_query":'{Streak} contains "L"'},"color":C["red"]},
+                        {"if":{"column_id":"vs .500+"},"color":C["blue"],"fontWeight":"bold"},
+                    ],
+                ),
+            ]))
+        return section(html.Div(sections))
+
+    # Fallback — single table
     return section(dash_table.DataTable(
         data=df.to_dict("records"),
-        columns=[{"name": c, "id": c} for c in ["Rank","Team","W","L","PCT","GB","Streak"]],
+        columns=[{"name":c,"id":c} for c in show_cols if c in df.columns],
         sort_action="native", sort_mode="single",
-        style_table={"overflowX": "auto"}, style_cell=DT_CELL,
+        style_table={"overflowX":"auto"}, style_cell=DT_CELL,
         style_header=DT_HEADER, page_action="none",
         style_data_conditional=DT_COND + [
-            {"if": {"column_id": "W"}, "color": C["green"], "fontWeight": "bold"},
-            {"if": {"column_id": "L"}, "color": C["red"]},
+            {"if":{"column_id":"W"},"color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"L"},"color":C["red"]},
+            {"if":{"column_id":"vs .500+"},"color":C["blue"],"fontWeight":"bold"},
         ],
     ))
 
@@ -394,18 +446,86 @@ def update_scores(days):
     df = read("scores")
     if df.empty:
         return no_data()
-    df = df.sort_values("Date", ascending=False).head(days * 15)
-    return section(dash_table.DataTable(
-        data=df.to_dict("records"),
-        columns=[{"name": c, "id": c} for c in ["Date","Away","Away_R","Home_R","Home","Winner","Total_R"]],
-        sort_action="native", sort_mode="single",
-        style_table={"overflowX": "auto"}, style_cell=DT_CELL,
-        style_header=DT_HEADER, page_action="native", page_size=20,
-        style_data_conditional=DT_COND + [
-            {"if": {"column_id": "Winner"}, "color": C["green"], "fontWeight": "bold"},
-            {"if": {"column_id": "Total_R"}, "color": C["blue"]},
-        ],
-    ))
+
+    df = df.sort_values("Date", ascending=False)
+    # Get unique dates within range
+    dates = df["Date"].unique()[:days]
+
+    sections = []
+    for date in dates:
+        day_df = df[df["Date"] == date].copy()
+
+        # Format date nicely
+        try:
+            from datetime import datetime as dt
+            d = dt.strptime(str(date), "%Y-%m-%d")
+            label = d.strftime("%A, %B %-d")
+        except Exception:
+            label = str(date)
+
+        # Check if today
+        if str(date) == today_ct():
+            label = f"🔴 Today — {label}"
+            label_color = C["red"]
+        elif str(date) == df["Date"].max():
+            label_color = C["yellow"]
+        else:
+            label_color = C["muted"]
+
+        game_cards = []
+        for _, r in day_df.iterrows():
+            away_win = int(r["Away_R"]) > int(r["Home_R"])
+            home_win = int(r["Home_R"]) > int(r["Away_R"])
+
+            game_cards.append(html.Div([
+                # Away team
+                html.Div([
+                    html.Span(r["Away"], style={
+                        "fontSize": "13px", "fontWeight": "bold" if away_win else "normal",
+                        "color": C["green"] if away_win else C["muted"], "flex": "1"
+                    }),
+                    html.Span(str(int(r["Away_R"])), style={
+                        "fontSize": "16px", "fontWeight": "bold",
+                        "color": C["green"] if away_win else C["text"], "minWidth": "24px", "textAlign": "right"
+                    }),
+                ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "center", "marginBottom": "4px"}),
+                # Home team
+                html.Div([
+                    html.Span(r["Home"], style={
+                        "fontSize": "13px", "fontWeight": "bold" if home_win else "normal",
+                        "color": C["green"] if home_win else C["muted"], "flex": "1"
+                    }),
+                    html.Span(str(int(r["Home_R"])), style={
+                        "fontSize": "16px", "fontWeight": "bold",
+                        "color": C["green"] if home_win else C["text"], "minWidth": "24px", "textAlign": "right"
+                    }),
+                ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "center"}),
+                # Total runs
+                html.Div(f"Total: {int(r['Total_R'])}",
+                         style={"fontSize": "10px", "color": C["muted"], "marginTop": "6px", "textAlign": "right"}),
+            ], style={
+                "backgroundColor": C["card"],
+                "border": f"1px solid {C['border']}",
+                "borderRadius": "6px",
+                "padding": "10px 14px",
+                "minWidth": "180px",
+                "maxWidth": "200px",
+                "flexShrink": "0",
+            }))
+
+        sections.append(html.Div([
+            html.Div(label, style={
+                "fontSize": "13px", "fontWeight": "bold", "color": label_color,
+                "borderLeft": f"3px solid {label_color}", "paddingLeft": "10px",
+                "marginBottom": "10px", "marginTop": "8px"
+            }),
+            html.Div(game_cards, style={
+                "display": "flex", "gap": "10px",
+                "overflowX": "auto", "paddingBottom": "6px", "flexWrap": "wrap"
+            }),
+        ]))
+
+    return html.Div(sections)
 
 # ─────────────────────────────────────────────
 # HIT STREAKS
@@ -419,10 +539,10 @@ def streaks_layout():
     if df.empty:
         return no_data()
 
-    # Fetch Vegas hit odds
-    vegas_hits = get_vegas_hit_lines()
 
-    df = df.sort_values("Streak", ascending=False).reset_index(drop=True)
+
+    df["Streak"] = pd.to_numeric(df["Streak"], errors="coerce").fillna(0).astype(int)
+    df = df[df["Streak"] >= 5].sort_values("Streak", ascending=False).reset_index(drop=True)
 
     # Build pitcher map: batting_team -> {pitcher, h_allowed, hr_allowed, era}
     pit_map = {}
@@ -464,11 +584,15 @@ def streaks_layout():
                     hr_allowed = int(lp.get("HR_allowed", 0) or 0)
                     era        = lp.get("ERA", "-")
 
+                gs    = ps.get("GS",    "-") if ps else "-"
+                hpg   = ps.get("H_per_G", "-") if ps else "-"
                 pit_map[bat_team] = {
                     "pitcher":    pit_name,
                     "h_allowed":  h_allowed,
                     "hr_allowed": hr_allowed,
                     "era":        era,
+                    "gs":         gs,
+                    "h_per_g":    hpg,
                 }
 
     # Build records
@@ -493,11 +617,9 @@ def streaks_layout():
         try:    hr_all_n = int(hr_all)
         except: hr_all_n = 0
 
-        # Vegas hit odds
-        pid_str    = str(int(float(r["player_id"]))) if "player_id" in r and pd.notna(r.get("player_id")) else ""
-        vhit       = vegas_hits.get(pid_str, {})
-        hit1_odds  = vhit.get("one", "—")
-        hit2_odds  = vhit.get("two", "—")
+        def to_num(v, default=0):
+            try: return float(v)
+            except: return default
 
         records.append({
             "Rank":        i + 1,
@@ -505,14 +627,15 @@ def streaks_layout():
             "Team":        team,
             "Streak":      streak,
             "Hot":         hot,
-            "AVG":         r["AVG"],
+            "AVG":         to_num(r["AVG"]),
             "Today":       "✅" if playing else "—",
             "Opp Pitcher": info.get("pitcher", "—") if playing else "—",
-            "H Allowed":   h_all,
-            "HR Allowed":  hr_all,
-            "ERA":         era,
-            "1+ Hit":      hit1_odds if playing else "—",
-            "2+ Hits":     hit2_odds if playing else "—",
+            "H Allowed":   h_all_n if h_all_n > 0 else None,
+            "HR Allowed":  hr_all_n if hr_all_n > 0 else None,
+            "ERA":         to_num(era) if era not in ("-","—") else None,
+            "GS":          to_num(info.get("gs", 0)) if playing else None,
+            "H/Game":      to_num(info.get("h_per_g", 0)) if playing else None,
+
             "_streak":     streak,
             "_h_all":      h_all_n,
             "_hr_all":     hr_all_n,
@@ -531,10 +654,22 @@ def streaks_layout():
         ], style={"marginBottom": "12px"}),
         section(dash_table.DataTable(
             data=records,
-            columns=[{"name": c, "id": c} for c in
-                     ["Rank","Player","Team","Streak","Hot","AVG",
-                      "Today","Opp Pitcher","H Allowed","HR Allowed","ERA",
-                      "1+ Hit","2+ Hits"]],
+            columns=[
+                         {"name":"Rank",        "id":"Rank",        "type":"numeric"},
+                         {"name":"Player",       "id":"Player"},
+                         {"name":"Team",         "id":"Team"},
+                         {"name":"Streak",       "id":"Streak",      "type":"numeric"},
+                         {"name":"Hot",          "id":"Hot"},
+                         {"name":"AVG",          "id":"AVG",         "type":"numeric"},
+                         {"name":"Today",        "id":"Today"},
+                         {"name":"Opp Pitcher",  "id":"Opp Pitcher"},
+                         {"name":"GS",           "id":"GS",          "type":"numeric"},
+                         {"name":"H Allowed",    "id":"H Allowed",   "type":"numeric"},
+                         {"name":"H/Game",       "id":"H/Game",      "type":"numeric"},
+                         {"name":"HR Allowed",   "id":"HR Allowed",  "type":"numeric"},
+                         {"name":"ERA",          "id":"ERA",         "type":"numeric"},
+
+                     ],
             sort_action="native", sort_mode="single",
             style_table={"overflowX": "auto"}, style_cell=DT_CELL,
             style_header=DT_HEADER, page_action="none",
@@ -684,6 +819,25 @@ def kmatch_layout():
     k_map    = {r["name"]: r for _, r in k_rates.iterrows()} if not k_rates.empty else {}
     vuln_map = {int(r["team_id"]): r for _, r in team_k.iterrows()} if not team_k.empty else {}
 
+    # Fallback: use pitcher_stats for any pitcher not in k_rates
+    ps_fallback = {}
+    if not pit_stats.empty:
+        for _, r in pit_stats.iterrows():
+            name = str(r.get("name",""))
+            if name and name not in k_map:
+                ip  = float(r.get("IP", 0) or 0)
+                ks  = int(r.get("K", 0) or 0)
+                ps_fallback[name] = {
+                    "name": name, "team": "",
+                    "K":   ks,
+                    "K9":  round((ks/ip)*9, 1) if ip > 0 else 0.0,
+                    "ERA": r.get("ERA", "-"),
+                    "IP":  r.get("IP", "-"),
+                }
+    # Merge fallback into k_map
+    for name, row in ps_fallback.items():
+        k_map[name] = row
+
     # Fetch Vegas K lines — keyed by MLB player ID string
     vegas_map = get_vegas_k_lines()
 
@@ -805,129 +959,111 @@ def kmatch_layout():
 # BATTER VS PITCHER
 # ─────────────────────────────────────────────
 def bvp_layout():
-    matchups = read_matchups()
-    dd = {"backgroundColor": C["card"], "color": C["text"],
-          "border": f"1px solid {C['border']}", "borderRadius": "6px",
-          "fontFamily": "IBM Plex Mono"}
-
-    options = []
-    if not matchups.empty:
-        for _, m in matchups.iterrows():
-            for side, opp in [("away","home"),("home","away")]:
-                pit_name = m.get(f"{side}_pitcher","TBD")
-                pit_id   = m.get(f"{side}_pitcher_id","")
-                opp_team = m.get(f"{opp}_team","")
-                opp_tid  = m.get(f"{opp}_team_id","")
-                if pit_id and str(pit_id) != "nan":
-                    label = f"{pit_name} vs {opp_team}"
-                    value = f"{int(float(pit_id))}|{pit_name}|{int(float(opp_tid))}|{opp_team}"
-                    options.append({"label": label, "value": value})
-
     return html.Div([
-        section([
-            html.Div([
-                html.Div([
-                    lbl("Select Matchup"),
-                    dcc.Dropdown(options=options, id="bvp-matchup",
-                                 placeholder="Select pitching matchup...",
-                                 style={**dd, "minWidth": "400px"}),
-                ], style={"flex":"1"}),
-                html.Div([
-                    lbl("Min AB"),
-                    dcc.Input(id="bvp-min-ab", type="number", value=3, min=1, max=50,
-                              style={**dd, "padding":"8px","width":"70px"}),
-                ]),
-                html.Button("Search", id="bvp-btn", style={
-                    "marginTop":"20px","padding":"8px 20px",
-                    "backgroundColor":C["blue"],"color":C["bg"],
-                    "border":"none","borderRadius":"6px","cursor":"pointer",
-                    "fontFamily":"IBM Plex Mono","fontWeight":"bold",
-                }),
-            ], style={"display":"flex","alignItems":"flex-end","gap":"16px","flexWrap":"wrap"}),
-        ]),
-        html.Div(id="bvp-results"),
+        dcc.Interval(id="bvp-trigger", interval=300, max_intervals=1),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="bvp-results")),
     ])
 
-@app.callback(
-    Output("bvp-results","children"),
-    Input("bvp-btn","n_clicks"),
-    State("bvp-matchup","value"),
-    State("bvp-min-ab","value"),
-    prevent_initial_call=True,
-)
-def load_bvp(_, matchup_val, min_ab):
-    if not matchup_val:
-        return html.Div("Please select a matchup.", style={"color":C["yellow"]})
-    min_ab = int(min_ab or 3)
-    parts  = matchup_val.split("|")
-    pit_id, pit_name, opp_tid, opp_team = int(parts[0]), parts[1], int(parts[2]), parts[3]
+@app.callback(Output("bvp-results","children"), Input("bvp-trigger","n_intervals"))
+def load_bvp(n):
+    matchups = read_matchups()
+    bvp      = read("bvp")
+    roster   = read("rosters")
+    hc       = read("hot_cold")
+    min_ab   = 3
 
-    bvp    = read("bvp")
-    roster = read("rosters")
-    hc     = read("hot_cold")
-
-    if bvp.empty or roster.empty:
+    if matchups.empty or bvp.empty or roster.empty:
         return no_data()
 
-    # Filter BvP for this pitcher vs this team's batters
-    team_batters = roster[roster["team_id"] == opp_tid]["player_id"].tolist()
-    bvp_f = bvp[(bvp["pitcher_id"] == pit_id) & (bvp["batter_id"].isin(team_batters)) & (bvp["ab"] >= min_ab)]
+    # Deduplicate BvP
+    bvp_dedup = bvp.sort_values("ab", ascending=False).drop_duplicates(
+        subset=["batter_id","pitcher_id"], keep="first"
+    )
 
-    if bvp_f.empty:
-        return section(html.Div(f"No history (min {min_ab} AB) for {pit_name} vs {opp_team} roster.",
-                                style={"color":C["muted"]}))
+    # Build name lookup
+    name_map = {int(r["player_id"]): r["name"] for _, r in roster.iterrows()}
+    hc_map   = {int(r["player_id"]): r for _, r in hc.iterrows()} if not hc.empty else {}
 
-    # Merge with player names
-    bvp_f = bvp_f.merge(roster[["player_id","name"]].rename(columns={"player_id":"batter_id","name":"Batter"}),
-                         on="batter_id", how="left")
+    sections = []
 
-    # Add L7 AVG from hot_cold
-    if not hc.empty:
-        hc_m = hc[["player_id","l7_avg","l7_hr"]].rename(columns={"player_id":"batter_id"})
-        bvp_f = bvp_f.merge(hc_m, on="batter_id", how="left")
-        bvp_f["L7 AVG"] = bvp_f["l7_avg"].apply(lambda x: f".{str(round(x,3)).split('.')[-1][:3].ljust(3,'0')}" if pd.notna(x) else "—")
-        bvp_f["🔥"] = bvp_f["l7_avg"].apply(lambda x: "🔥" if pd.notna(x) and x >= 0.300 else "")
-    else:
-        bvp_f["L7 AVG"] = "—"
-        bvp_f["🔥"] = ""
+    for _, m in matchups.iterrows():
+        for side, opp in [("away","home"),("home","away")]:
+            pit_id_raw = m.get(f"{side}_pitcher_id","")
+            if not pit_id_raw or str(pit_id_raw) == "nan":
+                continue
+            pit_id   = int(float(pit_id_raw))
+            pit_name = m.get(f"{side}_pitcher","TBD")
+            opp_tid  = int(float(m.get(f"{opp}_team_id",0)))
+            opp_team = m.get(f"{opp}_team","")
+            pit_team = m.get(f"{side}_team","")
 
-    try:
-        bvp_f["_ops"] = bvp_f["ops"].apply(lambda x: float("0"+str(x)) if str(x).startswith(".") else float(x))
-    except Exception:
-        bvp_f["_ops"] = 0.0
-    bvp_f = bvp_f.sort_values("_ops", ascending=False)
+            team_batters = roster[roster["team_id"] == opp_tid]["player_id"].tolist()
+            bvp_f = bvp_dedup[
+                (bvp_dedup["pitcher_id"] == pit_id) &
+                (bvp_dedup["batter_id"].isin(team_batters)) &
+                (bvp_dedup["ab"] >= min_ab)
+            ].copy()
 
-    display = bvp_f[["Batter","ab","h","hr","rbi","k","bb","avg","ops","L7 AVG","🔥"]].rename(
-        columns={"ab":"AB","h":"H","hr":"HR","rbi":"RBI","k":"K","bb":"BB","avg":"AVG","ops":"OPS"})
+            if bvp_f.empty:
+                continue
 
-    hot    = [r["Batter"].split()[-1] for _, r in bvp_f.iterrows() if r.get("l7_avg",0) >= 0.300]
-    hr_guys= [f"{r['Batter'].split()[-1]}({int(r['hr'])}HR)" for _, r in bvp_f.iterrows() if int(r.get("hr",0)) > 0]
+            # Add names
+            bvp_f["Batter"] = bvp_f["batter_id"].apply(lambda x: name_map.get(int(x), "Unknown"))
 
-    callouts = []
-    if hot:
-        callouts.append(html.Div(f"🔥 Hot (L7 .300+): {', '.join(hot[:5])}",
-                                 style={"color":C["yellow"],"fontSize":"12px","marginBottom":"6px"}))
-    if hr_guys:
-        callouts.append(html.Div(f"💣 HR history: {', '.join(hr_guys[:5])}",
-                                 style={"color":C["red"],"fontSize":"12px","marginBottom":"10px"}))
+            # Add L7 AVG
+            bvp_f["l7_avg"] = bvp_f["batter_id"].apply(
+                lambda x: hc_map.get(int(x), {}).get("l7_avg", 0) if int(x) in hc_map else 0
+            )
+            bvp_f["L7 AVG"] = bvp_f["l7_avg"].apply(
+                lambda x: f".{str(round(float(x),3)).split('.')[-1][:3].ljust(3,'0')}" if x else "—"
+            )
+            bvp_f["🔥"] = bvp_f["l7_avg"].apply(lambda x: "🔥" if float(x or 0) >= 0.300 else "")
 
-    return html.Div([
-        html.Div(f"⚔️ {pit_name} vs {opp_team} — Career History",
-                 style={"fontSize":"13px","fontWeight":"bold","color":C["blue"],
-                        "borderLeft":f"3px solid {C['blue']}","paddingLeft":"10px","marginBottom":"8px"}),
-        *callouts,
-        section(dash_table.DataTable(
-            data=display.to_dict("records"),
-            columns=[{"name":c,"id":c} for c in display.columns],
-            sort_action="native", sort_mode="single",
-            style_table={"overflowX":"auto"}, style_cell=DT_CELL,
-            style_header=DT_HEADER, page_action="none",
-            style_data_conditional=DT_COND + [
-                {"if":{"column_id":"HR","filter_query":"{HR} > 0"},"color":C["red"],"fontWeight":"bold"},
-                {"if":{"column_id":"L7 AVG","filter_query":"{L7 AVG} >= .300"},"color":C["red"]},
-            ],
-        )),
-    ])
+            # Sort by OPS
+            try:
+                bvp_f["_ops"] = bvp_f["ops"].apply(lambda x: float("0"+str(x)) if str(x).startswith(".") else float(x))
+            except Exception:
+                bvp_f["_ops"] = 0.0
+            bvp_f = bvp_f.sort_values("_ops", ascending=False)
+
+            display = bvp_f[["Batter","ab","h","hr","rbi","k","bb","avg","ops","L7 AVG","🔥"]].rename(
+                columns={"ab":"AB","h":"H","hr":"HR","rbi":"RBI","k":"K","bb":"BB","avg":"AVG","ops":"OPS"})
+
+            hot     = [r["Batter"].split()[-1] for _, r in bvp_f.iterrows() if float(r.get("l7_avg",0) or 0) >= 0.300]
+            hr_guys = [f"{r['Batter'].split()[-1]}({int(r['hr'])}HR)" for _, r in bvp_f.iterrows() if int(r.get("hr",0)) > 0]
+
+            callouts = []
+            if hot:
+                callouts.append(html.Div(f"🔥 Hot (L7 .300+): {', '.join(hot[:5])}",
+                                         style={"color":C["yellow"],"fontSize":"12px","marginBottom":"4px"}))
+            if hr_guys:
+                callouts.append(html.Div(f"💣 HR history: {', '.join(hr_guys[:5])}",
+                                         style={"color":C["red"],"fontSize":"12px","marginBottom":"8px"}))
+
+            sections.append(html.Div([
+                html.Div(f"⚔️ {pit_name} ({pit_team}) vs {opp_team}",
+                         style={"fontSize":"13px","fontWeight":"bold","color":C["blue"],
+                                "borderLeft":f"3px solid {C['blue']}","paddingLeft":"10px",
+                                "marginBottom":"8px","marginTop":"8px"}),
+                *callouts,
+                section(dash_table.DataTable(
+                    data=display.to_dict("records"),
+                    columns=[{"name":c,"id":c} for c in display.columns],
+                    sort_action="native", sort_mode="single",
+                    style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+                    style_header=DT_HEADER, page_action="none",
+                    style_data_conditional=DT_COND + [
+                        {"if":{"column_id":"HR","filter_query":"{HR} > 0"},"color":C["red"],"fontWeight":"bold"},
+                        {"if":{"column_id":"L7 AVG","filter_query":"{L7 AVG} >= .300"},"color":C["yellow"]},
+                    ],
+                )),
+            ]))
+
+    if not sections:
+        return no_data("No BvP history found for today\'s matchups (min 3 AB).")
+
+    return html.Div(sections)
+
 
 # ─────────────────────────────────────────────
 # HOT/COLD
