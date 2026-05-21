@@ -54,18 +54,53 @@ def fetch_standings():
     print("Fetching standings...")
     data = get(f"{BASE}/standings?leagueId=103,104&season={YEAR}&standingsTypes=regularSeason")
     rows = []
+    DIVISION_MAP = {
+        200: "AL West", 201: "AL East", 202: "AL Central",
+        203: "NL West", 204: "NL East", 205: "NL Central",
+    }
     for record in data.get("records", []):
+        div_id   = record.get("division", {}).get("id", 0)
+        division = DIVISION_MAP.get(div_id, "Unknown")
         for tr in record.get("teamRecords", []):
             pct_raw = tr.get("winningPercentage", 0)
             try:   pct = round(float(pct_raw), 3)
             except: pct = 0.0
+
+            # Extract vs .500+ and last 10 from splitRecords
+            vs500_w = vs500_l = l10_w = l10_l = home_w = home_l = away_w = away_l = "-"
+            for split in tr.get("records", {}).get("splitRecords", []):
+                stype = split.get("type", "")
+                sw = split.get("wins", 0)
+                sl = split.get("losses", 0)
+                if stype == "overEachDivision":
+                    pass  # not what we want
+                if stype == "winners":
+                    vs500_w = sw; vs500_l = sl
+                elif stype == "lastTen":
+                    l10_w = sw; l10_l = sl
+                elif stype == "home":
+                    home_w = sw; home_l = sl
+                elif stype == "away":
+                    away_w = sw; away_l = sl
+
+            # Prefix with apostrophe-style space to prevent pandas date parsing
+            vs500 = f"W{vs500_w}-L{vs500_l}" if vs500_w != "-" else "-"
+            l10   = f"W{l10_w}-L{l10_l}"     if l10_w   != "-" else "-"
+            home  = f"W{home_w}-L{home_l}"   if home_w  != "-" else "-"
+            away  = f"W{away_w}-L{away_l}"   if away_w  != "-" else "-"
+
             rows.append({
-                "Team":   tr.get("team", {}).get("name", "Unknown"),
-                "W":      tr.get("wins", 0),
-                "L":      tr.get("losses", 0),
-                "PCT":    pct,
-                "GB":     tr.get("gamesBack", "-"),
-                "Streak": tr.get("streak", {}).get("streakCode", "-"),
+                "Team":     tr.get("team", {}).get("name", "Unknown"),
+                "Division": division,
+                "W":        tr.get("wins", 0),
+                "L":        tr.get("losses", 0),
+                "PCT":      pct,
+                "GB":       tr.get("gamesBack", "-"),
+                "Streak":   tr.get("streak", {}).get("streakCode", "-"),
+                "L10":      l10,
+                "Home":     home,
+                "Away":     away,
+                "vs .500+": vs500,
             })
     save(pd.DataFrame(rows), "standings")
 
@@ -140,7 +175,7 @@ def fetch_pitcher_stats(matchups):
     def fetch_one_pitcher(pid):
         row = {"pitcher_id": pid, "ERA": "-", "HR_allowed": 0,
                "H_allowed": 0, "K": 0, "IP": "0.0", "WHIP": "-",
-               "K9": 0.0, "hand": "?", "name": "Unknown"}
+               "K9": 0.0, "GS": 0, "H_per_G": 0.0, "hand": "?", "name": "Unknown"}
         # Season stats
         sd = get(f"{BASE}/people/{pid}/stats?stats=season&group=pitching&season={YEAR}&sportId=1")
         stats_list = sd.get("stats", [])
@@ -149,14 +184,18 @@ def fetch_pitcher_stats(matchups):
             s = splits[0].get("stat", {})
             ip = float(s.get("inningsPitched", 0) or 0)
             ks = int(s.get("strikeOuts", 0) or 0)
+            gs = int(s.get("gamesStarted", 0) or 0)
+            h  = int(s.get("hits", 0) or 0)
             row.update({
                 "ERA":        s.get("era", "-"),
                 "HR_allowed": int(s.get("homeRuns", 0) or 0),
-                "H_allowed":  int(s.get("hits", 0) or 0),
+                "H_allowed":  h,
                 "K":          ks,
                 "IP":         s.get("inningsPitched", "0.0"),
                 "WHIP":       s.get("whip", "-"),
                 "K9":         round((ks / ip) * 9, 1) if ip > 0 else 0.0,
+                "GS":         gs,
+                "H_per_G":    round(h / gs, 1) if gs > 0 else 0.0,
             })
         # Hand + name
         pd2 = get(f"{BASE}/people/{pid}")
@@ -397,33 +436,58 @@ def fetch_hits_leaders():
 # ─────────────────────────────────────────────
 def fetch_hit_streaks():
     print("Fetching hit streaks...")
-    data = get(f"{BASE}/stats/leaders?leaderCategories=battingAverage&season={YEAR}&sportId=1&statGroup=hitting&limit=50")
-    leaders = data.get("leagueLeaders", [{}])[0].get("leaders", [])
 
-    def fetch_one(entry):
-        pid  = entry.get("person", {}).get("id")
-        name = entry.get("person", {}).get("fullName", "Unknown")
-        team = entry.get("team", {}).get("name", "Unknown")
-        avg  = entry.get("value", ".000")
-        if not pid:
-            return None
-        log = get(f"{BASE}/people/{pid}/stats?stats=gameLog&group=hitting&season={YEAR}&sportId=1", timeout=8)
+    # Get all teams then all active rosters — covers every MLB batter
+    teams_data = get(f"{BASE}/teams?sportId=1&season={YEAR}")
+    team_ids   = [t["id"] for t in teams_data.get("teams", [])]
+
+    # Get all active batters
+    all_players = []
+    def fetch_roster(tid):
+        data = get(f"{BASE}/teams/{tid}/roster?rosterType=active&season={YEAR}")
+        return [
+            {"id": p["person"]["id"], "name": p["person"]["fullName"],
+             "team": tid}
+            for p in data.get("roster", [])
+            if p.get("position", {}).get("type") != "Pitcher"
+        ]
+
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        for roster in ex.map(fetch_roster, team_ids):
+            all_players.extend(roster)
+
+    # Build team name lookup
+    team_names = {t["id"]: t["name"] for t in teams_data.get("teams", [])}
+    print(f"  Checking {len(all_players)} batters for hit streaks...")
+
+    def fetch_one(player):
+        pid  = player["id"]
+        name = player["name"]
+        team = team_names.get(player["team"], "Unknown")
+        log  = get(f"{BASE}/people/{pid}/stats?stats=gameLog&group=hitting&season={YEAR}&sportId=1", timeout=8)
         stats_list = log.get("stats", [])
         if not stats_list:
             return None
         splits = list(reversed(stats_list[0].get("splits", [])))
+        if not splits:
+            return None
         streak = 0
         for g in splits:
             h = int(g.get("stat", {}).get("hits", 0) or 0)
             if h >= 1: streak += 1
             else: break
-        if streak < 1:
+        if streak < 5:
             return None
+        # Season AVG from the splits totals
+        try:
+            avg = splits[-1].get("seasonStats", {}).get("avg", ".000")
+        except Exception:
+            avg = ".000"
         return {"player_id": pid, "Player": name, "Team": team, "Streak": streak, "AVG": avg}
 
     rows = []
-    with ThreadPoolExecutor(max_workers=20) as ex:
-        futs = [ex.submit(fetch_one, e) for e in leaders]
+    with ThreadPoolExecutor(max_workers=30) as ex:
+        futs = [ex.submit(fetch_one, p) for p in all_players]
         for f in as_completed(futs):
             r = f.result()
             if r:
@@ -432,6 +496,7 @@ def fetch_hit_streaks():
     df = pd.DataFrame(rows)
     if not df.empty:
         df = df.sort_values("Streak", ascending=False).reset_index(drop=True)
+    print(f"  Found {len(df)} players with 5+ game hit streaks")
     save(df if not df.empty else pd.DataFrame(columns=["player_id","Player","Team","Streak","AVG"]), "hit_streaks")
 
 # ─────────────────────────────────────────────
@@ -440,7 +505,7 @@ def fetch_hit_streaks():
 def fetch_k_data():
     print("Fetching K data...")
     # Pitcher K rates
-    data = get(f"{BASE}/stats/leaders?leaderCategories=strikeouts&season={YEAR}&sportId=1&statGroup=pitching&limit=50")
+    data = get(f"{BASE}/stats/leaders?leaderCategories=strikeouts&season={YEAR}&sportId=1&statGroup=pitching&limit=200")
     k_rows = []
     for entry in data.get("leagueLeaders", [{}])[0].get("leaders", []):
         pid  = entry.get("person", {}).get("id")
