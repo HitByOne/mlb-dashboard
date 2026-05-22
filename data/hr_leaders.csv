@@ -20,37 +20,37 @@ Rank,Player,Team,League,HR,player_id
 14,Mike Trout,Los Angeles Angels,AL,12,545361
 20,Elly De La Cruz,Cincinnati Reds,NL,11,682829
 20,Hunter Goodman,Colorado Rockies,NL,11,696100
+20,Michael Harris II,Atlanta Braves,NL,11,671739
 20,Miguel Vargas,Chicago White Sox,AL,11,678246
 20,Christian Walker,Houston Astros,AL,11,572233
-24,CJ Abrams,Washington Nationals,NL,10,682928
-24,Willson Contreras,Boston Red Sox,AL,10,575929
-24,Oneil Cruz,Pittsburgh Pirates,NL,10,665833
-24,Ian Happ,Chicago Cubs,NL,10,664023
-24,Gunnar Henderson,Baltimore Orioles,AL,10,683002
-24,Kazuma Okamoto,Toronto Blue Jays,AL,10,672960
-24,Andy Pages,Los Angeles Dodgers,NL,10,681624
-24,Luke Raley,Seattle Mariners,AL,10,670042
-32,Pete Alonso,Baltimore Orioles,AL,9,624413
-32,Jake Burger,Texas Rangers,AL,9,669394
-32,Michael Harris II,Atlanta Braves,NL,9,671739
-32,Liam Hicks,Miami Marlins,NL,9,689414
-32,Angel Martínez,Cleveland Guardians,AL,9,682657
-32,Casey Schmitt,San Francisco Giants,NL,9,669477
-32,Gavin Sheets,San Diego Padres,NL,9,657757
-32,Jorge Soler,Los Angeles Angels,AL,9,624585
-32,Juan Soto,New York Mets,NL,9,665742
-32,JJ Wetherholt,St. Louis Cardinals,NL,9,802139
-42,Ozzie Albies,Atlanta Braves,NL,8,645277
-42,Jonathan Aranda,Tampa Bay Rays,AL,8,666018
-42,Dillon Dingler,Detroit Tigers,AL,8,693307
-42,Yandy Díaz,Tampa Bay Rays,AL,8,650490
-42,Nick Kurtz,Athletics,AL,8,701762
-42,Zach Neto,Los Angeles Angels,AL,8,687263
-42,Shohei Ohtani,Los Angeles Dodgers,NL,8,660271
-42,Salvador Perez,Kansas City Royals,AL,8,521692
-42,José Ramírez,Cleveland Guardians,AL,8,608070
-42,Austin Riley,Atlanta Braves,NL,8,663586
-42,Julio Rodríguez,Seattle Mariners,AL,8,677594
+25,CJ Abrams,Washington Nationals,NL,10,682928
+25,Willson Contreras,Boston Red Sox,AL,10,575929
+25,Oneil Cruz,Pittsburgh Pirates,NL,10,665833
+25,Ian Happ,Chicago Cubs,NL,10,664023
+25,Gunnar Henderson,Baltimore Orioles,AL,10,683002
+25,Kazuma Okamoto,Toronto Blue Jays,AL,10,672960
+25,Andy Pages,Los Angeles Dodgers,NL,10,681624
+25,Luke Raley,Seattle Mariners,AL,10,670042
+33,Pete Alonso,Baltimore Orioles,AL,9,624413
+33,Jake Burger,Texas Rangers,AL,9,669394
+33,Dillon Dingler,Detroit Tigers,AL,9,693307
+33,Liam Hicks,Miami Marlins,NL,9,689414
+33,Angel Martínez,Cleveland Guardians,AL,9,682657
+33,Casey Schmitt,San Francisco Giants,NL,9,669477
+33,Gavin Sheets,San Diego Padres,NL,9,657757
+33,Jorge Soler,Los Angeles Angels,AL,9,624585
+33,Juan Soto,New York Mets,NL,9,665742
+33,JJ Wetherholt,St. Louis Cardinals,NL,9,802139
+43,Ozzie Albies,Atlanta Braves,NL,8,645277
+43,Jonathan Aranda,Tampa Bay Rays,AL,8,666018
+43,Yandy Díaz,Tampa Bay Rays,AL,8,650490
+43,Nick Kurtz,Athletics,AL,8,701762
+43,Zach Neto,Los Angeles Angels,AL,8,687263
+43,Shohei Ohtani,Los Angeles Dodgers,NL,8,660271
+43,Salvador Perez,Kansas City Royals,AL,8,521692
+43,José Ramírez,Cleveland Guardians,AL,8,608070
+43,Austin Riley,Atlanta Braves,NL,8,663586
+43,Julio Rodríguez,Seattle Mariners,AL,8,677594
 53,Jo Adell,Los Angeles Angels,AL,7,666176
 53,Nolan Arenado,Arizona Diamondbacks,NL,7,571448
 53,Samuel Basallo,Baltimore Orioles,AL,7,694212
