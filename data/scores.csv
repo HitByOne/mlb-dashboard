@@ -1,19 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-05-16,Toronto Blue Jays,2,Detroit Tigers,1,Toronto Blue Jays,3
-2026-05-16,Kansas City Royals,2,St. Louis Cardinals,4,St. Louis Cardinals,6
-2026-05-16,Arizona Diamondbacks,2,Colorado Rockies,4,Colorado Rockies,6
-2026-05-16,Baltimore Orioles,3,Washington Nationals,13,Washington Nationals,16
-2026-05-16,Philadelphia Phillies,6,Pittsburgh Pirates,0,Philadelphia Phillies,6
-2026-05-16,Miami Marlins,10,Tampa Bay Rays,5,Miami Marlins,15
-2026-05-16,Cincinnati Reds,4,Cleveland Guardians,7,Cleveland Guardians,11
-2026-05-16,Texas Rangers,1,Houston Astros,4,Houston Astros,5
-2026-05-16,Chicago Cubs,3,Chicago White Sox,8,Chicago White Sox,11
-2026-05-16,Milwaukee Brewers,2,Minnesota Twins,1,Milwaukee Brewers,3
-2026-05-16,San Diego Padres,7,Seattle Mariners,4,San Diego Padres,11
-2026-05-16,Boston Red Sox,3,Atlanta Braves,2,Boston Red Sox,5
-2026-05-16,New York Yankees,3,New York Mets,6,New York Mets,9
-2026-05-16,Los Angeles Dodgers,15,Los Angeles Angels,2,Los Angeles Dodgers,17
-2026-05-16,San Francisco Giants,6,Athletics,4,San Francisco Giants,10
 2026-05-17,Miami Marlins,3,Tampa Bay Rays,6,Tampa Bay Rays,9
 2026-05-17,Baltimore Orioles,7,Washington Nationals,3,Baltimore Orioles,10
 2026-05-17,Philadelphia Phillies,6,Pittsburgh Pirates,0,Philadelphia Phillies,6
@@ -94,3 +79,17 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-05-22,Colorado Rockies,3,Arizona Diamondbacks,2,Colorado Rockies,5
 2026-05-22,Athletics,3,San Diego Padres,7,San Diego Padres,10
 2026-05-22,Chicago White Sox,9,San Francisco Giants,4,Chicago White Sox,13
+2026-05-23,St. Louis Cardinals,8,Cincinnati Reds,1,St. Louis Cardinals,9
+2026-05-23,St. Louis Cardinals,6,Cincinnati Reds,7,Cincinnati Reds,13
+2026-05-23,Houston Astros,3,Chicago Cubs,0,Houston Astros,3
+2026-05-23,Pittsburgh Pirates,2,Toronto Blue Jays,5,Toronto Blue Jays,7
+2026-05-23,Cleveland Guardians,0,Philadelphia Phillies,3,Philadelphia Phillies,3
+2026-05-23,Chicago White Sox,3,San Francisco Giants,10,San Francisco Giants,13
+2026-05-23,Seattle Mariners,0,Kansas City Royals,5,Kansas City Royals,5
+2026-05-23,Minnesota Twins,4,Boston Red Sox,2,Minnesota Twins,6
+2026-05-23,Washington Nationals,2,Atlanta Braves,0,Washington Nationals,2
+2026-05-23,New York Mets,1,Miami Marlins,4,Miami Marlins,5
+2026-05-23,Los Angeles Dodgers,11,Milwaukee Brewers,3,Los Angeles Dodgers,14
+2026-05-23,Athletics,0,San Diego Padres,2,San Diego Padres,2
+2026-05-23,Texas Rangers,2,Los Angeles Angels,5,Los Angeles Angels,7
+2026-05-23,Colorado Rockies,4,Arizona Diamondbacks,5,Arizona Diamondbacks,9
