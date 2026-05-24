@@ -186,6 +186,7 @@ def fetch_pitcher_stats(matchups):
             ks = int(s.get("strikeOuts", 0) or 0)
             gs = int(s.get("gamesStarted", 0) or 0)
             h  = int(s.get("hits", 0) or 0)
+            bf = int(s.get("battersFaced", 0) or 0)
             row.update({
                 "ERA":        s.get("era", "-"),
                 "HR_allowed": int(s.get("homeRuns", 0) or 0),
@@ -196,6 +197,9 @@ def fetch_pitcher_stats(matchups):
                 "K9":         round((ks / ip) * 9, 1) if ip > 0 else 0.0,
                 "GS":         gs,
                 "H_per_G":    round(h / gs, 1) if gs > 0 else 0.0,
+                "BF":         bf,
+                "K_pct":      round(ks / bf, 3) if bf > 0 else 0.0,
+                "BF_per_GS":  round(bf / gs, 1) if gs > 0 else 0.0,
             })
         # Hand + name
         pd2 = get(f"{BASE}/people/{pid}")
@@ -287,6 +291,12 @@ def fetch_hot_cold(rosters):
         l10_tb= sum(g.get("stat", {}).get("totalBases", 0) for g in splits[-10:])
         l5_tb = sum(g.get("stat", {}).get("totalBases", 0) for g in splits[-5:])
 
+        # K% = strikeouts / plate appearances (AB + BB)
+        def k_pct(stats_tuple):
+            ab, h, hr, rbi, k, bb, avg, ops, tb = stats_tuple
+            pa = ab + bb
+            return round(k / pa, 3) if pa > 0 else 0.0
+
         return {
             "player_id": pid, "name": name, "team_id": tid,
             "l7_ab": l7[0],  "l7_h": l7[1],  "l7_hr": l7[2],  "l7_rbi": l7[3],
@@ -298,6 +308,10 @@ def fetch_hot_cold(rosters):
             "l5_hr": l5_hr,  "l10_hr": l10_hr,
             "l5_h": l5_h,    "l10_h": l10_h,
             "l10_tb": l10_tb,"l5_tb": l5_tb,
+            "sea_k_pct": k_pct(sea),
+            "l14_k_pct": k_pct(l14),
+            "sea_k":     sea[4],
+            "sea_pa":    sea[0] + sea[5],
         }
 
     rows = []
@@ -515,10 +529,17 @@ def fetch_k_data():
         sd   = get(f"{BASE}/people/{pid}/stats?stats=season&group=pitching&season={YEAR}&sportId=1", timeout=8)
         sp   = sd.get("stats", [{}])[0].get("splits", [{}])[0].get("stat", {})
         ip   = float(sp.get("inningsPitched", 1) or 1)
+        gs = int(sp.get("gamesStarted", 0) or 0)
+        bf  = int(sp.get("battersFaced", 0) or 0)
         k_rows.append({
             "pitcher_id": pid, "name": name, "team": team,
             "K": ks, "K9": round((ks/ip)*9, 1) if ip > 0 else 0.0,
             "ERA": sp.get("era", "-"), "IP": sp.get("inningsPitched", "-"),
+            "GS": gs,
+            "avg_ip": round(ip/gs, 1) if gs > 0 else 0.0,
+            "BF": bf,
+            "K_pct": round(ks/bf, 3) if bf > 0 else 0.0,
+            "BF_per_GS": round(bf/gs, 1) if gs > 0 else 0.0,
         })
     save(pd.DataFrame(k_rows), "pitcher_k_rates")
 
@@ -537,6 +558,53 @@ def fetch_k_data():
     with ThreadPoolExecutor(max_workers=20) as ex:
         vuln_rows = [f.result() for f in as_completed([ex.submit(fetch_team_k, tid) for tid in teams])]
     save(pd.DataFrame(vuln_rows), "team_k_vulnerability")
+
+# ─────────────────────────────────────────────
+# 12b. TEAM RECENT BATTING + K STATS vs today's pitchers
+# ─────────────────────────────────────────────
+def fetch_team_batting_recents(matchups):
+    print("Fetching team recent batting stats...")
+
+    def fetch_one(tid, team_name):
+        data = get(f"{BASE}/teams/{tid}/stats?stats=gameLog&group=hitting&season={YEAR}&sportId=1&limit=10", timeout=10)
+        stats_list = data.get("stats", [])
+        splits = stats_list[0].get("splits", []) if stats_list else []
+        if not splits:
+            return {"team_id": tid, "team": team_name,
+                    "l5_avg": 0.0, "l3_avg": 0.0, "last_k": 0, "l5_k": 0, "l3_k": 0}
+
+        def calc_avg(games):
+            ab = sum(g.get("stat", {}).get("atBats", 0) for g in games)
+            h  = sum(g.get("stat", {}).get("hits",   0) for g in games)
+            return round(h/ab, 3) if ab > 0 else 0.0
+
+        last5  = splits[-5:]
+        last3  = splits[-3:]
+        last1  = splits[-1:]
+
+        return {
+            "team_id": tid,
+            "team":    team_name,
+            "l5_avg":  calc_avg(last5),
+            "l3_avg":  calc_avg(last3),
+            "last_k":  sum(g.get("stat", {}).get("strikeOuts", 0) for g in last1),
+            "l5_k":    sum(g.get("stat", {}).get("strikeOuts", 0) for g in last5),
+            "l3_k":    sum(g.get("stat", {}).get("strikeOuts", 0) for g in last3),
+        }
+
+    # Get unique batting teams from matchups
+    teams = {}
+    for _, m in matchups.iterrows():
+        teams[m["away_team_id"]] = m["away_team"]
+        teams[m["home_team_id"]] = m["home_team"]
+
+    rows = []
+    with ThreadPoolExecutor(max_workers=15) as ex:
+        futs = [ex.submit(fetch_one, tid, name) for tid, name in teams.items()]
+        rows = [f.result() for f in as_completed(futs)]
+
+    save(pd.DataFrame(rows), "team_batting_recents")
+
 
 # ─────────────────────────────────────────────
 # 13. LEAKY PITCHERS (most hits/HRs allowed)
@@ -583,6 +651,7 @@ if __name__ == "__main__":
     fetch_hits_leaders()
     fetch_hit_streaks()
     fetch_k_data()
+    fetch_team_batting_recents(pd.read_csv(os.path.join(DATA_DIR, "matchups.csv")))
     fetch_leaky_pitchers()
 
     # Save metadata
