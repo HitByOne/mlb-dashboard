@@ -22,7 +22,14 @@ from flask_caching import Cache
 # ─────────────────────────────────────────────
 # App + Cache
 # ─────────────────────────────────────────────
-app   = dash.Dash(__name__, title="⚾ MLB Dashboard")
+app   = dash.Dash(__name__, title="⚾ MLB Dashboard",
+    suppress_callback_exceptions=True)
+
+# Hide DataTable toggle columns button
+app.index_string = app.index_string.replace(
+    '</head>',
+    '<style>.show-hide { display: none !important; }</style></head>'
+)
 cache = Cache(app.server, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 300})
 
 DATA_DIR = "data"
@@ -157,10 +164,11 @@ TAB_SEL   = {**TAB_STYLE, "backgroundColor": C["card"],
 
 DT_CELL   = {"backgroundColor": C["card"], "color": C["text"],
              "border": f"1px solid {C['border']}", "fontFamily": "IBM Plex Mono",
-             "fontSize": "13px", "padding": "7px 12px", "whiteSpace": "nowrap"}
+             "fontSize": "13px", "padding": "7px 12px", "whiteSpace": "nowrap",
+             "textAlign": "left"}
 DT_HEADER = {"backgroundColor": C["bg"], "color": C["muted"], "fontWeight": "bold",
              "fontSize": "11px", "textTransform": "uppercase", "letterSpacing": "1px",
-             "border": f"1px solid {C['border']}"}
+             "border": f"1px solid {C['border']}", "textAlign": "left"}
 DT_COND   = [{"if": {"row_index": "odd"}, "backgroundColor": "#0f1419"}]
 
 def section(children):
@@ -213,6 +221,7 @@ app.layout = html.Div(style={
         dcc.Tab(label="🎯 Hits & Bases",      value="hitsleaders",style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="⭐ Top Picks",         value="toppicks",   style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🌤️ Weather",            value="weather",    style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="🏆 Game Predictions",   value="predictions", style=TAB_STYLE, selected_style=TAB_SEL),
     ]),
 
     dcc.Loading(type="circle", color=C["blue"],
@@ -359,6 +368,7 @@ def render_tab(tab):
         "hitsleaders": hitsleaders_layout,
         "toppicks":    toppicks_layout,
         "weather":     weather_layout,
+        "predictions": predictions_layout,
     }
     return tabs.get(tab, standings_layout)()
 
@@ -811,13 +821,26 @@ def kmatch_layout():
     k_rates  = read("pitcher_k_rates")
     team_k   = read("team_k_vulnerability")
     pit_stats= read("pitcher_stats")
+    tbr      = read("team_batting_recents")
+    hc       = read("hot_cold")
 
     if matchups.empty:
         return no_data()
 
+
     # Build lookup dicts
     k_map    = {r["name"]: r for _, r in k_rates.iterrows()} if not k_rates.empty else {}
     vuln_map = {int(r["team_id"]): r for _, r in team_k.iterrows()} if not team_k.empty else {}
+    try:
+        tbr_map = {int(r["team_id"]): r for _, r in tbr.iterrows()} if not tbr.empty else {}
+    except Exception:
+        tbr_map = {}
+
+    # Build pit_stats lookup by name for IP/GS data
+    ps_name_map = {}
+    if not pit_stats.empty:
+        for _, r in pit_stats.iterrows():
+            ps_name_map[str(r.get("name",""))] = r
 
     # Fallback: use pitcher_stats for any pitcher not in k_rates
     ps_fallback = {}
@@ -849,6 +872,10 @@ def kmatch_layout():
             if pid_str in vegas_map:
                 pid_to_vegas[str(r["name"])] = vegas_map[pid_str]
 
+    def fmt_avg(v):
+        try: return f".{str(round(float(v),3)).split('.')[-1][:3].ljust(3,'0')}"
+        except: return ".000"
+
     rows = []
     for _, m in matchups.iterrows():
         for side, opp in [("away","home"),("home","away")]:
@@ -861,14 +888,66 @@ def kmatch_layout():
             pk9  = float(pk.get("K9", 0) or 0)
             pera = float(str(pk.get("ERA",4.5)).replace("-","4.5") or 4.5)
             pks  = pk.get("K", "-")
+            # Avg IP per start
+            try:
+                avg_ip = float(pk.get("avg_ip", 0) or 0)
+                if avg_ip == 0:
+                    ps_r     = ps_name_map.get(pit_name, {})
+                    ip_total = float(ps_r.get("IP", 0) or 0)
+                    gs       = int(float(ps_r.get("GS", 0) or 0))
+                    avg_ip   = round(ip_total / gs, 1) if gs > 0 else 0.0
+            except:
+                avg_ip = 0.0
 
             tv   = vuln_map.get(opp_tid, {})
             opp_avg_k = float(tv.get("avg_k", 7.0) or 7.0)
 
-            k7      = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
-            opp_k7  = round((opp_avg_k/9)*7, 1)
-            blend   = round((k7+opp_k7)/2, 1)
-            score   = round(pk9*3 + opp_avg_k*2, 1)
+            # Team batting recents
+            tbr_r = tbr_map.get(opp_tid, {})
+            try: l5_avg = float(tbr_r.get("l5_avg", 0) or 0)
+            except: l5_avg = 0.0
+            try: l3_avg = float(tbr_r.get("l3_avg", 0) or 0)
+            except: l3_avg = 0.0
+            try: last_k = int(float(tbr_r.get("last_k", 0) or 0))
+            except: last_k = 0
+            try: l5_k = int(float(tbr_r.get("l5_k", 0) or 0))
+            except: l5_k = 0
+            try: l3_k = int(float(tbr_r.get("l3_k", 0) or 0))
+            except: l3_k = 0
+
+            # ── New K% model ──────────────────────────────────────
+            # Pitcher K% from k_rates (K/BF)
+            pit_k_pct   = float(pk.get("K_pct", 0) or 0)
+            pit_bf_per_gs = float(pk.get("BF_per_GS", 0) or 0)
+
+            # Lineup K% — avg sea_k_pct of opposing team batters
+            opp_batters = hc[hc["team_id"].astype(str) == str(opp_tid)] if not hc.empty else pd.DataFrame()
+            if not opp_batters.empty and "sea_k_pct" in opp_batters.columns:
+                lineup_k_pct = round(float(opp_batters["sea_k_pct"].dropna().mean()), 3)
+            else:
+                # Fallback: estimate from opp avg K/G ÷ 9 batters
+                lineup_k_pct = round(opp_avg_k / (9 * 4), 3)  # rough PA estimate
+
+            # Combined K% per PA = geometric mean of pitcher and lineup tendency
+            if pit_k_pct > 0 and lineup_k_pct > 0:
+                combined_k_pct = round((pit_k_pct * lineup_k_pct) ** 0.5, 3)
+            elif pit_k_pct > 0:
+                combined_k_pct = pit_k_pct
+            else:
+                combined_k_pct = lineup_k_pct
+
+            # Expected Ks = combined K% × expected batters faced
+            exp_bf    = pit_bf_per_gs if pit_bf_per_gs > 0 else (avg_ip * 4.3)
+            exp_ks    = round(combined_k_pct * exp_bf, 1) if combined_k_pct > 0 else 0.0
+
+            # Blended: average of K9-based and K%-based projections
+            k7        = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
+            opp_k7    = round((opp_avg_k/9)*7, 1)
+            k9_blend  = round((k7+opp_k7)/2, 1)
+            blend     = round((k9_blend + exp_ks) / 2, 1) if exp_ks > 0 else k9_blend
+            score     = round(pk9*3 + opp_avg_k*2, 1)
+
+            lineup_k_pct_str = f"{round(lineup_k_pct*100,1)}%" if lineup_k_pct > 0 else "—"
 
             if score >= 45:   rating, rc = "🔥🔥 Elite",  C["red"]
             elif score >= 35: rating, rc = "🔥 Strong",   C["yellow"]
@@ -889,44 +968,110 @@ def kmatch_layout():
                 edge_str   = "—"
                 edge_color = "neutral"
 
+            # Implied probability from over odds
+            try:
+                over_odds = vl.get("over", "—")
+                if over_odds != "—":
+                    o = float(over_odds)
+                    if o < 0:
+                        implied_over = round(abs(o) / (abs(o) + 100) * 100)
+                    else:
+                        implied_over = round(100 / (o + 100) * 100)
+                    implied_str  = f"{implied_over}% Over"
+                    implied_color = "red" if implied_over >= 55 else ("yellow" if implied_over >= 50 else "blue")
+                else:
+                    implied_over  = 0
+                    implied_str   = "—"
+                    implied_color = "neutral"
+            except:
+                implied_over  = 0
+                implied_str   = "—"
+                implied_color = "neutral"
+
             rows.append({
-                "Pitcher": pit_name, "Team": pit_team, "Opponent": opp_team,
-                "K9": pk9, "Season Ks": pks, "ERA": pk.get("ERA","-"),
-                "Opp Avg K/G": opp_avg_k,
-                "K Proj (7IP)": k7, "Blended Proj": blend,
-                "Vegas Line": f"{vline} ({vover} / {vunder})" if vline != "—" else "—",
-                "Our Edge": edge_str,
-                "Score": score, "Rating": rating,
-                "_score": score,
-                "_edge": edge_str,
-                "_edge_color": edge_color,
-                "_vline": float(vline) if vline != "—" else 0,
+                "Pitcher":      pit_name,
+                "Team":         pit_team,
+                "Opponent":     opp_team,
+                "K9":           pk9,
+                "Season Ks":    pks,
+                "ERA":          pk.get("ERA","-"),
+                "Opp Avg K/G":  opp_avg_k,
+                "Lineup K%":    lineup_k_pct_str,
+                "Pit K%":       f"{round(pit_k_pct*100,1)}%" if pit_k_pct > 0 else "—",
+                "Exp Ks":       exp_ks,
+                "Opp L5 AVG":   fmt_avg(l5_avg),
+                "Opp L3 AVG":   fmt_avg(l3_avg),
+                "Opp Last K":   last_k,
+                "Opp L5 Ks":    l5_k,
+                "Opp L3 Ks":    l3_k,
+                "Avg IP":       avg_ip,
+                "K Proj (7IP)": k7,
+                "Blended Proj": blend,
+                "Vegas Line":   f"{vline} ({vover} / {vunder})" if vline != "—" else "—",
+                "Our Edge":     edge_str,
+                "Mkt Implied":  implied_str,
+                "Score":        score,
+                "Rating":       rating,
+                "_score":       score,
+                "_edge_color":  edge_color,
+                "_implied":     implied_over if implied_str != "—" else 0,
+                "_l5_avg":      l5_avg,
+                "_l3_avg":      l3_avg,
             })
 
     rows.sort(key=lambda x: x["_score"], reverse=True)
     df = pd.DataFrame(rows)
 
+    # Build merged column headers using a two-row header trick
+    pit_cols  = ["Pitcher","Team","ERA","K9","Avg IP","Season Ks","Pit K%"]
+    opp_cols  = ["Opponent","Lineup K%","Opp L5 AVG","Opp L3 AVG","Opp Avg K/G","Opp Last K","Opp L5 Ks","Opp L3 Ks"]
+    proj_cols = ["Exp Ks","Blended Proj","Vegas Line","Our Edge","Mkt Implied","Rating"]
+    all_cols  = pit_cols + opp_cols + proj_cols
+
+    columns = []
+    for c in all_cols:
+        if c in pit_cols:
+            columns.append({"name": ["⚾ PITCHER", c], "id": c})
+        elif c in opp_cols:
+            columns.append({"name": ["🏏 OPPONENT", c], "id": c})
+        else:
+            columns.append({"name": ["📊 PROJECTION", c], "id": c})
+
     k_table = section(dash_table.DataTable(
         data=df.to_dict("records"),
-        columns=[{"name":c,"id":c} for c in
-                 ["Pitcher","Team","Opponent","K9","Season Ks","ERA",
-                  "Opp Avg K/G","K Proj (7IP)","Blended Proj",
-                  "Vegas Line","Our Edge","Score","Rating"]],
+        columns=columns,
+        merge_duplicate_headers=True,
         sort_action="native", sort_mode="single",
         style_table={"overflowX":"auto"}, style_cell=DT_CELL,
         style_header=DT_HEADER, page_action="none",
         style_data_conditional=DT_COND + [
             {"if":{"column_id":"K9","filter_query":"{K9} >= 10"},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"K9","filter_query":"{K9} >= 8"}, "color":C["yellow"],"fontWeight":"bold"},
+            {"if":{"column_id":"Avg IP","filter_query":"{Avg IP} >= 6.5"},"color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"Avg IP","filter_query":"{Avg IP} < 5.0"}, "color":C["red"]},
             {"if":{"column_id":"Blended Proj","filter_query":"{Blended Proj} >= 8"},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"Blended Proj","filter_query":"{Blended Proj} >= 6"},"color":C["yellow"],"fontWeight":"bold"},
             {"if":{"column_id":"Score","filter_query":"{_score} >= 45"},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"Score","filter_query":"{_score} >= 35"},"color":C["yellow"],"fontWeight":"bold"},
             {"if":{"column_id":"Vegas Line","filter_query":'{Vegas Line} != "—"'},"color":C["blue"],"fontWeight":"bold"},
+            {"if":{"column_id":"Lineup K%","filter_query":'{Lineup K%} != "—"'},"color":C["blue"],"fontWeight":"bold"},
+            {"if":{"column_id":"Exp Ks","filter_query":"{Exp Ks} >= 8"},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Exp Ks","filter_query":"{Exp Ks} >= 6"},"color":C["yellow"]},
+            {"if":{"column_id":"Opp L5 AVG","filter_query":"{_l5_avg} >= 0.270"},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Opp L5 AVG","filter_query":"{_l5_avg} >= 0.240"},"color":C["yellow"]},
+            {"if":{"column_id":"Opp L3 AVG","filter_query":"{_l3_avg} >= 0.270"},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Opp L3 AVG","filter_query":"{_l3_avg} >= 0.240"},"color":C["yellow"]},
+            {"if":{"column_id":"Opp Last K","filter_query":"{Opp Last K} >= 10"},"color":C["blue"],"fontWeight":"bold"},
+            {"if":{"column_id":"Opp Last K","filter_query":"{Opp Last K} >= 8"}, "color":C["blue"]},
+            {"if":{"column_id":"Opp L5 Ks", "filter_query":"{Opp L5 Ks} >= 50"}, "color":C["blue"],"fontWeight":"bold"},
+            {"if":{"column_id":"Opp L3 Ks", "filter_query":"{Opp L3 Ks} >= 30"}, "color":C["blue"],"fontWeight":"bold"},
             {"if":{"column_id":"Our Edge","filter_query":"{_edge_color} = green"},"color":C["green"],"fontWeight":"bold"},
             {"if":{"column_id":"Our Edge","filter_query":"{_edge_color} = red"},"color":C["red"]},
+            {"if":{"column_id":"Mkt Implied","filter_query":"{_implied} >= 55"},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Mkt Implied","filter_query":"{_implied} >= 50"},"color":C["yellow"]},
+            {"if":{"column_id":"Mkt Implied","filter_query":"{_implied} < 50"}, "color":C["blue"]},
         ],
-        hidden_columns=["_score","_edge","_edge_color","_vline"],
+        hidden_columns=["_score","_edge_color","_l5_avg","_l3_avg","_implied"],
     ))
 
     # Most Hits Allowed leaderboard
@@ -1695,11 +1840,11 @@ def load_toppicks(_):
                 pk9  = float(pk.get("K9",0) or 0)
                 pera = float(str(pk.get("ERA","4.5")).replace("-","4.5"))
                 opp_avg_k = tk_map2.get(opp_tid, 7.0)
-                k7    = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
-                opp_k7= round((opp_avg_k/9)*7, 1)
-                blend = round((k7+opp_k7)/2, 1)
-                score = round(pk9*3 + opp_avg_k*2, 1)
-                k_picks.append({
+            k7    = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
+            opp_k7= round((opp_avg_k/9)*7, 1)
+            blend = round((k7+opp_k7)/2, 1)
+            score = round(pk9*3 + opp_avg_k*2, 1)
+            k_picks.append({
                     "pitcher": pit_name, "pit_team": pit_team,
                     "opp_team": opp_team, "pk9": pk9, "pera": pera,
                     "opp_avg_k": opp_avg_k, "k7": k7, "blend": blend, "score": score,
@@ -2040,12 +2185,322 @@ def load_weather(_, __):
         *cards,
     ])
 
+
+# ─────────────────────────────────────────────
+# GAME PREDICTIONS
+# ─────────────────────────────────────────────
+
+def predictions_layout():
+    return html.Div([
+        dcc.Interval(id="pred-trigger", interval=300, max_intervals=1),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="pred-results")),
+    ])
+
+
+@app.callback(Output("pred-results", "children"), Input("pred-trigger", "n_intervals"))
+def load_predictions(n):
+    matchups  = read_matchups()
+    standings = read("standings")
+    pit_stats = read("pitcher_stats")
+    tbr       = read("team_batting_recents")
+    k_rates   = read("pitcher_k_rates")
+
+    if matchups.empty:
+        return no_data()
+
+    # Build lookups
+    # Standings by team name
+    # Map full team names to standings short names
+    TEAM_NAME_MAP = {
+        "Arizona Diamondbacks": "Diamondbacks", "Atlanta Braves": "Braves",
+        "Baltimore Orioles": "Orioles", "Boston Red Sox": "Red Sox",
+        "Chicago Cubs": "Cubs", "Chicago White Sox": "White Sox",
+        "Cincinnati Reds": "Reds", "Cleveland Guardians": "Guardians",
+        "Colorado Rockies": "Rockies", "Detroit Tigers": "Tigers",
+        "Houston Astros": "Astros", "Kansas City Royals": "Royals",
+        "Los Angeles Angels": "Angels", "Los Angeles Dodgers": "Dodgers",
+        "Miami Marlins": "Marlins", "Milwaukee Brewers": "Brewers",
+        "Minnesota Twins": "Twins", "New York Mets": "Mets",
+        "New York Yankees": "Yankees", "Athletics": "Athletics",
+        "Philadelphia Phillies": "Phillies", "Pittsburgh Pirates": "Pirates",
+        "San Diego Padres": "Padres", "San Francisco Giants": "Giants",
+        "Seattle Mariners": "Mariners", "St. Louis Cardinals": "Cardinals",
+        "Tampa Bay Rays": "Rays", "Texas Rangers": "Rangers",
+        "Toronto Blue Jays": "Blue Jays", "Washington Nationals": "Nationals",
+    }
+
+    std_map = {}
+    if not standings.empty:
+        for _, r in standings.iterrows():
+            short = r["Team"]
+            std_map[short] = r.to_dict()
+            # Also map by full name
+            for full, s in TEAM_NAME_MAP.items():
+                if s == short:
+                    std_map[full] = r.to_dict()
+
+    # Pitcher stats by name
+    ps_map = {}
+    if not pit_stats.empty:
+        for _, r in pit_stats.iterrows():
+            ps_map[str(r.get("name",""))] = r.to_dict()
+
+    # K rates by name
+    kr_map = {}
+    if not k_rates.empty:
+        for _, r in k_rates.iterrows():
+            kr_map[str(r.get("name",""))] = r.to_dict()
+
+    # Team batting recents by team_id
+    tbr_map = {}
+    if not tbr.empty:
+        for _, r in tbr.iterrows():
+            try: tbr_map[int(r["team_id"])] = r.to_dict()
+            except: pass
+
+
+    def parse_wl(wl_str):
+        """Parse W-L string like W19-L5 -> (19, 5)"""
+        try:
+            s = str(wl_str).strip()
+            if s in ("-", "nan", "", "None"):
+                return 0, 0
+            # Format: W19-L5
+            import re
+            m = re.search(r"W(\d+)-L(\d+)", s)
+            if m:
+                return int(m.group(1)), int(m.group(2))
+            # Fallback: 19-5
+            parts = s.split("-")
+            return int(parts[0]), int(parts[1])
+        except:
+            return 0, 0
+
+    def pct(w, l):
+        return round(w/(w+l), 3) if (w+l) > 0 else 0.0
+
+    def score_team(team_name, team_id, pitcher_name, is_home, opp_pitcher_name):
+        score = 0
+        reasons = []
+        flags   = []
+
+        std = std_map.get(team_name, {})
+
+        # 1. Overall record
+        w = int(std.get("W", 0) or 0)
+        l = int(std.get("L", 0) or 0)
+        win_pct = pct(w, l)
+        score += win_pct * 20
+        if win_pct >= 0.550:
+            reasons.append(f"✅ Strong record ({w}-{l}, .{int(win_pct*1000)})")
+        elif win_pct <= 0.430:
+            reasons.append(f"⚠️ Weak record ({w}-{l}, .{int(win_pct*1000)})")
+
+        # 2. vs .500+ teams
+        vs500 = str(std.get("vs .500+", "-"))
+        if vs500 not in ("-", "nan", ""):
+            vw, vl = parse_wl(vs500)
+            v_pct  = pct(vw, vl)
+            score += v_pct * 15
+            if v_pct >= 0.550:
+                reasons.append(f"💪 Strong vs .500+ teams ({vw}-{vl})")
+            elif v_pct <= 0.400:
+                reasons.append(f"⚠️ Weak vs .500+ teams ({vw}-{vl})")
+
+        # 3. Home/Away record
+        ha_key  = "Home" if is_home else "Away"
+        ha_str  = str(std.get(ha_key, "-"))
+        if ha_str not in ("-", "nan", ""):
+            haw, hal = parse_wl(ha_str)
+            ha_pct   = pct(haw, hal)
+            score   += ha_pct * 10
+            if ha_pct >= 0.600:
+                reasons.append(f"🏟️ Great {'home' if is_home else 'road'} record ({haw}-{hal})")
+            elif ha_pct <= 0.400:
+                reasons.append(f"⚠️ Poor {'home' if is_home else 'road'} record ({haw}-{hal})")
+
+        # 4. Last 10
+        l10_str = str(std.get("L10", "-"))
+        if l10_str not in ("-", "nan", ""):
+            l10w, l10l = parse_wl(l10_str)
+            score     += pct(l10w, l10l) * 10
+            if l10w >= 7:
+                reasons.append(f"🔥 Hot streak — {l10w}-{l10l} last 10")
+            elif l10w <= 3:
+                reasons.append(f"❄️ Cold — {l10w}-{l10l} last 10")
+
+        # 5. Starting pitcher
+        pit = ps_map.get(pitcher_name, {}) or kr_map.get(pitcher_name, {})
+        if pitcher_name and pitcher_name != "TBD":
+            era = float(str(pit.get("ERA","4.50")).replace("-","4.50") or 4.50)
+            k9  = float(pit.get("K9", 0) or 0)
+            if era <= 3.00:
+                score += 15
+                reasons.append(f"⚾ Elite starter {pitcher_name} (ERA {era:.2f})")
+            elif era <= 3.75:
+                score += 10
+                reasons.append(f"⚾ Good starter {pitcher_name} (ERA {era:.2f})")
+            elif era >= 5.00:
+                score -= 5
+                reasons.append(f"📉 Shaky starter {pitcher_name} (ERA {era:.2f})")
+        else:
+            flags.append("🔄 Bullpen game")
+            score -= 5
+
+        # 6. Opponent pitcher
+        opp_pit = ps_map.get(opp_pitcher_name, {}) or kr_map.get(opp_pitcher_name, {})
+        if opp_pitcher_name and opp_pitcher_name != "TBD":
+            opp_era = float(str(opp_pit.get("ERA","4.50")).replace("-","4.50") or 4.50)
+            if opp_era >= 5.00:
+                score += 10
+                reasons.append(f"🎯 Facing weak pitcher {opp_pitcher_name} (ERA {opp_era:.2f})")
+            elif opp_era <= 3.00:
+                score -= 5
+                reasons.append(f"⚔️ Facing elite {opp_pitcher_name} (ERA {opp_era:.2f})")
+        else:
+            score += 5
+            reasons.append("🎯 Opponent bullpen game — lineup advantage")
+
+        # 7. Recent batting form
+        tbr_r = tbr_map.get(team_id, {})
+        if tbr_r:
+            l5_avg = float(tbr_r.get("l5_avg", 0) or 0)
+            if l5_avg >= 0.280:
+                score += 8
+                reasons.append(f"🔥 Lineup on fire (L5 AVG: {l5_avg:.3f})")
+            elif l5_avg <= 0.210:
+                score -= 5
+                reasons.append(f"❄️ Cold lineup (L5 AVG: {l5_avg:.3f})")
+
+        return round(score, 1), reasons, flags
+
+    # Build game cards
+    seen_games = set()
+    cards = []
+
+    for _, m in matchups.iterrows():
+        game_key = m.get("game_pk", f"{m['away_team']}@{m['home_team']}")
+        if game_key in seen_games:
+            continue
+        seen_games.add(game_key)
+
+        away_team = m["away_team"]
+        home_team = m["home_team"]
+        away_tid  = int(float(m.get("away_team_id", 0)))
+        home_tid  = int(float(m.get("home_team_id", 0)))
+        away_pit  = m.get("away_pitcher", "TBD")
+        home_pit  = m.get("home_pitcher", "TBD")
+
+        away_score, away_reasons, away_flags = score_team(away_team, away_tid, away_pit, False, home_pit)
+        home_score, home_reasons, home_flags = score_team(home_team, home_tid, home_pit, True,  away_pit)
+
+        # Home field bonus
+        home_score += 3
+
+        total     = away_score + home_score
+        away_pct  = round((away_score / total) * 100) if total > 0 else 50
+        home_pct  = 100 - away_pct
+        fav_team  = home_team if home_score > away_score else away_team
+        fav_pct   = max(home_pct, away_pct)
+        fav_color = C["green"] if fav_pct >= 60 else (C["yellow"] if fav_pct >= 53 else C["muted"])
+        conf      = "🔥 Strong" if fav_pct >= 62 else ("✅ Lean" if fav_pct >= 55 else "➡️ Toss-up")
+
+        # Win probability bar — use flex so it never overflows
+        bar = html.Div([
+            html.Div(style={
+                "flex": str(away_pct), "backgroundColor": C["blue"],
+                "height": "6px", "borderRadius": "3px 0 0 3px",
+            }),
+            html.Div(style={
+                "flex": str(home_pct), "backgroundColor": C["green"],
+                "height": "6px", "borderRadius": "0 3px 3px 0",
+            }),
+        ], style={"display": "flex", "width": "100%", "marginBottom": "10px", "marginTop": "6px"})
+
+        card = html.Div([
+            # Header
+            html.Div([
+                html.Div([
+                    html.Span(away_team, style={"color": C["blue"],   "fontWeight": "bold", "fontSize": "13px"}),
+                    html.Span(" @ ", style={"color": C["muted"], "fontSize": "12px"}),
+                    html.Span(home_team, style={"color": C["green"],  "fontWeight": "bold", "fontSize": "13px"}),
+                ], style={"flex": "1"}),
+                html.Div([
+                    html.Span(conf, style={"color": fav_color, "fontSize": "12px", "fontWeight": "bold"}),
+                ]),
+            ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "center"}),
+
+            # Pitchers
+            html.Div([
+                html.Span(f"⚾ {away_pit}", style={"color": C["muted"], "fontSize": "11px"}),
+                html.Span(" vs ", style={"color": C["border"], "fontSize": "11px"}),
+                html.Span(f"{home_pit} ⚾", style={"color": C["muted"], "fontSize": "11px"}),
+            ], style={"marginTop": "4px"}),
+
+            # Win probability bar
+            bar,
+
+            # Pct labels
+            html.Div([
+                html.Span(f"{away_team.split()[-1]} {away_pct}%",
+                          style={"color": C["blue"], "fontSize": "11px", "fontWeight": "bold"}),
+                html.Span(f"{home_team.split()[-1]} {home_pct}%",
+                          style={"color": C["green"], "fontSize": "11px", "fontWeight": "bold",
+                                 "marginLeft": "auto"}),
+            ], style={"display": "flex", "justifyContent": "space-between", "marginBottom": "10px"}),
+
+            # Favorite callout
+            html.Div([
+                html.Span(f"🏆 Favored: ", style={"color": C["muted"], "fontSize": "12px"}),
+                html.Span(fav_team, style={"color": fav_color, "fontSize": "12px", "fontWeight": "bold"}),
+                html.Span(f" ({fav_pct}%)", style={"color": fav_color, "fontSize": "12px"}),
+            ], style={"marginBottom": "10px"}),
+
+            # Reasons two columns
+            html.Div([
+                # Away reasons
+                html.Div([
+                    html.Div(away_team, style={"color": C["blue"], "fontSize": "11px",
+                                               "fontWeight": "bold", "marginBottom": "4px"}),
+                    *[html.Div(r, style={"color": C["muted"], "fontSize": "11px", "marginBottom": "2px"})
+                      for r in away_reasons[:4]],
+                    *[html.Div(f, style={"color": C["yellow"], "fontSize": "11px"}) for f in away_flags],
+                ], style={"flex": "1", "paddingRight": "10px"}),
+                # Home reasons
+                html.Div([
+                    html.Div(home_team, style={"color": C["green"], "fontSize": "11px",
+                                               "fontWeight": "bold", "marginBottom": "4px"}),
+                    *[html.Div(r, style={"color": C["muted"], "fontSize": "11px", "marginBottom": "2px"})
+                      for r in home_reasons[:4]],
+                    *[html.Div(f, style={"color": C["yellow"], "fontSize": "11px"}) for f in home_flags],
+                ], style={"flex": "1"}),
+            ], style={"display": "flex"}),
+
+        ], style={
+            **CARD,
+            "borderLeft": f"4px solid {fav_color}",
+            "marginBottom": "14px",
+        })
+        cards.append(card)
+
+    if not cards:
+        return no_data()
+
+    # Sort by confidence — highest spread first
+    return html.Div([
+        html.Div("🏆 Game Predictions",
+                 style={"fontSize": "16px", "fontWeight": "bold", "color": C["text"], "marginBottom": "4px"}),
+        html.Div("Scores based on record, vs .500+ teams, home/away splits, L10 form, pitcher ERA, and recent batting.",
+                 style={"color": C["muted"], "fontSize": "11px", "marginBottom": "20px"}),
+        *cards,
+    ])
+
 if __name__ == "__main__":
     if not os.path.exists(DATA_DIR):
         print("⚠️  No data folder found — run refresh_data.py first!")
     else:
         files = os.listdir(DATA_DIR)
         print(f"⚾  MLB Dashboard — {len(files)} data files loaded")
-    print("   -> Open http://127.0.0.1:8050\n")
-    port = int(os.environ.get("PORT", 8050))
+    print("   -> Open http://127.0.0.1:8051\n")
+    port = int(os.environ.get("PORT", 8051))
     app.run(host="0.0.0.0", port=port, debug=False)
