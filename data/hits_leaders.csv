@@ -1,5 +1,5 @@
 player_id,Player,Team,League,H,TB
-672640,Otto Lopez,Miami Marlins,NL,69,99
+672640,Otto Lopez,Miami Marlins,NL,70,100
 650333,Luis Arraez,San Francisco Giants,NL,63,84
 669364,Xavier Edwards,Miami Marlins,NL,62,95
 677951,Bobby Witt Jr.,Kansas City Royals,AL,61,97
@@ -8,11 +8,11 @@ player_id,Player,Team,League,H,TB
 669127,Shea Langeliers,Athletics,AL,60,108
 676391,Ernie Clement,Toronto Blue Jays,AL,59,85
 691023,Jordan Walker,St. Louis Cardinals,NL,58,114
+677800,Wilyer Abreu,Boston Red Sox,AL,57,86
 670541,Yordan Alvarez,Houston Astros,AL,57,113
 686948,Drake Baldwin,Atlanta Braves,NL,57,102
 676475,Alec Burleson,St. Louis Cardinals,NL,57,91
 682928,CJ Abrams,Washington Nationals,NL,56,104
-677800,Wilyer Abreu,Boston Red Sox,AL,56,84
 661388,William Contreras,Milwaukee Brewers,NL,56,76
 650490,Yandy Díaz,Tampa Bay Rays,AL,56,89
 695734,Daylen Lile,Washington Nationals,NL,56,93
@@ -29,20 +29,20 @@ player_id,Player,Team,League,H,TB
 681624,Andy Pages,Los Angeles Dodgers,NL,54,93
 681198,TJ Rumfield,Colorado Rockies,NL,54,86
 665833,Oneil Cruz,Pittsburgh Pirates,NL,53,96
+672580,Maikel Garcia,Kansas City Royals,AL,53,78
 693304,Nick Gonzales,Pittsburgh Pirates,NL,53,0
+663538,Nico Hoerner,Chicago Cubs,NL,53,78
 607043,Brandon Nimmo,Texas Rangers,AL,53,85
-672580,Maikel Garcia,Kansas City Royals,AL,52,77
+608324,Alex Bregman,Chicago Cubs,NL,52,0
 547180,Bryce Harper,Philadelphia Phillies,NL,52,100
 671739,Michael Harris II,Atlanta Braves,NL,52,90
-663538,Nico Hoerner,Chicago Cubs,NL,52,77
 701762,Nick Kurtz,Athletics,AL,52,89
 695578,James Wood,Washington Nationals,NL,52,105
 666176,Jo Adell,Los Angeles Angels,AL,51,79
-608324,Alex Bregman,Chicago Cubs,NL,51,0
+641355,Cody Bellinger,New York Yankees,AL,51,88
 691406,Junior Caminero,Tampa Bay Rays,AL,51,95
 671056,Iván Herrera,St. Louis Cardinals,NL,51,83
 572233,Christian Walker,Houston Astros,AL,51,100
-641355,Cody Bellinger,New York Yankees,AL,50,87
 683002,Gunnar Henderson,Baltimore Orioles,AL,50,95
 687859,Troy Johnston,Colorado Rockies,NL,50,0
 660271,Shohei Ohtani,Los Angeles Dodgers,NL,50,87
@@ -50,11 +50,11 @@ player_id,Player,Team,League,H,TB
 668930,Brice Turang,Milwaukee Brewers,NL,50,84
 621439,Byron Buxton,Minnesota Twins,AL,49,108
 682998,Corbin Carroll,Arizona Diamondbacks,NL,49,94
+575929,Willson Contreras,Boston Red Sox,AL,49,92
 643289,Mauricio Dubón,Atlanta Braves,NL,49,0
 518692,Freddie Freeman,Los Angeles Dodgers,NL,49,83
 694384,Nolan Schanuel,Los Angeles Angels,AL,49,0
 642715,Willy Adames,San Francisco Giants,NL,48,80
-575929,Willson Contreras,Boston Red Sox,AL,48,88
 646240,Rafael Devers,San Francisco Giants,NL,48,78
 808982,Jung Hoo Lee,San Francisco Giants,NL,48,0
 606466,Ketel Marte,Arizona Diamondbacks,NL,48,84
@@ -65,6 +65,7 @@ player_id,Player,Team,League,H,TB
 607208,Trea Turner,Philadelphia Phillies,NL,48,0
 662139,Daulton Varsho,Toronto Blue Jays,AL,48,76
 666018,Jonathan Aranda,Tampa Bay Rays,AL,47,79
+666182,Bo Bichette,New York Mets,NL,47,0
 800050,Chase DeLauter,Cleveland Guardians,AL,47,81
 606192,Teoscar Hernández,Los Angeles Dodgers,NL,47,76
 592450,Aaron Judge,New York Yankees,AL,47,103
@@ -74,8 +75,9 @@ player_id,Player,Team,League,H,TB
 687263,Zach Neto,Los Angeles Angels,AL,47,90
 678882,Ceddanne Rafaela,Boston Red Sox,AL,47,0
 668804,Bryan Reynolds,Pittsburgh Pirates,NL,47,0
+621493,Taylor Ward,Baltimore Orioles,AL,47,0
 805779,Jacob Wilson,Athletics,AL,47,0
-656941,Kyle Schwarber,Philadelphia Phillies,NL,0,112
+656941,Kyle Schwarber,Philadelphia Phillies,NL,0,114
 808959,Munetaka Murakami,Chicago White Sox,AL,0,97
 666160,Mickey Moniak,Colorado Rockies,NL,0,91
 545361,Mike Trout,Los Angeles Angels,AL,0,91
