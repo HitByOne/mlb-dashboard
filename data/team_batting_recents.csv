@@ -1,0 +1,31 @@
+team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
+134,Pittsburgh Pirates,0.271,0.22,12,51,32
+143,Philadelphia Phillies,0.171,0.187,9,45,28
+141,Toronto Blue Jays,0.247,0.24,4,47,29
+116,Detroit Tigers,0.184,0.178,12,52,34
+113,Cincinnati Reds,0.235,0.248,16,46,32
+142,Minnesota Twins,0.266,0.269,9,37,23
+111,Boston Red Sox,0.276,0.235,11,45,28
+146,Miami Marlins,0.2,0.209,9,48,27
+110,Baltimore Orioles,0.281,0.265,10,48,28
+138,St. Louis Cardinals,0.246,0.259,6,37,24
+121,New York Mets,0.185,0.135,11,50,33
+114,Cleveland Guardians,0.173,0.161,10,39,24
+118,Kansas City Royals,0.204,0.212,4,45,22
+136,Seattle Mariners,0.169,0.184,2,39,17
+139,Tampa Bay Rays,0.284,0.228,7,32,23
+147,New York Yankees,0.231,0.204,4,46,29
+119,Los Angeles Dodgers,0.217,0.24,5,37,17
+158,Milwaukee Brewers,0.267,0.229,11,35,24
+117,Houston Astros,0.198,0.202,5,43,30
+112,Chicago Cubs,0.15,0.105,9,51,28
+145,Chicago White Sox,0.213,0.245,12,57,32
+109,Arizona Diamondbacks,0.261,0.234,8,34,19
+137,San Francisco Giants,0.259,0.274,6,36,23
+140,Texas Rangers,0.314,0.296,11,38,24
+133,Athletics,0.236,0.204,7,44,24
+120,Washington Nationals,0.238,0.204,15,41,30
+144,Atlanta Braves,0.254,0.234,11,45,28
+108,Los Angeles Angels,0.241,0.257,6,33,21
+135,San Diego Padres,0.166,0.165,10,37,23
+115,Colorado Rockies,0.206,0.228,7,36,17
