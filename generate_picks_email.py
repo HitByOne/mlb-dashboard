@@ -84,10 +84,9 @@ TEAM_MAP = {
 matchups = read("matchups")
 standings = read("standings")
 pit_stats = read("pitcher_stats")
-hr_leaders = read("hr_leaders")
-hit_streaks = read("hit_streaks")
-tbr = read("team_batting_recents")
 k_rates = read("pitcher_k_rates")
+hit_streaks = read("hit_streaks")
+hr_leaders = read("hr_leaders")
 
 if not matchups.empty and "game_date" in matchups.columns:
     matchups = matchups[matchups["game_date"] == TODAY_STR]
@@ -113,21 +112,12 @@ if not pit_stats.empty:
         except Exception:
             pass
 
-tbr_map = {}
-if not tbr.empty:
-    for _, r in tbr.iterrows():
-        try:
-            tbr_map[int(r["team_id"])] = r.to_dict()
-        except Exception:
-            pass
-
 team_scores = []
 seen_teams = set()
 
 for _, m in matchups.iterrows():
     for side, opp, is_home in [("away", "home", False), ("home", "away", True)]:
         team = m.get(f"{side}_team", "")
-        tid = int(float(m.get(f"{side}_team_id", 0)))
         pitcher = m.get(f"{side}_pitcher", "TBD")
         opp_t = m.get(f"{opp}_team", "")
         opp_pit = m.get(f"{opp}_pitcher", "TBD")
@@ -189,14 +179,6 @@ for _, m in matchups.iterrows():
             sc += 10
             rsns.append(f"Facing {opp_pit.split()[-1]} ({oera:.2f} ERA)")
 
-        tbr_r = tbr_map.get(tid, {})
-        l5a = float(tbr_r.get("l5_avg", 0) or 0)
-        if l5a >= 0.280:
-            sc += 8
-            rsns.append(f"Lineup hot (L5 .{int(l5a * 1000):03d})")
-        elif l5a <= 0.210:
-            sc -= 5
-
         if is_home:
             sc += 3
 
@@ -213,79 +195,150 @@ for _, m in matchups.iterrows():
 
 top3_teams = sorted(team_scores, key=lambda x: x["score"], reverse=True)[:3]
 
-player_picks = []
-
-if not hr_leaders.empty:
-    today_hrs = hr_leaders[hr_leaders.get("Today", "") == "✅"] if "Today" in hr_leaders.columns else pd.DataFrame()
-    if today_hrs.empty and not hr_leaders.empty:
-        today_hrs = hr_leaders.head(10)
-    for _, r in today_hrs.head(5).iterrows():
-        player = r.get("Player", "")
-        team = r.get("Team", "")
-        hr = r.get("HR", 0)
-        opp_p = r.get("Opp Pitcher", "—")
-        odds = r.get("HR Odds", "—")
-        player_picks.append({
-            "type": "💣 HR Prop",
-            "player": player,
-            "team": team,
-            "line": f"+{odds}" if odds != "—" and not str(odds).startswith("+") else str(odds),
-            "reasons": [
-                f"{hr} HRs on the season",
-                f"Facing {opp_p}" if opp_p != "—" else "",
-                f"Vegas HR odds: {odds}" if odds != "—" else "",
-            ],
-        })
-        if len(player_picks) >= 1:
-            break
-
+k_prop_candidates = []
 if not k_rates.empty and not matchups.empty:
     for _, m in matchups.iterrows():
         for side in ["away", "home"]:
             pit = m.get(f"{side}_pitcher", "TBD")
             if pit == "TBD":
                 continue
+
             kr = k_rates[k_rates["name"] == pit]
             if kr.empty:
                 continue
-            k9 = float(kr.iloc[0].get("K9", 0) or 0)
-            if k9 >= 8.0:
-                opp_team = m.get("home_team" if side == "away" else "away_team", "")
-                player_picks.append({
-                    "type": "⚡ K Prop",
-                    "player": pit,
-                    "team": m.get(f"{side}_team", ""),
-                    "line": "Over K line",
-                    "reasons": [
-                        f"{k9:.1f} K/9 this season",
-                        f"vs {opp_team}",
-                    ],
-                })
-                if len(player_picks) >= 2:
-                    break
-        if len(player_picks) >= 2:
-            break
 
-if len(player_picks) < 2 and not hit_streaks.empty:
-    hs = hit_streaks.sort_values("Streak", ascending=False)
-    for _, r in hs.head(5).iterrows():
-        if len(player_picks) >= 2:
-            break
-        player_picks.append({
-            "type": "🔥 Hit Streak",
-            "player": r.get("Player", ""),
-            "team": r.get("Team", ""),
+            row = kr.iloc[0]
+            team = m.get(f"{side}_team", "")
+            opp_team = m.get("home_team" if side == "away" else "away_team", "")
+
+            try:
+                k9 = float(row.get("K9", 0) or 0)
+            except Exception:
+                k9 = 0.0
+
+            score = k9
+            reasons = [
+                f"{k9:.1f} K/9 this season",
+                f"vs {opp_team}",
+            ]
+
+            for col in ["K_Over_Prob", "Over_Prob", "over_prob", "Implied_Over", "over_pct"]:
+                if col in row.index:
+                    try:
+                        over_prob = float(row.get(col, 0) or 0)
+                        score += over_prob * 10
+                        reasons.append(f"Over probability: {over_prob:.0%}")
+                        break
+                    except Exception:
+                        pass
+
+            line_val = "Over K line"
+            for col in ["K_Line", "line", "prop_line"]:
+                if col in row.index:
+                    line_val = row.get(col, "Over K line")
+                    break
+
+            k_prop_candidates.append({
+                "pitcher": pit,
+                "team": team,
+                "opp": opp_team,
+                "line": line_val,
+                "score": score,
+                "reasons": reasons[:3],
+            })
+
+top5_k_props = sorted(k_prop_candidates, key=lambda x: x["score"], reverse=True)[:5]
+
+hit_prop_candidates = []
+if not hit_streaks.empty:
+    hs = hit_streaks.copy()
+
+    if "Today" in hs.columns:
+        hs = hs[hs["Today"].astype(str).isin(["✅", "Yes", "Y", "1", "True"])]
+
+    for _, r in hs.iterrows():
+        player = r.get("Player", "")
+        team = r.get("Team", "")
+        opp_pitcher = r.get("Opp Pitcher", "—")
+
+        try:
+            streak = int(float(r.get("Streak", 0) or 0))
+        except Exception:
+            streak = 0
+
+        avg_raw = str(r.get("AVG", ".000"))
+        try:
+            avg_val = float(avg_raw)
+        except Exception:
+            try:
+                avg_val = float(f"0{avg_raw}") if avg_raw.startswith(".") else 0.0
+            except Exception:
+                avg_val = 0.0
+
+        score = streak * 2 + avg_val * 100
+
+        reasons = []
+        if streak > 0:
+            reasons.append(f"{streak}-game hit streak")
+        if avg_val > 0:
+            reasons.append(f"Batting {avg_val:.3f}")
+        if opp_pitcher != "—":
+            reasons.append(f"vs {opp_pitcher}")
+
+        hit_prop_candidates.append({
+            "player": player,
+            "team": team,
             "line": "1+ Hit",
-            "reasons": [
-                f"{int(r.get('Streak', 0))}-game hit streak",
-                f"Batting .{str(r.get('AVG', '.000')).replace('.', '')[:3]}",
-                f"vs {r.get('Opp Pitcher', '—')}",
-            ],
+            "score": score,
+            "reasons": reasons[:3],
         })
 
-top2_props = player_picks[:2]
+top5_hit_props = sorted(hit_prop_candidates, key=lambda x: x["score"], reverse=True)[:5]
+
+hr_prop_candidates = []
+if not hr_leaders.empty:
+    hr_df = hr_leaders.copy()
+
+    if "Today" in hr_df.columns:
+        hr_df = hr_df[hr_df["Today"].astype(str).isin(["✅", "Yes", "Y", "1", "True"])]
+
+    for _, r in hr_df.iterrows():
+        player = r.get("Player", "")
+        team = r.get("Team", "")
+        opp_pitcher = r.get("Opp Pitcher", "—")
+        odds = r.get("HR Odds", "—")
+
+        try:
+            hr_total = int(float(r.get("HR", 0) or 0))
+        except Exception:
+            hr_total = 0
+
+        score = hr_total
+        reasons = []
+
+        if hr_total > 0:
+            reasons.append(f"{hr_total} HRs on the season")
+        if opp_pitcher != "—":
+            reasons.append(f"vs {opp_pitcher}")
+        if odds != "—":
+            reasons.append(f"HR odds: {odds}")
+
+        line_val = f"+{odds}" if odds != "—" and not str(odds).startswith("+") else str(odds)
+
+        hr_prop_candidates.append({
+            "player": player,
+            "team": team,
+            "line": line_val if line_val != "—" else "HR Prop",
+            "score": score,
+            "reasons": reasons[:3],
+        })
+
+top5_hr_props = sorted(hr_prop_candidates, key=lambda x: x["score"], reverse=True)[:5]
 
 medals = ["🥇", "🥈", "🥉"]
+k_medals = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+hit_medals = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+hr_medals = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
 
 lines = [
     f"⚾ MLB PICKS — {TODAY_DISPLAY}",
@@ -306,14 +359,41 @@ for i, t in enumerate(top3_teams):
     lines.append("")
 
 lines += [
-    "📌 TOP 2 PLAYER PROPS",
+    "📌 TOP 5 K PROPS",
     "-" * 30,
     "",
 ]
 
-prop_medals = ["1️⃣", "2️⃣"]
-for i, p in enumerate(top2_props):
-    lines.append(f"{prop_medals[i]} {p['type']} — {p['player']} ({p['team']})")
+for i, p in enumerate(top5_k_props):
+    lines.append(f"{k_medals[i]} {p['pitcher']} ({p['team']})")
+    lines.append(f"   Bet: {p['line']}")
+    for r in p["reasons"]:
+        if r:
+            lines.append(f"   • {r}")
+    lines.append("")
+
+lines += [
+    "🎯 TOP 5 HIT PROPS",
+    "-" * 30,
+    "",
+]
+
+for i, p in enumerate(top5_hit_props):
+    lines.append(f"{hit_medals[i]} {p['player']} ({p['team']})")
+    lines.append(f"   Bet: {p['line']}")
+    for r in p["reasons"]:
+        if r:
+            lines.append(f"   • {r}")
+    lines.append("")
+
+lines += [
+    "💣 TOP 5 HR PROPS",
+    "-" * 30,
+    "",
+]
+
+for i, p in enumerate(top5_hr_props):
+    lines.append(f"{hr_medals[i]} {p['player']} ({p['team']})")
     lines.append(f"   Bet: {p['line']}")
     for r in p["reasons"]:
         if r:
@@ -336,8 +416,20 @@ for i, t in enumerate(top3_teams):
         lines.append(f"   {t['reasons'][0]}")
 
 lines.append("")
-for i, p in enumerate(top2_props):
-    lines.append(f"{prop_medals[i]} {p['player'].split()[-1]} — {p['type'].split()[-1]}")
+for i, p in enumerate(top5_k_props[:2]):
+    lines.append(f"{k_medals[i]} {p['pitcher'].split()[-1]} K Prop")
+    if p["reasons"]:
+        lines.append(f"   {p['reasons'][0]}")
+
+lines.append("")
+for i, p in enumerate(top5_hit_props[:2]):
+    lines.append(f"{hit_medals[i]} {p['player'].split()[-1]} 1+ Hit")
+    if p["reasons"]:
+        lines.append(f"   {p['reasons'][0]}")
+
+lines.append("")
+for i, p in enumerate(top5_hr_props[:2]):
+    lines.append(f"{hr_medals[i]} {p['player'].split()[-1]} HR Prop")
     if p["reasons"]:
         lines.append(f"   {p['reasons'][0]}")
 
