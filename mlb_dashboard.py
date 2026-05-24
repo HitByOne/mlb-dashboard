@@ -1689,6 +1689,9 @@ def load_toppicks(_):
     plt       = read("platoon_splits")
     pit_stats = read("pitcher_stats")
     team_k    = read("team_k_vulnerability")
+    standings = read("standings")
+    tbr       = read("team_batting_recents")
+    k_rates   = read("pitcher_k_rates")
 
     if matchups.empty or hc.empty:
         return no_data()
@@ -1898,12 +1901,147 @@ def load_toppicks(_):
                                   f"🔀 Blended projection: {k['blend']} Ks"],
                                  k["score"], cl, cc))
 
+    # ── Top 3 Teams to Win ────────────────────────────────────
+    import re as _re
+
+    def _parse_wl2(s):
+        try:
+            m = _re.search(r"W(\d+)-L(\d+)", str(s))
+            if m: return int(m.group(1)), int(m.group(2))
+            p = str(s).split("-")
+            return int(p[0]), int(p[1])
+        except: return 0, 0
+
+    def _pct2(w, l): return round(w/(w+l), 3) if (w+l)>0 else 0.0
+
+    TMAP2 = {
+        "Arizona Diamondbacks":"Diamondbacks","Atlanta Braves":"Braves",
+        "Baltimore Orioles":"Orioles","Boston Red Sox":"Red Sox",
+        "Chicago Cubs":"Cubs","Chicago White Sox":"White Sox",
+        "Cincinnati Reds":"Reds","Cleveland Guardians":"Guardians",
+        "Colorado Rockies":"Rockies","Detroit Tigers":"Tigers",
+        "Houston Astros":"Astros","Kansas City Royals":"Royals",
+        "Los Angeles Angels":"Angels","Los Angeles Dodgers":"Dodgers",
+        "Miami Marlins":"Marlins","Milwaukee Brewers":"Brewers",
+        "Minnesota Twins":"Twins","New York Mets":"Mets",
+        "New York Yankees":"Yankees","Oakland Athletics":"Athletics",
+        "Philadelphia Phillies":"Phillies","Pittsburgh Pirates":"Pirates",
+        "San Diego Padres":"Padres","San Francisco Giants":"Giants",
+        "Seattle Mariners":"Mariners","St. Louis Cardinals":"Cardinals",
+        "Tampa Bay Rays":"Rays","Texas Rangers":"Rangers",
+        "Toronto Blue Jays":"Blue Jays","Washington Nationals":"Nationals",
+    }
+
+    std_map2 = {}
+    if not standings.empty:
+        for _, r in standings.iterrows():
+            short = r["Team"]
+            std_map2[short] = r.to_dict()
+            for full, s in TMAP2.items():
+                if s == short:
+                    std_map2[full] = r.to_dict()
+
+    tbr_map2 = {}
+    if not tbr.empty:
+        for _, r in tbr.iterrows():
+            try: tbr_map2[int(r["team_id"])] = r.to_dict()
+            except: pass
+
+    team_scores = []
+    seen_teams = set()
+    for _, m in matchups.iterrows():
+        for side, opp, is_home in [("away","home",False),("home","away",True)]:
+            team    = m.get(f"{side}_team","")
+            tid     = int(float(m.get(f"{side}_team_id",0)))
+            pitcher = m.get(f"{side}_pitcher","TBD")
+            opp_t   = m.get(f"{opp}_team","")
+            opp_pit = m.get(f"{opp}_pitcher","TBD")
+            if team in seen_teams: continue
+
+            sc = 0; rsns = []
+            std = std_map2.get(team, {})
+            w = int(std.get("W",0) or 0); l = int(std.get("L",0) or 0)
+            sc += _pct2(w,l) * 20
+
+            vw, vl = _parse_wl2(std.get("vs .500+","-"))
+            sc += _pct2(vw,vl) * 15
+            if vw+vl > 0: rsns.append(f"vs .500+: {vw}-{vl} ({int(_pct2(vw,vl)*100)}%)")
+
+            haw, hal = _parse_wl2(std.get("Home" if is_home else "Away","-"))
+            sc += _pct2(haw,hal) * 10
+            if haw+hal > 0: rsns.append(f"{'Home' if is_home else 'Away'}: {haw}-{hal}")
+
+            l10w, l10l = _parse_wl2(std.get("L10","-"))
+            sc += _pct2(l10w,l10l) * 10
+            if l10w+l10l > 0: rsns.append(f"L10: {l10w}-{l10l}")
+
+            # Starter
+            try:
+                pid_raw = m.get(f"{side}_pitcher_id","")
+                pid     = int(float(pid_raw)) if pid_raw and str(pid_raw)!="nan" else 0
+                ps      = ps_map.get(pid, {})
+                era     = float(str(ps.get("ERA","4.50")).replace("-","4.50") or 4.50)
+            except: era = 4.50
+            if pitcher != "TBD":
+                if era <= 3.00:   sc += 15; rsns.append(f"Elite SP {pitcher.split()[-1]} ({era:.2f} ERA)")
+                elif era <= 3.75: sc += 8;  rsns.append(f"Good SP {pitcher.split()[-1]} ({era:.2f} ERA)")
+                elif era >= 5.00: sc -= 5;  rsns.append(f"Shaky SP {pitcher.split()[-1]} ({era:.2f} ERA)")
+            else:
+                sc -= 5; rsns.append("Bullpen game 🔄")
+
+            # Opp pitcher
+            try:
+                opid_raw = m.get(f"{opp}_pitcher_id","")
+                opid     = int(float(opid_raw)) if opid_raw and str(opid_raw)!="nan" else 0
+                ops2     = ps_map.get(opid, {})
+                oera     = float(str(ops2.get("ERA","4.50")).replace("-","4.50") or 4.50)
+            except: oera = 4.50
+            if opit_name := opp_pit if opp_pit != "TBD" else "":
+                if oera >= 5.00: sc += 10; rsns.append(f"Opp SP {opit_name.split()[-1]} struggling ({oera:.2f})")
+                elif oera <= 3.00: sc -= 5
+
+            tbr_r = tbr_map2.get(tid, {})
+            l5a = float(tbr_r.get("l5_avg",0) or 0)
+            if l5a >= 0.280:   sc += 8;  rsns.append(f"Hot lineup L5 .{int(l5a*1000):03d}")
+            elif l5a <= 0.210: sc -= 5;  rsns.append(f"Cold lineup L5 .{int(l5a*1000):03d}")
+
+            if is_home: sc += 3
+
+            team_scores.append({"team":team,"opp":opp_t,"score":sc,
+                                 "pitcher":pitcher,"is_home":is_home,"reasons":rsns[:3]})
+            seen_teams.add(team)
+
+    best3 = sorted(team_scores, key=lambda x: x["score"], reverse=True)[:3]
+    medals = ["🥇","🥈","🥉"]
+    team_cards = []
+    for i, t in enumerate(best3):
+        team_cards.append(html.Div([
+            html.Div([
+                html.Span(medals[i], style={"fontSize":"18px","marginRight":"8px"}),
+                html.Span(t["team"], style={"fontWeight":"bold","color":C["green"],"fontSize":"14px"}),
+                html.Span(f" {'vs' if t['is_home'] else '@'} {t['opp']}",
+                          style={"color":C["muted"],"fontSize":"12px"}),
+                html.Span(" 🏠" if t["is_home"] else " ✈️",
+                          style={"color":C["muted"],"fontSize":"11px","marginLeft":"4px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div(f"⚾ {t['pitcher']}", style={"color":C["muted"],"fontSize":"11px","marginBottom":"6px"}),
+            *[html.Div(f"• {r}", style={"color":C["text"],"fontSize":"11px","marginBottom":"2px"})
+              for r in t["reasons"]],
+        ], style={**CARD,"borderLeft":f"4px solid {C['green']}","marginBottom":"10px"}))
+
+    team_win_section = html.Div([
+        html.Div("🏆 Top 3 Teams to Win Today",
+                 style={"fontSize":"15px","fontWeight":"bold","color":C["text"],"marginBottom":"12px"}),
+        *team_cards,
+        html.Div(style={"height":"16px"}),
+    ]) if team_cards else html.Div()
+
     return html.Div([
         html.Div("⭐ Top Picks", style={"fontSize":"18px","fontWeight":"bold",
                                         "color":C["text"],"marginBottom":"6px"}),
         html.Div("Composite = Hit (40%) + HR (30%) + Total Bases (30%) with park factors applied",
                  style={"color":C["muted"],"fontSize":"11px","marginBottom":"24px"}),
-
+        team_win_section,
         section_hdr("🥇 Best 3 Picks Today", C["yellow"], "Highest composite scores"),
         *top3,
         html.Div(style={"height":"16px"}),
@@ -2501,6 +2639,6 @@ if __name__ == "__main__":
     else:
         files = os.listdir(DATA_DIR)
         print(f"⚾  MLB Dashboard — {len(files)} data files loaded")
-    print("   -> Open http://127.0.0.1:8051\n")
-    port = int(os.environ.get("PORT", 8051))
+    print("   -> Open http://127.0.0.1:8050\n")
+    port = int(os.environ.get("PORT", 8050))
     app.run(host="0.0.0.0", port=port, debug=False)
