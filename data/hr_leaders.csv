@@ -1,48 +1,48 @@
 Rank,Player,Team,League,HR,player_id
 1,Kyle Schwarber,Philadelphia Phillies,NL,20,656941
+2,Aaron Judge,New York Yankees,AL,17,592450
 2,Munetaka Murakami,Chicago White Sox,AL,17,808959
-3,Byron Buxton,Minnesota Twins,AL,16,621439
-3,Aaron Judge,New York Yankees,AL,16,592450
-3,Ben Rice,New York Yankees,AL,16,700250
+4,Byron Buxton,Minnesota Twins,AL,16,621439
+4,Ben Rice,New York Yankees,AL,16,700250
 6,Yordan Alvarez,Houston Astros,AL,15,670541
 6,Jordan Walker,St. Louis Cardinals,NL,15,691023
 8,Matt Olson,Atlanta Braves,NL,14,621566
-9,Drake Baldwin,Atlanta Braves,NL,13,686948
-9,Junior Caminero,Tampa Bay Rays,AL,13,691406
-9,Brandon Lowe,Pittsburgh Pirates,NL,13,664040
-9,Colson Montgomery,Chicago White Sox,AL,13,695657
-9,Mike Trout,Los Angeles Angels,AL,13,545361
-9,Christian Walker,Houston Astros,AL,13,572233
-9,James Wood,Washington Nationals,NL,13,695578
+8,Christian Walker,Houston Astros,AL,14,572233
+10,Drake Baldwin,Atlanta Braves,NL,13,686948
+10,Junior Caminero,Tampa Bay Rays,AL,13,691406
+10,Brandon Lowe,Pittsburgh Pirates,NL,13,664040
+10,Colson Montgomery,Chicago White Sox,AL,13,695657
+10,Mike Trout,Los Angeles Angels,AL,13,545361
+10,James Wood,Washington Nationals,NL,13,695578
 16,Elly De La Cruz,Cincinnati Reds,NL,12,682829
 16,Bryce Harper,Philadelphia Phillies,NL,12,547180
 16,Shea Langeliers,Athletics,AL,12,669127
 16,Mickey Moniak,Colorado Rockies,NL,12,666160
 16,Max Muncy,Los Angeles Dodgers,NL,12,571970
 16,Sal Stewart,Cincinnati Reds,NL,12,701398
-22,CJ Abrams,Washington Nationals,NL,11,682928
-22,Willson Contreras,Boston Red Sox,AL,11,575929
-22,Oneil Cruz,Pittsburgh Pirates,NL,11,665833
-22,Hunter Goodman,Colorado Rockies,NL,11,696100
-22,Michael Harris II,Atlanta Braves,NL,11,671739
-22,Gunnar Henderson,Baltimore Orioles,AL,11,683002
-22,Liam Hicks,Miami Marlins,NL,11,689414
-22,Miguel Vargas,Chicago White Sox,AL,11,678246
-30,Pete Alonso,Baltimore Orioles,AL,10,624413
-30,Ian Happ,Chicago Cubs,NL,10,664023
-30,Zach Neto,Los Angeles Angels,AL,10,687263
-30,Kazuma Okamoto,Toronto Blue Jays,AL,10,672960
-30,Andy Pages,Los Angeles Dodgers,NL,10,681624
-30,Luke Raley,Seattle Mariners,AL,10,670042
-30,Casey Schmitt,San Francisco Giants,NL,10,669477
-30,Juan Soto,New York Mets,NL,10,665742
-38,Jake Burger,Texas Rangers,AL,9,669394
-38,Dillon Dingler,Detroit Tigers,AL,9,693307
-38,Angel Martínez,Cleveland Guardians,AL,9,682657
-38,Julio Rodríguez,Seattle Mariners,AL,9,677594
-38,Gavin Sheets,San Diego Padres,NL,9,657757
-38,Jorge Soler,Los Angeles Angels,AL,9,624585
-38,JJ Wetherholt,St. Louis Cardinals,NL,9,802139
+16,Miguel Vargas,Chicago White Sox,AL,12,678246
+23,CJ Abrams,Washington Nationals,NL,11,682928
+23,Willson Contreras,Boston Red Sox,AL,11,575929
+23,Oneil Cruz,Pittsburgh Pirates,NL,11,665833
+23,Hunter Goodman,Colorado Rockies,NL,11,696100
+23,Michael Harris II,Atlanta Braves,NL,11,671739
+23,Gunnar Henderson,Baltimore Orioles,AL,11,683002
+23,Liam Hicks,Miami Marlins,NL,11,689414
+23,Andy Pages,Los Angeles Dodgers,NL,11,681624
+23,Casey Schmitt,San Francisco Giants,NL,11,669477
+32,Pete Alonso,Baltimore Orioles,AL,10,624413
+32,Jake Burger,Texas Rangers,AL,10,669394
+32,Dillon Dingler,Detroit Tigers,AL,10,693307
+32,Ian Happ,Chicago Cubs,NL,10,664023
+32,Zach Neto,Los Angeles Angels,AL,10,687263
+32,Kazuma Okamoto,Toronto Blue Jays,AL,10,672960
+32,Luke Raley,Seattle Mariners,AL,10,670042
+32,Juan Soto,New York Mets,NL,10,665742
+40,Angel Martínez,Cleveland Guardians,AL,9,682657
+40,Julio Rodríguez,Seattle Mariners,AL,9,677594
+40,Gavin Sheets,San Diego Padres,NL,9,657757
+40,Jorge Soler,Los Angeles Angels,AL,9,624585
+40,JJ Wetherholt,St. Louis Cardinals,NL,9,802139
 45,Ozzie Albies,Atlanta Braves,NL,8,645277
 45,Jonathan Aranda,Tampa Bay Rays,AL,8,666018
 45,Yandy Díaz,Tampa Bay Rays,AL,8,650490
@@ -62,6 +62,7 @@ Rank,Player,Team,League,HR,player_id
 56,Alec Burleson,St. Louis Cardinals,NL,7,676475
 56,Corbin Carroll,Arizona Diamondbacks,NL,7,682998
 56,Chase DeLauter,Cleveland Guardians,AL,7,800050
+56,Rafael Devers,San Francisco Giants,NL,7,646240
 56,Teoscar Hernández,Los Angeles Dodgers,NL,7,606192
 56,Brady House,Washington Nationals,NL,7,691781
 56,Ryan Jeffers,Minnesota Twins,AL,7,680777
