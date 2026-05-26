@@ -143,20 +143,42 @@ print(f"Found {len(all_games)} completed games")
 # Build team -> game mapping
 team_games = {}
 for gpk, g in all_games.items():
-    away = g["teams"]["away"]["team"]["name"].lower()
-    home = g["teams"]["home"]["team"]["name"].lower()
-    away_r = g.get("teams",{}).get("away",{}).get("score",0) or 0
-    home_r = g.get("teams",{}).get("home",{}).get("score",0) or 0
+    away   = g["teams"]["away"]["team"]["name"].lower()
+    home   = g["teams"]["home"]["team"]["name"].lower()
+    away_r = int(g.get("teams",{}).get("away",{}).get("score",0) or 0)
+    home_r = int(g.get("teams",{}).get("home",{}).get("score",0) or 0)
     team_games[away] = {"gpk": gpk, "scored": away_r, "allowed": home_r, "win": away_r > home_r}
     team_games[home] = {"gpk": gpk, "scored": home_r, "allowed": away_r, "win": home_r > away_r}
 
-# Cache box scores
+# Build pitcher -> game_pk map from matchups CSV so we only
+# fetch box scores for games our pitchers actually pitched in
+matchups_df = read("matchups")
+pitcher_game_map = {}  # pitcher_last_name -> game_pk
+if not matchups_df.empty:
+    for _, m in matchups_df.iterrows():
+        for side in ["away", "home"]:
+            pit_name = str(m.get(f"{side}_pitcher", "")).strip()
+            pit_team = str(m.get(f"{side}_team", "")).strip().lower()
+            if pit_name and pit_name != "TBD":
+                last = pit_name.split()[-1].lower()
+                full = pit_name.lower()
+                # Find game_pk from team_games
+                gpk = None
+                for tkey, tdata in team_games.items():
+                    if tkey in pit_team or pit_team in tkey:
+                        gpk = tdata["gpk"]
+                        break
+                if gpk:
+                    pitcher_game_map[last] = gpk
+                    pitcher_game_map[full] = gpk
+
+# Cache box scores — only fetch when needed
 box_cache = {}
 def get_cached_box(gpk):
     if gpk not in box_cache:
         print(f"  Fetching box score for game {gpk}...")
         box_cache[gpk] = get_box_score(gpk)
-        time.sleep(0.3)
+        time.sleep(0.2)
     return box_cache[gpk]
 
 # ── Grade each pick ───────────────────────────────────────
@@ -202,7 +224,7 @@ for idx in pending.index:
 
     # ── K Prop ───────────────────────────────────────────
     elif any(x in bet_type for x in ["k prop","strikeout","ks over","ks under"]):
-        # Parse line from pick string e.g. "Cole Over 7.5 Ks"
+        # Get line from pick string (e.g. "Luzardo Over 6.5" or "Luzardo Over 6.5 Ks")
         over_match  = re.search(r"over\s+([\d.]+)", pick_str, re.I)
         under_match = re.search(r"under\s+([\d.]+)", pick_str, re.I)
 
@@ -213,16 +235,32 @@ for idx in pending.index:
             line    = float(under_match.group(1))
             is_over = False
         else:
-            print(f"  Could not parse K line from: {pick_str}")
-            continue
+            # Fall back to line column in CSV
+            stored_line = str(row.get("line","")).strip()
+            if stored_line:
+                line    = float(stored_line)
+                is_over = True  # default over
+            else:
+                print(f"  Could not parse K line from: {pick_str}")
+                continue
 
-        # Find pitcher's game
-        pitcher_name = re.sub(r"(over|under).*", "", pick_str, flags=re.I).strip()
+        # Extract pitcher name (everything before Over/Under)
+        pitcher_name = re.sub(r"\s*(over|under)\s*[\d.]+.*", "", pick_str, flags=re.I).strip()
         game = find_team(pitcher_name)
 
-        # Try all completed games to find this pitcher
+        # Look up pitcher's game from matchups first (fast), then fall back to all games
+        pit_last = pitcher_name.split()[-1].lower()
+        pit_full = pitcher_name.lower()
+        priority_gpks = []
+        if pit_last in pitcher_game_map:
+            priority_gpks.append(pitcher_game_map[pit_last])
+        if pit_full in pitcher_game_map and pitcher_game_map[pit_full] not in priority_gpks:
+            priority_gpks.append(pitcher_game_map[pit_full])
+        # Add remaining games as fallback
+        search_gpks = priority_gpks + [g for g in all_games if g not in priority_gpks]
+
         found = False
-        for gpk in all_games:
+        for gpk in search_gpks:
             box = get_cached_box(gpk)
             player = find_player_in_box(pitcher_name, box)
             if player and player.get("type") == "pitcher":
@@ -242,7 +280,7 @@ for idx in pending.index:
     elif any(x in bet_type for x in ["hr prop","home run","homer"]):
         player_name = re.sub(r"hr.*|home run.*", "", pick_str, flags=re.I).strip()
         found = False
-        for gpk in all_games:
+        for gpk in list(all_games.keys()):
             box = get_cached_box(gpk)
             player = find_player_in_box(player_name, box)
             if player and player.get("type") == "batter":
@@ -261,7 +299,7 @@ for idx in pending.index:
         line        = int(line_match.group(1)) if line_match else 1
 
         found = False
-        for gpk in all_games:
+        for gpk in list(all_games.keys()):
             box = get_cached_box(gpk)
             player = find_player_in_box(player_name, box)
             if player and player.get("type") == "batter":
