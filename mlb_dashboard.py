@@ -30,7 +30,7 @@ app.index_string = app.index_string.replace(
     '</head>',
     '<style>.show-hide { display: none !important; }</style></head>'
 )
-cache = Cache(app.server, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 300})
+cache = Cache(app.server, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 600})
 
 DATA_DIR = "data"
 
@@ -722,11 +722,18 @@ def streaks_layout():
 RAPIDAPI_KEY  = "b35c885fafmsha6cc35f949fc4a5p119a14jsn24871cd4b86e"
 RAPIDAPI_HOST = "tank01-mlb-live-in-game-real-time-statistics.p.rapidapi.com"
 
+_vegas_cache = {"k": {}, "hr": {}, "hit": {}, "ts": 0}
+
 def get_vegas_k_lines():
     """
     Fetch pitcher K prop lines from Tank01 RapidAPI.
+    Cached for 1 hour to reduce API calls and memory pressure.
     Returns dict: {mlb_player_id: {'line': float, 'over': str, 'under': str}}
     """
+    import time
+    global _vegas_cache
+    if _vegas_cache["k"] and (time.time() - _vegas_cache["ts"]) < 3600:
+        return _vegas_cache["k"]
     today_str = today_ct_compact()
     try:
         resp = requests.get(
@@ -755,6 +762,8 @@ def get_vegas_k_lines():
                     }
                 except Exception:
                     pass
+    _vegas_cache["k"] = result
+    _vegas_cache["ts"] = __import__("time").time()
     return result
 
 def get_vegas_hr_lines():
