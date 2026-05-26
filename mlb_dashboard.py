@@ -222,6 +222,7 @@ app.layout = html.Div(style={
         dcc.Tab(label="⭐ Top Picks",         value="toppicks",   style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🌤️ Weather",            value="weather",    style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🏆 Game Predictions",   value="predictions", style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="📈 My Record",           value="record",      style=TAB_STYLE, selected_style=TAB_SEL),
     ]),
 
     dcc.Loading(type="circle", color=C["blue"],
@@ -369,6 +370,7 @@ def render_tab(tab):
         "toppicks":    toppicks_layout,
         "weather":     weather_layout,
         "predictions": predictions_layout,
+        "record":      record_layout,
     }
     return tabs.get(tab, standings_layout)()
 
@@ -2631,6 +2633,215 @@ def load_predictions(n):
         html.Div("Scores based on record, vs .500+ teams, home/away splits, L10 form, pitcher ERA, and recent batting.",
                  style={"color": C["muted"], "fontSize": "11px", "marginBottom": "20px"}),
         *cards,
+    ])
+
+
+# ─────────────────────────────────────────────
+# MY RECORD
+# ─────────────────────────────────────────────
+
+PICK_PASSWORD = os.environ.get("PICK_PASSWORD", "mlb2026")
+
+def record_layout():
+    return html.Div([
+        dcc.Interval(id="record-trigger", interval=300, max_intervals=1),
+        # Pick submission form
+        html.Div([
+            html.Div("📝 Submit Today's Picks",
+                     style={"fontSize":"14px","fontWeight":"bold","color":C["text"],"marginBottom":"12px"}),
+            html.Div([
+                dcc.Input(id="pick-password", type="password", placeholder="Password",
+                          style={"background":C["card"],"color":C["text"],"border":f"1px solid {C['border']}",
+                                 "padding":"8px","borderRadius":"4px","marginRight":"8px","width":"120px"}),
+                dcc.Input(id="pick-name", type="text", placeholder="Pick (e.g. Cole Over 7.5 Ks)",
+                          style={"background":C["card"],"color":C["text"],"border":f"1px solid {C['border']}",
+                                 "padding":"8px","borderRadius":"4px","marginRight":"8px","width":"250px"}),
+                dcc.Dropdown(id="pick-type",
+                    options=[{"label":"Team Win (ML)","value":"Team Win"},
+                             {"label":"K Prop","value":"K Prop"},
+                             {"label":"HR Prop","value":"HR Prop"},
+                             {"label":"1+ Hit","value":"Hit Prop"},
+                             {"label":"Total Bases","value":"TB Prop"}],
+                    placeholder="Bet Type",
+                    style={"width":"160px","display":"inline-block","verticalAlign":"middle",
+                           "marginRight":"8px"}),
+                dcc.Input(id="pick-odds", type="text", placeholder="Odds (-110)",
+                          style={"background":C["card"],"color":C["text"],"border":f"1px solid {C['border']}",
+                                 "padding":"8px","borderRadius":"4px","marginRight":"8px","width":"100px"}),
+                dcc.Input(id="pick-units", type="number", placeholder="Units", value=1, min=0.5, step=0.5,
+                          style={"background":C["card"],"color":C["text"],"border":f"1px solid {C['border']}",
+                                 "padding":"8px","borderRadius":"4px","marginRight":"8px","width":"80px"}),
+                html.Button("Add Pick", id="pick-submit", n_clicks=0,
+                            style={"background":C["blue"],"color":"white","border":"none",
+                                   "padding":"8px 16px","borderRadius":"4px","cursor":"pointer",
+                                   "fontWeight":"bold"}),
+            ], style={"display":"flex","alignItems":"center","flexWrap":"wrap","gap":"8px"}),
+            html.Div(id="pick-feedback", style={"marginTop":"8px","fontSize":"12px"}),
+        ], style={**CARD,"marginBottom":"20px"}),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="record-results")),
+    ])
+
+
+@app.callback(
+    Output("pick-feedback","children"),
+    Output("record-results","children"),
+    Input("pick-submit","n_clicks"),
+    Input("record-trigger","n_intervals"),
+    State("pick-password","value"),
+    State("pick-name","value"),
+    State("pick-type","value"),
+    State("pick-odds","value"),
+    State("pick-units","value"),
+    prevent_initial_call=False,
+)
+def handle_record(n_clicks, n_intervals, password, pick_name, pick_type, odds, units):
+    from dash import ctx
+    feedback = ""
+
+    # Handle pick submission
+    if ctx.triggered_id == "pick-submit" and n_clicks and n_clicks > 0:
+        if password != PICK_PASSWORD:
+            feedback = html.Div("❌ Wrong password", style={"color":C["red"]})
+        elif not pick_name or not pick_type:
+            feedback = html.Div("❌ Pick name and type required", style={"color":C["red"]})
+        else:
+            today = today_ct()
+            new_row = {
+                "date": today, "pick": pick_name.strip(),
+                "bet_type": pick_type, "odds": odds or "",
+                "units": units or 1, "result": "", "pnl": "", "notes": ""
+            }
+            picks = read("my_picks")
+            if picks.empty:
+                picks = pd.DataFrame(columns=["date","pick","bet_type","odds","units","result","pnl","notes"])
+            picks = pd.concat([picks, pd.DataFrame([new_row])], ignore_index=True)
+            picks.to_csv(os.path.join(DATA_DIR, "my_picks.csv"), index=False)
+            feedback = html.Div(f"✅ Added: {pick_name} ({pick_type})", style={"color":C["green"]})
+
+    return feedback, build_record_view()
+
+
+def build_record_view():
+    df = read("my_picks")
+    if df.empty:
+        return no_data("No picks recorded yet. Add picks to data/my_picks.csv on GitHub.")
+
+    # Ensure columns
+    for col in ["result","pnl","units","odds","bet_type","notes"]:
+        if col not in df.columns:
+            df[col] = ""
+
+    df["pnl"] = pd.to_numeric(df["pnl"], errors="coerce").fillna(0)
+    df["units"] = pd.to_numeric(df["units"], errors="coerce").fillna(1)
+
+    # Only graded picks
+    graded = df[df["result"].astype(str).isin(["W","L"])]
+    wins   = len(graded[graded["result"] == "W"])
+    losses = len(graded[graded["result"] == "L"])
+    total  = wins + losses
+    pct_w  = round(wins/total*100) if total > 0 else 0
+    total_pnl  = round(graded["pnl"].sum(), 2)
+    total_bet  = round(graded["units"].sum(), 2)
+    roi        = round(total_pnl / total_bet * 100, 1) if total_bet > 0 else 0.0
+
+    # Current streak
+    streak = 0
+    streak_type = ""
+    for r in reversed(graded["result"].tolist()):
+        if streak == 0:
+            streak_type = r
+            streak = 1
+        elif r == streak_type:
+            streak += 1
+        else:
+            break
+    streak_str = f"{streak_type}{streak}" if streak > 0 else "—"
+    streak_color = C["green"] if streak_type == "W" else C["red"]
+
+    # Stat cards
+    def stat_card(label, value, color=C["text"], sub=""):
+        return html.Div([
+            html.Div(value, style={"fontSize":"28px","fontWeight":"bold","color":color}),
+            html.Div(label, style={"fontSize":"11px","color":C["muted"],"textTransform":"uppercase","letterSpacing":"1px"}),
+            html.Div(sub,   style={"fontSize":"11px","color":C["muted"]}) if sub else html.Div(),
+        ], style={**CARD,"textAlign":"center","minWidth":"110px","flex":"1"})
+
+    stats_row = html.Div([
+        stat_card("Record",  f"{wins}-{losses}", C["green"] if wins > losses else C["red"]),
+        stat_card("Win %",   f"{pct_w}%",        C["green"] if pct_w >= 55 else (C["yellow"] if pct_w >= 50 else C["red"])),
+        stat_card("Units",   f"{total_pnl:+.2f}u", C["green"] if total_pnl > 0 else C["red"]),
+        stat_card("ROI",     f"{roi:+.1f}%",     C["green"] if roi > 0 else C["red"]),
+        stat_card("Streak",  streak_str,          streak_color),
+        stat_card("Picks",   str(total),          C["text"], f"{len(df)-total} pending"),
+    ], style={"display":"flex","gap":"10px","flexWrap":"wrap","marginBottom":"24px"})
+
+    # By bet type breakdown
+    type_rows = []
+    if not graded.empty and "bet_type" in graded.columns:
+        for btype, group in graded.groupby("bet_type"):
+            gw = len(group[group["result"]=="W"])
+            gl = len(group[group["result"]=="L"])
+            gpnl = round(group["pnl"].sum(), 2)
+            gpct = round(gw/(gw+gl)*100) if (gw+gl) > 0 else 0
+            type_rows.append({
+                "Bet Type": btype, "W": gw, "L": gl,
+                "Win %": f"{gpct}%",
+                "Units P/L": f"{gpnl:+.2f}",
+            })
+
+    breakdown = html.Div()
+    if type_rows:
+        breakdown = html.Div([
+            html.Div("📊 By Bet Type",
+                     style={"fontSize":"13px","fontWeight":"bold","color":C["text"],
+                            "marginBottom":"10px"}),
+            section(dash_table.DataTable(
+                data=type_rows,
+                columns=[{"name":c,"id":c} for c in ["Bet Type","W","L","Win %","Units P/L"]],
+                style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+                style_header=DT_HEADER, page_action="none",
+                style_data_conditional=DT_COND + [
+                    {"if":{"column_id":"Units P/L","filter_query":"{Units P/L} > 0"},
+                     "color":C["green"],"fontWeight":"bold"},
+                    {"if":{"column_id":"Units P/L","filter_query":"{Units P/L} < 0"},
+                     "color":C["red"]},
+                ],
+            )),
+        ], style={"marginBottom":"24px"})
+
+    # Full history table
+    display = df.copy()
+    display["P/L"] = display["pnl"].apply(
+        lambda x: f"{float(x):+.2f}u" if str(x) not in ("","nan","0.0") else "—")
+    display["Result"] = display["result"].apply(
+        lambda x: "✅ W" if x=="W" else ("❌ L" if x=="L" else ("❓" if x=="?" else "⏳ Pending")))
+
+    history = section(dash_table.DataTable(
+        data=display[["date","pick","bet_type","odds","units","Result","P/L","notes"]].to_dict("records"),
+        columns=[{"name":c.title(),"id":c} for c in ["date","pick","bet_type","odds","units","Result","P/L","notes"]],
+        sort_action="native", sort_mode="single",
+        style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+        style_header=DT_HEADER, page_action="native", page_size=25,
+        style_data_conditional=DT_COND + [
+            {"if":{"filter_query":'{Result} = "✅ W"'},"backgroundColor":"#1a2a1a"},
+            {"if":{"filter_query":'{Result} = "❌ L"'},"backgroundColor":"#2a1a1a"},
+            {"if":{"column_id":"P/L","filter_query":"{P/L} contains '+'"},
+             "color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"P/L","filter_query":"{P/L} contains '-'"},
+             "color":C["red"]},
+        ],
+    ))
+
+    return html.Div([
+        html.Div("📈 My Picks Record",
+                 style={"fontSize":"18px","fontWeight":"bold","color":C["text"],"marginBottom":"4px"}),
+        html.Div("Track your picks by editing data/my_picks.csv on GitHub. Results auto-update nightly.",
+                 style={"color":C["muted"],"fontSize":"11px","marginBottom":"20px"}),
+        stats_row,
+        breakdown,
+        html.Div("📋 Full History",
+                 style={"fontSize":"13px","fontWeight":"bold","color":C["text"],"marginBottom":"10px"}),
+        history,
     ])
 
 if __name__ == "__main__":
