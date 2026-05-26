@@ -2665,6 +2665,13 @@ def record_layout():
                     placeholder="Bet Type",
                     style={"width":"160px","display":"inline-block","verticalAlign":"middle",
                            "marginRight":"8px"}),
+                dcc.Input(id="pick-line", type="text", placeholder="Line (6.5)",
+                          style={"background":C["card"],"color":C["text"],"border":f"1px solid {C['border']}",
+                                 "padding":"8px","borderRadius":"4px","marginRight":"8px","width":"80px"}),
+                dcc.Dropdown(id="pick-ou",
+                    options=[{"label":"Over","value":"Over"},{"label":"Under","value":"Under"},{"label":"N/A","value":""}],
+                    value="Over", placeholder="O/U",
+                    style={"width":"90px","display":"inline-block","verticalAlign":"middle","marginRight":"8px"}),
                 dcc.Input(id="pick-odds", type="text", placeholder="Odds (-110)",
                           style={"background":C["card"],"color":C["text"],"border":f"1px solid {C['border']}",
                                  "padding":"8px","borderRadius":"4px","marginRight":"8px","width":"100px"}),
@@ -2690,11 +2697,13 @@ def record_layout():
     State("pick-password","value"),
     State("pick-name","value"),
     State("pick-type","value"),
+    State("pick-line","value"),
+    State("pick-ou","value"),
     State("pick-odds","value"),
     State("pick-units","value"),
     prevent_initial_call=False,
 )
-def handle_record(n_clicks, n_intervals, password, pick_name, pick_type, odds, units):
+def handle_record(n_clicks, n_intervals, password, pick_name, pick_type, pick_line, pick_ou, odds, units):
     from dash import ctx
     feedback = ""
 
@@ -2706,17 +2715,26 @@ def handle_record(n_clicks, n_intervals, password, pick_name, pick_type, odds, u
             feedback = html.Div("❌ Pick name and type required", style={"color":C["red"]})
         else:
             today = today_ct()
+            # Build pick string with line e.g. "Luzardo Over 6.5 Ks"
+            pick_str = pick_name.strip()
+            if pick_line and pick_ou:
+                pick_str = f"{pick_name.strip()} {pick_ou} {pick_line}"
+            elif pick_line:
+                pick_str = f"{pick_name.strip()} {pick_line}"
+
             new_row = {
-                "date": today, "pick": pick_name.strip(),
+                "date": today, "pick": pick_str,
                 "bet_type": pick_type, "odds": odds or "",
                 "units": units or 1, "result": "", "pnl": "", "notes": ""
             }
             picks = read("my_picks")
             if picks.empty:
-                picks = pd.DataFrame(columns=["date","pick","bet_type","odds","units","result","pnl","notes"])
+                picks = pd.DataFrame(columns=["date","pick","bet_type","line","odds","units","result","pnl","notes"])
+            if "line" not in picks.columns:
+                picks["line"] = ""
             picks = pd.concat([picks, pd.DataFrame([new_row])], ignore_index=True)
             picks.to_csv(os.path.join(DATA_DIR, "my_picks.csv"), index=False)
-            feedback = html.Div(f"✅ Added: {pick_name} ({pick_type})", style={"color":C["green"]})
+            feedback = html.Div(f"✅ Added: {pick_str} ({pick_type}) @ {odds or '?'}", style={"color":C["green"]})
 
     return feedback, build_record_view()
 
