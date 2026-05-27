@@ -23,13 +23,13 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 607536,Kyle Freeland,Colorado Rockies,60,12,8.08,42.1,1.75,12.76
 669160,Dustin May,St. Louis Cardinals,60,5,5.00,54.0,1.43,10.00
 680573,Simeon Woods Richardson,Minnesota Twins,60,9,7.20,45.0,1.82,12.00
+592332,Kevin Gausman,Toronto Blue Jays,59,6,3.34,64.2,1.07,8.21
 605288,Adrian Houser,San Francisco Giants,59,8,5.30,52.2,1.48,10.08
 681517,Kyle Leahy,St. Louis Cardinals,58,8,4.44,50.2,1.58,10.30
 669387,Carmen Mlodzinski,Pittsburgh Pirates,58,3,3.76,55.0,1.42,9.49
 622663,Luis Severino,Athletics,58,8,4.23,61.2,1.44,8.46
 664285,Framber Valdez,Detroit Tigers,58,6,4.28,61.0,1.33,8.56
 671096,Andrew Abbott,Cincinnati Reds,57,7,3.97,56.2,1.46,9.05
-592332,Kevin Gausman,Toronto Blue Jays,57,6,3.23,64.0,1.05,8.02
 683004,Jack Leiter,Texas Rangers,57,9,4.75,60.2,1.37,8.46
 641793,Zack Littell,Washington Nationals,57,15,5.23,53.1,1.39,9.62
 691725,Andrew Painter,Philadelphia Phillies,57,7,5.40,50.0,1.46,10.26
@@ -38,7 +38,7 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 680694,Kyle Bradish,Baltimore Orioles,56,7,3.86,58.1,1.47,8.64
 622491,Luis Castillo,Seattle Mariners,56,7,5.90,50.1,1.51,10.01
 543135,Nathan Eovaldi,Texas Rangers,56,11,3.65,61.2,1.14,8.17
-668909,Gavin Williams,Cleveland Guardians,56,9,3.25,69.1,1.13,7.27
+668909,Gavin Williams,Cleveland Guardians,56,9,3.21,70.0,1.13,7.20
 677952,Braxton Ashcraft,Pittsburgh Pirates,55,6,2.75,68.2,1.05,7.21
 669302,Logan Gilbert,Seattle Mariners,55,11,4.04,62.1,1.11,7.94
 682052,Jacob Lopez,Athletics,55,11,5.73,48.2,1.77,10.17
