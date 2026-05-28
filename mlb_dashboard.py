@@ -1030,13 +1030,47 @@ def kmatch_layout():
                 "_l3_avg":      l3_avg,
             })
 
+        # ── Sharp Signal ──────────────────────────────────────
+        # Last row added
+        last = rows[-1] if rows else {}
+        if last:
+            imp    = last.get("_implied", 0)
+            edge_s = last.get("Our Edge", "—")
+            vline2 = last.get("Vegas Line", "—")
+            signal = "—"
+            signal_color = "neutral"
+
+            try:
+                edge_val = float(str(edge_s).replace("+","")) if edge_s != "—" else 0
+            except: edge_val = 0
+
+            if vline2 != "—":
+                if edge_val >= 0.5 and imp <= 50:
+                    signal = "🎯 Over — Sharp"
+                    signal_color = "green"
+                elif edge_val >= 0.5 and imp > 50:
+                    signal = "✅ Over — Model"
+                    signal_color = "yellow"
+                elif edge_val <= -0.5 and imp >= 55:
+                    signal = "🔥 Under — Fade Public"
+                    signal_color = "red"
+                elif edge_val <= -0.5 and imp < 50:
+                    signal = "📉 Under — Sharp"
+                    signal_color = "blue"
+                elif abs(edge_val) < 0.5 and imp >= 55:
+                    signal = "⚠️ Under — Public Trap"
+                    signal_color = "red"
+
+            rows[-1]["Signal"]        = signal
+            rows[-1]["_sig_color"]    = signal_color
+
     rows.sort(key=lambda x: x["_score"], reverse=True)
     df = pd.DataFrame(rows)
 
     # Build merged column headers using a two-row header trick
     pit_cols  = ["Pitcher","Team","ERA","K9","Avg IP","Season Ks","Pit K%"]
     opp_cols  = ["Opponent","Lineup K%","Opp L5 AVG","Opp L3 AVG","Opp Avg K/G","Opp Last K","Opp L5 Ks","Opp L3 Ks"]
-    proj_cols = ["Exp Ks","Blended Proj","Vegas Line","Our Edge","Mkt Implied","Rating"]
+    proj_cols = ["Exp Ks","Blended Proj","Vegas Line","Our Edge","Mkt Implied","Signal","Rating"]
     all_cols  = pit_cols + opp_cols + proj_cols
 
     columns = []
@@ -1047,6 +1081,48 @@ def kmatch_layout():
             columns.append({"name": ["🏏 OPPONENT", c], "id": c})
         else:
             columns.append({"name": ["📊 PROJECTION", c], "id": c})
+
+    key_section = html.Div([
+        html.Div("📖 Key", style={"fontSize":"13px","fontWeight":"bold","color":C["text"],"marginBottom":"8px"}),
+        html.Div([
+            html.Div([
+                html.Span("🎯 Over — Sharp", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Our model projects over AND market implied < 50% (sharp money on over, public hasn't caught on)",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("✅ Over — Model", style={"color":C["yellow"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Our model projects over but public also leans over (less edge, line may be fair)",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("🔥 Under — Fade Public", style={"color":C["red"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Our model projects under AND 55%+ public on over (classic public trap — fade the crowd)",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("📉 Under — Sharp", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Our model projects under AND market implied < 50% (sharp money already on under)",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("⚠️ Under — Public Trap", style={"color":C["red"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Model is neutral but 55%+ public on over — line may be inflated, under has value",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div(style={"height":"8px"}),
+            html.Div([
+                html.Span("Mkt Implied", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("= implied probability of the over based on Vegas odds. >50% means market leans over.",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("Our Edge", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("= our blended K projection minus Vegas line. Positive = we like the over.",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ]),
+        ]),
+    ], style={**CARD, "marginBottom":"16px"})
 
     k_table = section(dash_table.DataTable(
         data=df.to_dict("records"),
@@ -1081,8 +1157,12 @@ def kmatch_layout():
             {"if":{"column_id":"Mkt Implied","filter_query":"{_implied} >= 55"},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"Mkt Implied","filter_query":"{_implied} >= 50"},"color":C["yellow"]},
             {"if":{"column_id":"Mkt Implied","filter_query":"{_implied} < 50"}, "color":C["blue"]},
+            {"if":{"column_id":"Signal","filter_query":"{_sig_color} = green"},"color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"Signal","filter_query":"{_sig_color} = yellow"},"color":C["yellow"],"fontWeight":"bold"},
+            {"if":{"column_id":"Signal","filter_query":"{_sig_color} = red"},  "color":C["red"],  "fontWeight":"bold"},
+            {"if":{"column_id":"Signal","filter_query":"{_sig_color} = blue"}, "color":C["blue"], "fontWeight":"bold"},
         ],
-        hidden_columns=["_score","_edge_color","_l5_avg","_l3_avg","_implied"],
+        hidden_columns=["_score","_edge_color","_l5_avg","_l3_avg","_implied","_sig_color"],
     ))
 
     # Most Hits Allowed leaderboard
@@ -1109,7 +1189,7 @@ def kmatch_layout():
             )),
         ])
 
-    return html.Div([k_table, leaky_section])
+    return html.Div([key_section, k_table, leaky_section])
 
 # ─────────────────────────────────────────────
 # BATTER VS PITCHER
