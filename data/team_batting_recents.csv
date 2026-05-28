@@ -1,13 +1,13 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-145,Chicago White Sox,0.267,0.299,8,47,27
 142,Minnesota Twins,0.234,0.168,5,47,26
-112,Chicago Cubs,0.229,0.259,10,40,26
-134,Pittsburgh Pirates,0.246,0.291,9,50,26
-116,Detroit Tigers,0.234,0.255,6,39,21
-111,Boston Red Sox,0.275,0.321,3,36,18
+108,Los Angeles Angels,0.219,0.24,3,41,23
 117,Houston Astros,0.244,0.25,8,35,22
-140,Texas Rangers,0.169,0.167,10,45,18
-108,Los Angeles Angels,0.251,0.212,9,41,32
+112,Chicago Cubs,0.229,0.259,10,40,26
 110,Baltimore Orioles,0.244,0.302,5,38,23
+145,Chicago White Sox,0.267,0.299,8,47,27
 144,Atlanta Braves,0.186,0.198,8,45,26
+134,Pittsburgh Pirates,0.246,0.291,9,50,26
+111,Boston Red Sox,0.275,0.321,3,36,18
+116,Detroit Tigers,0.243,0.279,1,28,19
 141,Toronto Blue Jays,0.264,0.27,13,39,27
+140,Texas Rangers,0.169,0.167,10,45,18
