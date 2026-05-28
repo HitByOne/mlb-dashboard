@@ -1,0 +1,31 @@
+date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
+2026-05-27,Gerrit Cole,New York Yankees,Kansas City Royals,6.2,10,4.5,-103,-130,51,Over Hit
+2026-05-27,Eury Pérez,Miami Marlins,Toronto Blue Jays,4.0,9,4.5,-167,+125,63,Over Hit
+2026-05-27,Cristopher Sánchez,Philadelphia Phillies,San Diego Padres,7.0,9,6.5,-136,+102,58,Over Hit
+2026-05-27,Dustin May,St. Louis Cardinals,Milwaukee Brewers,7.0,9,4.5,-121,-110,55,Over Hit
+2026-05-27,Connelly Early,Boston Red Sox,Atlanta Braves,7.0,7,4.5,-155,+115,61,Over Hit
+2026-05-27,Jeffrey Springs,Athletics,Seattle Mariners,5.0,7,4.5,+102,-137,50,Over Hit
+2026-05-27,Shohei Ohtani,Los Angeles Dodgers,Colorado Rockies,6.0,7,7.5,-109,-122,52,Under Hit
+2026-05-27,Casey Mize,Detroit Tigers,Los Angeles Angels,4.0,6,5.5,-115,-115,53,Over Hit
+2026-05-27,Logan Gilbert,Seattle Mariners,Athletics,6.0,6,5.5,-143,+108,59,Over Hit
+2026-05-27,Jacob deGrom,Texas Rangers,Houston Astros,6.0,6,6.5,-122,-109,55,Under Hit
+2026-05-27,Mike Burrows,Houston Astros,Texas Rangers,7.0,6,4.5,+102,-136,50,Over Hit
+2026-05-27,Trevor McDonald,San Francisco Giants,Arizona Diamondbacks,6.1,6,4.5,+123,-165,45,Over Hit
+2026-05-27,Bubba Chandler,Pittsburgh Pirates,Chicago Cubs,5.0,5,4.5,-117,-114,54,Over Hit
+2026-05-27,Kevin Gausman,Toronto Blue Jays,Miami Marlins,5.0,5,5.5,-152,+114,60,Under Hit
+2026-05-27,Connor Prielipp,Minnesota Twins,Chicago White Sox,4.1,5,4.5,-155,+115,61,Over Hit
+2026-05-27,Noah Cameron,Kansas City Royals,New York Yankees,5.0,4,4.5,-110,-121,52,Under Hit
+2026-05-27,David Sandlin,Chicago White Sox,Minnesota Twins,6.0,4,3.5,-148,+110,60,Over Hit
+2026-05-27,José Soriano,Los Angeles Angels,Detroit Tigers,5.0,4,5.5,-157,+117,61,Under Hit
+2026-05-27,Gavin Williams,Cleveland Guardians,Washington Nationals,7.0,4,6.5,-143,+108,59,Under Hit
+2026-05-27,Chad Patrick,Milwaukee Brewers,St. Louis Cardinals,4.0,4,3.5,-150,+120,60,Over Hit
+2026-05-27,Andrew Abbott,Cincinnati Reds,New York Mets,6.0,4,4.5,+125,-167,44,Under Hit
+2026-05-27,Jameson Taillon,Chicago Cubs,Pittsburgh Pirates,5.0,4,4.5,-107,-124,52,Under Hit
+2026-05-27,Drew Anderson,Detroit Tigers,Los Angeles Angels,3.0,3,—,—,—,0,—
+2026-05-27,Andrew Kittredge,Baltimore Orioles,Tampa Bay Rays,1.0,3,—,—,—,0,—
+2026-05-27,Michael Soroka,Arizona Diamondbacks,San Francisco Giants,6.0,3,4.5,-162,+120,62,Under Hit
+2026-05-27,Jacob Webb,Chicago Cubs,Pittsburgh Pirates,1.0,3,—,—,—,0,—
+2026-05-27,Devin Williams,New York Mets,Cincinnati Reds,1.0,3,—,—,—,0,—
+2026-05-27,Justin Lawrence,Pittsburgh Pirates,Chicago Cubs,1.2,3,—,—,—,0,—
+2026-05-27,Enyel De Los Santos,Houston Astros,Texas Rangers,1.2,3,—,—,—,0,—
+2026-05-27,Tomoyuki Sugano,Colorado Rockies,Los Angeles Dodgers,4.2,3,2.5,-159,+118,61,Over Hit
