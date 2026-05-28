@@ -2967,135 +2967,35 @@ def yesterday_ks_layout():
 
 @app.callback(Output("yday-results","children"), Input("yday-trigger","n_intervals"))
 def load_yesterday_ks(n):
-    from datetime import timedelta
-    yesterday = (datetime.now(timezone.utc) + timedelta(hours=-5) - timedelta(days=1)).strftime("%Y-%m-%d")
-    yesterday_compact = (datetime.now(timezone.utc) + timedelta(hours=-5) - timedelta(days=1)).strftime("%Y%m%d")
+    df = read("yesterday_ks")
+    if df.empty:
+        return no_data("No yesterday K results yet — run refresh_data.py first.")
 
-    # Fetch yesterday's schedule
-    try:
-        data  = requests.get(
-            f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={yesterday}&hydrate=decisions",
-            timeout=10
-        ).json()
-    except Exception as e:
-        return no_data(f"Error fetching schedule: {e}")
+    yesterday = df["date"].iloc[0] if "date" in df.columns else "Yesterday"
 
-    games = data.get("dates",[{}])[0].get("games",[]) if data.get("dates") else []
-    final_games = [g for g in games if g.get("status",{}).get("abstractGameState") == "Final"]
+    # Normalize column names
+    df = df.rename(columns={
+        "pitcher":"Pitcher","team":"Team","opponent":"Opponent",
+        "ip":"IP","actual_ks":"Actual Ks","vegas_line":"Vegas Line",
+        "over_odds":"Over Odds","under_odds":"Under Odds",
+        "implied_over":"_implied","result":"Result",
+    })
 
-    if not final_games:
-        return no_data(f"No completed games found for {yesterday}")
-
-    # Fetch Vegas K lines for yesterday
-    try:
-        vegas_resp = requests.get(
-            f"https://{RAPIDAPI_HOST}/getMLBBettingOdds",
-            params={"gameDate": yesterday_compact, "playerProps": "true", "itemFormat": "list"},
-            headers={"x-rapidapi-key": RAPIDAPI_KEY, "x-rapidapi-host": RAPIDAPI_HOST},
-            timeout=10
-        ).json()
-        vegas_k = {}
-        for game in vegas_resp.get("body", []):
-            for player in game.get("playerProps", []):
-                pid  = player.get("playerID","")
-                ks   = player.get("propBets",{}).get("strikeouts",{})
-                if pid and ks and "total" in ks:
-                    vegas_k[str(pid)] = {
-                        "line":  float(ks["total"]),
-                        "over":  ks.get("over","—"),
-                        "under": ks.get("under","—"),
-                    }
-    except Exception:
-        vegas_k = {}
-
-    # Fetch box scores and build pitcher results
-    rows = []
-    for g in final_games:
-        gpk       = g["gamePk"]
-        away_team = g["teams"]["away"]["team"]["name"]
-        home_team = g["teams"]["home"]["team"]["name"]
-        away_r    = g["teams"]["away"].get("score",0)
-        home_r    = g["teams"]["home"].get("score",0)
-
-        try:
-            box = requests.get(
-                f"https://statsapi.mlb.com/api/v1/game/{gpk}/boxscore",
-                timeout=10
-            ).json()
-        except:
-            continue
-
-        for side in ["away","home"]:
-            team_name = away_team if side == "away" else home_team
-            opp_name  = home_team if side == "away" else away_team
-
-            for pid_str, player in box.get("teams",{}).get(side,{}).get("players",{}).items():
-                pit_stats = player.get("stats",{}).get("pitching",{})
-                if not pit_stats:
-                    continue
-                ks_actual = int(pit_stats.get("strikeOuts",0) or 0)
-                ip        = pit_stats.get("inningsPitched","0")
-                if ks_actual == 0 and str(ip) in ("0","0.0",""):
-                    continue
-
-                pid      = str(pid_str).replace("ID","")
-                name     = player.get("person",{}).get("fullName","")
-                position = player.get("position",{}).get("abbreviation","")
-
-                # Only show starting pitchers (SP) or anyone with 3+ Ks
-                if position != "SP" and ks_actual < 3:
-                    continue
-
-                vl = vegas_k.get(pid, {})
-                line = vl.get("line", None)
-                over_odds  = vl.get("over","—")
-                under_odds = vl.get("under","—")
-
-                if line is not None:
-                    if ks_actual >= line:
-                        hit_miss = "✅ Over Hit"
-                        hm_color = "green"
-                    else:
-                        hit_miss = "❌ Under Hit"
-                        hm_color = "red"
-                    implied_over = 0
-                    try:
-                        o = float(over_odds)
-                        implied_over = round(abs(o)/(abs(o)+100)*100) if o < 0 else round(100/(o+100)*100)
-                    except: pass
-                else:
-                    hit_miss  = "—"
-                    hm_color  = "neutral"
-                    implied_over = 0
-
-                rows.append({
-                    "Pitcher":    name,
-                    "Team":       team_name,
-                    "Opponent":   opp_name,
-                    "IP":         ip,
-                    "Actual Ks":  ks_actual,
-                    "Vegas Line": f"{line}" if line else "—",
-                    "Over Odds":  over_odds,
-                    "Under Odds": under_odds,
-                    "Mkt Implied": f"{implied_over}% Over" if implied_over else "—",
-                    "Result":     hit_miss,
-                    "_hm":        hm_color,
-                    "_implied":   implied_over,
-                    "_ks":        ks_actual,
-                })
-
-    if not rows:
-        return no_data("No pitcher K data found for yesterday.")
-
-    # Sort by Ks desc
-    rows.sort(key=lambda x: x["_ks"], reverse=True)
-    df = pd.DataFrame(rows)
+    df["Actual Ks"]  = pd.to_numeric(df["Actual Ks"], errors="coerce").fillna(0).astype(int)
+    df["_implied"]   = pd.to_numeric(df["_implied"], errors="coerce").fillna(0).astype(int)
+    df["_ks"]        = df["Actual Ks"]
+    df["Mkt Implied"]= df["_implied"].apply(lambda x: f"{x}% Over" if x > 0 else "—")
+    df["_hm"]        = df["Result"].apply(
+        lambda x: "green" if "Over" in str(x) else ("red" if "Under" in str(x) else "neutral"))
+    df["Result"]     = df["Result"].apply(
+        lambda x: "✅ Over Hit" if "Over" in str(x) else ("❌ Under Hit" if "Under" in str(x) else "—"))
 
     # Summary stats
-    graded    = [r for r in rows if r["Result"] != "—"]
-    over_hits = len([r for r in graded if "Over Hit" in r["Result"]])
+    graded    = df[df["Result"] != "—"]
+    over_hits = len(graded[graded["Result"].str.contains("Over")])
     total_g   = len(graded)
     over_pct  = round(over_hits/total_g*100) if total_g > 0 else 0
+    rows      = df.to_dict("records")
 
     summary = html.Div([
         html.Div(f"📋 Yesterday: {yesterday}", style={"fontSize":"15px","fontWeight":"bold",
