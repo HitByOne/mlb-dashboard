@@ -223,6 +223,7 @@ app.layout = html.Div(style={
         dcc.Tab(label="🌤️ Weather",            value="weather",    style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="🏆 Game Predictions",   value="predictions", style=TAB_STYLE, selected_style=TAB_SEL),
         dcc.Tab(label="📈 My Record",           value="record",      style=TAB_STYLE, selected_style=TAB_SEL),
+        dcc.Tab(label="📋 Yesterday K Results", value="yesterday_ks", style=TAB_STYLE, selected_style=TAB_SEL),
     ]),
 
     dcc.Loading(type="circle", color=C["blue"],
@@ -371,6 +372,7 @@ def render_tab(tab):
         "weather":     weather_layout,
         "predictions": predictions_layout,
         "record":      record_layout,
+        "yesterday_ks": yesterday_ks_layout,
     }
     return tabs.get(tab, standings_layout)()
 
@@ -2950,6 +2952,193 @@ def build_record_view():
                  style={"fontSize":"13px","fontWeight":"bold","color":C["text"],"marginBottom":"10px"}),
         history,
     ])
+
+
+# ─────────────────────────────────────────────
+# YESTERDAY K RESULTS
+# ─────────────────────────────────────────────
+
+def yesterday_ks_layout():
+    return html.Div([
+        dcc.Interval(id="yday-trigger", interval=300, max_intervals=1),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="yday-results")),
+    ])
+
+
+@app.callback(Output("yday-results","children"), Input("yday-trigger","n_intervals"))
+def load_yesterday_ks(n):
+    from datetime import timedelta
+    yesterday = (datetime.now(timezone.utc) + timedelta(hours=-5) - timedelta(days=1)).strftime("%Y-%m-%d")
+    yesterday_compact = (datetime.now(timezone.utc) + timedelta(hours=-5) - timedelta(days=1)).strftime("%Y%m%d")
+
+    # Fetch yesterday's schedule
+    try:
+        data  = requests.get(
+            f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={yesterday}&hydrate=decisions",
+            timeout=10
+        ).json()
+    except Exception as e:
+        return no_data(f"Error fetching schedule: {e}")
+
+    games = data.get("dates",[{}])[0].get("games",[]) if data.get("dates") else []
+    final_games = [g for g in games if g.get("status",{}).get("abstractGameState") == "Final"]
+
+    if not final_games:
+        return no_data(f"No completed games found for {yesterday}")
+
+    # Fetch Vegas K lines for yesterday
+    try:
+        vegas_resp = requests.get(
+            f"https://{RAPIDAPI_HOST}/getMLBBettingOdds",
+            params={"gameDate": yesterday_compact, "playerProps": "true", "itemFormat": "list"},
+            headers={"x-rapidapi-key": RAPIDAPI_KEY, "x-rapidapi-host": RAPIDAPI_HOST},
+            timeout=10
+        ).json()
+        vegas_k = {}
+        for game in vegas_resp.get("body", []):
+            for player in game.get("playerProps", []):
+                pid  = player.get("playerID","")
+                ks   = player.get("propBets",{}).get("strikeouts",{})
+                if pid and ks and "total" in ks:
+                    vegas_k[str(pid)] = {
+                        "line":  float(ks["total"]),
+                        "over":  ks.get("over","—"),
+                        "under": ks.get("under","—"),
+                    }
+    except Exception:
+        vegas_k = {}
+
+    # Fetch box scores and build pitcher results
+    rows = []
+    for g in final_games:
+        gpk       = g["gamePk"]
+        away_team = g["teams"]["away"]["team"]["name"]
+        home_team = g["teams"]["home"]["team"]["name"]
+        away_r    = g["teams"]["away"].get("score",0)
+        home_r    = g["teams"]["home"].get("score",0)
+
+        try:
+            box = requests.get(
+                f"https://statsapi.mlb.com/api/v1/game/{gpk}/boxscore",
+                timeout=10
+            ).json()
+        except:
+            continue
+
+        for side in ["away","home"]:
+            team_name = away_team if side == "away" else home_team
+            opp_name  = home_team if side == "away" else away_team
+
+            for pid_str, player in box.get("teams",{}).get(side,{}).get("players",{}).items():
+                pit_stats = player.get("stats",{}).get("pitching",{})
+                if not pit_stats:
+                    continue
+                ks_actual = int(pit_stats.get("strikeOuts",0) or 0)
+                ip        = pit_stats.get("inningsPitched","0")
+                if ks_actual == 0 and str(ip) in ("0","0.0",""):
+                    continue
+
+                pid      = str(pid_str).replace("ID","")
+                name     = player.get("person",{}).get("fullName","")
+                position = player.get("position",{}).get("abbreviation","")
+
+                # Only show starting pitchers (SP) or anyone with 3+ Ks
+                if position != "SP" and ks_actual < 3:
+                    continue
+
+                vl = vegas_k.get(pid, {})
+                line = vl.get("line", None)
+                over_odds  = vl.get("over","—")
+                under_odds = vl.get("under","—")
+
+                if line is not None:
+                    if ks_actual >= line:
+                        hit_miss = "✅ Over Hit"
+                        hm_color = "green"
+                    else:
+                        hit_miss = "❌ Under Hit"
+                        hm_color = "red"
+                    implied_over = 0
+                    try:
+                        o = float(over_odds)
+                        implied_over = round(abs(o)/(abs(o)+100)*100) if o < 0 else round(100/(o+100)*100)
+                    except: pass
+                else:
+                    hit_miss  = "—"
+                    hm_color  = "neutral"
+                    implied_over = 0
+
+                rows.append({
+                    "Pitcher":    name,
+                    "Team":       team_name,
+                    "Opponent":   opp_name,
+                    "IP":         ip,
+                    "Actual Ks":  ks_actual,
+                    "Vegas Line": f"{line}" if line else "—",
+                    "Over Odds":  over_odds,
+                    "Under Odds": under_odds,
+                    "Mkt Implied": f"{implied_over}% Over" if implied_over else "—",
+                    "Result":     hit_miss,
+                    "_hm":        hm_color,
+                    "_implied":   implied_over,
+                    "_ks":        ks_actual,
+                })
+
+    if not rows:
+        return no_data("No pitcher K data found for yesterday.")
+
+    # Sort by Ks desc
+    rows.sort(key=lambda x: x["_ks"], reverse=True)
+    df = pd.DataFrame(rows)
+
+    # Summary stats
+    graded    = [r for r in rows if r["Result"] != "—"]
+    over_hits = len([r for r in graded if "Over Hit" in r["Result"]])
+    total_g   = len(graded)
+    over_pct  = round(over_hits/total_g*100) if total_g > 0 else 0
+
+    summary = html.Div([
+        html.Div(f"📋 Yesterday: {yesterday}", style={"fontSize":"15px","fontWeight":"bold",
+                 "color":C["text"],"marginBottom":"12px"}),
+        html.Div([
+            html.Div([
+                html.Div(f"{over_hits}/{total_g}", style={"fontSize":"24px","fontWeight":"bold","color":C["green"]}),
+                html.Div("Overs Hit", style={"fontSize":"11px","color":C["muted"]}),
+            ], style={**CARD,"textAlign":"center","flex":"1"}),
+            html.Div([
+                html.Div(f"{total_g-over_hits}/{total_g}", style={"fontSize":"24px","fontWeight":"bold","color":C["red"]}),
+                html.Div("Unders Hit", style={"fontSize":"11px","color":C["muted"]}),
+            ], style={**CARD,"textAlign":"center","flex":"1"}),
+            html.Div([
+                html.Div(f"{over_pct}%", style={"fontSize":"24px","fontWeight":"bold",
+                         "color":C["green"] if over_pct >= 50 else C["red"]}),
+                html.Div("Over Hit Rate", style={"fontSize":"11px","color":C["muted"]}),
+            ], style={**CARD,"textAlign":"center","flex":"1"}),
+        ], style={"display":"flex","gap":"10px","marginBottom":"20px"}),
+    ])
+
+    table = section(dash_table.DataTable(
+        data=df.to_dict("records"),
+        columns=[{"name":c,"id":c} for c in
+                 ["Pitcher","Team","Opponent","IP","Actual Ks",
+                  "Vegas Line","Over Odds","Under Odds","Mkt Implied","Result"]],
+        sort_action="native", sort_mode="single",
+        style_table={"overflowX":"auto"}, style_cell=DT_CELL,
+        style_header=DT_HEADER, page_action="none",
+        style_data_conditional=DT_COND + [
+            {"if":{"filter_query":'{_hm} = "green"'},"backgroundColor":"#1a2a1a"},
+            {"if":{"filter_query":'{_hm} = "red"'},  "backgroundColor":"#2a1a1a"},
+            {"if":{"column_id":"Result","filter_query":'{_hm} = "green"'},"color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"Result","filter_query":'{_hm} = "red"'},  "color":C["red"],  "fontWeight":"bold"},
+            {"if":{"column_id":"Actual Ks","filter_query":"{_ks} >= 10"},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Actual Ks","filter_query":"{_ks} >= 7"}, "color":C["yellow"]},
+            {"if":{"column_id":"Mkt Implied","filter_query":"{_implied} >= 55"},"color":C["red"]},
+            {"if":{"column_id":"Mkt Implied","filter_query":"{_implied} < 50"}, "color":C["blue"]},
+        ],
+        hidden_columns=["_hm","_implied","_ks"],
+    ))
+
+    return html.Div([summary, table])
 
 if __name__ == "__main__":
     if not os.path.exists(DATA_DIR):
