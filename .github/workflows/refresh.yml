@@ -1,44 +1,46 @@
-name: Daily MLB Data Refresh
 
+name: Daily MLB Data Refresh
+ 
 on:
   schedule:
-    - cron: '0 14 * * *'  # 9am CT (14:00 UTC = 9am CDT)
+    - cron: '0 14 * * *'   # 9am CT — morning data refresh
+    - cron: '0 4 * * *'    # 11pm CT — nightly results check
   workflow_dispatch:
-
+ 
 permissions:
   contents: write
-
+ 
 jobs:
   refresh:
     runs-on: ubuntu-latest
-
+ 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
+        with:
+          ref: main
+          fetch-depth: 0
+ 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
+ 
       - name: Install dependencies
         run: pip install requests pandas
-
+ 
       - name: Run data refresh
         run: python refresh_data.py
-
-      - name: Generate and send picks email
-        env:
-          EMAIL_FROM:     ${{ secrets.EMAIL_FROM }}
-          EMAIL_TO:       ${{ secrets.EMAIL_TO }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-        run: python generate_picks_email.py
-
+ 
+      - name: Check results
+        run: python check_results.py
+ 
       - name: Commit and push updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin main --strategy-option=ours --no-rebase
           git add data/
           git diff --staged --quiet || git commit -m "Daily data refresh $(date +'%Y-%m-%d')"
-          git pull --rebase origin main
-          git push
+          git push origin main
+ 
