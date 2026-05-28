@@ -1,0 +1,29 @@
+name: Send Daily Picks Email
+
+on:
+  schedule:
+    - cron: '30 14 * * *'  # 9:30am CT — 30 min after refresh completes
+  workflow_dispatch:
+
+jobs:
+  email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests pandas
+
+      - name: Generate and send picks email
+        env:
+          EMAIL_FROM:     ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO:       ${{ secrets.EMAIL_TO }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: python generate_picks_email.py
