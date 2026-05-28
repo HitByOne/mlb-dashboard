@@ -607,6 +607,108 @@ def fetch_team_batting_recents(matchups):
 
 
 # ─────────────────────────────────────────────
+# 12c. YESTERDAY K RESULTS
+# ─────────────────────────────────────────────
+def fetch_yesterday_k_results():
+    print("Fetching yesterday K results...")
+    yesterday     = (_CT_NOW - __import__("datetime").timedelta(days=1)).strftime("%Y-%m-%d")
+    yesterday_cmp = (_CT_NOW - __import__("datetime").timedelta(days=1)).strftime("%Y%m%d")
+
+    # Get completed games
+    data  = get(f"{BASE}/schedule?sportId=1&date={yesterday}")
+    games = data.get("dates",[{}])[0].get("games",[]) if data.get("dates") else []
+    final = [g for g in games if g.get("status",{}).get("abstractGameState") == "Final"]
+
+    if not final:
+        print("  No completed games found")
+        return
+
+    # Fetch Vegas K lines for yesterday
+    vegas_k = {}
+    try:
+        import requests as _req
+        resp = _req.get(
+            f"https://tank01-mlb-live-in-game-real-time-statistics.p.rapidapi.com/getMLBBettingOdds",
+            params={"gameDate": yesterday_cmp, "playerProps": "true", "itemFormat": "list"},
+            headers={"x-rapidapi-key": "b35c885fafmsha6cc35f949fc4a5p119a14jsn24871cd4b86e",
+                     "x-rapidapi-host": "tank01-mlb-live-in-game-real-time-statistics.p.rapidapi.com"},
+            timeout=10
+        ).json()
+        for game in resp.get("body", []):
+            for player in game.get("playerProps", []):
+                pid = player.get("playerID","")
+                ks  = player.get("propBets",{}).get("strikeouts",{})
+                if pid and ks and "total" in ks:
+                    vegas_k[str(pid)] = {
+                        "line":  float(ks["total"]),
+                        "over":  ks.get("over","—"),
+                        "under": ks.get("under","—"),
+                    }
+    except Exception as e:
+        print(f"  Vegas K lines error: {e}")
+
+    # Fetch all box scores in parallel
+    rows = []
+    def fetch_box(g):
+        gpk       = g["gamePk"]
+        away_team = g["teams"]["away"]["team"]["name"]
+        home_team = g["teams"]["home"]["team"]["name"]
+        local_rows = []
+        try:
+            box = get(f"{BASE}/game/{gpk}/boxscore")
+            for side in ["away","home"]:
+                team_name = away_team if side == "away" else home_team
+                opp_name  = home_team if side == "away" else away_team
+                for pid_str, player in box.get("teams",{}).get(side,{}).get("players",{}).items():
+                    pit_s = player.get("stats",{}).get("pitching",{})
+                    if not pit_s: continue
+                    ks_actual = int(pit_s.get("strikeOuts",0) or 0)
+                    ip        = pit_s.get("inningsPitched","0")
+                    if ks_actual == 0 and str(ip) in ("0","0.0",""): continue
+                    position  = player.get("position",{}).get("abbreviation","")
+                    if position != "SP" and ks_actual < 3: continue
+                    pid  = str(pid_str).replace("ID","")
+                    name = player.get("person",{}).get("fullName","")
+                    vl   = vegas_k.get(pid, {})
+                    line = vl.get("line", None)
+                    over_odds  = vl.get("over","—")
+                    under_odds = vl.get("under","—")
+                    if line is not None:
+                        hit_miss = "Over Hit" if ks_actual >= line else "Under Hit"
+                        try:
+                            o = float(over_odds)
+                            implied = round(abs(o)/(abs(o)+100)*100) if o < 0 else round(100/(o+100)*100)
+                        except: implied = 0
+                    else:
+                        hit_miss = "—"
+                        implied  = 0
+                    local_rows.append({
+                        "date": yesterday, "pitcher": name, "team": team_name,
+                        "opponent": opp_name, "ip": ip, "actual_ks": ks_actual,
+                        "vegas_line": line if line else "—",
+                        "over_odds": over_odds, "under_odds": under_odds,
+                        "implied_over": implied, "result": hit_miss,
+                    })
+        except Exception as e:
+            print(f"  Box score error for game {gpk}: {e}")
+        return local_rows
+
+    with ThreadPoolExecutor(max_workers=10) as ex:
+        results = list(ex.map(fetch_box, final))
+    for r in results:
+        rows.extend(r)
+
+    df = pd.DataFrame(rows)
+    if not df.empty:
+        df = df.sort_values("actual_ks", ascending=False).reset_index(drop=True)
+    print(f"  Found {len(df)} pitcher results")
+    save(df if not df.empty else pd.DataFrame(
+        columns=["date","pitcher","team","opponent","ip","actual_ks",
+                 "vegas_line","over_odds","under_odds","implied_over","result"]),
+        "yesterday_ks")
+
+
+# ─────────────────────────────────────────────
 # 13. LEAKY PITCHERS (most hits/HRs allowed)
 # ─────────────────────────────────────────────
 def fetch_leaky_pitchers():
@@ -652,6 +754,7 @@ if __name__ == "__main__":
     fetch_hit_streaks()
     fetch_k_data()
     fetch_team_batting_recents(pd.read_csv(os.path.join(DATA_DIR, "matchups.csv")))
+    fetch_yesterday_k_results()
     fetch_leaky_pitchers()
 
     # Save metadata
