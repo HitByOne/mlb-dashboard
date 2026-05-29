@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-135,San Diego Padres,0.181,0.175,11,49,32
-111,Boston Red Sox,0.279,0.302,11,40,22
-142,Minnesota Twins,0.2,0.152,8,46,26
-113,Cincinnati Reds,0.236,0.269,8,57,35
-114,Cleveland Guardians,0.233,0.258,2,36,21
-121,New York Mets,0.186,0.219,5,46,27
-112,Chicago Cubs,0.246,0.268,14,45,33
-141,Toronto Blue Jays,0.236,0.247,5,40,24
 144,Atlanta Braves,0.19,0.236,10,47,28
+120,Washington Nationals,0.26,0.295,8,45,25
+134,Pittsburgh Pirates,0.253,0.275,8,46,25
+110,Baltimore Orioles,0.257,0.295,8,40,22
+121,New York Mets,0.186,0.219,5,46,27
+114,Cleveland Guardians,0.233,0.258,2,36,21
+135,San Diego Padres,0.181,0.175,11,49,32
+113,Cincinnati Reds,0.236,0.269,8,57,35
+141,Toronto Blue Jays,0.236,0.247,5,40,24
+112,Chicago Cubs,0.246,0.268,14,45,33
 108,Los Angeles Angels,0.241,0.269,12,50,32
 139,Tampa Bay Rays,0.257,0.27,4,37,24
-134,Pittsburgh Pirates,0.253,0.275,8,46,25
+142,Minnesota Twins,0.2,0.152,8,46,26
 146,Miami Marlins,0.261,0.255,8,36,21
-110,Baltimore Orioles,0.257,0.295,8,40,22
-120,Washington Nationals,0.26,0.295,8,45,25
+111,Boston Red Sox,0.279,0.302,11,40,22
 138,St. Louis Cardinals,0.218,0.177,8,39,26
-145,Chicago White Sox,0.263,0.315,10,45,30
 116,Detroit Tigers,0.217,0.226,9,36,27
+145,Chicago White Sox,0.263,0.315,10,45,30
 118,Kansas City Royals,0.22,0.16,10,30,21
 117,Houston Astros,0.243,0.222,7,37,22
 140,Texas Rangers,0.147,0.2,8,42,22
-158,Milwaukee Brewers,0.232,0.258,10,52,34
-147,New York Yankees,0.328,0.35,7,28,18
-137,San Francisco Giants,0.271,0.208,5,32,20
 115,Colorado Rockies,0.209,0.204,10,40,29
+137,San Francisco Giants,0.271,0.208,5,32,20
+158,Milwaukee Brewers,0.232,0.258,10,52,34
 133,Athletics,0.21,0.196,8,41,23
-119,Los Angeles Dodgers,0.293,0.333,4,31,14
-109,Arizona Diamondbacks,0.287,0.245,8,38,24
 143,Philadelphia Phillies,0.2,0.194,3,33,14
+109,Arizona Diamondbacks,0.287,0.245,8,38,24
 136,Seattle Mariners,0.286,0.313,9,34,27
+147,New York Yankees,0.328,0.35,7,28,18
+119,Los Angeles Dodgers,0.293,0.333,4,31,14
