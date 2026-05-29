@@ -1,7 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824272,2026-05-28,Los Angeles Angels,108,Detroit Tigers,116,Grayson Rodriguez,680570,Jack Flaherty,656427
-824595,2026-05-28,Minnesota Twins,142,Chicago White Sox,145,Simeon Woods Richardson,680573,Davis Martin,663436
-824757,2026-05-28,Atlanta Braves,144,Boston Red Sox,111,Chris Sale,519242,Payton Tolle,801139
-824834,2026-05-28,Toronto Blue Jays,141,Baltimore Orioles,110,Patrick Corbin,571578,Chris Bassitt,605135
-823378,2026-05-28,Chicago Cubs,112,Pittsburgh Pirates,134,Colin Rea,607067,Paul Skenes,694973
-822896,2026-05-28,Houston Astros,117,Texas Rangers,140,Spencer Arrighetti,681293,Nathan Eovaldi,543135
+824515,2026-05-29,Atlanta Braves,144,Cincinnati Reds,113,Grant Holmes,656550,Chris Paddack,663978
+822732,2026-05-29,San Diego Padres,135,Washington Nationals,120,Lucas Giolito,608337,Paxton Schultz,687606
+823377,2026-05-29,Minnesota Twins,142,Pittsburgh Pirates,134,Taj Bradley,671737,Jared Jones,683003
+824835,2026-05-29,Toronto Blue Jays,141,Baltimore Orioles,110,TBD,,Trevor Rogers,669432
+824433,2026-05-29,Boston Red Sox,111,Cleveland Guardians,114,Tyler Samaniego,701719,Slade Cecconi,677944
+822978,2026-05-29,Los Angeles Angels,108,Tampa Bay Rays,139,Walbert Ureña,700712,Nick Martinez,607259
+823623,2026-05-29,Miami Marlins,146,New York Mets,121,Max Meyer,676974,Freddy Peralta,642547
+823055,2026-05-29,Chicago Cubs,112,St. Louis Cardinals,138,Shota Imanaga,684007,Andre Pallante,669467
+824594,2026-05-29,Detroit Tigers,116,Chicago White Sox,145,Troy Melton,675512,Erick Fedde,607200
+822894,2026-05-29,Kansas City Royals,118,Texas Rangers,140,Stephen Kolek,663568,MacKenzie Gore,669022
+824191,2026-05-29,Milwaukee Brewers,158,Houston Astros,117,Coleman Crow,689441,Kai-Wei Teng,678906
+824353,2026-05-29,San Francisco Giants,137,Colorado Rockies,115,Logan Webb,657277,Michael Lorenzen,547179
+825002,2026-05-29,New York Yankees,147,Athletics,133,Carlos Rodón,607074,Luis Severino,622663
+823135,2026-05-29,Arizona Diamondbacks,109,Seattle Mariners,136,Zac Gallen,668678,George Kirby,669923
+823946,2026-05-29,Philadelphia Phillies,143,Los Angeles Dodgers,119,Zack Wheeler,554430,Justin Wrobleski,680736

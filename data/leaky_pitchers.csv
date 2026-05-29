@@ -13,6 +13,8 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 677944,Slade Cecconi,Cleveland Guardians,65,9,5.18,57.1,1.48,10.20
 650644,Aaron Civale,Athletics,65,12,4.20,55.2,1.47,10.51
 676083,Janson Junk,Miami Marlins,65,8,4.80,60.0,1.30,9.75
+680573,Simeon Woods Richardson,Minnesota Twins,65,9,7.74,47.2,1.89,12.27
+605135,Chris Bassitt,Baltimore Orioles,64,5,5.06,53.1,1.58,10.80
 605400,Aaron Nola,Philadelphia Phillies,64,10,5.72,56.2,1.45,10.16
 676917,Cade Cavalli,Washington Nationals,63,3,3.62,59.2,1.41,9.50
 592332,Kevin Gausman,Toronto Blue Jays,63,6,3.13,69.0,1.09,8.22
@@ -22,10 +24,10 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 666200,Jesús Luzardo,Philadelphia Phillies,62,5,4.38,61.2,1.28,9.05
 669160,Dustin May,St. Louis Cardinals,62,5,4.57,61.0,1.30,9.15
 668678,Zac Gallen,Arizona Diamondbacks,61,7,4.80,54.1,1.44,10.10
-605135,Chris Bassitt,Baltimore Orioles,60,4,5.51,47.1,1.67,11.41
+607067,Colin Rea,Chicago Cubs,61,9,4.70,59.1,1.37,9.25
+543135,Nathan Eovaldi,Texas Rangers,60,13,3.93,68.2,1.11,7.86
 607536,Kyle Freeland,Colorado Rockies,60,12,8.08,42.1,1.75,12.76
 669302,Logan Gilbert,Seattle Mariners,60,11,3.69,68.1,1.11,7.90
-680573,Simeon Woods Richardson,Minnesota Twins,60,9,7.20,45.0,1.82,12.00
 605288,Adrian Houser,San Francisco Giants,59,8,5.30,52.2,1.48,10.08
 647336,Michael Soroka,Arizona Diamondbacks,59,4,3.25,61.0,1.20,8.70
 605488,Jeffrey Springs,Athletics,59,12,4.07,66.1,1.19,8.01
@@ -38,15 +40,14 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 683004,Jack Leiter,Texas Rangers,57,9,4.75,60.2,1.37,8.46
 641793,Zack Littell,Washington Nationals,57,15,5.23,53.1,1.39,9.62
 691725,Andrew Painter,Philadelphia Phillies,57,7,5.40,50.0,1.46,10.26
-607067,Colin Rea,Chicago Cubs,57,8,4.83,54.0,1.37,9.50
 608372,Tomoyuki Sugano,Colorado Rockies,57,11,4.01,58.1,1.25,8.79
 592791,Jameson Taillon,Chicago Cubs,57,19,5.37,60.1,1.28,8.50
 681190,Randy Vásquez,San Diego Padres,57,8,3.28,60.1,1.23,8.50
 680694,Kyle Bradish,Baltimore Orioles,56,7,3.86,58.1,1.47,8.64
 622491,Luis Castillo,Seattle Mariners,56,7,5.90,50.1,1.51,10.01
 693821,Bryce Elder,Atlanta Braves,56,5,2.50,72.0,1.08,7.00
-543135,Nathan Eovaldi,Texas Rangers,56,11,3.65,61.2,1.14,8.17
 571945,Miles Mikolas,Washington Nationals,56,11,5.72,50.1,1.39,10.01
 677952,Braxton Ashcraft,Pittsburgh Pirates,55,6,2.75,68.2,1.05,7.21
+656427,Jack Flaherty,Detroit Tigers,55,8,5.81,52.2,1.61,9.40
 682052,Jacob Lopez,Athletics,55,11,5.73,48.2,1.77,10.17
 593958,Eduardo Rodriguez,Arizona Diamondbacks,55,5,2.31,66.1,1.21,7.46
