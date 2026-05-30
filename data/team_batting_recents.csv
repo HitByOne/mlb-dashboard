@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-141,Toronto Blue Jays,0.259,0.223,5,37,23
-134,Pittsburgh Pirates,0.262,0.216,13,47,30
-140,Texas Rangers,0.187,0.204,10,36,28
 135,San Diego Padres,0.218,0.216,5,44,27
-116,Detroit Tigers,0.203,0.185,9,39,24
-111,Boston Red Sox,0.303,0.318,8,37,22
-145,Chicago White Sox,0.286,0.343,3,40,21
-118,Kansas City Royals,0.203,0.17,5,31,21
-114,Cleveland Guardians,0.273,0.286,7,33,21
-142,Minnesota Twins,0.18,0.167,12,46,25
-110,Baltimore Orioles,0.283,0.299,3,34,16
-146,Miami Marlins,0.269,0.269,9,36,22
-108,Los Angeles Angels,0.249,0.235,8,52,29
 120,Washington Nationals,0.269,0.253,8,38,22
+118,Kansas City Royals,0.203,0.17,5,31,21
 139,Tampa Bay Rays,0.268,0.287,7,37,21
-121,New York Mets,0.211,0.208,9,44,24
+145,Chicago White Sox,0.286,0.343,3,40,21
+134,Pittsburgh Pirates,0.262,0.216,13,47,30
+146,Miami Marlins,0.269,0.269,9,36,22
+111,Boston Red Sox,0.303,0.318,8,37,22
+108,Los Angeles Angels,0.249,0.235,8,52,29
+114,Cleveland Guardians,0.273,0.286,7,33,21
+110,Baltimore Orioles,0.283,0.299,3,34,16
+142,Minnesota Twins,0.18,0.167,12,46,25
+116,Detroit Tigers,0.203,0.185,9,39,24
+141,Toronto Blue Jays,0.259,0.223,5,37,23
+140,Texas Rangers,0.187,0.204,10,36,28
 158,Milwaukee Brewers,0.224,0.183,9,50,31
-113,Cincinnati Reds,0.269,0.297,11,62,31
-117,Houston Astros,0.224,0.202,9,38,24
-115,Colorado Rockies,0.234,0.248,8,41,25
+121,New York Mets,0.211,0.208,9,44,24
 112,Chicago Cubs,0.258,0.287,8,48,32
-138,St. Louis Cardinals,0.208,0.242,5,37,18
 144,Atlanta Braves,0.251,0.274,5,41,23
+138,St. Louis Cardinals,0.208,0.242,5,37,18
+117,Houston Astros,0.224,0.202,9,38,24
 137,San Francisco Giants,0.261,0.267,7,33,22
-119,Los Angeles Dodgers,0.28,0.316,5,31,16
+113,Cincinnati Reds,0.269,0.297,11,62,31
 143,Philadelphia Phillies,0.173,0.188,11,35,18
+119,Los Angeles Dodgers,0.28,0.316,5,31,16
 147,New York Yankees,0.326,0.358,6,30,18
+109,Arizona Diamondbacks,0.285,0.252,7,37,22
+115,Colorado Rockies,0.234,0.248,8,41,25
 136,Seattle Mariners,0.318,0.327,9,41,26
 133,Athletics,0.224,0.208,4,38,17
-109,Arizona Diamondbacks,0.285,0.252,7,37,22
