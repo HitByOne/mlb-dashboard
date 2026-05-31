@@ -1,25 +1,25 @@
 player_id,Player,Team,Streak,AVG
-575929,Willson Contreras,Boston Red Sox,12,.000
-608324,Alex Bregman,Chicago Cubs,9,.000
-666211,Taylor Trammell,Houston Astros,8,.000
+608324,Alex Bregman,Chicago Cubs,10,.000
+666211,Taylor Trammell,Houston Astros,9,.000
+668804,Bryan Reynolds,Pittsburgh Pirates,8,.000
+666018,Jonathan Aranda,Tampa Bay Rays,8,.000
 663993,Nathaniel Lowe,Cincinnati Reds,8,.000
-668804,Bryan Reynolds,Pittsburgh Pirates,7,.000
-666018,Jonathan Aranda,Tampa Bay Rays,7,.000
-664770,Nathan Lukes,Toronto Blue Jays,6,.000
-808982,Jung Hoo Lee,San Francisco Giants,6,.000
-686611,Dylan Crews,Washington Nationals,6,.000
-680776,Jarren Duran,Boston Red Sox,6,.000
-624585,Jorge Soler,Los Angeles Angels,6,.000
-683953,Travis Bazzana,Cleveland Guardians,6,.000
-691016,Tyler Soderstrom,Athletics,5,.000
-665487,Fernando Tatis Jr.,San Diego Padres,5,.000
-641487,J.P. Crawford,Seattle Mariners,5,.000
-647304,Josh Naylor,Seattle Mariners,5,.000
-668227,Randy Arozarena,Seattle Mariners,5,.000
-677594,Julio Rodríguez,Seattle Mariners,5,.000
-665750,Leody Taveras,Baltimore Orioles,5,.000
-656941,Kyle Schwarber,Philadelphia Phillies,5,.000
-807712,Luke Keaschall,Minnesota Twins,5,.000
-669003,Garrett Mitchell,Milwaukee Brewers,5,.000
-803011,Sam Antonacci,Chicago White Sox,5,.000
-643396,Isiah Kiner-Falefa,Boston Red Sox,5,.000
+664770,Nathan Lukes,Toronto Blue Jays,7,.000
+808982,Jung Hoo Lee,San Francisco Giants,7,.000
+683953,Travis Bazzana,Cleveland Guardians,7,.000
+680776,Jarren Duran,Boston Red Sox,7,.000
+665750,Leody Taveras,Baltimore Orioles,6,.000
+665487,Fernando Tatis Jr.,San Diego Padres,6,.000
+677594,Julio Rodríguez,Seattle Mariners,6,.000
+691016,Tyler Soderstrom,Athletics,6,.000
+641487,J.P. Crawford,Seattle Mariners,6,.000
+656941,Kyle Schwarber,Philadelphia Phillies,6,.000
+807712,Luke Keaschall,Minnesota Twins,6,.000
+643396,Isiah Kiner-Falefa,Boston Red Sox,6,.000
+680869,Zack Gelof,Athletics,5,.000
+502671,Paul Goldschmidt,New York Yankees,5,.000
+673962,Josh Jung,Texas Rangers,5,.000
+691718,Pete Crow-Armstrong,Chicago Cubs,5,.000
+664023,Ian Happ,Chicago Cubs,5,.000
+671289,Tyler Freeman,Colorado Rockies,5,.000
+518692,Freddie Freeman,Los Angeles Dodgers,5,.000

@@ -3,19 +3,20 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 650911,Cristopher Sánchez,Philadelphia Phillies,95,10.8,1.47,79.1,12,6.6,323,0.294,26.9
 656302,Dylan Cease,Toronto Blue Jays,92,13.4,3.05,62.0,11,5.6,258,0.357,23.5
 668909,Gavin Williams,Cleveland Guardians,88,10.4,3.07,76.1,12,6.3,303,0.29,25.2
+672282,Reid Detmers,Los Angeles Angels,82,10.9,4.63,68.0,12,5.7,288,0.285,24.0
 693645,Cam Schlittler,New York Yankees,81,10.1,1.50,72.0,12,6.0,275,0.295,22.9
 519242,Chris Sale,Atlanta Braves,80,10.7,2.01,67.0,11,6.1,265,0.302,24.1
+666200,Jesús Luzardo,Philadelphia Phillies,78,10.5,4.30,67.0,12,5.6,285,0.274,23.8
 667755,José Soriano,Los Angeles Angels,78,9.9,2.65,71.1,12,5.9,289,0.27,24.1
-672282,Reid Detmers,Los Angeles Angels,75,10.7,4.57,63.0,11,5.7,265,0.283,24.1
 690997,Nolan McLean,New York Mets,75,11.0,4.40,61.1,11,5.6,253,0.296,23.0
 694973,Paul Skenes,Pittsburgh Pirates,75,10.4,2.89,65.1,12,5.4,255,0.294,21.2
+677960,Ryan Weathers,New York Yankees,75,10.5,3.52,64.0,11,5.8,259,0.29,23.5
+800048,Parker Messick,Cleveland Guardians,74,9.6,2.21,69.1,12,5.8,272,0.272,22.7
 676974,Max Meyer,Miami Marlins,74,10.1,2.97,66.2,12,5.5,277,0.267,23.1
 695505,Chase Burns,Cincinnati Reds,72,10.1,1.96,64.1,11,5.8,249,0.289,22.6
-666200,Jesús Luzardo,Philadelphia Phillies,72,10.6,4.38,61.2,11,5.6,260,0.277,23.6
 691587,Eury Pérez,Miami Marlins,72,10.4,4.60,62.2,12,5.2,265,0.272,22.1
 663436,Davis Martin,Chicago White Sox,71,9.5,2.00,67.2,11,6.1,263,0.27,23.9
 677952,Braxton Ashcraft,Pittsburgh Pirates,70,9.2,2.75,68.2,11,6.2,275,0.255,25.0
-800048,Parker Messick,Cleveland Guardians,70,9.8,2.24,64.1,11,5.8,250,0.28,22.7
 657746,Joe Ryan,Minnesota Twins,70,9.8,2.94,64.1,12,5.3,255,0.275,21.2
 594798,Jacob deGrom,Texas Rangers,70,10.6,3.77,59.2,11,5.4,238,0.294,21.6
 669302,Logan Gilbert,Seattle Mariners,69,9.1,3.69,68.1,12,5.7,276,0.25,23.0
@@ -23,27 +24,27 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 676917,Cade Cavalli,Washington Nationals,68,10.3,3.62,59.2,12,4.9,268,0.254,22.3
 642547,Freddy Peralta,New York Mets,68,9.3,3.55,66.0,12,5.5,285,0.239,23.8
 694738,Landen Roupp,San Francisco Giants,68,10.2,3.30,60.0,11,5.5,248,0.274,22.5
+693433,Bryan Woo,Seattle Mariners,68,8.7,3.44,70.2,12,5.9,279,0.244,23.2
 543135,Nathan Eovaldi,Texas Rangers,67,8.8,3.93,68.2,11,6.2,283,0.237,25.7
 592332,Kevin Gausman,Toronto Blue Jays,66,8.6,3.13,69.0,12,5.8,280,0.236,23.3
 671737,Taj Bradley,Minnesota Twins,65,10.4,3.21,56.0,10,5.6,236,0.275,23.6
 669022,MacKenzie Gore,Texas Rangers,65,9.6,3.96,61.1,12,5.1,257,0.253,21.4
+656492,Foster Griffin,Washington Nationals,65,8.7,3.76,67.0,12,5.6,280,0.232,23.3
+650633,Michael King,San Diego Padres,65,8.6,3.04,68.0,12,5.7,273,0.238,22.8
 622663,Luis Severino,Athletics,65,9.4,4.16,62.2,12,5.2,271,0.24,22.6
 701542,Will Warren,New York Yankees,65,10.1,3.55,58.1,11,5.3,244,0.266,22.2
-677960,Ryan Weathers,New York Yankees,65,10.2,3.14,57.1,10,5.7,230,0.283,23.0
 656427,Jack Flaherty,Detroit Tigers,64,11.0,5.81,52.2,12,4.4,249,0.257,20.8
 683004,Jack Leiter,Texas Rangers,64,9.6,4.75,60.2,11,5.5,264,0.242,24.0
 676106,Emerson Hancock,Seattle Mariners,63,8.8,2.78,64.2,11,5.8,251,0.251,22.8
-650633,Michael King,San Diego Padres,63,9.1,2.76,62.0,11,5.6,248,0.254,22.5
 680694,Kyle Bradish,Baltimore Orioles,61,9.4,3.86,58.1,11,5.3,254,0.24,23.1
 693821,Bryce Elder,Atlanta Braves,61,7.6,2.50,72.0,12,6.0,293,0.208,24.4
 690986,Kyle Harrison,Milwaukee Brewers,61,10.7,1.57,51.2,10,5.1,206,0.296,20.6
 660271,Shohei Ohtani,Los Angeles Dodgers,61,10.0,0.82,55.0,9,6.1,213,0.286,23.7
-656492,Foster Griffin,Washington Nationals,60,8.7,3.63,62.0,11,5.6,259,0.232,23.5
+607625,Seth Lugo,Kansas City Royals,60,7.6,3.55,71.0,12,5.9,299,0.201,24.9
 647336,Michael Soroka,Arizona Diamondbacks,60,8.9,3.25,61.0,11,5.5,255,0.235,23.2
 608379,Michael Wacha,Kansas City Royals,60,7.7,2.69,70.1,11,6.4,276,0.217,25.1
 669923,George Kirby,Seattle Mariners,59,7.2,3.77,74.0,12,6.2,300,0.197,25.0
 686218,Emmet Sheehan,Los Angeles Dodgers,59,10.4,4.70,51.2,10,5.1,217,0.272,21.7
-693433,Bryan Woo,Seattle Mariners,59,8.4,3.82,63.2,11,5.7,256,0.23,23.3
 808967,Yoshinobu Yamamoto,Los Angeles Dodgers,59,8.3,3.09,64.0,10,6.4,248,0.238,24.8
 663623,Jake Irvin,Washington Nationals,58,10.2,5.23,51.2,11,4.7,228,0.254,20.7
 669358,Shane Baz,Baltimore Orioles,57,8.0,4.48,64.1,11,5.8,279,0.204,25.4
@@ -52,9 +53,11 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 605488,Jeffrey Springs,Athletics,57,7.8,4.07,66.1,12,5.5,277,0.206,23.1
 605400,Aaron Nola,Philadelphia Phillies,56,9.0,5.72,56.2,11,5.1,245,0.229,22.3
 676440,Tanner Bibee,Cleveland Guardians,55,7.9,4.57,63.0,12,5.2,266,0.207,22.2
+656876,Drew Rasmussen,Tampa Bay Rays,55,8.4,3.36,59.0,11,5.4,236,0.233,21.5
 680732,Sean Burke,Chicago White Sox,54,8.1,3.90,60.0,9,6.7,249,0.217,27.7
 681347,Mike Burrows,Houston Astros,54,7.7,5.40,63.1,11,5.7,275,0.196,25.0
-607625,Seth Lugo,Kansas City Royals,54,7.5,3.74,65.0,11,5.9,273,0.198,24.8
+664285,Framber Valdez,Detroit Tigers,54,7.2,4.39,67.2,12,5.6,295,0.183,24.6
+676962,Ben Brown,Chicago Cubs,53,9.3,1.92,51.2,5,10.2,201,0.264,40.2
 622491,Luis Castillo,Seattle Mariners,53,9.5,5.90,50.1,10,5.0,230,0.23,23.0
 656550,Grant Holmes,Atlanta Braves,53,8.4,3.95,57.0,11,5.2,244,0.217,22.2
 669461,Matthew Liberatore,St. Louis Cardinals,53,8.5,4.76,56.2,11,5.1,248,0.214,22.5
@@ -63,46 +66,37 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 645261,Sandy Alcantara,Miami Marlins,52,6.2,4.66,75.1,12,6.3,323,0.161,26.9
 676282,Joey Cantillo,Cleveland Guardians,52,8.1,3.57,58.0,12,4.8,245,0.212,20.4
 696149,Bubba Chandler,Pittsburgh Pirates,52,9.0,4.85,52.0,11,4.7,236,0.22,21.5
+669372,J.T. Ginn,Athletics,52,7.9,2.87,59.2,10,5.9,241,0.216,24.1
+669194,Ryne Nelson,Arizona Diamondbacks,52,7.2,4.82,65.1,12,5.4,278,0.187,23.2
+687075,Brandon Sproat,Milwaukee Brewers,52,9.6,6.24,49.0,9,5.4,217,0.24,24.1
 676879,Aaron Ashby,Milwaukee Brewers,51,12.8,2.00,36.0,1,36.0,151,0.338,151.0
 663460,Kris Bubic,Kansas City Royals,51,9.2,4.11,50.1,9,5.6,207,0.246,23.0
+656605,Mitch Keller,Pittsburgh Pirates,51,6.7,4.35,68.1,12,5.7,280,0.182,23.3
 669160,Dustin May,St. Louis Cardinals,51,7.5,4.57,61.0,11,5.5,255,0.2,23.2
-656876,Drew Rasmussen,Tampa Bay Rays,51,8.3,2.78,55.0,10,5.5,218,0.234,21.8
 592791,Jameson Taillon,Chicago Cubs,51,7.6,5.37,60.1,11,5.5,254,0.201,23.1
 677944,Slade Cecconi,Cleveland Guardians,50,7.4,5.25,61.2,12,5.1,272,0.184,22.7
 608331,Max Fried,New York Yankees,50,7.4,3.21,61.2,10,6.1,240,0.208,24.0
 663556,Shane McClanahan,Tampa Bay Rays,50,9.0,2.52,50.0,10,5.0,203,0.246,20.3
-664285,Framber Valdez,Detroit Tigers,50,7.4,4.28,61.0,11,5.5,268,0.187,24.4
+808963,Roki Sasaki,Los Angeles Dodgers,50,8.8,4.59,51.0,10,5.1,222,0.225,22.2
 607192,Tyler Glasnow,Los Angeles Dodgers,49,11.2,2.72,39.2,7,5.6,148,0.331,21.1
 695243,Mason Miller,San Diego Padres,49,17.6,0.72,25.0,0,0.0,96,0.51,0.0
 663554,Casey Mize,Detroit Tigers,49,9.3,2.27,47.2,9,5.2,185,0.265,20.6
-669194,Ryne Nelson,Arizona Diamondbacks,49,7.3,4.65,60.0,11,5.5,254,0.193,23.1
 607067,Colin Rea,Chicago Cubs,49,7.5,4.70,59.1,9,6.6,257,0.191,28.6
 593958,Eduardo Rodriguez,Arizona Diamondbacks,49,6.7,2.31,66.1,11,6.0,272,0.18,24.7
 702070,Noah Cameron,Kansas City Royals,48,8.3,4.61,52.2,10,5.2,230,0.209,23.0
-669372,J.T. Ginn,Athletics,48,8.1,3.19,53.2,9,5.9,217,0.221,24.1
-687075,Brandon Sproat,Milwaukee Brewers,48,9.8,5.84,44.2,8,5.5,196,0.245,24.5
-676962,Ben Brown,Chicago Cubs,47,9.6,2.01,44.2,4,11.1,178,0.264,44.5
 665795,Edward Cabrera,Chicago Cubs,47,7.8,4.00,54.0,10,5.4,227,0.207,22.7
 801403,Chase Dollander,Colorado Rockies,47,9.6,3.89,44.0,3,14.7,189,0.249,63.0
 624133,Ranger Suarez,Boston Red Sox,47,8.0,3.02,53.2,10,5.3,213,0.221,21.3
 681190,Randy Vásquez,San Diego Padres,47,7.0,3.28,60.1,11,5.5,249,0.189,22.6
 657277,Logan Webb,San Francisco Giants,47,8.1,4.82,52.1,9,5.8,228,0.206,25.3
 623454,Drew Anderson,Detroit Tigers,46,11.2,3.62,37.1,1,37.1,155,0.297,155.0
-656605,Mitch Keller,Pittsburgh Pirates,46,6.5,3.64,64.1,11,5.8,257,0.179,23.4
+681517,Kyle Leahy,St. Louis Cardinals,46,7.5,4.25,55.0,11,5.0,250,0.184,22.7
 669387,Carmen Mlodzinski,Pittsburgh Pirates,46,7.5,3.76,55.0,9,6.1,238,0.193,26.4
+641927,Bailey Ober,Minnesota Twins,46,6.3,4.59,66.2,12,5.5,281,0.164,23.4
 669467,Andre Pallante,St. Louis Cardinals,46,7.1,4.19,58.0,11,5.3,251,0.183,22.8
 801139,Payton Tolle,Boston Red Sox,46,10.1,2.61,41.1,7,5.9,161,0.286,23.0
+656546,Jeff Hoffman,Toronto Blue Jays,45,16.1,6.31,25.2,0,0.0,123,0.366,0.0
 605280,Clay Holmes,New York Mets,45,7.8,2.39,52.2,9,5.8,215,0.209,23.9
 686799,Jack Kochanowicz,Los Angeles Angels,45,6.6,4.99,61.1,11,5.6,272,0.165,24.7
 666142,Cole Ragans,Kansas City Royals,45,11.5,4.84,35.1,8,4.4,151,0.298,18.9
 669373,Tarik Skubal,Detroit Tigers,45,9.4,2.70,43.1,7,6.2,166,0.271,23.7
-656546,Jeff Hoffman,Toronto Blue Jays,44,15.8,4.62,25.1,0,0.0,116,0.379,0.0
-681293,Spencer Arrighetti,Houston Astros,43,8.2,1.34,47.0,8,5.9,198,0.217,24.8
-621111,Walker Buehler,San Diego Padres,43,7.6,4.88,51.2,11,4.7,220,0.195,20.0
-676083,Janson Junk,Miami Marlins,43,6.5,4.80,60.0,11,5.5,255,0.169,23.2
-547179,Michael Lorenzen,Colorado Rockies,43,6.8,7.22,57.1,12,4.8,279,0.154,23.2
-621121,Lance McCullers Jr.,Houston Astros,43,9.9,6.86,39.1,8,4.9,172,0.25,21.5
-700241,Michael McGreevy,St. Louis Cardinals,43,6.4,2.98,60.1,11,5.5,239,0.18,21.7
-641927,Bailey Ober,Minnesota Twins,43,6.2,3.92,62.0,11,5.6,254,0.169,23.1
-808963,Roki Sasaki,Los Angeles Dodgers,43,8.6,4.93,45.2,9,5.0,202,0.213,22.4
-678906,Kai-Wei Teng,Houston Astros,43,9.2,2.57,42.0,5,8.4,167,0.257,33.4
