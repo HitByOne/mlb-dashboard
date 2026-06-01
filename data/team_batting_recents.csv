@@ -1,31 +1,19 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-141,Toronto Blue Jays,0.267,0.265,9,38,19
-135,San Diego Padres,0.202,0.23,9,46,25
-110,Baltimore Orioles,0.283,0.242,7,32,18
-111,Boston Red Sox,0.298,0.278,10,40,29
-108,Los Angeles Angels,0.277,0.296,7,47,27
-113,Cincinnati Reds,0.253,0.225,5,51,24
-134,Pittsburgh Pirates,0.295,0.284,4,42,25
-114,Cleveland Guardians,0.255,0.271,11,39,20
-139,Tampa Bay Rays,0.26,0.26,11,42,22
-121,New York Mets,0.241,0.258,4,40,18
-142,Minnesota Twins,0.203,0.238,10,48,30
-144,Atlanta Braves,0.257,0.29,6,39,21
-146,Miami Marlins,0.251,0.276,15,45,32
-145,Chicago White Sox,0.301,0.273,7,40,20
-116,Detroit Tigers,0.203,0.149,9,45,27
-120,Washington Nationals,0.277,0.224,4,37,20
-158,Milwaukee Brewers,0.217,0.141,9,52,28
-117,Houston Astros,0.237,0.235,8,39,24
-118,Kansas City Royals,0.196,0.212,7,33,22
-137,San Francisco Giants,0.248,0.27,5,32,17
-140,Texas Rangers,0.256,0.272,7,39,25
-115,Colorado Rockies,0.269,0.267,7,44,25
-133,Athletics,0.219,0.25,11,38,23
-109,Arizona Diamondbacks,0.234,0.21,9,40,24
-147,New York Yankees,0.312,0.248,8,32,21
-119,Los Angeles Dodgers,0.294,0.245,9,28,18
-112,Chicago Cubs,0.279,0.272,7,48,29
-138,St. Louis Cardinals,0.197,0.234,7,38,20
-143,Philadelphia Phillies,0.172,0.158,11,36,25
-136,Seattle Mariners,0.314,0.315,3,39,21
+139,Tampa Bay Rays,0.253,0.235,6,38,24
+108,Los Angeles Angels,0.25,0.275,6,42,21
+137,San Francisco Giants,0.33,0.387,9,36,21
+120,Washington Nationals,0.258,0.263,5,31,17
+145,Chicago White Sox,0.309,0.258,4,32,14
+146,Miami Marlins,0.222,0.202,5,42,29
+113,Cincinnati Reds,0.276,0.253,13,49,29
+118,Kansas City Royals,0.211,0.243,12,40,24
+119,Los Angeles Dodgers,0.317,0.286,7,32,21
+142,Minnesota Twins,0.204,0.248,14,49,36
+158,Milwaukee Brewers,0.175,0.151,7,47,25
+138,St. Louis Cardinals,0.236,0.244,5,30,17
+116,Detroit Tigers,0.181,0.16,8,41,26
+109,Arizona Diamondbacks,0.196,0.183,9,40,25
+115,Colorado Rockies,0.279,0.327,10,42,25
+140,Texas Rangers,0.263,0.327,8,43,25
+121,New York Mets,0.242,0.273,10,38,23
+136,Seattle Mariners,0.315,0.311,9,38,21

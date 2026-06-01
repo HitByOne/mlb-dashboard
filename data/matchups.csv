@@ -1,16 +1,10 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824832,2026-05-31,Toronto Blue Jays,141,Baltimore Orioles,110,Spencer Miles,693686,Kyle Bradish,680694
-822729,2026-05-31,San Diego Padres,135,Washington Nationals,120,Griffin Canning,656288,Zack Littell,641793
-823373,2026-05-31,Minnesota Twins,142,Pittsburgh Pirates,134,Zebby Matthews,805673,Braxton Ashcraft,677952
-824430,2026-05-31,Boston Red Sox,111,Cleveland Guardians,114,Ranger Suarez,624133,Tanner Bibee,676440
-822976,2026-05-31,Los Angeles Angels,108,Tampa Bay Rays,139,Jack Kochanowicz,686799,Shane McClanahan,663556
-824512,2026-05-31,Atlanta Braves,144,Cincinnati Reds,113,Spencer Strider,675911,Nick Lodolo,666157
-823621,2026-05-31,Miami Marlins,146,New York Mets,121,John King,667463,Nolan McLean,690997
-824592,2026-05-31,Detroit Tigers,116,Chicago White Sox,145,Keider Montero,672456,Sean Burke,680732
-824187,2026-05-31,Milwaukee Brewers,158,Houston Astros,117,Jacob Misiorowski,694819,Tatsuya Imai,837227
-822895,2026-05-31,Kansas City Royals,118,Texas Rangers,140,Michael Wacha,608379,Jack Leiter,683004
-824354,2026-05-31,San Francisco Giants,137,Colorado Rockies,115,Robbie Ray,592662,Tanner Gordon,685299
-825001,2026-05-31,New York Yankees,147,Athletics,133,Will Warren,701542,Jacob Lopez,682052
-823133,2026-05-31,Arizona Diamondbacks,109,Seattle Mariners,136,Merrill Kelly,518876,Bryce Miller,682243
-823944,2026-05-31,Philadelphia Phillies,143,Los Angeles Dodgers,119,Andrew Painter,691725,Yoshinobu Yamamoto,808967
-823053,2026-05-31,Chicago Cubs,112,St. Louis Cardinals,138,Jordan Wicks,696136,Matthew Liberatore,669461
+822974,2026-06-01,Detroit Tigers,116,Tampa Bay Rays,139,Ty Madden,680744,Griffin Jax,643377
+822730,2026-06-01,Miami Marlins,146,Washington Nationals,120,Sandy Alcantara,645261,Cade Cavalli,676917
+824510,2026-06-01,Kansas City Royals,118,Cincinnati Reds,113,Luinder Avila,679883,Chase Burns,695505
+823702,2026-06-01,Chicago White Sox,145,Minnesota Twins,142,TBD,,Joe Ryan,657746
+823781,2026-06-01,San Francisco Giants,137,Milwaukee Brewers,158,Landen Roupp,694738,Shane Drohan,675660
+823050,2026-06-01,Texas Rangers,140,St. Louis Cardinals,138,Jacob deGrom,594798,Michael McGreevy,700241
+824027,2026-06-01,Colorado Rockies,115,Los Angeles Angels,108,Kyle Freeland,607536,José Soriano,667755
+825078,2026-06-01,Los Angeles Dodgers,119,Arizona Diamondbacks,109,Emmet Sheehan,686218,Eduardo Rodriguez,593958
+823131,2026-06-01,New York Mets,121,Seattle Mariners,136,Austin Warren,681810,Emerson Hancock,676106
