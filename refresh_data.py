@@ -800,6 +800,226 @@ def fetch_leaky_pitchers():
 # ─────────────────────────────────────────────
 # MAIN
 # ─────────────────────────────────────────────
+# ─────────────────────────────────────────────
+# SAVE TODAY'S MODEL PICKS
+# ─────────────────────────────────────────────
+def save_model_picks():
+    """Score today's games and save top picks to model_picks.csv"""
+    print("Saving today's model picks...")
+    import statistics as _stats
+
+    today_str = _CT_NOW.strftime("%Y-%m-%d")
+
+    # Load needed data
+    matchups  = pd.read_csv(os.path.join(DATA_DIR, "matchups.csv")) if os.path.exists(os.path.join(DATA_DIR, "matchups.csv")) else pd.DataFrame()
+    standings = pd.read_csv(os.path.join(DATA_DIR, "standings.csv"), dtype=str) if os.path.exists(os.path.join(DATA_DIR, "standings.csv")) else pd.DataFrame()
+    pit_stats = pd.read_csv(os.path.join(DATA_DIR, "pitcher_stats.csv")) if os.path.exists(os.path.join(DATA_DIR, "pitcher_stats.csv")) else pd.DataFrame()
+    k_rates   = pd.read_csv(os.path.join(DATA_DIR, "pitcher_k_rates.csv")) if os.path.exists(os.path.join(DATA_DIR, "pitcher_k_rates.csv")) else pd.DataFrame()
+    tbr       = pd.read_csv(os.path.join(DATA_DIR, "team_batting_recents.csv")) if os.path.exists(os.path.join(DATA_DIR, "team_batting_recents.csv")) else pd.DataFrame()
+    hc        = pd.read_csv(os.path.join(DATA_DIR, "hot_cold.csv")) if os.path.exists(os.path.join(DATA_DIR, "hot_cold.csv")) else pd.DataFrame()
+    hr_lead   = pd.read_csv(os.path.join(DATA_DIR, "hr_leaders.csv")) if os.path.exists(os.path.join(DATA_DIR, "hr_leaders.csv")) else pd.DataFrame()
+
+    if matchups.empty:
+        print("  No matchups — skipping model picks")
+        return
+
+    # Filter to today
+    if "game_date" in matchups.columns:
+        matchups = matchups[matchups["game_date"] == today_str]
+    if matchups.empty:
+        print("  No matchups for today")
+        return
+
+    TMAP = {
+        "Arizona Diamondbacks":"D-backs","Atlanta Braves":"Braves",
+        "Baltimore Orioles":"Orioles","Boston Red Sox":"Red Sox",
+        "Chicago Cubs":"Cubs","Chicago White Sox":"White Sox",
+        "Cincinnati Reds":"Reds","Cleveland Guardians":"Guardians",
+        "Colorado Rockies":"Rockies","Detroit Tigers":"Tigers",
+        "Houston Astros":"Astros","Kansas City Royals":"Royals",
+        "Los Angeles Angels":"Angels","Los Angeles Dodgers":"Dodgers",
+        "Miami Marlins":"Marlins","Milwaukee Brewers":"Brewers",
+        "Minnesota Twins":"Twins","New York Mets":"Mets",
+        "New York Yankees":"Yankees","Oakland Athletics":"Athletics",
+        "Philadelphia Phillies":"Phillies","Pittsburgh Pirates":"Pirates",
+        "San Diego Padres":"Padres","San Francisco Giants":"Giants",
+        "Seattle Mariners":"Mariners","St. Louis Cardinals":"Cardinals",
+        "Tampa Bay Rays":"Rays","Texas Rangers":"Rangers",
+        "Toronto Blue Jays":"Blue Jays","Washington Nationals":"Nationals",
+    }
+
+    ps_map = {int(r["pitcher_id"]): r.to_dict() for _, r in pit_stats.iterrows()} if not pit_stats.empty else {}
+    kr_map = {r["name"]: r.to_dict() for _, r in k_rates.iterrows()} if not k_rates.empty else {}
+    tbr_map = {}
+    if not tbr.empty:
+        for _, r in tbr.iterrows():
+            try: tbr_map[int(r["team_id"])] = r.to_dict()
+            except: pass
+    hc_map = {}
+    if not hc.empty:
+        for _, r in hc.iterrows():
+            try: hc_map[int(r["player_id"])] = r.to_dict()
+            except: pass
+
+    std_map = {}
+    if not standings.empty:
+        for col in ["W","L","PCT"]:
+            if col in standings.columns:
+                standings[col] = pd.to_numeric(standings[col], errors="coerce")
+        for _, r in standings.iterrows():
+            short = r["Team"]
+            std_map[short] = r.to_dict()
+            for full, s in TMAP.items():
+                if s == short: std_map[full] = r.to_dict()
+
+    import re as _re
+    def parse_wl(s):
+        try:
+            m = _re.search(r"W(\d+)-L(\d+)", str(s))
+            if m: return int(m.group(1)), int(m.group(2))
+            p = str(s).split("-"); return int(p[0]), int(p[1])
+        except: return 0, 0
+    def wpct(w, l): return round(w/(w+l), 3) if (w+l) > 0 else 0.0
+
+    picks = []
+
+    # ── Top 3 teams ───────────────────────────────────────
+    team_scores = []
+    seen = set()
+    for _, m in matchups.iterrows():
+        for side, opp, is_home in [("away","home",False),("home","away",True)]:
+            team = m.get(f"{side}_team","")
+            tid  = int(float(m.get(f"{side}_team_id",0)))
+            pit  = m.get(f"{side}_pitcher","TBD")
+            opp_t= m.get(f"{opp}_team","")
+            opp_pit = m.get(f"{opp}_pitcher","TBD")
+            if team in seen: continue
+            sc = 0
+            std = std_map.get(team, {})
+            w = int(std.get("W",0) or 0); l = int(std.get("L",0) or 0)
+            sc += wpct(w,l) * 20
+            vw, vl = parse_wl(std.get("vs .500+","-")); sc += wpct(vw,vl) * 15
+            haw, hal = parse_wl(std.get("Home" if is_home else "Away","-")); sc += wpct(haw,hal) * 10
+            l10w, l10l = parse_wl(std.get("L10","-")); sc += wpct(l10w,l10l) * 10
+            try:
+                pid = int(float(m.get(f"{side}_pitcher_id","") or 0))
+                ps  = ps_map.get(pid, {})
+                era = float(str(ps.get("ERA","4.50")).replace("-","4.50") or 4.50)
+            except: era = 4.50
+            if pit != "TBD":
+                if era <= 3.00:   sc += 15
+                elif era <= 3.75: sc += 8
+                elif era >= 5.00: sc -= 5
+            else: sc -= 5
+            try:
+                opid = int(float(m.get(f"{opp}_pitcher_id","") or 0))
+                ops  = ps_map.get(opid, {})
+                oera = float(str(ops.get("ERA","4.50")).replace("-","4.50") or 4.50)
+                if opp_pit != "TBD" and oera >= 5.00: sc += 10
+            except: pass
+            tbr_r = tbr_map.get(tid, {})
+            l5a = float(tbr_r.get("l5_avg",0) or 0)
+            if l5a >= 0.280: sc += 8
+            elif l5a <= 0.210: sc -= 5
+            if is_home: sc += 3
+            short = TMAP.get(team, team.split()[-1])
+            team_scores.append({"team": team, "short": short, "score": sc,
+                                 "away_team": m.get("away_team",""), "home_team": m.get("home_team","")})
+            seen.add(team)
+
+    for t in sorted(team_scores, key=lambda x: x["score"], reverse=True)[:3]:
+        picks.append({
+            "date": today_str, "pick": t["short"], "bet_type": "Team Win",
+            "away_team": t["away_team"], "home_team": t["home_team"],
+            "line": "ML", "result": "", "pnl": "", "score": round(t["score"],1),
+        })
+
+    # ── Top 2 K props ─────────────────────────────────────
+    k_scores = []
+    seen_pits = set()
+    for _, m in matchups.iterrows():
+        for side, opp in [("away","home"),("home","away")]:
+            pit = m.get(f"{side}_pitcher","TBD")
+            if pit == "TBD" or pit in seen_pits: continue
+            opp_tid = int(float(m.get(f"{opp}_team_id",0)))
+            kr = kr_map.get(pit, {})
+            try:
+                pid = int(float(m.get(f"{side}_pitcher_id","") or 0))
+                ps  = ps_map.get(pid, {})
+            except: ps = {}
+            k9    = float(kr.get("K9",0) or 0)
+            l5kp  = float(ps.get("l5_k_pct",0) or 0)
+            opp_batters = hc[hc["team_id"].astype(str)==str(opp_tid)] if not hc.empty else pd.DataFrame()
+            lineup_k = 0.0
+            if not opp_batters.empty and "l15_k_pct" in opp_batters.columns:
+                v = opp_batters["l15_k_pct"].dropna(); v = v[v>0]
+                lineup_k = round(float(v.mean()),3) if len(v)>0 else 0.0
+            sc = k9*3 + (lineup_k*100)*2 + (l5kp*100)*2
+            k_scores.append({"pitcher": pit, "score": sc,
+                              "away_team": m.get("away_team",""), "home_team": m.get("home_team","")})
+            seen_pits.add(pit)
+
+    for k in sorted(k_scores, key=lambda x: x["score"], reverse=True)[:2]:
+        picks.append({
+            "date": today_str, "pick": k["pitcher"], "bet_type": "K Prop",
+            "away_team": k["away_team"], "home_team": k["home_team"],
+            "line": "Over", "result": "", "pnl": "", "score": round(k["score"],1),
+        })
+
+    # ── Top 2 HR props ────────────────────────────────────
+    if not hr_lead.empty and not hc.empty:
+        pit_map = {}
+        for _, m in matchups.iterrows():
+            for side, opp in [("away","home"),("home","away")]:
+                bat_team = m.get(f"{opp}_team","")
+                try:
+                    pid = int(float(m.get(f"{side}_pitcher_id","") or 0))
+                    ps  = ps_map.get(pid, {})
+                    pit_map[bat_team] = {"hr_all": int(ps.get("HR_allowed",0) or 0),
+                                         "era": float(str(ps.get("ERA","4.50")).replace("-","4.50") or 4.50),
+                                         "away": m.get("away_team",""), "home": m.get("home_team","")}
+                except: pass
+
+        hr_scores = []
+        for _, r in hr_lead.head(30).iterrows():
+            pid  = int(r["player_id"]) if pd.notna(r.get("player_id")) else None
+            team = r["Team"]
+            info = pit_map.get(team, {})
+            if not info: continue
+            hcr  = hc_map.get(pid, {}) if pid else {}
+            l5hr = int(hcr.get("l5_hr",0) or 0)
+            l10hr= int(hcr.get("l10_hr",0) or 0)
+            hr   = int(r["HR"])
+            sc   = hr*2 + l5hr*15 + l10hr*5 + info.get("hr_all",0)*0.5
+            if info.get("era",4.5) >= 5.0: sc += 10
+            hr_scores.append({"player": r["Player"], "score": sc,
+                               "away_team": info.get("away",""), "home_team": info.get("home","")})
+
+        for h in sorted(hr_scores, key=lambda x: x["score"], reverse=True)[:2]:
+            picks.append({
+                "date": today_str, "pick": h["player"], "bet_type": "HR Prop",
+                "away_team": h["away_team"], "home_team": h["home_team"],
+                "line": "HR", "result": "", "pnl": "", "score": round(h["score"],1),
+            })
+
+    if not picks:
+        print("  No picks generated")
+        return
+
+    # Append to model_picks.csv (don't overwrite — keep history)
+    path = os.path.join(DATA_DIR, "model_picks.csv")
+    new_df = pd.DataFrame(picks)
+    if os.path.exists(path):
+        existing = pd.read_csv(path, dtype=str)
+        # Don't duplicate today's picks
+        existing = existing[existing["date"] != today_str]
+        final = pd.concat([existing, new_df], ignore_index=True)
+    else:
+        final = new_df
+    final.to_csv(path, index=False)
+    print(f"  Saved {len(picks)} model picks for {today_str}")
+
+
 if __name__ == "__main__":
     total_start = time.time()
     print(f"\n⚾  MLB Data Refresh — {TODAY_STR}")
@@ -820,6 +1040,7 @@ if __name__ == "__main__":
     fetch_team_batting_recents(pd.read_csv(os.path.join(DATA_DIR, "matchups.csv")))
     fetch_yesterday_k_results()
     fetch_leaky_pitchers()
+    save_model_picks()
 
     # Save metadata
     save_json({"refreshed_at": TODAY_STR, "timestamp": datetime.now().isoformat()}, "metadata")
