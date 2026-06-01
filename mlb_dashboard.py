@@ -1076,13 +1076,19 @@ def kmatch_layout():
             pit_k_pct   = float(pk.get("K_pct", 0) or 0)
             pit_bf_per_gs = float(pk.get("BF_per_GS", 0) or 0)
 
-            # Lineup K% — avg sea_k_pct of opposing team batters
+            # Lineup K% — use L15 rolling K% (more predictive than season, adjusts for pitcher quality faced)
             opp_batters = hc[hc["team_id"].astype(str) == str(opp_tid)] if not hc.empty else pd.DataFrame()
-            if not opp_batters.empty and "sea_k_pct" in opp_batters.columns:
+            if not opp_batters.empty and "l15_k_pct" in opp_batters.columns:
+                l15_vals = opp_batters["l15_k_pct"].dropna()
+                # Filter out zeros (players who haven't played recently)
+                l15_vals = l15_vals[l15_vals > 0]
+                lineup_k_pct = round(float(l15_vals.mean()), 3) if len(l15_vals) > 0 else 0.0
+            elif not opp_batters.empty and "sea_k_pct" in opp_batters.columns:
+                # Fallback to season K% if L15 not available
                 lineup_k_pct = round(float(opp_batters["sea_k_pct"].dropna().mean()), 3)
             else:
-                # Fallback: estimate from opp avg K/G ÷ 9 batters
-                lineup_k_pct = round(opp_avg_k / (9 * 4), 3)  # rough PA estimate
+                # Last resort: estimate from opp avg K/G
+                lineup_k_pct = round(opp_avg_k / (9 * 4), 3)
 
             # Combined K% per PA = geometric mean of pitcher and lineup tendency
             if pit_k_pct > 0 and lineup_k_pct > 0:
@@ -1193,6 +1199,9 @@ def kmatch_layout():
                 "Opp Avg K/G":  opp_avg_k,
                 "Lineup K%":    lineup_k_pct_str,
                 "Pit K%":       f"{round(pit_k_pct*100,1)}%" if pit_k_pct > 0 else "—",
+                "L5 K%":        f"{round(pit_k_pct_l5*100,1)}%" if pit_k_pct_l5 > 0 else "—",
+                "K Trend":      trend_label,
+                "BF Var":       f"±{bf_std}" if bf_std > 0 else "—",
                 "Exp Ks":       exp_ks,
                 "Contact Grade": contact_grade,
                 "Confidence":   confidence,
@@ -1256,7 +1265,7 @@ def kmatch_layout():
     df = pd.DataFrame(rows)
 
     # Build merged column headers using a two-row header trick
-    pit_cols  = ["Pitcher","Team","Hand","Type","GS","GP","ERA","K9","Avg IP","Season Ks","Pit K%"]
+    pit_cols  = ["Pitcher","Team","Hand","Type","GS","GP","ERA","K9","Avg IP","Season Ks","Pit K%","L5 K%","K Trend","BF Var"]
     opp_cols  = ["Opponent","Lineup K%","Contact Grade","Opp L5 AVG","Opp L3 AVG","Opp Avg K/G","Opp Last K","Opp L5 Ks","Opp L3 Ks"]
     proj_cols = ["Exp Ks","Blended Proj","Vegas Line","Our Edge","Mkt Implied","Confidence","Signal","Rating"]
     all_cols  = pit_cols + opp_cols + proj_cols
@@ -1309,6 +1318,31 @@ def kmatch_layout():
                 html.Span("= our blended K projection minus Vegas line. Positive = we like the over.",
                           style={"color":C["muted"],"fontSize":"11px"}),
             ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("Exp Ks formula", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("= √(Pitcher K% × Lineup L15 K%) × Avg BF/Start",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("Pitcher K%", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("= 60% L5 K% + 40% season K% — recent form weighted higher than season totals",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("Lineup L15 K%", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("= rolling 15-day K% of opposing batters — adjusts for pitcher quality faced recently (more predictive than season K%)",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("BF Var", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("= std dev of batters faced per start — high variance (±4+) means Exp Ks is discounted 5% (less predictable outing length)",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("K Trend", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("= L5 K% vs season K%. 📈 Hot = L5 significantly higher (boost +5%), 📉 Cold = declining (-5%)",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
             html.Div(style={"height":"8px"}),
             html.Div([
                 html.Span("🔴 High K%", style={"color":C["red"],"fontWeight":"bold","marginRight":"6px"}),
@@ -1351,6 +1385,10 @@ def kmatch_layout():
             {"if":{"column_id":"Hand","filter_query":'{Hand} = "🤜 R"'},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"Type","filter_query":'{Type} contains "Bullpen"'},"color":C["yellow"],"fontWeight":"bold"},
             {"if":{"column_id":"Type","filter_query":'{Type} contains "Reliever"'},"color":C["yellow"],"fontWeight":"bold"},
+            {"if":{"column_id":"K Trend","filter_query":'{K Trend} = "📈 Hot"'},  "color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"K Trend","filter_query":'{K Trend} = "📉 Cold"'}, "color":C["red"]},
+            {"if":{"column_id":"L5 K%","filter_query":'{L5 K%} != "—"'}, "color":C["blue"]},
+            {"if":{"column_id":"BF Var","filter_query":'{BF Var} contains "±"'}, "color":C["muted"]},
             {"if":{"column_id":"K9","filter_query":"{K9} >= 10"},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"K9","filter_query":"{K9} >= 8"}, "color":C["yellow"],"fontWeight":"bold"},
             {"if":{"column_id":"Avg IP","filter_query":"{Avg IP} >= 6.5"},"color":C["green"],"fontWeight":"bold"},
