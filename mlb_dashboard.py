@@ -1071,26 +1071,35 @@ def kmatch_layout():
             try: l3_k = int(float(tbr_r.get("l3_k", 0) or 0))
             except: l3_k = 0
 
-            # ── New K% model ──────────────────────────────────────
-            # Pitcher K% from k_rates (K/BF)
-            pit_k_pct   = float(pk.get("K_pct", 0) or 0)
-            pit_bf_per_gs = float(pk.get("BF_per_GS", 0) or 0)
+            # ── Enhanced K% model ─────────────────────────────────
+            # 1. Pitcher K% — blend season (40%) + L5 (60%)
+            try: pit_k_pct_sea = float(pk.get("K_pct", 0) or 0)
+            except: pit_k_pct_sea = 0.0
+            try: pit_k_pct_l5 = float(ps_r.get("l5_k_pct", 0) or pk.get("l5_k_pct", 0) or 0)
+            except: pit_k_pct_l5 = 0.0
+            try: k_trend = float(ps_r.get("k_trend", 0) or 0)
+            except: k_trend = 0.0
+            pit_k_pct = round(pit_k_pct_sea*0.4 + pit_k_pct_l5*0.6, 3) if pit_k_pct_l5 > 0 else pit_k_pct_sea
 
-            # Lineup K% — use L15 rolling K% (more predictive than season, adjusts for pitcher quality faced)
+            # 2. BF stats from game logs
+            try: bf_mean = float(ps_r.get("bf_mean", 0) or pk.get("BF_per_GS", 0) or 0)
+            except: bf_mean = 0.0
+            try: bf_std = float(ps_r.get("bf_std", 0) or 0)
+            except: bf_std = 0.0
+            pit_bf_per_gs = bf_mean if bf_mean > 0 else float(pk.get("BF_per_GS", 0) or 0)
+
+            # 3. Lineup K% — L15 rolling (adjusts for pitcher quality faced)
             opp_batters = hc[hc["team_id"].astype(str) == str(opp_tid)] if not hc.empty else pd.DataFrame()
             if not opp_batters.empty and "l15_k_pct" in opp_batters.columns:
                 l15_vals = opp_batters["l15_k_pct"].dropna()
-                # Filter out zeros (players who haven't played recently)
                 l15_vals = l15_vals[l15_vals > 0]
                 lineup_k_pct = round(float(l15_vals.mean()), 3) if len(l15_vals) > 0 else 0.0
             elif not opp_batters.empty and "sea_k_pct" in opp_batters.columns:
-                # Fallback to season K% if L15 not available
                 lineup_k_pct = round(float(opp_batters["sea_k_pct"].dropna().mean()), 3)
             else:
-                # Last resort: estimate from opp avg K/G
                 lineup_k_pct = round(opp_avg_k / (9 * 4), 3)
 
-            # Combined K% per PA = geometric mean of pitcher and lineup tendency
+            # 4. Combined K% = geometric mean
             if pit_k_pct > 0 and lineup_k_pct > 0:
                 combined_k_pct = round((pit_k_pct * lineup_k_pct) ** 0.5, 3)
             elif pit_k_pct > 0:
@@ -1098,35 +1107,40 @@ def kmatch_layout():
             else:
                 combined_k_pct = lineup_k_pct
 
-            # Expected Ks = combined K% × expected batters faced
-            exp_bf    = pit_bf_per_gs if pit_bf_per_gs > 0 else (avg_ip * 4.3)
-            exp_ks    = round(combined_k_pct * exp_bf, 1) if combined_k_pct > 0 else 0.0
+            # 5. Exp Ks = combined K% × expected BF
+            exp_bf = pit_bf_per_gs if pit_bf_per_gs > 0 else (avg_ip * 4.3)
+            exp_ks = round(combined_k_pct * exp_bf, 1) if combined_k_pct > 0 else 0.0
 
-            # Team contact quality — avg K% of opposing batters from hot_cold
-            # High team K% = swing-and-miss lineup = over more likely
-            # Low team K% = contact lineup = over less likely
-            team_k_rate = lineup_k_pct  # already calculated above
-            if team_k_rate > 0:
-                # League avg K rate ~22-24%
-                if team_k_rate >= 0.26:
-                    contact_grade = "🔴 High K%"   # whiff-heavy lineup, over favored
-                    contact_score = 1.0
-                elif team_k_rate >= 0.22:
-                    contact_grade = "🟡 Avg K%"
-                    contact_score = 0.0
-                else:
-                    contact_grade = "🟢 Low K%"    # contact lineup, suppress overs
-                    contact_score = -1.0
+            # 6. BF variance discount — high std dev = less predictable outing
+            if bf_std > 4:
+                exp_ks = round(exp_ks * 0.95, 1)
+
+            # 7. K trend adjustment
+            if k_trend > 0.03:    exp_ks = round(exp_ks * 1.05, 1)
+            elif k_trend < -0.03: exp_ks = round(exp_ks * 0.95, 1)
+
+            # K trend label
+            if k_trend > 0.03:    trend_label = "📈 Hot"
+            elif k_trend < -0.03: trend_label = "📉 Cold"
+            else:                 trend_label = "➡️ Stable"
+
+            # Contact grade (for confidence filter)
+            team_k_rate = lineup_k_pct
+            if team_k_rate >= 0.26:
+                contact_grade = "🔴 High K%"; contact_score = 1.0
+            elif team_k_rate >= 0.22:
+                contact_grade = "🟡 Avg K%";  contact_score = 0.0
+            elif team_k_rate > 0:
+                contact_grade = "🟢 Low K%";  contact_score = -1.0
             else:
-                contact_grade = "—"
-                contact_score = 0.0
+                contact_grade = "—";          contact_score = 0.0
 
-            # Blended: average of K9-based and K%-based projections
-            k7        = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
-            opp_k7    = round((opp_avg_k/9)*7, 1)
-            k9_blend  = round((k7+opp_k7)/2, 1)
-            blend     = round((k9_blend + exp_ks) / 2, 1) if exp_ks > 0 else k9_blend
-            score     = round(pk9*3 + opp_avg_k*2, 1)
+            # Blended final projection
+            k7       = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
+            opp_k7   = round((opp_avg_k/9)*7, 1)
+            k9_blend = round((k7+opp_k7)/2, 1)
+            blend    = round((k9_blend + exp_ks) / 2, 1) if exp_ks > 0 else k9_blend
+            score    = round(pk9*3 + opp_avg_k*2, 1)
 
             lineup_k_pct_str = f"{round(lineup_k_pct*100,1)}%" if lineup_k_pct > 0 else "—"
 
@@ -1279,93 +1293,52 @@ def kmatch_layout():
         else:
             columns.append({"name": ["📊 PROJECTION", c], "id": c})
 
+    def key_row(label, label_color, desc):
+        return html.Div([
+            html.Span(label, style={"color": label_color, "fontWeight": "600",
+                                    "fontSize": "11px", "minWidth": "160px",
+                                    "display": "inline-block"}),
+            html.Span(desc,  style={"color": C["muted"], "fontSize": "11px"}),
+        ], style={"marginBottom": "5px"})
+
     key_section = html.Div([
-        html.Div("📖 Key", style={"fontSize":"13px","fontWeight":"bold","color":C["text"],"marginBottom":"8px"}),
         html.Div([
+            # Signal column
             html.Div([
-                html.Span("🎯 Over — Sharp", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Our model projects over AND market implied < 50% (sharp money on over, public hasn't caught on)",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
+                html.Div("SIGNAL", style={"fontSize":"9px","color":C["muted"],
+                         "letterSpacing":"0.1em","fontWeight":"600","marginBottom":"8px"}),
+                key_row("🎯 Over — Sharp",       C["green"],  "Model over + market <50% implied"),
+                key_row("✅ Over — Model",        C["yellow"], "Model over + public agrees (less edge)"),
+                key_row("🔥 Under — Fade Public", C["red"],   "Model under + 55%+ public on over"),
+                key_row("📉 Under — Sharp",       C["blue"],  "Model under + market <50% implied"),
+                key_row("⚠️ Under — Public Trap", C["red"],   "Neutral model + heavy public over"),
+            ], style={"flex":"1","paddingRight":"24px","borderRight":f"1px solid {C['border']}"}),
+
+            # Formula column
             html.Div([
-                html.Span("✅ Over — Model", style={"color":C["yellow"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Our model projects over but public also leans over (less edge, line may be fair)",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
+                html.Div("MODEL", style={"fontSize":"9px","color":C["muted"],
+                         "letterSpacing":"0.1em","fontWeight":"600","marginBottom":"8px"}),
+                key_row("Exp Ks",      C["blue"],  "√(Pitcher K% × Lineup L15 K%) × Avg BF/Start"),
+                key_row("Pitcher K%",  C["blue"],  "60% L5 starts + 40% season"),
+                key_row("Lineup L15%", C["blue"],  "Rolling 15-day lineup K% — adjusts for schedule"),
+                key_row("BF Var ±4+",  C["muted"], "High variance → Exp Ks discounted 5%"),
+                key_row("K Trend",     C["blue"],  "📈 Hot +5% / 📉 Cold -5% to Exp Ks"),
+            ], style={"flex":"1","paddingLeft":"24px","paddingRight":"24px",
+                      "borderRight":f"1px solid {C['border']}"}),
+
+            # Grade column
             html.Div([
-                html.Span("🔥 Under — Fade Public", style={"color":C["red"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Our model projects under AND 55%+ public on over (classic public trap — fade the crowd)",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("📉 Under — Sharp", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Our model projects under AND market implied < 50% (sharp money already on under)",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("⚠️ Under — Public Trap", style={"color":C["red"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Model is neutral but 55%+ public on over — line may be inflated, under has value",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div(style={"height":"8px"}),
-            html.Div([
-                html.Span("Mkt Implied", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("= implied probability of the over based on Vegas odds. >50% means market leans over.",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("Our Edge", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("= our blended K projection minus Vegas line. Positive = we like the over.",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("Exp Ks formula", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("= √(Pitcher K% × Lineup L15 K%) × Avg BF/Start",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("Pitcher K%", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("= 60% L5 K% + 40% season K% — recent form weighted higher than season totals",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("Lineup L15 K%", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("= rolling 15-day K% of opposing batters — adjusts for pitcher quality faced recently (more predictive than season K%)",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("BF Var", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("= std dev of batters faced per start — high variance (±4+) means Exp Ks is discounted 5% (less predictable outing length)",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("K Trend", style={"color":C["blue"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("= L5 K% vs season K%. 📈 Hot = L5 significantly higher (boost +5%), 📉 Cold = declining (-5%)",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div(style={"height":"8px"}),
-            html.Div([
-                html.Span("🔴 High K%", style={"color":C["red"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Opponent lineup has high strikeout rate (26%+) — swing-and-miss team, over favored",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("🟢 Low K%", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Opponent lineup makes a lot of contact (<22% K rate) — suppress overs, under value",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("🎯 High Confidence", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Model edge AND contact quality both point same direction — strongest plays",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ], style={"marginBottom":"4px"}),
-            html.Div([
-                html.Span("⚠️ Mixed", style={"color":C["yellow"],"fontWeight":"bold","marginRight":"6px"}),
-                html.Span("Model says one thing but contact quality disagrees — lower conviction, be careful",
-                          style={"color":C["muted"],"fontSize":"11px"}),
-            ]),
-        ]),
-    ], style={**CARD, "marginBottom":"16px"})
+                html.Div("LINEUP GRADE", style={"fontSize":"9px","color":C["muted"],
+                         "letterSpacing":"0.1em","fontWeight":"600","marginBottom":"8px"}),
+                key_row("🔴 High K% 26%+", C["red"],    "Swing-and-miss lineup — over favored"),
+                key_row("🟡 Avg K% 22-26%", C["yellow"], "Neutral — line likely fair"),
+                key_row("🟢 Low K% <22%",  C["green"],  "Contact lineup — suppress overs"),
+                html.Div(style={"height":"10px"}),
+                key_row("🎯 High Conf",    C["green"],  "Edge + contact grade agree"),
+                key_row("⚠️ Mixed",        C["yellow"], "Edge + contact grade conflict"),
+            ], style={"flex":"1","paddingLeft":"24px"}),
+        ], style={"display":"flex","gap":"0"}),
+    ], style={**CARD, "marginBottom":"16px", "padding":"14px 18px"})
 
     k_table = section(dash_table.DataTable(
         data=df.to_dict("records"),
