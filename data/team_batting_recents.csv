@@ -1,19 +1,19 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-139,Tampa Bay Rays,0.253,0.235,6,38,24
 116,Detroit Tigers,0.181,0.16,8,41,26
-108,Los Angeles Angels,0.25,0.275,6,42,21
+139,Tampa Bay Rays,0.253,0.235,6,38,24
 118,Kansas City Royals,0.211,0.243,12,40,24
-138,St. Louis Cardinals,0.236,0.244,5,30,17
-115,Colorado Rockies,0.279,0.327,10,42,25
-146,Miami Marlins,0.222,0.202,5,42,29
-140,Texas Rangers,0.263,0.327,8,43,25
-145,Chicago White Sox,0.309,0.258,4,32,14
-142,Minnesota Twins,0.204,0.248,14,49,36
-113,Cincinnati Reds,0.276,0.253,13,49,29
 119,Los Angeles Dodgers,0.317,0.286,7,32,21
 137,San Francisco Giants,0.33,0.387,9,36,21
-121,New York Mets,0.242,0.273,10,38,23
+142,Minnesota Twins,0.204,0.248,14,49,36
 158,Milwaukee Brewers,0.175,0.151,7,47,25
-136,Seattle Mariners,0.315,0.311,9,38,21
-109,Arizona Diamondbacks,0.196,0.183,9,40,25
+115,Colorado Rockies,0.279,0.327,10,42,25
+138,St. Louis Cardinals,0.236,0.244,5,30,17
+145,Chicago White Sox,0.309,0.258,4,32,14
+146,Miami Marlins,0.222,0.202,5,42,29
+108,Los Angeles Angels,0.25,0.275,6,42,21
+113,Cincinnati Reds,0.276,0.253,13,49,29
 120,Washington Nationals,0.258,0.263,5,31,17
+109,Arizona Diamondbacks,0.196,0.183,9,40,25
+140,Texas Rangers,0.263,0.327,8,43,25
+121,New York Mets,0.242,0.273,10,38,23
+136,Seattle Mariners,0.315,0.311,9,38,21
