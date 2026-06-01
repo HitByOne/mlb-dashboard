@@ -147,29 +147,58 @@ def park_color(f):
 # ─────────────────────────────────────────────
 # Colors + Styles
 # ─────────────────────────────────────────────
+# ── Design tokens ────────────────────────────────────────
 C = dict(
-    bg="#0d1117", card="#161b22", border="#30363d",
-    green="#39d353", red="#f85149", yellow="#e3b341",
-    blue="#58a6ff", text="#e6edf3", muted="#8b949e",
+    bg      = "#080c10",   # near-black page background
+    card    = "#0e1318",   # card surface
+    card2   = "#131920",   # elevated card (nested)
+    border  = "#1e2730",   # subtle border
+    border2 = "#2a3540",   # stronger border (hover/active)
+    green   = "#2ea84a",   # success / win
+    green2  = "#1d6e31",   # dark green accent
+    red     = "#e5484d",   # danger / loss
+    yellow  = "#d4a017",   # warning / highlight
+    blue    = "#4a9eff",   # info / active
+    blue2   = "#1e4a8a",   # dark blue accent
+    text    = "#d8dde6",   # primary text
+    muted   = "#6b7684",   # secondary text
+    accent  = "#4a9eff",   # accent color
 )
 
-CARD = {"background": C["card"], "border": f"1px solid {C['border']}",
-        "borderRadius": "8px", "padding": "18px", "marginBottom": "16px"}
+CARD = {
+    "background":   C["card"],
+    "border":       f"1px solid {C['border']}",
+    "borderRadius": "10px",
+    "padding":      "16px 20px",
+    "marginBottom": "12px",
+}
 
-TAB_STYLE = {"backgroundColor": C["bg"], "color": C["muted"],
-             "border": f"1px solid {C['border']}", "borderRadius": "6px 6px 0 0",
-             "padding": "10px 20px", "fontFamily": "monospace", "fontSize": "13px"}
-TAB_SEL   = {**TAB_STYLE, "backgroundColor": C["card"],
-             "color": C["blue"], "borderBottom": f"2px solid {C['blue']}"}
+DT_CELL   = {
+    "backgroundColor": C["card"],
+    "color":           C["text"],
+    "border":          f"1px solid {C['border']}",
+    "fontFamily":      "'SF Mono', 'Fira Code', monospace",
+    "fontSize":        "12px",
+    "padding":         "6px 10px",
+    "whiteSpace":      "nowrap",
+    "textAlign":       "left",
+}
+DT_HEADER = {
+    "backgroundColor": C["bg"],
+    "color":           C["muted"],
+    "fontWeight":      "600",
+    "fontSize":        "10px",
+    "textTransform":   "uppercase",
+    "letterSpacing":   "0.08em",
+    "border":          f"1px solid {C['border']}",
+    "textAlign":       "left",
+    "padding":         "6px 10px",
+}
+DT_COND = [{"if": {"row_index": "odd"}, "backgroundColor": "#0b1015"}]
 
-DT_CELL   = {"backgroundColor": C["card"], "color": C["text"],
-             "border": f"1px solid {C['border']}", "fontFamily": "IBM Plex Mono",
-             "fontSize": "13px", "padding": "7px 12px", "whiteSpace": "nowrap",
-             "textAlign": "left"}
-DT_HEADER = {"backgroundColor": C["bg"], "color": C["muted"], "fontWeight": "bold",
-             "fontSize": "11px", "textTransform": "uppercase", "letterSpacing": "1px",
-             "border": f"1px solid {C['border']}", "textAlign": "left"}
-DT_COND   = [{"if": {"row_index": "odd"}, "backgroundColor": "#0f1419"}]
+# Keep TAB_STYLE for any legacy usage
+TAB_STYLE = {"backgroundColor": C["bg"], "color": C["muted"], "fontSize": "13px"}
+TAB_SEL   = {**TAB_STYLE, "color": C["blue"]}
 
 def section(children):
     return html.Div(children, style=CARD)
@@ -194,14 +223,29 @@ def no_data(msg="No data — run refresh_data.py first"):
 # Layout
 # ─────────────────────────────────────────────
 app.layout = html.Div(style={
-    "backgroundColor": C["bg"], "minHeight": "100vh",
-    "fontFamily": "'IBM Plex Mono', monospace", "color": C["text"], "padding": "24px",
+    "backgroundColor": C["bg"],
+    "minHeight":       "100vh",
+    "fontFamily":      "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "color":           C["text"],
+    "padding":         "20px 24px",
 }, children=[
     html.Div([
-        html.Span("⚾", style={"fontSize": "26px"}),
-        html.Span("  MLB Dashboard", style={"fontSize": "20px", "fontWeight": "bold", "marginLeft": "8px"}),
-        html.Span(id="data-date", style={"color": C["muted"], "fontSize": "12px", "marginLeft": "16px"}),
-    ], style={"marginBottom": "20px"}),
+        html.Div([
+            html.Span("⚾  ", style={"fontSize": "18px"}),
+            html.Span("MLB Dashboard", style={
+                "fontSize": "18px", "fontWeight": "600",
+                "letterSpacing": "-0.02em", "color": C["text"],
+            }),
+            html.Span(id="data-date", style={
+                "color": C["muted"], "fontSize": "11px",
+                "marginLeft": "14px", "fontFamily": "monospace",
+            }),
+        ], style={"display": "flex", "alignItems": "center"}),
+    ], style={
+        "marginBottom":   "16px",
+        "paddingBottom":  "14px",
+        "borderBottom":   f"1px solid {C['border']}",
+    }),
 
     # Live game ticker
     dcc.Interval(id="ticker-interval", interval=60000, n_intervals=0),  # refresh every 60s
@@ -210,24 +254,64 @@ app.layout = html.Div(style={
         "overflowX": "auto",
     }),
 
-    dcc.Tabs(id="tabs", value="standings", children=[
-        dcc.Tab(label="📊 Standings",        value="standings",   style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🎯 Scores",           value="scores",      style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🔥 Hit Streaks",      value="streaks",     style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🎲 K Matchups",       value="kmatch",      style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="⚔️ Batter vs Pitcher", value="bvp",        style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🌡️ Hot/Cold Report",   value="hotcold",    style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="💣 HR Leaders",        value="hrleaders",  style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🎯 Hits & Bases",      value="hitsleaders",style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="⭐ Top Picks",         value="toppicks",   style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🌤️ Weather",            value="weather",    style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="🏆 Game Predictions",   value="predictions", style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="📈 My Record",           value="record",      style=TAB_STYLE, selected_style=TAB_SEL),
-        dcc.Tab(label="📋 Yesterday K Results", value="yesterday_ks", style=TAB_STYLE, selected_style=TAB_SEL),
-    ]),
+    # Sidebar + content layout
+    html.Div([
+        # Sidebar
+        html.Div([
+            html.Div([
+                html.Div(
+                    label,
+                    id={"type": "tab-btn", "index": value},
+                    n_clicks=0,
+                    style={
+                        "padding": "9px 14px",
+                        "cursor": "pointer",
+                        "color": C["muted"],
+                        "fontSize": "12px",
+                        "fontFamily": "-apple-system, sans-serif",
+                        "borderLeft": "2px solid transparent",
+                        "borderRadius": "0 6px 6px 0",
+                        "marginBottom": "1px",
+                        "whiteSpace": "nowrap",
+                        "transition": "all 0.15s",
+                        "letterSpacing": "0.01em",
+                    }
+                )
+                for label, value in [
+                    ("📊 Standings",           "standings"),
+                    ("🎯 Scores",              "scores"),
+                    ("📋 Yesterday K Results", "yesterday_ks"),
+                    ("🏆 Game Predictions",    "predictions"),
+                    ("⭐ Top Picks",           "toppicks"),
+                    ("🎲 K Matchups",          "kmatch"),
+                    ("💣 HR Leaders",          "hrleaders"),
+                    ("🔥 Hit Streaks",         "streaks"),
+                    ("⚔️ Batter vs Pitcher",   "bvp"),
+                    ("🌤️ Weather",             "weather"),
+                ]
+            ]),
+        ], style={
+            "width":           "185px",
+            "flexShrink":      "0",
+            "backgroundColor": C["card"],
+            "border":          f"1px solid {C['border']}",
+            "borderRadius":    "10px",
+            "padding":         "6px 0",
+            "height":          "fit-content",
+            "position":        "sticky",
+            "top":             "20px",
+        }),
 
-    dcc.Loading(type="circle", color=C["blue"],
-                children=html.Div(id="tab-content", style={"paddingTop": "16px"})),
+        # Content area
+        html.Div([
+            dcc.Loading(type="circle", color=C["blue"],
+                        children=html.Div(id="tab-content")),
+        ], style={"flex": "1", "minWidth": "0"}),
+
+    ], style={"display": "flex", "gap": "20px", "alignItems": "flex-start"}),
+
+    # Hidden store for active tab
+    dcc.Store(id="tabs", data="standings"),
 ])
 
 @app.callback(Output("data-date", "children"), Input("tabs", "value"))
@@ -246,135 +330,148 @@ def update_ticker(n):
             timeout=8
         ).json()
     except Exception:
-        return html.Span("⚾ Loading games...", style={"color": C["muted"], "fontSize": "13px"})
+        return html.Span("⚾ Loading...", style={"color": C["muted"], "fontSize": "11px"})
 
-    cards = []
+    pills = []
     for day in data.get("dates", []):
         for g in day.get("games", []):
             abstract   = g.get("status", {}).get("abstractGameState", "")
-            status     = g.get("status", {}).get("detailedState", "")
-            away_team  = g["teams"]["away"]["team"]["name"]
-            home_team  = g["teams"]["home"]["team"]["name"]
-            away_short = g["teams"]["away"]["team"].get("abbreviation", away_team[:3].upper())
-            home_short = g["teams"]["home"]["team"].get("abbreviation", home_team[:3].upper())
-            away_p     = g["teams"]["away"].get("probablePitcher", {}).get("fullName", "TBD").split()[-1]
-            home_p     = g["teams"]["home"].get("probablePitcher", {}).get("fullName", "TBD").split()[-1]
+            NICKNAMES = {
+                "Arizona Diamondbacks":"D-backs","Atlanta Braves":"Braves",
+                "Baltimore Orioles":"Orioles","Boston Red Sox":"Red Sox",
+                "Chicago Cubs":"Cubs","Chicago White Sox":"White Sox",
+                "Cincinnati Reds":"Reds","Cleveland Guardians":"Guardians",
+                "Colorado Rockies":"Rockies","Detroit Tigers":"Tigers",
+                "Houston Astros":"Astros","Kansas City Royals":"Royals",
+                "Los Angeles Angels":"Angels","Los Angeles Dodgers":"Dodgers",
+                "Miami Marlins":"Marlins","Milwaukee Brewers":"Brewers",
+                "Minnesota Twins":"Twins","New York Mets":"Mets",
+                "New York Yankees":"Yankees","Oakland Athletics":"Athletics",
+                "Philadelphia Phillies":"Phillies","Pittsburgh Pirates":"Pirates",
+                "San Diego Padres":"Padres","San Francisco Giants":"Giants",
+                "Seattle Mariners":"Mariners","St. Louis Cardinals":"Cardinals",
+                "Tampa Bay Rays":"Rays","Texas Rangers":"Rangers",
+                "Toronto Blue Jays":"Blue Jays","Washington Nationals":"Nationals",
+            }
+            away_name  = g["teams"]["away"]["team"].get("name", "")
+            home_name  = g["teams"]["home"]["team"].get("name", "")
+            away_short = NICKNAMES.get(away_name, away_name.split()[-1])
+            home_short = NICKNAMES.get(home_name, home_name.split()[-1])
 
-            # Game time — convert UTC to CT (UTC-5 in CDT)
-            game_time = g.get("gameDate", "")
-            try:
-                dt = datetime.fromisoformat(game_time.replace("Z", "+00:00"))
-                ct_hour = (dt.hour - 5) % 24
-                ampm    = "PM" if ct_hour >= 12 else "AM"
-                hour12  = ct_hour % 12 or 12
-                time_str = f"{hour12}:{dt.strftime('%M')} {ampm} CT"
-            except Exception:
-                time_str = "—"
-
-            # Status indicator + border color
             if abstract == "Final":
-                status_dot  = html.Span("✅ FINAL", style={"fontSize": "10px", "color": C["muted"],
-                                                            "letterSpacing": "1px"})
-                border_color = C["border"]
-                away_r = g["teams"]["away"].get("score", 0)
-                home_r = g["teams"]["home"].get("score", 0)
+                away_r   = g["teams"]["away"].get("score", 0)
+                home_r   = g["teams"]["home"].get("score", 0)
                 away_win = away_r > home_r
-                score_block = html.Div([
+                pill = html.Div([
                     html.Div([
-                        html.Span(away_short, style={"fontSize": "15px", "fontWeight": "bold",
-                                                      "color": C["green"] if away_win else C["muted"]}),
-                        html.Span(f"  {away_r}", style={"fontSize": "18px", "fontWeight": "bold",
-                                                          "color": C["green"] if away_win else C["muted"]}),
-                    ], style={"display": "flex", "alignItems": "center", "gap": "4px"}),
-                    html.Div([
-                        html.Span(home_short, style={"fontSize": "15px", "fontWeight": "bold",
-                                                      "color": C["green"] if not away_win else C["muted"]}),
-                        html.Span(f"  {home_r}", style={"fontSize": "18px", "fontWeight": "bold",
-                                                          "color": C["green"] if not away_win else C["muted"]}),
-                    ], style={"display": "flex", "alignItems": "center", "gap": "4px"}),
-                ], style={"marginTop": "6px"})
-                pitchers_block = html.Div()
+                        html.Span(away_short, style={"color": C["green"] if away_win else C["muted"], "fontWeight": "bold" if away_win else "normal"}),
+                        html.Span(f" {away_r}", style={"color": C["green"] if away_win else C["muted"], "fontWeight": "bold", "marginLeft": "4px"}),
+                        html.Span("  ·  ", style={"color": C["border"]}),
+                        html.Span(home_short, style={"color": C["green"] if not away_win else C["muted"], "fontWeight": "bold" if not away_win else "normal"}),
+                        html.Span(f" {home_r}", style={"color": C["green"] if not away_win else C["muted"], "fontWeight": "bold", "marginLeft": "4px"}),
+                    ]),
+                    html.Div("Final", style={"color": C["muted"], "fontSize": "9px", "marginTop": "2px", "letterSpacing": "1px"}),
+                ], style={
+                    "display": "inline-flex", "flexDirection": "column", "alignItems": "flex-start",
+                    "backgroundColor": C["card"], "border": f"1px solid {C['border']}",
+                    "borderRadius": "20px", "padding": "5px 14px",
+                    "fontSize": "12px", "fontFamily": "IBM Plex Mono",
+                    "whiteSpace": "nowrap", "flexShrink": "0",
+                })
+                border = C["border"]
 
             elif abstract == "Live":
-                linescore    = g.get("linescore", {})
-                inning       = linescore.get("currentInning", "")
-                inning_h     = linescore.get("inningHalf", "Top")
-                arrow        = "▲" if inning_h == "Top" else "▼"
-                away_r       = g["teams"]["away"].get("score", 0)
-                home_r       = g["teams"]["home"].get("score", 0)
-                status_dot   = html.Span([
-                    html.Span("🔴", style={"fontSize": "10px"}),
-                    html.Span(f" {arrow}{inning}", style={"fontSize": "10px", "color": C["red"],
-                                                           "fontWeight": "bold", "letterSpacing": "1px"}),
-                ], style={"display": "inline-flex", "alignItems": "center", "gap": "3px"})
-                border_color = C["red"]
-                score_block = html.Div([
+                away_r  = g["teams"]["away"].get("score", 0)
+                home_r  = g["teams"]["home"].get("score", 0)
+                ls      = g.get("linescore", {})
+                inning  = ls.get("currentInning", "")
+                arrow   = "▲" if ls.get("inningHalf","Top") == "Top" else "▼"
+                pill = html.Div([
                     html.Div([
-                        html.Span(away_short, style={"fontSize": "15px", "fontWeight": "bold", "color": C["text"]}),
-                        html.Span(f"  {away_r}", style={"fontSize": "20px", "fontWeight": "bold", "color": C["yellow"]}),
-                    ], style={"display": "flex", "alignItems": "center", "gap": "4px"}),
+                        html.Span(away_short, style={"color": C["text"], "fontWeight": "bold"}),
+                        html.Span(f" {away_r}", style={"color": C["yellow"], "fontWeight": "bold", "marginLeft": "4px"}),
+                        html.Span("  ·  ", style={"color": C["border"]}),
+                        html.Span(home_short, style={"color": C["text"], "fontWeight": "bold"}),
+                        html.Span(f" {home_r}", style={"color": C["yellow"], "fontWeight": "bold", "marginLeft": "4px"}),
+                    ]),
                     html.Div([
-                        html.Span(home_short, style={"fontSize": "15px", "fontWeight": "bold", "color": C["text"]}),
-                        html.Span(f"  {home_r}", style={"fontSize": "20px", "fontWeight": "bold", "color": C["yellow"]}),
-                    ], style={"display": "flex", "alignItems": "center", "gap": "4px"}),
-                ], style={"marginTop": "6px"})
-                pitchers_block = html.Div()
+                        html.Span("🔴 ", style={"fontSize": "8px"}),
+                        html.Span(f"{arrow}{inning}", style={"color": C["red"], "fontSize": "9px", "fontWeight": "bold"}),
+                    ], style={"marginTop": "2px"}),
+                ], style={
+                    "display": "inline-flex", "flexDirection": "column", "alignItems": "flex-start",
+                    "backgroundColor": C["card"], "border": f"1px solid {C['red']}",
+                    "borderRadius": "20px", "padding": "5px 14px",
+                    "fontSize": "12px", "fontFamily": "IBM Plex Mono",
+                    "whiteSpace": "nowrap", "flexShrink": "0",
+                })
+                border = C["red"]
 
             else:
-                status_dot   = html.Span(time_str, style={"fontSize": "10px", "color": C["blue"],
-                                                            "letterSpacing": "1px", "fontWeight": "bold"})
-                border_color = C["border"]
-                score_block  = html.Div([
-                    html.Div(away_short, style={"fontSize": "15px", "fontWeight": "bold", "color": C["muted"]}),
-                    html.Div(home_short, style={"fontSize": "15px", "fontWeight": "bold", "color": C["muted"]}),
-                ], style={"marginTop": "6px"})
-                pitchers_block = html.Div([
-                    html.Div(away_p, style={"fontSize": "10px", "color": C["muted"], "marginTop": "4px"}),
-                    html.Div(home_p, style={"fontSize": "10px", "color": C["muted"]}),
-                ])
+                game_time = g.get("gameDate", "")
+                try:
+                    dt   = datetime.fromisoformat(game_time.replace("Z", "+00:00"))
+                    ct_h = (dt.hour - 5) % 24
+                    ampm = "PM" if ct_h >= 12 else "AM"
+                    h12  = ct_h % 12 or 12
+                    tstr = f"{h12}:{dt.strftime('%M')} {ampm}"
+                except Exception:
+                    tstr = "—"
+                pill = html.Div([
+                    html.Div([
+                        html.Span(away_short, style={"color": C["muted"]}),
+                        html.Span(" @ ", style={"color": C["border"]}),
+                        html.Span(home_short, style={"color": C["muted"]}),
+                    ]),
+                    html.Div(tstr, style={"color": C["blue"], "fontSize": "9px", "marginTop": "2px", "fontWeight": "bold"}),
+                ], style={
+                    "display": "inline-flex", "flexDirection": "column", "alignItems": "flex-start",
+                    "backgroundColor": C["card"], "border": f"1px solid {C['border']}",
+                    "borderRadius": "20px", "padding": "5px 14px",
+                    "fontSize": "12px", "fontFamily": "IBM Plex Mono",
+                    "whiteSpace": "nowrap", "flexShrink": "0",
+                })
+                border = C["border"]
 
-            card = html.Div([
-                status_dot,
-                score_block,
-                pitchers_block,
-            ], style={
-                "backgroundColor": C["card"],
-                "border": f"1px solid {border_color}",
-                "borderTop": f"3px solid {border_color}",
-                "borderRadius": "6px",
-                "padding": "10px 14px",
-                "minWidth": "110px",
-                "maxWidth": "140px",
-                "flexShrink": "0",
-            })
-            cards.append(card)
+            pills.append(pill)
 
-    if not cards:
-        return html.Span("No games today.", style={"color": C["muted"], "fontSize": "13px"})
+    if not pills:
+        return html.Span("No games today.", style={"color": C["muted"], "fontSize": "11px"})
 
-    return html.Div(cards, style={
-        "display": "flex", "gap": "10px", "overflowX": "auto",
-        "paddingBottom": "4px", "flexWrap": "nowrap",
+    return html.Div(pills, style={
+        "display":    "flex",
+        "gap":        "8px",
+        "overflowX":  "auto",
+        "paddingBottom": "2px",
+        "flexWrap":   "nowrap",
+        "scrollbarWidth": "none",
     })
 
-@app.callback(Output("tab-content", "children"), Input("tabs", "value"))
-def render_tab(tab):
+@app.callback(
+    Output("tabs", "data"),
+    Output("tab-content", "children"),
+    Input({"type": "tab-btn", "index": dash.ALL}, "n_clicks"),
+    State("tabs", "data"),
+    prevent_initial_call=False,
+)
+def render_tab(n_clicks_list, current_tab):
+    from dash import ctx
+    tab = current_tab or "standings"
+    if ctx.triggered_id and isinstance(ctx.triggered_id, dict):
+        tab = ctx.triggered_id["index"]
     tabs = {
         "standings":   standings_layout,
         "scores":      scores_layout,
         "streaks":     streaks_layout,
         "kmatch":      kmatch_layout,
         "bvp":         bvp_layout,
-        "hotcold":     hotcold_layout,
         "hrleaders":   hrleaders_layout,
-        "hitsleaders": hitsleaders_layout,
         "toppicks":    toppicks_layout,
         "weather":     weather_layout,
         "predictions": predictions_layout,
-        "record":      record_layout,
         "yesterday_ks": yesterday_ks_layout,
     }
-    return tabs.get(tab, standings_layout)()
+    return tab, tabs.get(tab, standings_layout)()
 
 # ─────────────────────────────────────────────
 # STANDINGS
@@ -729,14 +826,18 @@ _vegas_cache = {"k": {}, "hr": {}, "hit": {}, "ts": 0}
 def get_vegas_k_lines():
     """
     Fetch pitcher K prop lines from Tank01 RapidAPI.
-    Cached for 1 hour to reduce API calls and memory pressure.
+    Cached for 1 hour. Falls back to yesterday if today has no lines yet.
     Returns dict: {mlb_player_id: {'line': float, 'over': str, 'under': str}}
     """
     import time
+    from datetime import timezone, timedelta
     global _vegas_cache
     if _vegas_cache["k"] and (time.time() - _vegas_cache["ts"]) < 3600:
         return _vegas_cache["k"]
     today_str = today_ct_compact()
+    # If after 11pm CT, also try yesterday since tomorrow's lines may not be up
+    ct_hour = (datetime.now(timezone.utc) + timedelta(hours=-5)).hour
+    yesterday_str = (datetime.now(timezone.utc) + timedelta(hours=-5, days=-1)).strftime("%Y%m%d")
     try:
         resp = requests.get(
             f"https://{RAPIDAPI_HOST}/getMLBBettingOdds",
@@ -745,6 +846,15 @@ def get_vegas_k_lines():
             timeout=10
         )
         data = resp.json()
+        # If no lines for today, try yesterday (e.g. late night before tomorrow's lines post)
+        if not data.get("body"):
+            resp2 = requests.get(
+                f"https://{RAPIDAPI_HOST}/getMLBBettingOdds",
+                params={"gameDate": yesterday_str, "playerProps": "true", "itemFormat": "list"},
+                headers={"x-rapidapi-key": RAPIDAPI_KEY, "x-rapidapi-host": RAPIDAPI_HOST},
+                timeout=10
+            )
+            data = resp2.json()
     except Exception as e:
         print(f"Vegas K lines error: {e}")
         return {}
@@ -877,13 +987,26 @@ def kmatch_layout():
     # Fetch Vegas K lines — keyed by MLB player ID string
     vegas_map = get_vegas_k_lines()
 
-    # Tank01 IDs = MLB Stats API IDs — match directly by pitcher_id
+    # Tank01 IDs = MLB Stats API IDs — match directly by pitcher_id from matchups
     pid_to_vegas = {}
+    # Primary: match from matchups.csv pitcher IDs (always today's starters)
+    if not matchups.empty:
+        for _, m in matchups.iterrows():
+            for side in ["away","home"]:
+                pid_raw  = m.get(f"{side}_pitcher_id","")
+                pit_name = m.get(f"{side}_pitcher","")
+                if pid_raw and str(pid_raw) not in ("nan","") and pit_name:
+                    pid_str = str(int(float(pid_raw)))
+                    if pid_str in vegas_map:
+                        pid_to_vegas[pit_name] = vegas_map[pid_str]
+    # Fallback: match from pit_stats.csv
     if not pit_stats.empty:
         for _, r in pit_stats.iterrows():
-            pid_str = str(int(float(r["pitcher_id"])))
-            if pid_str in vegas_map:
-                pid_to_vegas[str(r["name"])] = vegas_map[pid_str]
+            name = str(r.get("name",""))
+            if name and name not in pid_to_vegas:
+                pid_str = str(int(float(r["pitcher_id"])))
+                if pid_str in vegas_map:
+                    pid_to_vegas[name] = vegas_map[pid_str]
 
     def fmt_avg(v):
         try: return f".{str(round(float(v),3)).split('.')[-1][:3].ljust(3,'0')}"
@@ -901,6 +1024,26 @@ def kmatch_layout():
             pk9  = float(pk.get("K9", 0) or 0)
             pera = float(str(pk.get("ERA",4.5)).replace("-","4.5") or 4.5)
             pks  = pk.get("K", "-")
+
+            # Pitcher hand + reliever detection
+            ps_r_raw   = ps_name_map.get(pit_name, None)
+            # Convert Series to dict to avoid pandas ambiguous truth value error
+            ps_r       = ps_r_raw.to_dict() if ps_r_raw is not None and hasattr(ps_r_raw, "to_dict") else (ps_r_raw or {})
+            hand       = str(ps_r.get("hand", pk.get("hand","?")) or "?")
+            hand_label = "🤜 R" if hand == "R" else ("🤛 L" if hand == "L" else "?")
+            try: gs_count = int(float(ps_r.get("GS", 0) or 0))
+            except: gs_count = 0
+            try: gp_count = int(float(ps_r.get("GP", 0) or 0))
+            except: gp_count = 0
+            try: is_reliever = bool(ps_r.get("is_reliever", False))
+            except: is_reliever = False
+            bullpen_flag = ""
+            if pit_name == "TBD":
+                bullpen_flag = "🔄 Bullpen Game"
+            elif is_reliever and gp_count > 5:
+                bullpen_flag = "⚠️ Reliever Start"
+            elif gs_count == 0 and gp_count > 3:
+                bullpen_flag = "🔄 Bullpen Game"
             # Avg IP per start
             try:
                 avg_ip = float(pk.get("avg_ip", 0) or 0)
@@ -953,6 +1096,25 @@ def kmatch_layout():
             exp_bf    = pit_bf_per_gs if pit_bf_per_gs > 0 else (avg_ip * 4.3)
             exp_ks    = round(combined_k_pct * exp_bf, 1) if combined_k_pct > 0 else 0.0
 
+            # Team contact quality — avg K% of opposing batters from hot_cold
+            # High team K% = swing-and-miss lineup = over more likely
+            # Low team K% = contact lineup = over less likely
+            team_k_rate = lineup_k_pct  # already calculated above
+            if team_k_rate > 0:
+                # League avg K rate ~22-24%
+                if team_k_rate >= 0.26:
+                    contact_grade = "🔴 High K%"   # whiff-heavy lineup, over favored
+                    contact_score = 1.0
+                elif team_k_rate >= 0.22:
+                    contact_grade = "🟡 Avg K%"
+                    contact_score = 0.0
+                else:
+                    contact_grade = "🟢 Low K%"    # contact lineup, suppress overs
+                    contact_score = -1.0
+            else:
+                contact_grade = "—"
+                contact_score = 0.0
+
             # Blended: average of K9-based and K%-based projections
             k7        = round((pk9/9)*7, 1) if pk9 > 0 else 0.0
             opp_k7    = round((opp_avg_k/9)*7, 1)
@@ -961,6 +1123,8 @@ def kmatch_layout():
             score     = round(pk9*3 + opp_avg_k*2, 1)
 
             lineup_k_pct_str = f"{round(lineup_k_pct*100,1)}%" if lineup_k_pct > 0 else "—"
+
+            confidence = "—"  # will be set after vline is calculated
 
             if score >= 45:   rating, rc = "🔥🔥 Elite",  C["red"]
             elif score >= 35: rating, rc = "🔥 Strong",   C["yellow"]
@@ -980,6 +1144,22 @@ def kmatch_layout():
             else:
                 edge_str   = "—"
                 edge_color = "neutral"
+
+            # Confidence filter — contact quality vs model edge
+            if vline != "—" and blend > 0 and team_k_rate > 0:
+                try:
+                    edge_val2 = blend - float(vline)
+                    if edge_val2 >= 0.5 and contact_score >= 0:
+                        confidence = "🎯 High"
+                    elif edge_val2 >= 0.5 and contact_score < 0:
+                        confidence = "⚠️ Mixed"
+                    elif edge_val2 <= -0.5 and contact_score <= 0:
+                        confidence = "🎯 High"
+                    elif edge_val2 <= -0.5 and contact_score > 0:
+                        confidence = "⚠️ Mixed"
+                    else:
+                        confidence = "➡️ Neutral"
+                except: pass
 
             # Implied probability from over odds
             try:
@@ -1004,6 +1184,8 @@ def kmatch_layout():
             rows.append({
                 "Pitcher":      pit_name,
                 "Team":         pit_team,
+                "Hand":         hand_label,
+                "Type":         bullpen_flag if bullpen_flag else "✅ Starter",
                 "Opponent":     opp_team,
                 "K9":           pk9,
                 "Season Ks":    pks,
@@ -1012,11 +1194,15 @@ def kmatch_layout():
                 "Lineup K%":    lineup_k_pct_str,
                 "Pit K%":       f"{round(pit_k_pct*100,1)}%" if pit_k_pct > 0 else "—",
                 "Exp Ks":       exp_ks,
+                "Contact Grade": contact_grade,
+                "Confidence":   confidence,
                 "Opp L5 AVG":   fmt_avg(l5_avg),
                 "Opp L3 AVG":   fmt_avg(l3_avg),
                 "Opp Last K":   last_k,
                 "Opp L5 Ks":    l5_k,
                 "Opp L3 Ks":    l3_k,
+                "GS":           gs_count if gs_count > 0 else "—",
+                "GP":           gp_count if gp_count > 0 else "—",
                 "Avg IP":       avg_ip,
                 "K Proj (7IP)": k7,
                 "Blended Proj": blend,
@@ -1070,9 +1256,9 @@ def kmatch_layout():
     df = pd.DataFrame(rows)
 
     # Build merged column headers using a two-row header trick
-    pit_cols  = ["Pitcher","Team","ERA","K9","Avg IP","Season Ks","Pit K%"]
-    opp_cols  = ["Opponent","Lineup K%","Opp L5 AVG","Opp L3 AVG","Opp Avg K/G","Opp Last K","Opp L5 Ks","Opp L3 Ks"]
-    proj_cols = ["Exp Ks","Blended Proj","Vegas Line","Our Edge","Mkt Implied","Signal","Rating"]
+    pit_cols  = ["Pitcher","Team","Hand","Type","GS","GP","ERA","K9","Avg IP","Season Ks","Pit K%"]
+    opp_cols  = ["Opponent","Lineup K%","Contact Grade","Opp L5 AVG","Opp L3 AVG","Opp Avg K/G","Opp Last K","Opp L5 Ks","Opp L3 Ks"]
+    proj_cols = ["Exp Ks","Blended Proj","Vegas Line","Our Edge","Mkt Implied","Confidence","Signal","Rating"]
     all_cols  = pit_cols + opp_cols + proj_cols
 
     columns = []
@@ -1122,6 +1308,27 @@ def kmatch_layout():
                 html.Span("Our Edge", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
                 html.Span("= our blended K projection minus Vegas line. Positive = we like the over.",
                           style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div(style={"height":"8px"}),
+            html.Div([
+                html.Span("🔴 High K%", style={"color":C["red"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Opponent lineup has high strikeout rate (26%+) — swing-and-miss team, over favored",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("🟢 Low K%", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Opponent lineup makes a lot of contact (<22% K rate) — suppress overs, under value",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("🎯 High Confidence", style={"color":C["green"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Model edge AND contact quality both point same direction — strongest plays",
+                          style={"color":C["muted"],"fontSize":"11px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span("⚠️ Mixed", style={"color":C["yellow"],"fontWeight":"bold","marginRight":"6px"}),
+                html.Span("Model says one thing but contact quality disagrees — lower conviction, be careful",
+                          style={"color":C["muted"],"fontSize":"11px"}),
             ]),
         ]),
     ], style={**CARD, "marginBottom":"16px"})
@@ -1134,6 +1341,16 @@ def kmatch_layout():
         style_table={"overflowX":"auto"}, style_cell=DT_CELL,
         style_header=DT_HEADER, page_action="none",
         style_data_conditional=DT_COND + [
+            {"if":{"column_id":"Hand","filter_query":'{Hand} = "🤛 L"'},"color":C["blue"],"fontWeight":"bold"},
+            {"if":{"column_id":"Contact Grade","filter_query":'{Contact Grade} = "🔴 High K%"'},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Contact Grade","filter_query":'{Contact Grade} = "🟡 Avg K%"'},"color":C["yellow"]},
+            {"if":{"column_id":"Contact Grade","filter_query":'{Contact Grade} = "🟢 Low K%"'},"color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"Confidence","filter_query":'{Confidence} = "🎯 High"'},"color":C["green"],"fontWeight":"bold"},
+            {"if":{"column_id":"Confidence","filter_query":'{Confidence} = "⚠️ Mixed"'},"color":C["yellow"]},
+            {"if":{"column_id":"Confidence","filter_query":'{Confidence} = "➡️ Neutral"'},"color":C["muted"]},
+            {"if":{"column_id":"Hand","filter_query":'{Hand} = "🤜 R"'},"color":C["red"],"fontWeight":"bold"},
+            {"if":{"column_id":"Type","filter_query":'{Type} contains "Bullpen"'},"color":C["yellow"],"fontWeight":"bold"},
+            {"if":{"column_id":"Type","filter_query":'{Type} contains "Reliever"'},"color":C["yellow"],"fontWeight":"bold"},
             {"if":{"column_id":"K9","filter_query":"{K9} >= 10"},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"K9","filter_query":"{K9} >= 8"}, "color":C["yellow"],"fontWeight":"bold"},
             {"if":{"column_id":"Avg IP","filter_query":"{Avg IP} >= 6.5"},"color":C["green"],"fontWeight":"bold"},
@@ -3039,6 +3256,48 @@ def load_yesterday_ks(n):
     ))
 
     return html.Div([summary, table])
+
+@app.callback(
+    Output({"type": "tab-btn", "index": dash.ALL}, "style"),
+    Input("tabs", "data"),
+)
+def highlight_tab(active_tab):
+    tab_values = ["standings","scores","yesterday_ks","predictions","toppicks",
+                  "kmatch","hrleaders","streaks","bvp","weather"]
+    styles = []
+    for v in tab_values:
+        if v == active_tab:
+            styles.append({
+                "padding":         "9px 14px",
+                "cursor":          "pointer",
+                "color":           C["blue"],
+                "fontSize":        "12px",
+                "fontFamily":      "-apple-system, sans-serif",
+                "borderLeft":      f"2px solid {C['blue']}",
+                "borderRadius":    "0 6px 6px 0",
+                "marginBottom":    "1px",
+                "whiteSpace":      "nowrap",
+                "backgroundColor": "#111922",
+                "fontWeight":      "600",
+                "transition":      "all 0.15s",
+                "letterSpacing":   "0.01em",
+            })
+        else:
+            styles.append({
+                "padding":       "9px 14px",
+                "cursor":        "pointer",
+                "color":         C["muted"],
+                "fontSize":      "12px",
+                "fontFamily":    "-apple-system, sans-serif",
+                "borderLeft":    "2px solid transparent",
+                "borderRadius":  "0 6px 6px 0",
+                "marginBottom":  "1px",
+                "whiteSpace":    "nowrap",
+                "transition":    "all 0.15s",
+                "letterSpacing": "0.01em",
+            })
+    return styles
+
 
 if __name__ == "__main__":
     if not os.path.exists(DATA_DIR):
