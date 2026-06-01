@@ -185,8 +185,10 @@ def fetch_pitcher_stats(matchups):
             ip = float(s.get("inningsPitched", 0) or 0)
             ks = int(s.get("strikeOuts", 0) or 0)
             gs = int(s.get("gamesStarted", 0) or 0)
+            gp = int(s.get("gamesPitched", 0) or s.get("gamesPlayed", 0) or 0)
             h  = int(s.get("hits", 0) or 0)
             bf = int(s.get("battersFaced", 0) or 0)
+            is_reliever = (gp > 5) and (gs / gp < 0.5) if gp > 0 else False
             row.update({
                 "ERA":        s.get("era", "-"),
                 "HR_allowed": int(s.get("homeRuns", 0) or 0),
@@ -197,9 +199,11 @@ def fetch_pitcher_stats(matchups):
                 "K9":         round((ks / ip) * 9, 1) if ip > 0 else 0.0,
                 "GS":         gs,
                 "H_per_G":    round(h / gs, 1) if gs > 0 else 0.0,
-                "BF":         bf,
-                "K_pct":      round(ks / bf, 3) if bf > 0 else 0.0,
-                "BF_per_GS":  round(bf / gs, 1) if gs > 0 else 0.0,
+                "BF":          bf,
+                "K_pct":       round(ks / bf, 3) if bf > 0 else 0.0,
+                "BF_per_GS":   round(bf / gs, 1) if gs > 0 else 0.0,
+                "GP":          gp,
+                "is_reliever": is_reliever,
             })
         # Hand + name
         pd2 = get(f"{BASE}/people/{pid}")
