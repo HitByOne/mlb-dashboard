@@ -205,6 +205,54 @@ def fetch_pitcher_stats(matchups):
                 "GP":          gp,
                 "is_reliever": is_reliever,
             })
+        # Game log — last 5 starts for recent form, BF variance, pitch efficiency
+        try:
+            import statistics as _stats
+            gl = get(f"{BASE}/people/{pid}/stats?stats=gameLog&group=pitching&season={YEAR}&sportId=1", timeout=8)
+            gl_splits = gl.get("stats",[{}])[0].get("splits",[]) if gl.get("stats") else []
+            # Filter to starts only (IP >= 3)
+            starts = [g for g in gl_splits if float(g.get("stat",{}).get("inningsPitched",0) or 0) >= 3]
+            starts = list(reversed(starts))  # most recent first
+
+            if starts:
+                l5 = starts[:5]
+
+                # L5 K% per BF
+                l5_k  = sum(int(g["stat"].get("strikeOuts",0) or 0) for g in l5)
+                l5_bf = sum(int(g["stat"].get("battersFaced",0) or 0) for g in l5)
+                l5_k_pct = round(l5_k / l5_bf, 3) if l5_bf > 0 else 0.0
+
+                # BF variance — std dev over last 10 starts
+                bf_list = [int(g["stat"].get("battersFaced",0) or 0) for g in starts[:10]]
+                bf_mean = round(sum(bf_list)/len(bf_list), 1)
+                bf_std  = round(_stats.stdev(bf_list), 1) if len(bf_list) >= 2 else 0.0
+
+                # Pitch efficiency estimate (pitches per batter)
+                # High K pitchers throw more pitches/batter (~4.0+), contact pitchers fewer (~3.6)
+                pit_per_bf = round(3.65 + (l5_k_pct * 1.8), 2)
+
+                # L5 ERA
+                l5_er = sum(int(g["stat"].get("earnedRuns",0) or 0) for g in l5)
+                l5_ip = sum(float(g["stat"].get("inningsPitched",0) or 0) for g in l5)
+                l5_era = round((l5_er / l5_ip) * 9, 2) if l5_ip > 0 else None
+
+                # K trend: L5 K% vs season K%
+                sea_k_pct = float(row.get("K_pct", 0) or 0)
+                k_trend = round(l5_k_pct - sea_k_pct, 3) if sea_k_pct > 0 else 0.0
+
+                row.update({
+                    "l5_k_pct":   l5_k_pct,
+                    "l5_era":     l5_era,
+                    "bf_mean":    bf_mean,
+                    "bf_std":     bf_std,
+                    "pit_per_bf": pit_per_bf,
+                    "l5_ks":      l5_k,
+                    "l5_bf":      l5_bf,
+                    "k_trend":    k_trend,  # positive = improving, negative = declining
+                })
+        except Exception as e:
+            pass  # game log not critical
+
         # Hand + name
         pd2 = get(f"{BASE}/people/{pid}")
         person = pd2.get("people", [{}])[0]
@@ -301,6 +349,17 @@ def fetch_hot_cold(rosters):
             pa = ab + bb
             return round(k / pa, 3) if pa > 0 else 0.0
 
+        # L15 rolling K% — last 15 games
+        l15_games = splits[-15:] if len(splits) >= 15 else splits
+        def sum_stat(games, idx_map):
+            return sum(int(g.get("stat", {}).get(idx_map, 0) or 0) for g in games)
+
+        l15_k  = sum_stat(l15_games, "strikeOuts")
+        l15_ab = sum_stat(l15_games, "atBats")
+        l15_bb = sum_stat(l15_games, "baseOnBalls")
+        l15_pa = l15_ab + l15_bb
+        l15_k_pct = round(l15_k / l15_pa, 3) if l15_pa > 0 else 0.0
+
         return {
             "player_id": pid, "name": name, "team_id": tid,
             "l7_ab": l7[0],  "l7_h": l7[1],  "l7_hr": l7[2],  "l7_rbi": l7[3],
@@ -312,10 +371,11 @@ def fetch_hot_cold(rosters):
             "l5_hr": l5_hr,  "l10_hr": l10_hr,
             "l5_h": l5_h,    "l10_h": l10_h,
             "l10_tb": l10_tb,"l5_tb": l5_tb,
-            "sea_k_pct": k_pct(sea),
-            "l14_k_pct": k_pct(l14),
-            "sea_k":     sea[4],
-            "sea_pa":    sea[0] + sea[5],
+            "sea_k_pct":  k_pct(sea),
+            "l14_k_pct":  k_pct(l14),
+            "l15_k_pct":  l15_k_pct,
+            "sea_k":      sea[4],
+            "sea_pa":     sea[0] + sea[5],
         }
 
     rows = []
