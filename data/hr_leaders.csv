@@ -9,57 +9,58 @@ Rank,Player,Team,League,HR,player_id
 7,Christian Walker,Houston Astros,AL,16,572233
 7,James Wood,Washington Nationals,NL,16,695578
 10,Colson Montgomery,Chicago White Sox,AL,15,695657
+10,Miguel Vargas,Chicago White Sox,AL,15,678246
 10,Jordan Walker,St. Louis Cardinals,NL,15,691023
-12,Shea Langeliers,Athletics,AL,14,669127
-12,Brandon Lowe,Pittsburgh Pirates,NL,14,664040
-12,Max Muncy,Los Angeles Dodgers,NL,14,571970
-12,Mike Trout,Los Angeles Angels,AL,14,545361
-16,Drake Baldwin,Atlanta Braves,NL,13,686948
-16,Junior Caminero,Tampa Bay Rays,AL,13,691406
-16,Oneil Cruz,Pittsburgh Pirates,NL,13,665833
-16,Hunter Goodman,Colorado Rockies,NL,13,696100
-16,Ian Happ,Chicago Cubs,NL,13,664023
-16,Bryce Harper,Philadelphia Phillies,NL,13,547180
-16,Michael Harris II,Atlanta Braves,NL,13,671739
-16,Gunnar Henderson,Baltimore Orioles,AL,13,683002
-16,Andy Pages,Los Angeles Dodgers,NL,13,681624
-16,Luke Raley,Seattle Mariners,AL,13,670042
-16,Juan Soto,New York Mets,NL,13,665742
-16,Miguel Vargas,Chicago White Sox,AL,13,678246
-28,CJ Abrams,Washington Nationals,NL,12,682928
-28,Elly De La Cruz,Cincinnati Reds,NL,12,682829
-28,Mickey Moniak,Colorado Rockies,NL,12,666160
-28,Kazuma Okamoto,Toronto Blue Jays,AL,12,672960
-28,Julio Rodríguez,Seattle Mariners,AL,12,677594
-28,Casey Schmitt,San Francisco Giants,NL,12,669477
-28,Sal Stewart,Cincinnati Reds,NL,12,701398
-35,Pete Alonso,Baltimore Orioles,AL,11,624413
-35,Jonathan Aranda,Tampa Bay Rays,AL,11,666018
-35,Willson Contreras,Boston Red Sox,AL,11,575929
-35,Dillon Dingler,Detroit Tigers,AL,11,693307
-35,Yandy Díaz,Tampa Bay Rays,AL,11,650490
-35,Liam Hicks,Miami Marlins,NL,11,689414
+13,Junior Caminero,Tampa Bay Rays,AL,14,691406
+13,Hunter Goodman,Colorado Rockies,NL,14,696100
+13,Shea Langeliers,Athletics,AL,14,669127
+13,Brandon Lowe,Pittsburgh Pirates,NL,14,664040
+13,Max Muncy,Los Angeles Dodgers,NL,14,571970
+13,Mike Trout,Los Angeles Angels,AL,14,545361
+19,Drake Baldwin,Atlanta Braves,NL,13,686948
+19,Oneil Cruz,Pittsburgh Pirates,NL,13,665833
+19,Dillon Dingler,Detroit Tigers,AL,13,693307
+19,Ian Happ,Chicago Cubs,NL,13,664023
+19,Bryce Harper,Philadelphia Phillies,NL,13,547180
+19,Michael Harris II,Atlanta Braves,NL,13,671739
+19,Gunnar Henderson,Baltimore Orioles,AL,13,683002
+19,Andy Pages,Los Angeles Dodgers,NL,13,681624
+19,Luke Raley,Seattle Mariners,AL,13,670042
+19,Juan Soto,New York Mets,NL,13,665742
+29,CJ Abrams,Washington Nationals,NL,12,682928
+29,Elly De La Cruz,Cincinnati Reds,NL,12,682829
+29,Liam Hicks,Miami Marlins,NL,12,689414
+29,Mickey Moniak,Colorado Rockies,NL,12,666160
+29,Kazuma Okamoto,Toronto Blue Jays,AL,12,672960
+29,Julio Rodríguez,Seattle Mariners,AL,12,677594
+29,Casey Schmitt,San Francisco Giants,NL,12,669477
+29,Sal Stewart,Cincinnati Reds,NL,12,701398
+37,Pete Alonso,Baltimore Orioles,AL,11,624413
+37,Jonathan Aranda,Tampa Bay Rays,AL,11,666018
+37,Willson Contreras,Boston Red Sox,AL,11,575929
+37,Yandy Díaz,Tampa Bay Rays,AL,11,650490
+41,JJ Bleday,Cincinnati Reds,NL,10,668709
 41,Jake Burger,Texas Rangers,AL,10,669394
 41,Jarren Duran,Boston Red Sox,AL,10,680776
 41,Nick Kurtz,Athletics,AL,10,701762
 41,Manny Machado,San Diego Padres,NL,10,592518
+41,Ketel Marte,Arizona Diamondbacks,NL,10,606466
 41,Zach Neto,Los Angeles Angels,AL,10,687263
 41,Shohei Ohtani,Los Angeles Dodgers,NL,10,660271
-47,Jo Adell,Los Angeles Angels,AL,9,666176
-47,Ozzie Albies,Atlanta Braves,NL,9,645277
-47,Samuel Basallo,Baltimore Orioles,AL,9,694212
-47,Jake Bauers,Milwaukee Brewers,NL,9,641343
-47,JJ Bleday,Cincinnati Reds,NL,9,668709
-47,J.P. Crawford,Seattle Mariners,AL,9,641487
-47,Nathaniel Lowe,Cincinnati Reds,NL,9,663993
-47,Ketel Marte,Arizona Diamondbacks,NL,9,606466
-47,Angel Martínez,Cleveland Guardians,AL,9,682657
-47,Salvador Perez,Kansas City Royals,AL,9,521692
-47,Gavin Sheets,San Diego Padres,NL,9,657757
-47,Jorge Soler,Los Angeles Angels,AL,9,624585
-47,JJ Wetherholt,St. Louis Cardinals,NL,9,802139
-47,Bobby Witt Jr.,Kansas City Royals,AL,9,677951
+49,Jo Adell,Los Angeles Angels,AL,9,666176
+49,Ozzie Albies,Atlanta Braves,NL,9,645277
+49,Samuel Basallo,Baltimore Orioles,AL,9,694212
+49,Jake Bauers,Milwaukee Brewers,NL,9,641343
+49,J.P. Crawford,Seattle Mariners,AL,9,641487
+49,Nathaniel Lowe,Cincinnati Reds,NL,9,663993
+49,Angel Martínez,Cleveland Guardians,AL,9,682657
+49,Salvador Perez,Kansas City Royals,AL,9,521692
+49,Gavin Sheets,San Diego Padres,NL,9,657757
+49,Jorge Soler,Los Angeles Angels,AL,9,624585
+49,JJ Wetherholt,St. Louis Cardinals,NL,9,802139
+49,Bobby Witt Jr.,Kansas City Royals,AL,9,677951
 61,Willy Adames,San Francisco Giants,NL,8,642715
+61,Nolan Arenado,Arizona Diamondbacks,NL,8,571448
 61,Cody Bellinger,New York Yankees,AL,8,641355
 61,Xander Bogaerts,San Diego Padres,NL,8,593428
 61,Freddie Freeman,Los Angeles Dodgers,NL,8,518692
@@ -71,37 +72,37 @@ Rank,Player,Team,League,HR,player_id
 61,Austin Riley,Atlanta Braves,NL,8,663586
 61,Brent Rooker,Athletics,AL,8,667670
 61,Spencer Torkelson,Detroit Tigers,AL,8,679529
-73,Ronald Acuña Jr.,Atlanta Braves,NL,7,660670
-73,Nolan Arenado,Arizona Diamondbacks,NL,7,571448
-73,Alec Burleson,St. Louis Cardinals,NL,7,676475
-73,Dominic Canzone,Seattle Mariners,AL,7,686527
-73,Corbin Carroll,Arizona Diamondbacks,NL,7,682998
-73,Pete Crow-Armstrong,Chicago Cubs,NL,7,691718
-73,Chase DeLauter,Cleveland Guardians,AL,7,800050
-73,Rafael Devers,San Francisco Giants,NL,7,646240
-73,Trent Grisham,New York Yankees,AL,7,663757
-73,Teoscar Hernández,Los Angeles Dodgers,NL,7,606192
-73,Iván Herrera,St. Louis Cardinals,NL,7,671056
-73,Spencer Horwitz,Pittsburgh Pirates,NL,7,687462
-73,Brady House,Washington Nationals,NL,7,691781
-73,Ryan Jeffers,Minnesota Twins,AL,7,680777
-73,Carter Jensen,Kansas City Royals,AL,7,695600
-73,Josh Jung,Texas Rangers,AL,7,673962
-73,Ramón Laureano,San Diego Padres,NL,7,657656
-73,Daylen Lile,Washington Nationals,NL,7,695734
-73,Brandon Nimmo,Texas Rangers,AL,7,607043
-73,Oswald Peraza,Los Angeles Angels,AL,7,672724
-73,Cal Raleigh,Seattle Mariners,AL,7,663728
-73,TJ Rumfield,Colorado Rockies,NL,7,681198
-73,Dalton Rushing,Los Angeles Dodgers,NL,7,687221
-73,Adley Rutschman,Baltimore Orioles,AL,7,668939
-73,Corey Seager,Texas Rangers,AL,7,608369
-73,Tyler Soderstrom,Athletics,AL,7,691016
-73,Spencer Steer,Cincinnati Reds,NL,7,668715
-73,Seiya Suzuki,Chicago Cubs,NL,7,673548
-73,Dansby Swanson,Chicago Cubs,NL,7,621020
-73,Brice Turang,Milwaukee Brewers,NL,7,668930
-73,Trea Turner,Philadelphia Phillies,NL,7,607208
-73,Ildemaro Vargas,Arizona Diamondbacks,NL,7,545121
-73,Mark Vientos,New York Mets,NL,7,668901
-73,Jacob Young,Washington Nationals,NL,7,696285
+61,Jacob Young,Washington Nationals,NL,8,696285
+75,Ronald Acuña Jr.,Atlanta Braves,NL,7,660670
+75,Alec Burleson,St. Louis Cardinals,NL,7,676475
+75,Dominic Canzone,Seattle Mariners,AL,7,686527
+75,Kerry Carpenter,Detroit Tigers,AL,7,681481
+75,Corbin Carroll,Arizona Diamondbacks,NL,7,682998
+75,Pete Crow-Armstrong,Chicago Cubs,NL,7,691718
+75,Chase DeLauter,Cleveland Guardians,AL,7,800050
+75,Rafael Devers,San Francisco Giants,NL,7,646240
+75,Trent Grisham,New York Yankees,AL,7,663757
+75,Teoscar Hernández,Los Angeles Dodgers,NL,7,606192
+75,Iván Herrera,St. Louis Cardinals,NL,7,671056
+75,Spencer Horwitz,Pittsburgh Pirates,NL,7,687462
+75,Brady House,Washington Nationals,NL,7,691781
+75,Ryan Jeffers,Minnesota Twins,AL,7,680777
+75,Carter Jensen,Kansas City Royals,AL,7,695600
+75,Josh Jung,Texas Rangers,AL,7,673962
+75,Ramón Laureano,San Diego Padres,NL,7,657656
+75,Daylen Lile,Washington Nationals,NL,7,695734
+75,Brandon Nimmo,Texas Rangers,AL,7,607043
+75,Oswald Peraza,Los Angeles Angels,AL,7,672724
+75,Cal Raleigh,Seattle Mariners,AL,7,663728
+75,TJ Rumfield,Colorado Rockies,NL,7,681198
+75,Dalton Rushing,Los Angeles Dodgers,NL,7,687221
+75,Adley Rutschman,Baltimore Orioles,AL,7,668939
+75,Corey Seager,Texas Rangers,AL,7,608369
+75,Tyler Soderstrom,Athletics,AL,7,691016
+75,Spencer Steer,Cincinnati Reds,NL,7,668715
+75,Seiya Suzuki,Chicago Cubs,NL,7,673548
+75,Dansby Swanson,Chicago Cubs,NL,7,621020
+75,Brice Turang,Milwaukee Brewers,NL,7,668930
+75,Trea Turner,Philadelphia Phillies,NL,7,607208
+75,Ildemaro Vargas,Arizona Diamondbacks,NL,7,545121
+75,Mark Vientos,New York Mets,NL,7,668901

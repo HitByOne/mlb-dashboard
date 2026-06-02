@@ -1,17 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-05-25,Chicago Cubs,1,Pittsburgh Pirates,2,Pittsburgh Pirates,3
-2026-05-25,Tampa Bay Rays,7,Baltimore Orioles,9,Baltimore Orioles,16
-2026-05-25,Minnesota Twins,1,Chicago White Sox,3,Chicago White Sox,4
-2026-05-25,St. Louis Cardinals,1,Milwaukee Brewers,5,Milwaukee Brewers,6
-2026-05-25,New York Yankees,4,Kansas City Royals,3,New York Yankees,7
-2026-05-25,Cincinnati Reds,7,New York Mets,2,Cincinnati Reds,9
-2026-05-25,Arizona Diamondbacks,6,San Francisco Giants,2,Arizona Diamondbacks,8
-2026-05-25,Washington Nationals,10,Cleveland Guardians,2,Washington Nationals,12
-2026-05-25,Philadelphia Phillies,3,San Diego Padres,0,Philadelphia Phillies,3
-2026-05-25,Houston Astros,9,Texas Rangers,0,Houston Astros,9
-2026-05-25,Miami Marlins,8,Toronto Blue Jays,2,Miami Marlins,10
-2026-05-25,Colorado Rockies,3,Los Angeles Dodgers,5,Los Angeles Dodgers,8
-2026-05-25,Seattle Mariners,9,Athletics,2,Seattle Mariners,11
 2026-05-26,Washington Nationals,6,Cleveland Guardians,3,Washington Nationals,9
 2026-05-26,Tampa Bay Rays,1,Baltimore Orioles,6,Baltimore Orioles,7
 2026-05-26,Los Angeles Angels,10,Detroit Tigers,6,Los Angeles Angels,16
@@ -93,3 +80,12 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-05-31,Arizona Diamondbacks,2,Seattle Mariners,3,Seattle Mariners,5
 2026-05-31,Philadelphia Phillies,1,Los Angeles Dodgers,9,Los Angeles Dodgers,10
 2026-05-31,Chicago Cubs,1,St. Louis Cardinals,5,St. Louis Cardinals,6
+2026-06-01,Detroit Tigers,10,Tampa Bay Rays,9,Detroit Tigers,19
+2026-06-01,Miami Marlins,7,Washington Nationals,3,Miami Marlins,10
+2026-06-01,Kansas City Royals,9,Cincinnati Reds,2,Kansas City Royals,11
+2026-06-01,Chicago White Sox,6,Minnesota Twins,9,Minnesota Twins,15
+2026-06-01,San Francisco Giants,2,Milwaukee Brewers,16,Milwaukee Brewers,18
+2026-06-01,Texas Rangers,2,St. Louis Cardinals,1,Texas Rangers,3
+2026-06-01,Colorado Rockies,9,Los Angeles Angels,8,Colorado Rockies,17
+2026-06-01,Los Angeles Dodgers,1,Arizona Diamondbacks,4,Arizona Diamondbacks,5
+2026-06-01,New York Mets,2,Seattle Mariners,3,Seattle Mariners,5

@@ -1,94 +1,96 @@
 player_id,Player,Team,League,H,TB
-672640,Otto Lopez,Miami Marlins,NL,75,105
-650333,Luis Arraez,San Francisco Giants,NL,70,92
-669364,Xavier Edwards,Miami Marlins,NL,70,107
+672640,Otto Lopez,Miami Marlins,NL,78,109
+650333,Luis Arraez,San Francisco Giants,NL,71,93
+669364,Xavier Edwards,Miami Marlins,NL,71,108
 676391,Ernie Clement,Toronto Blue Jays,AL,68,102
-677951,Bobby Witt Jr.,Kansas City Royals,AL,67,111
+682985,Riley Greene,Detroit Tigers,AL,68,99
+677951,Bobby Witt Jr.,Kansas City Royals,AL,68,113
+650490,Yandy Díaz,Tampa Bay Rays,AL,66,111
+681624,Andy Pages,Los Angeles Dodgers,NL,66,121
 670541,Yordan Alvarez,Houston Astros,AL,65,137
 682829,Elly De La Cruz,Cincinnati Reds,NL,65,118
-682985,Riley Greene,Detroit Tigers,AL,65,92
 673962,Josh Jung,Texas Rangers,AL,65,102
-681624,Andy Pages,Los Angeles Dodgers,NL,65,119
+682928,CJ Abrams,Washington Nationals,NL,64,117
 645277,Ozzie Albies,Atlanta Braves,NL,64,101
 668227,Randy Arozarena,Seattle Mariners,AL,64,100
 677594,Julio Rodríguez,Seattle Mariners,AL,64,113
-682928,CJ Abrams,Washington Nationals,NL,63,116
 677800,Wilyer Abreu,Boston Red Sox,AL,63,95
-650490,Yandy Díaz,Tampa Bay Rays,AL,63,107
 671739,Michael Harris II,Atlanta Braves,NL,63,108
 669127,Shea Langeliers,Athletics,AL,63,117
-608324,Alex Bregman,Chicago Cubs,NL,62,87
+805808,Kevin McGonigle,Detroit Tigers,AL,63,90
+802415,Chandler Simpson,Tampa Bay Rays,AL,63,0
+695578,James Wood,Washington Nationals,NL,63,126
+608324,Alex Bregman,Chicago Cubs,NL,62,0
+676475,Alec Burleson,St. Louis Cardinals,NL,62,96
+661388,William Contreras,Milwaukee Brewers,NL,62,0
 665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,62,0
-805808,Kevin McGonigle,Detroit Tigers,AL,62,89
-802415,Chandler Simpson,Tampa Bay Rays,AL,62,0
 691023,Jordan Walker,St. Louis Cardinals,NL,62,118
-695578,James Wood,Washington Nationals,NL,62,125
-676475,Alec Burleson,St. Louis Cardinals,NL,61,95
-661388,William Contreras,Milwaukee Brewers,NL,61,0
+660271,Shohei Ohtani,Los Angeles Dodgers,NL,61,106
 621566,Matt Olson,Atlanta Braves,NL,61,127
+691406,Junior Caminero,Tampa Bay Rays,AL,60,110
 665833,Oneil Cruz,Pittsburgh Pirates,NL,60,109
 672580,Maikel Garcia,Kansas City Royals,AL,60,0
 693304,Nick Gonzales,Pittsburgh Pirates,NL,60,0
 663538,Nico Hoerner,Chicago Cubs,NL,60,0
 701762,Nick Kurtz,Athletics,AL,60,104
+808982,Jung Hoo Lee,San Francisco Giants,NL,60,0
+695734,Daylen Lile,Washington Nationals,NL,60,98
 669016,Brandon Marsh,Philadelphia Phillies,NL,60,89
 700250,Ben Rice,New York Yankees,AL,60,129
-691406,Junior Caminero,Tampa Bay Rays,AL,59,106
-808982,Jung Hoo Lee,San Francisco Giants,NL,59,0
-695734,Daylen Lile,Washington Nationals,NL,59,97
+682998,Corbin Carroll,Arizona Diamondbacks,NL,59,110
+687859,Troy Johnston,Colorado Rockies,NL,59,0
+606466,Ketel Marte,Arizona Diamondbacks,NL,59,104
 545121,Ildemaro Vargas,Arizona Diamondbacks,NL,59,93
 666018,Jonathan Aranda,Tampa Bay Rays,AL,58,100
-682998,Corbin Carroll,Arizona Diamondbacks,NL,58,108
 646240,Rafael Devers,San Francisco Giants,NL,58,99
-606466,Ketel Marte,Arizona Diamondbacks,NL,58,100
-660271,Shohei Ohtani,Los Angeles Dodgers,NL,58,102
+805367,Chase Meidroth,Chicago White Sox,AL,58,0
+607043,Brandon Nimmo,Texas Rangers,AL,58,93
 668804,Bryan Reynolds,Pittsburgh Pirates,NL,58,92
 669477,Casey Schmitt,San Francisco Giants,NL,58,108
+701398,Sal Stewart,Cincinnati Reds,NL,58,105
 642715,Willy Adames,San Francisco Giants,NL,57,100
 686948,Drake Baldwin,Atlanta Braves,NL,57,102
 641355,Cody Bellinger,New York Yankees,AL,57,100
 518692,Freddie Freeman,Los Angeles Dodgers,NL,57,98
-687859,Troy Johnston,Colorado Rockies,NL,57,0
-805367,Chase Meidroth,Chicago White Sox,AL,57,0
-607043,Brandon Nimmo,Texas Rangers,AL,57,92
+647304,Josh Naylor,Seattle Mariners,AL,57,0
 681198,TJ Rumfield,Colorado Rockies,NL,57,89
-701398,Sal Stewart,Cincinnati Reds,NL,57,104
 665487,Fernando Tatis Jr.,San Diego Padres,NL,57,0
+666176,Jo Adell,Los Angeles Angels,AL,56,91
 575929,Willson Contreras,Boston Red Sox,AL,56,99
 671056,Iván Herrera,St. Louis Cardinals,NL,56,91
-647304,Josh Naylor,Seattle Mariners,AL,56,0
-666176,Jo Adell,Los Angeles Angels,AL,55,90
+621439,Byron Buxton,Minnesota Twins,AL,55,118
 800050,Chase DeLauter,Cleveland Guardians,AL,55,89
 683002,Gunnar Henderson,Baltimore Orioles,AL,55,107
 677587,Brayan Rocchio,Cleveland Guardians,AL,55,0
+668715,Spencer Steer,Cincinnati Reds,NL,55,0
 572233,Christian Walker,Houston Astros,AL,55,113
 624413,Pete Alonso,Baltimore Orioles,AL,54,99
-621439,Byron Buxton,Minnesota Twins,AL,54,117
 547180,Bryce Harper,Philadelphia Phillies,NL,54,105
 664040,Brandon Lowe,Pittsburgh Pirates,NL,54,110
 687263,Zach Neto,Los Angeles Angels,AL,54,100
-668715,Spencer Steer,Cincinnati Reds,NL,54,0
 802139,JJ Wetherholt,St. Louis Cardinals,NL,54,88
 669394,Jake Burger,Texas Rangers,AL,53,94
 592450,Aaron Judge,New York Yankees,AL,53,114
 678882,Ceddanne Rafaela,Boston Red Sox,AL,53,0
+668930,Brice Turang,Milwaukee Brewers,NL,53,90
 607208,Trea Turner,Philadelphia Phillies,NL,53,0
 662139,Daulton Varsho,Toronto Blue Jays,AL,53,0
 621493,Taylor Ward,Baltimore Orioles,AL,53,0
+702284,Cole Young,Seattle Mariners,AL,53,0
 656941,Kyle Schwarber,Philadelphia Phillies,NL,0,127
 808959,Munetaka Murakami,Chicago White Sox,AL,0,112
+678246,Miguel Vargas,Chicago White Sox,AL,0,108
 695657,Colson Montgomery,Chicago White Sox,AL,0,106
-545361,Mike Trout,Los Angeles Angels,AL,0,102
+545361,Mike Trout,Los Angeles Angels,AL,0,103
+696100,Hunter Goodman,Colorado Rockies,NL,0,101
 664023,Ian Happ,Chicago Cubs,NL,0,100
-678246,Miguel Vargas,Chicago White Sox,AL,0,98
-696100,Hunter Goodman,Colorado Rockies,NL,0,97
+693307,Dillon Dingler,Detroit Tigers,AL,0,98
+689414,Liam Hicks,Miami Marlins,NL,0,93
 571970,Max Muncy,Los Angeles Dodgers,NL,0,93
 665742,Juan Soto,New York Mets,NL,0,92
 666160,Mickey Moniak,Colorado Rockies,NL,0,91
-689414,Liam Hicks,Miami Marlins,NL,0,89
 608070,José Ramírez,Cleveland Guardians,AL,0,89
 691016,Tyler Soderstrom,Athletics,AL,0,89
 680776,Jarren Duran,Boston Red Sox,AL,0,88
 672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,88
 670042,Luke Raley,Seattle Mariners,AL,0,88
-693307,Dillon Dingler,Detroit Tigers,AL,0,87
