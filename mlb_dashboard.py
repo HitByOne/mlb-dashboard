@@ -2421,7 +2421,7 @@ def load_toppicks(_):
 
         # Last 7 days
         from datetime import timedelta
-        cutoff = (_CT_NOW - timedelta(days=7)).strftime("%Y-%m-%d")
+        cutoff = (datetime.now(timezone.utc) + timedelta(hours=-5) - timedelta(days=7)).strftime("%Y-%m-%d")
         recent = graded[graded["date"].astype(str) >= cutoff]
         rw = len(recent[recent["result"]=="W"]); rl = len(recent[recent["result"]=="L"])
 
