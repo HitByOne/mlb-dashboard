@@ -279,6 +279,7 @@ app.layout = html.Div(style={
                 )
                 for label, value in [
                     ("📊 Standings",           "standings"),
+                    ("📅 Tomorrow's Games",    "tomorrow"),
                     ("🎯 Scores",              "scores"),
                     ("📋 Yesterday K Results", "yesterday_ks"),
                     ("🏆 Game Predictions",    "predictions"),
@@ -461,6 +462,7 @@ def render_tab(n_clicks_list, current_tab):
         tab = ctx.triggered_id["index"]
     tabs = {
         "standings":   standings_layout,
+        "tomorrow":    tomorrow_layout,
         "scores":      scores_layout,
         "streaks":     streaks_layout,
         "kmatch":      kmatch_layout,
@@ -1339,10 +1341,74 @@ def kmatch_layout():
             rows[-1]["_sig_color"]    = signal_color
 
     rows.sort(key=lambda x: x["_score"], reverse=True)
+
+    # Add composite rank based on multiple factors
+    for i, r in enumerate(rows):
+        rank_score = 0
+
+        # 1. Model edge (most important)
+        try:
+            edge = float(str(r.get("Our Edge","0")).replace("+","")) if r.get("Our Edge","—") != "—" else 0
+        except: edge = 0
+        if edge >= 1.5:   rank_score += 30
+        elif edge >= 1.0: rank_score += 22
+        elif edge >= 0.5: rank_score += 14
+        elif edge < 0:    rank_score -= 10
+
+        # 2. Signal quality
+        sig = r.get("Signal","—")
+        if "🎯 Over — Sharp" in sig:      rank_score += 25
+        elif "🔥 Under — Fade" in sig:    rank_score += 20
+        elif "📉 Under — Sharp" in sig:   rank_score += 18
+        elif "✅ Over — Model" in sig:    rank_score += 10
+        elif "⚠️ Under — Public" in sig:  rank_score += 8
+
+        # 3. Confidence filter
+        conf = r.get("Confidence","—")
+        if "🎯 High" in conf:   rank_score += 20
+        elif "⚠️ Mixed" in conf: rank_score -= 5
+
+        # 4. K trend
+        trend = r.get("K Trend","—")
+        if "📈 Hot" in trend:   rank_score += 10
+        elif "📉 Cold" in trend: rank_score -= 8
+
+        # 5. Contact grade
+        cg = r.get("Contact Grade","—")
+        if "🔴 High K%" in cg: rank_score += 8
+        elif "🟢 Low K%" in cg: rank_score -= 5
+
+        # 6. Vegas line exists
+        if r.get("Vegas Line","—") != "—": rank_score += 5
+
+        # 7. K9 quality
+        try:
+            k9 = float(r.get("K9",0) or 0)
+            if k9 >= 10: rank_score += 8
+            elif k9 >= 8: rank_score += 4
+        except: pass
+
+        rows[i]["_rank_score"] = rank_score
+
+    # Re-sort by rank score
+    rows.sort(key=lambda x: x["_rank_score"], reverse=True)
+
+    # Assign rank labels
+    medals = {0:"🥇", 1:"🥈", 2:"🥉"}
+    for i, r in enumerate(rows):
+        if i < 3:
+            rows[i]["Rank"] = medals[i]
+        elif r["_rank_score"] >= 40:
+            rows[i]["Rank"] = "⭐"
+        elif r["_rank_score"] >= 20:
+            rows[i]["Rank"] = "✅"
+        else:
+            rows[i]["Rank"] = "—"
+
     df = pd.DataFrame(rows)
 
     # Build merged column headers using a two-row header trick
-    pit_cols  = ["Pitcher","Team","Hand","Type","GS","GP","ERA","K9","Avg IP","Season Ks","Pit K%","L5 K%","K Trend","BF Var"]
+    pit_cols  = ["Rank","Pitcher","Team","Hand","Type","GS","GP","ERA","K9","Avg IP","Season Ks","Pit K%","L5 K%","K Trend","BF Var"]
     opp_cols  = ["Opponent","Lineup K%","Contact Grade","Opp L5 AVG","Opp L3 AVG","Opp Avg K/G","Opp Last K","Opp L5 Ks","Opp L3 Ks"]
     proj_cols = ["Exp Ks","Blended Proj","Vegas Line","Our Edge","Mkt Implied","Confidence","Signal","Rating"]
     all_cols  = pit_cols + opp_cols + proj_cols
@@ -1411,6 +1477,14 @@ def kmatch_layout():
         style_table={"overflowX":"auto"}, style_cell=DT_CELL,
         style_header=DT_HEADER, page_action="none",
         style_data_conditional=DT_COND + [
+            {"if":{"column_id":"Rank","filter_query":'{Rank} = "🥇"'},"fontSize":"18px"},
+            {"if":{"column_id":"Rank","filter_query":'{Rank} = "🥈"'},"fontSize":"18px"},
+            {"if":{"column_id":"Rank","filter_query":'{Rank} = "🥉"'},"fontSize":"18px"},
+            {"if":{"column_id":"Rank","filter_query":'{Rank} = "⭐"'},"color":C["yellow"],"fontWeight":"bold"},
+            {"if":{"column_id":"Rank","filter_query":'{Rank} = "✅"'},"color":C["green"]},
+            {"if":{"row_index":0},"backgroundColor":"#1a1800"},
+            {"if":{"row_index":1},"backgroundColor":"#141414"},
+            {"if":{"row_index":2},"backgroundColor":"#141a14"},
             {"if":{"column_id":"Hand","filter_query":'{Hand} = "🤛 L"'},"color":C["blue"],"fontWeight":"bold"},
             {"if":{"column_id":"Contact Grade","filter_query":'{Contact Grade} = "🔴 High K%"'},"color":C["red"],"fontWeight":"bold"},
             {"if":{"column_id":"Contact Grade","filter_query":'{Contact Grade} = "🟡 Avg K%"'},"color":C["yellow"]},
@@ -1455,7 +1529,7 @@ def kmatch_layout():
             {"if":{"column_id":"Signal","filter_query":"{_sig_color} = red"},  "color":C["red"],  "fontWeight":"bold"},
             {"if":{"column_id":"Signal","filter_query":"{_sig_color} = blue"}, "color":C["blue"], "fontWeight":"bold"},
         ],
-        hidden_columns=["_score","_edge_color","_l5_avg","_l3_avg","_implied","_sig_color"],
+        hidden_columns=["_score","_edge_color","_l5_avg","_l3_avg","_implied","_sig_color","_rank_score"],
     ))
 
     # Most Hits Allowed leaderboard
@@ -3370,7 +3444,7 @@ def load_yesterday_ks(n):
     Input("tabs", "data"),
 )
 def highlight_tab(active_tab):
-    tab_values = ["standings","scores","yesterday_ks","predictions","toppicks",
+    tab_values = ["standings","tomorrow","scores","yesterday_ks","predictions","toppicks",
                   "kmatch","hrleaders","streaks","bvp","weather"]
     styles = []
     for v in tab_values:
@@ -3406,6 +3480,249 @@ def highlight_tab(active_tab):
             })
     return styles
 
+
+
+# ─────────────────────────────────────────────
+# TOMORROW'S GAMES
+# ─────────────────────────────────────────────
+
+def tomorrow_layout():
+    return html.Div([
+        dcc.Interval(id="tmrw-trigger", interval=300, max_intervals=1),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="tmrw-results")),
+    ])
+
+
+@app.callback(Output("tmrw-results","children"), Input("tmrw-trigger","n_intervals"))
+def load_tomorrow(n):
+    from datetime import timezone, timedelta
+    import math
+    tmrw_dt      = datetime.now(timezone.utc) + timedelta(hours=-5, days=1)
+    tomorrow_str = tmrw_dt.strftime("%Y-%m-%d")
+    tomorrow_disp= tmrw_dt.strftime("%A, %B %-d")
+
+    try:
+        data = requests.get(
+            f"https://statsapi.mlb.com/api/v1/schedule"
+            f"?sportId=1&date={tomorrow_str}&gameType=R"
+            f"&hydrate=probablePitcher,team,venue",
+            timeout=10
+        ).json()
+    except Exception as e:
+        return no_data(f"Could not load schedule: {e}")
+
+    games = data.get("dates",[{}])[0].get("games",[]) if data.get("dates") else []
+    if not games:
+        return no_data(f"No games scheduled for {tomorrow_disp}")
+
+    # Load our CSVs
+    pit_stats  = read("pitcher_stats")
+    standings  = read("standings")
+    tbr        = read("team_batting_recents")
+
+    # Pitcher name -> stats
+    ps_name = {}
+    if not pit_stats.empty:
+        for _, r in pit_stats.iterrows():
+            ps_name[str(r.get("name",""))] = r.to_dict()
+
+    # Standings short name -> row
+    TMAP = {
+        "Arizona Diamondbacks":"D-backs","Atlanta Braves":"Braves",
+        "Baltimore Orioles":"Orioles","Boston Red Sox":"Red Sox",
+        "Chicago Cubs":"Cubs","Chicago White Sox":"White Sox",
+        "Cincinnati Reds":"Reds","Cleveland Guardians":"Guardians",
+        "Colorado Rockies":"Rockies","Detroit Tigers":"Tigers",
+        "Houston Astros":"Astros","Kansas City Royals":"Royals",
+        "Los Angeles Angels":"Angels","Los Angeles Dodgers":"Dodgers",
+        "Miami Marlins":"Marlins","Milwaukee Brewers":"Brewers",
+        "Minnesota Twins":"Twins","New York Mets":"Mets",
+        "New York Yankees":"Yankees","Oakland Athletics":"Athletics",
+        "Philadelphia Phillies":"Phillies","Pittsburgh Pirates":"Pirates",
+        "San Diego Padres":"Padres","San Francisco Giants":"Giants",
+        "Seattle Mariners":"Mariners","St. Louis Cardinals":"Cardinals",
+        "Tampa Bay Rays":"Rays","Texas Rangers":"Rangers",
+        "Toronto Blue Jays":"Blue Jays","Washington Nationals":"Nationals",
+    }
+    std_map = {}
+    if not standings.empty:
+        for _, r in standings.iterrows():
+            short = r["Team"]
+            std_map[short] = r.to_dict()
+            for full, s in TMAP.items():
+                if s == short: std_map[full] = r.to_dict()
+
+    tbr_map = {}
+    if not tbr.empty:
+        for _, r in tbr.iterrows():
+            try: tbr_map[int(r["team_id"])] = r.to_dict()
+            except: pass
+
+    def era_color(era_str):
+        try:
+            f = float(str(era_str).replace("-","99"))
+            if f <= 3.00: return C["green"]
+            elif f <= 3.75: return C["yellow"]
+            elif f >= 5.00: return C["red"]
+        except: pass
+        return C["text"]
+
+    def pit_block(name, label):
+        ps   = ps_name.get(name, {})
+        era  = str(ps.get("ERA","-"))
+        k9   = ps.get("K9",0)
+        gs   = ps.get("GS",0)
+        whip = ps.get("WHIP","-")
+        hand = ps.get("hand","?")
+        hand_lbl = "🤜R" if hand=="R" else ("🤛L" if hand=="L" else "")
+        if name == "TBD" or not name:
+            return html.Div([
+                html.Div(label, style={"fontSize":"9px","color":C["muted"],"letterSpacing":"0.1em","fontWeight":"600","marginBottom":"6px"}),
+                html.Span("TBD — Bullpen Game", style={"color":C["yellow"],"fontSize":"12px"}),
+            ])
+        return html.Div([
+            html.Div(label, style={"fontSize":"9px","color":C["muted"],"letterSpacing":"0.1em","fontWeight":"600","marginBottom":"6px"}),
+            html.Div([
+                html.Span(name, style={"fontWeight":"700","fontSize":"13px","color":C["text"]}),
+                html.Span(f" {hand_lbl}", style={"fontSize":"11px","color":C["muted"],"marginLeft":"4px"}),
+            ], style={"marginBottom":"4px"}),
+            html.Div([
+                html.Span(f"ERA {era}", style={"fontSize":"11px","color":era_color(era),"fontWeight":"600","marginRight":"10px"}),
+                html.Span(f"K/9 {k9}", style={"fontSize":"11px","color":C["blue"],"marginRight":"10px"}),
+                html.Span(f"WHIP {whip}", style={"fontSize":"11px","color":C["muted"],"marginRight":"10px"}),
+                html.Span(f"GS {gs}", style={"fontSize":"11px","color":C["muted"]}),
+            ]),
+        ])
+
+    def team_form(team_name, team_id):
+        std   = std_map.get(team_name, {})
+        w     = int(std.get("W",0) or 0)
+        l     = int(std.get("L",0) or 0)
+        l10   = str(std.get("L10","-"))
+        streak= str(std.get("Streak","-"))
+        tbr_r = tbr_map.get(team_id, {})
+        l5avg = float(tbr_r.get("l5_avg",0) or 0)
+        streak_color = C["green"] if "W" in streak else C["red"]
+        return html.Div([
+            html.Div([
+                html.Span(f"{w}-{l}", style={"fontSize":"13px","fontWeight":"700","color":C["text"],"marginRight":"10px"}),
+                html.Span(f"L10: {l10}", style={"fontSize":"11px","color":C["muted"],"marginRight":"10px"}),
+                html.Span(streak, style={"fontSize":"11px","color":streak_color,"fontWeight":"600","marginRight":"10px"}),
+                html.Span(f"L5 .{int(l5avg*1000):03d}" if l5avg > 0 else "", style={"fontSize":"11px","color":C["yellow"]}),
+            ]),
+        ])
+
+    def weather_block(home_team, venue):
+        stadium = STADIUMS.get(home_team, {})
+        if not stadium or stadium.get("dome"): return html.Div()
+        try:
+            url = (f"https://api.open-meteo.com/v1/forecast"
+                   f"?latitude={stadium['lat']}&longitude={stadium['lon']}"
+                   f"&hourly=temperature_2m,windspeed_10m,winddirection_10m,precipitation_probability"
+                   f"&wind_speed_unit=mph&temperature_unit=fahrenheit"
+                   f"&timezone=auto&forecast_days=2")
+            wx   = requests.get(url, timeout=6).json()
+            hrs  = wx.get("hourly",{})
+            # Use hour 19 of tomorrow (index 43 = day2 7pm)
+            idx  = 43
+            temp = round(hrs.get("temperature_2m",[0]*50)[idx], 0)
+            wspd = round(hrs.get("windspeed_10m",[0]*50)[idx], 0)
+            wdir = hrs.get("winddirection_10m",[0]*50)[idx]
+            rain = hrs.get("precipitation_probability",[0]*50)[idx]
+            dirs = ["N","NE","E","SE","S","SW","W","NW"]
+            card = dirs[round(wdir/45)%8]
+            out_deg = stadium.get("out_deg", 0)
+            impact, score, icolor = get_wind_impact(wdir, wspd, out_deg)
+            rain_color = C["red"] if rain >= 40 else C["muted"]
+            return html.Div([
+                html.Span("🌤️ ", style={"fontSize":"11px"}),
+                html.Span(f"{int(temp)}°F  ", style={"fontSize":"11px","color":C["text"]}),
+                html.Span(f"{int(wspd)}mph {card}  ", style={"fontSize":"11px","color":C["muted"]}),
+                html.Span(impact, style={"fontSize":"11px","color":icolor,"fontWeight":"600","marginRight":"8px"}),
+                html.Span(f"💧{rain}%", style={"fontSize":"11px","color":rain_color}),
+            ], style={"marginTop":"8px"})
+        except:
+            return html.Div()
+
+    cards = []
+    for g in games:
+        away      = g["teams"]["away"]["team"]["name"]
+        home      = g["teams"]["home"]["team"]["name"]
+        away_id   = int(g["teams"]["away"]["team"].get("id",0))
+        home_id   = int(g["teams"]["home"]["team"].get("id",0))
+        venue     = g.get("venue",{}).get("name","")
+        away_short= TMAP.get(away, away.split()[-1])
+        home_short= TMAP.get(home, home.split()[-1])
+        away_pit  = g["teams"]["away"].get("probablePitcher",{}).get("fullName","TBD")
+        home_pit  = g["teams"]["home"].get("probablePitcher",{}).get("fullName","TBD")
+
+        # Game time CT
+        try:
+            dt   = datetime.fromisoformat(g.get("gameDate","").replace("Z","+00:00"))
+            ct_h = (dt.hour - 5) % 24
+            ampm = "PM" if ct_h >= 12 else "AM"
+            tstr = f"{ct_h%12 or 12}:{dt.strftime('%M')} {ampm} CT"
+        except: tstr = "TBD"
+
+        # Park factor
+        pf_hr  = get_park_factor(home, "hr")
+        pf_hit = get_park_factor(home, "hit")
+        pf_color = C["red"] if pf_hr >= 1.15 else (C["yellow"] if pf_hr >= 1.05 else (C["blue"] if pf_hr <= 0.90 else C["muted"]))
+        pf_label = park_label(pf_hr)
+
+        cards.append(html.Div([
+            # Header
+            html.Div([
+                html.Div([
+                    html.Span(away_short, style={"fontWeight":"700","fontSize":"15px","color":C["blue"]}),
+                    html.Span("  @  ", style={"color":C["muted"],"fontSize":"12px"}),
+                    html.Span(home_short, style={"fontWeight":"700","fontSize":"15px","color":C["green"]}),
+                    html.Span(f"  ·  {venue}", style={"color":C["muted"],"fontSize":"11px","marginLeft":"4px"}),
+                ], style={"flex":"1"}),
+                html.Span(tstr, style={"color":C["blue"],"fontSize":"11px","fontWeight":"600","fontFamily":"monospace"}),
+            ], style={"display":"flex","justifyContent":"space-between","alignItems":"center","marginBottom":"12px"}),
+
+            # Pitcher matchup
+            html.Div([
+                html.Div(pit_block(away_pit, "AWAY SP"),
+                         style={"flex":"1","paddingRight":"16px","borderRight":f"1px solid {C['border']}"}),
+                html.Div(pit_block(home_pit, "HOME SP"),
+                         style={"flex":"1","paddingLeft":"16px"}),
+            ], style={"display":"flex","marginBottom":"12px"}),
+
+            # Team form
+            html.Div([
+                html.Div([
+                    html.Div("AWAY FORM", style={"fontSize":"9px","color":C["muted"],"letterSpacing":"0.1em","fontWeight":"600","marginBottom":"4px"}),
+                    team_form(away, away_id),
+                ], style={"flex":"1","paddingRight":"16px","borderRight":f"1px solid {C['border']}"}),
+                html.Div([
+                    html.Div("HOME FORM", style={"fontSize":"9px","color":C["muted"],"letterSpacing":"0.1em","fontWeight":"600","marginBottom":"4px"}),
+                    team_form(home, home_id),
+                ], style={"flex":"1","paddingLeft":"16px"}),
+            ], style={"display":"flex","marginBottom":"8px"}),
+
+            # Park + weather
+            html.Div([
+                html.Span("🏟️ Park HR: ", style={"fontSize":"11px","color":C["muted"]}),
+                html.Span(pf_label, style={"fontSize":"11px","color":pf_color,"fontWeight":"600","marginRight":"16px"}),
+                html.Span("Hit: ", style={"fontSize":"11px","color":C["muted"]}),
+                html.Span(park_label(pf_hit), style={"fontSize":"11px","color":pf_color}),
+            ], style={"marginBottom":"4px"}),
+            weather_block(home, venue),
+
+        ], style={**CARD,"marginBottom":"12px"}))
+
+    return html.Div([
+        html.Div([
+            html.Div(f"📅 {tomorrow_disp}", style={
+                "fontSize":"16px","fontWeight":"700","color":C["text"],"letterSpacing":"-0.02em",
+            }),
+            html.Div(f"{len(games)} games  ·  probable pitchers, team form, park factors, weather",
+                     style={"fontSize":"11px","color":C["muted"],"marginTop":"2px"}),
+        ], style={"marginBottom":"20px"}),
+        *cards,
+    ])
 
 if __name__ == "__main__":
     if not os.path.exists(DATA_DIR):
