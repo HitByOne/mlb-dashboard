@@ -13,6 +13,7 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 594798,Jacob deGrom,Texas Rangers,78,10.9,3.48,64.2,12,5.4,259,0.301,21.6
 669302,Logan Gilbert,Seattle Mariners,77,9.5,3.79,73.2,13,5.6,298,0.258,22.9
 690997,Nolan McLean,New York Mets,77,10.5,4.21,66.1,12,5.5,276,0.279,23.0
+676974,Max Meyer,Miami Marlins,77,9.9,2.93,70.2,13,5.4,292,0.264,22.5
 694973,Paul Skenes,Pittsburgh Pirates,75,10.4,2.89,65.1,12,5.4,255,0.294,21.2
 677960,Ryan Weathers,New York Yankees,75,10.5,3.52,64.0,11,5.8,259,0.29,23.5
 676917,Cade Cavalli,Washington Nationals,74,10.4,3.62,64.2,13,4.9,291,0.254,22.4
@@ -20,7 +21,6 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 592332,Kevin Gausman,Toronto Blue Jays,74,8.9,3.36,75.0,13,5.8,305,0.243,23.5
 683004,Jack Leiter,Texas Rangers,74,10.1,4.34,66.1,12,5.5,287,0.258,23.9
 800048,Parker Messick,Cleveland Guardians,74,9.6,2.21,69.1,12,5.8,272,0.272,22.7
-676974,Max Meyer,Miami Marlins,74,10.1,2.97,66.2,12,5.5,277,0.267,23.1
 690986,Kyle Harrison,Milwaukee Brewers,73,11.5,1.57,57.1,11,5.2,229,0.319,20.8
 663436,Davis Martin,Chicago White Sox,73,9.1,2.61,72.1,12,6.0,288,0.253,24.0
 695505,Chase Burns,Cincinnati Reds,72,10.1,1.96,64.1,11,5.8,249,0.289,22.6
@@ -31,12 +31,12 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 701542,Will Warren,New York Yankees,70,9.8,3.22,64.1,12,5.3,271,0.258,22.6
 684007,Shota Imanaga,Chicago Cubs,69,8.9,4.37,70.0,12,5.8,284,0.243,23.7
 808967,Yoshinobu Yamamoto,Los Angeles Dodgers,69,9.0,2.86,69.1,11,6.3,270,0.256,24.5
+671737,Taj Bradley,Minnesota Twins,68,10.6,3.72,58.0,11,5.3,251,0.271,22.8
 642547,Freddy Peralta,New York Mets,68,9.3,3.55,66.0,12,5.5,285,0.239,23.8
 693433,Bryan Woo,Seattle Mariners,68,8.7,3.44,70.2,12,5.9,279,0.244,23.2
 693821,Bryce Elder,Atlanta Braves,67,7.7,2.63,78.2,13,6.0,320,0.209,24.6
 647336,Michael Soroka,Arizona Diamondbacks,66,8.9,3.49,67.0,12,5.6,280,0.236,23.3
 680694,Kyle Bradish,Baltimore Orioles,65,9.0,3.44,65.1,12,5.4,281,0.231,23.4
-671737,Taj Bradley,Minnesota Twins,65,10.4,3.21,56.0,10,5.6,236,0.275,23.6
 669022,MacKenzie Gore,Texas Rangers,65,9.6,3.96,61.1,12,5.1,257,0.253,21.4
 656492,Foster Griffin,Washington Nationals,65,8.7,3.76,67.0,12,5.6,280,0.232,23.3
 650633,Michael King,San Diego Padres,65,8.6,3.18,68.0,12,5.7,273,0.238,22.8

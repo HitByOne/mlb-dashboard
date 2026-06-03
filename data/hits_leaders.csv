@@ -1,14 +1,14 @@
 player_id,Player,Team,League,H,TB
 672640,Otto Lopez,Miami Marlins,NL,80,114
 650333,Luis Arraez,San Francisco Giants,NL,73,98
-669364,Xavier Edwards,Miami Marlins,NL,71,108
+669364,Xavier Edwards,Miami Marlins,NL,72,109
+682985,Riley Greene,Detroit Tigers,AL,71,105
 676391,Ernie Clement,Toronto Blue Jays,AL,70,104
-682985,Riley Greene,Detroit Tigers,AL,69,103
 677951,Bobby Witt Jr.,Kansas City Royals,AL,68,113
 670541,Yordan Alvarez,Houston Astros,AL,67,142
+650490,Yandy Díaz,Tampa Bay Rays,AL,67,112
 681624,Andy Pages,Los Angeles Dodgers,NL,67,122
 645277,Ozzie Albies,Atlanta Braves,NL,66,103
-650490,Yandy Díaz,Tampa Bay Rays,AL,66,111
 673962,Josh Jung,Texas Rangers,AL,66,103
 682928,CJ Abrams,Washington Nationals,NL,65,118
 668227,Randy Arozarena,Seattle Mariners,AL,65,101
@@ -17,30 +17,30 @@ player_id,Player,Team,League,H,TB
 676475,Alec Burleson,St. Louis Cardinals,NL,64,99
 671739,Michael Harris II,Atlanta Braves,NL,64,110
 669016,Brandon Marsh,Philadelphia Phillies,NL,64,93
+805808,Kevin McGonigle,Detroit Tigers,AL,64,91
 677800,Wilyer Abreu,Boston Red Sox,AL,63,95
 661388,William Contreras,Milwaukee Brewers,NL,63,0
 693304,Nick Gonzales,Pittsburgh Pirates,NL,63,0
 665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,63,0
 669127,Shea Langeliers,Athletics,AL,63,117
-805808,Kevin McGonigle,Detroit Tigers,AL,63,90
 660271,Shohei Ohtani,Los Angeles Dodgers,NL,63,111
 621566,Matt Olson,Atlanta Braves,NL,63,133
 802415,Chandler Simpson,Tampa Bay Rays,AL,63,0
 691023,Jordan Walker,St. Louis Cardinals,NL,63,119
 695578,James Wood,Washington Nationals,NL,63,126
 608324,Alex Bregman,Chicago Cubs,NL,62,0
+691406,Junior Caminero,Tampa Bay Rays,AL,62,112
 665833,Oneil Cruz,Pittsburgh Pirates,NL,62,114
 695734,Daylen Lile,Washington Nationals,NL,62,100
-691406,Junior Caminero,Tampa Bay Rays,AL,61,111
 682998,Corbin Carroll,Arizona Diamondbacks,NL,61,115
 663538,Nico Hoerner,Chicago Cubs,NL,61,0
 687859,Troy Johnston,Colorado Rockies,NL,61,0
 701762,Nick Kurtz,Athletics,AL,61,108
 808982,Jung Hoo Lee,San Francisco Giants,NL,61,0
+805367,Chase Meidroth,Chicago White Sox,AL,61,0
 700250,Ben Rice,New York Yankees,AL,61,130
 518692,Freddie Freeman,Los Angeles Dodgers,NL,60,104
 672580,Maikel Garcia,Kansas City Royals,AL,60,0
-805367,Chase Meidroth,Chicago White Sox,AL,60,0
 665487,Fernando Tatis Jr.,San Diego Padres,NL,60,0
 545121,Ildemaro Vargas,Arizona Diamondbacks,NL,60,94
 642715,Willy Adames,San Francisco Giants,NL,59,105
@@ -82,8 +82,8 @@ player_id,Player,Team,League,H,TB
 696100,Hunter Goodman,Colorado Rockies,NL,0,107
 695657,Colson Montgomery,Chicago White Sox,AL,0,106
 545361,Mike Trout,Los Angeles Angels,AL,0,104
+693307,Dillon Dingler,Detroit Tigers,AL,0,103
 664023,Ian Happ,Chicago Cubs,NL,0,100
-693307,Dillon Dingler,Detroit Tigers,AL,0,98
 669394,Jake Burger,Texas Rangers,AL,0,94
 689414,Liam Hicks,Miami Marlins,NL,0,94
 571970,Max Muncy,Los Angeles Dodgers,NL,0,93
