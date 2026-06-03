@@ -801,6 +801,122 @@ def fetch_leaky_pitchers():
 # MAIN
 # ─────────────────────────────────────────────
 # ─────────────────────────────────────────────
+# TOMORROW'S PROBABLE PITCHERS
+# ─────────────────────────────────────────────
+def fetch_tomorrow_pitchers():
+    """Fetch tomorrow's probable pitchers and add their stats to pitcher_stats.csv"""
+    print("Fetching tomorrow's probable pitchers...")
+    tomorrow = (_CT_NOW + __import__("datetime").timedelta(days=1)).strftime("%Y-%m-%d")
+
+    # Get tomorrow's schedule with probable pitchers
+    data = get(f"{BASE}/schedule?sportId=1&date={tomorrow}&gameType=R&hydrate=probablePitcher,team")
+    games = data.get("dates",[{}])[0].get("games",[]) if data.get("dates") else []
+
+    if not games:
+        print(f"  No games found for {tomorrow}")
+        return
+
+    # Collect pitcher IDs not already in pitcher_stats
+    existing_path = os.path.join(DATA_DIR, "pitcher_stats.csv")
+    existing_ids  = set()
+    if os.path.exists(existing_path):
+        try:
+            ex = pd.read_csv(existing_path)
+            existing_ids = set(ex["pitcher_id"].astype(int).tolist())
+        except: pass
+
+    new_rows = []
+    for g in games:
+        for side in ["away","home"]:
+            pit = g["teams"][side].get("probablePitcher",{})
+            if not pit: continue
+            pid  = int(pit.get("id",0))
+            name = pit.get("fullName","Unknown")
+            tid  = int(g["teams"][side]["team"].get("id",0))
+            if pid == 0 or pid in existing_ids: continue
+
+            print(f"  Fetching stats for {name} ({pid})...")
+            row = {"pitcher_id": pid, "team_id": tid, "name": name}
+
+            # Season stats
+            try:
+                sd = get(f"{BASE}/people/{pid}/stats?stats=season&group=pitching&season={YEAR}&sportId=1")
+                sl = sd.get("stats",[{}])[0].get("splits",[])
+                if sl:
+                    s  = sl[0].get("stat",{})
+                    ip = float(s.get("inningsPitched",0) or 0)
+                    ks = int(s.get("strikeOuts",0) or 0)
+                    gs = int(s.get("gamesStarted",0) or 0)
+                    gp = int(s.get("gamesPitched",0) or 0)
+                    bf = int(s.get("battersFaced",0) or 0)
+                    h  = int(s.get("hits",0) or 0)
+                    row.update({
+                        "ERA":        s.get("era","-"),
+                        "K9":         round((ks/ip)*9,1) if ip>0 else 0.0,
+                        "WHIP":       s.get("whip","-"),
+                        "IP":         s.get("inningsPitched","0"),
+                        "K":          ks,
+                        "GS":         gs,
+                        "GP":         gp,
+                        "H_allowed":  h,
+                        "HR_allowed": int(s.get("homeRuns",0) or 0),
+                        "BF":         bf,
+                        "K_pct":      round(ks/bf,3) if bf>0 else 0.0,
+                        "BF_per_GS":  round(bf/gs,1) if gs>0 else 0.0,
+                        "H_per_G":    round(h/gs,1) if gs>0 else 0.0,
+                        "is_reliever": (gp>5) and (gs/gp<0.5) if gp>0 else False,
+                    })
+            except Exception as e:
+                print(f"    Season stats error: {e}")
+
+            # Hand
+            try:
+                pd2    = get(f"{BASE}/people/{pid}")
+                person = pd2.get("people",[{}])[0]
+                row["hand"] = person.get("pitchHand",{}).get("code","?")
+            except: row["hand"] = "?"
+
+            # L5 game log
+            try:
+                import statistics as _stats
+                gl = get(f"{BASE}/people/{pid}/stats?stats=gameLog&group=pitching&season={YEAR}&sportId=1")
+                gl_splits = gl.get("stats",[{}])[0].get("splits",[]) if gl.get("stats") else []
+                starts = [g2 for g2 in gl_splits if float(g2.get("stat",{}).get("inningsPitched",0) or 0) >= 3]
+                starts = list(reversed(starts))
+                if starts:
+                    l5 = starts[:5]
+                    l5_k  = sum(int(g2["stat"].get("strikeOuts",0) or 0) for g2 in l5)
+                    l5_bf = sum(int(g2["stat"].get("battersFaced",0) or 0) for g2 in l5)
+                    bf_list = [int(g2["stat"].get("battersFaced",0) or 0) for g2 in starts[:10]]
+                    sea_kpct = row.get("K_pct",0)
+                    l5_kpct  = round(l5_k/l5_bf,3) if l5_bf>0 else 0.0
+                    row.update({
+                        "l5_k_pct": l5_kpct,
+                        "bf_mean":  round(sum(bf_list)/len(bf_list),1) if bf_list else 0,
+                        "bf_std":   round(_stats.stdev(bf_list),1) if len(bf_list)>=2 else 0.0,
+                        "k_trend":  round(l5_kpct - float(sea_kpct or 0), 3),
+                    })
+            except: pass
+
+            new_rows.append(row)
+            existing_ids.add(pid)
+
+    if not new_rows:
+        print("  All tomorrow's pitchers already in pitcher_stats.csv")
+        return
+
+    # Append to existing pitcher_stats.csv
+    new_df = pd.DataFrame(new_rows)
+    if os.path.exists(existing_path):
+        existing = pd.read_csv(existing_path)
+        final = pd.concat([existing, new_df], ignore_index=True).drop_duplicates(subset=["pitcher_id"], keep="last")
+    else:
+        final = new_df
+    final.to_csv(existing_path, index=False)
+    print(f"  Added {len(new_rows)} tomorrow's pitchers to pitcher_stats.csv")
+
+
+# ─────────────────────────────────────────────
 # SAVE TODAY'S MODEL PICKS
 # ─────────────────────────────────────────────
 def save_model_picks():
@@ -1041,6 +1157,7 @@ if __name__ == "__main__":
     fetch_yesterday_k_results()
     fetch_leaky_pitchers()
     save_model_picks()
+    fetch_tomorrow_pitchers()
 
     # Save metadata
     save_json({"refreshed_at": TODAY_STR, "timestamp": datetime.now().isoformat()}, "metadata")
