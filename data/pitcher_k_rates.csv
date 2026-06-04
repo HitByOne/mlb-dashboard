@@ -22,7 +22,7 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 592332,Kevin Gausman,Toronto Blue Jays,74,8.9,3.36,75.0,13,5.8,305,0.243,23.5
 683004,Jack Leiter,Texas Rangers,74,10.1,4.34,66.1,12,5.5,287,0.258,23.9
 800048,Parker Messick,Cleveland Guardians,74,9.6,2.21,69.1,12,5.8,272,0.272,22.7
-642547,Freddy Peralta,New York Mets,74,9.2,3.38,72.0,13,5.5,309,0.239,23.8
+642547,Freddy Peralta,New York Mets,74,9.2,3.63,72.0,13,5.5,309,0.239,23.8
 690986,Kyle Harrison,Milwaukee Brewers,73,11.5,1.57,57.1,11,5.2,229,0.319,20.8
 663436,Davis Martin,Chicago White Sox,73,9.1,2.61,72.1,12,6.0,288,0.253,24.0
 691587,Eury Pérez,Miami Marlins,72,10.4,4.60,62.2,12,5.2,265,0.272,22.1
