@@ -1,5 +1,5 @@
 Rank,Player,Team,League,HR,player_id
-1,Kyle Schwarber,Philadelphia Phillies,NL,22,656941
+1,Kyle Schwarber,Philadelphia Phillies,NL,23,656941
 2,Yordan Alvarez,Houston Astros,AL,21,670541
 3,Munetaka Murakami,Chicago White Sox,AL,20,808959
 4,Byron Buxton,Minnesota Twins,AL,17,621439
@@ -40,39 +40,41 @@ Rank,Player,Team,League,HR,player_id
 38,Willson Contreras,Boston Red Sox,AL,11,575929
 38,Yandy Díaz,Tampa Bay Rays,AL,11,650490
 38,Nick Kurtz,Athletics,AL,11,701762
+42,Ozzie Albies,Atlanta Braves,NL,10,645277
 42,Jake Bauers,Milwaukee Brewers,NL,10,641343
 42,JJ Bleday,Cincinnati Reds,NL,10,668709
 42,Jake Burger,Texas Rangers,AL,10,669394
+42,J.P. Crawford,Seattle Mariners,AL,10,641487
 42,Jarren Duran,Boston Red Sox,AL,10,680776
 42,Manny Machado,San Diego Padres,NL,10,592518
 42,Ketel Marte,Arizona Diamondbacks,NL,10,606466
 42,Zach Neto,Los Angeles Angels,AL,10,687263
 42,Shohei Ohtani,Los Angeles Dodgers,NL,10,660271
 42,Gavin Sheets,San Diego Padres,NL,10,657757
-51,Willy Adames,San Francisco Giants,NL,9,642715
-51,Jo Adell,Los Angeles Angels,AL,9,666176
-51,Ozzie Albies,Atlanta Braves,NL,9,645277
-51,Samuel Basallo,Baltimore Orioles,AL,9,694212
-51,J.P. Crawford,Seattle Mariners,AL,9,641487
-51,Freddie Freeman,Los Angeles Dodgers,NL,9,518692
-51,Nathaniel Lowe,Cincinnati Reds,NL,9,663993
-51,Angel Martínez,Cleveland Guardians,AL,9,682657
-51,Salvador Perez,Kansas City Royals,AL,9,521692
-51,Jorge Soler,Los Angeles Angels,AL,9,624585
-51,Spencer Steer,Cincinnati Reds,NL,9,668715
-51,JJ Wetherholt,St. Louis Cardinals,NL,9,802139
-51,Bobby Witt Jr.,Kansas City Royals,AL,9,677951
-64,Nolan Arenado,Arizona Diamondbacks,NL,8,571448
-64,Cody Bellinger,New York Yankees,AL,8,641355
-64,Xander Bogaerts,San Diego Padres,NL,8,593428
-64,Corbin Carroll,Arizona Diamondbacks,NL,8,682998
-64,Brooks Lee,Minnesota Twins,AL,8,686797
-64,Curtis Mead,Washington Nationals,NL,8,678554
-64,Ryan O'Hearn,Pittsburgh Pirates,NL,8,656811
-64,Joc Pederson,Texas Rangers,AL,8,592626
-64,José Ramírez,Cleveland Guardians,AL,8,608070
-64,Austin Riley,Atlanta Braves,NL,8,663586
-64,Brent Rooker,Athletics,AL,8,667670
-64,TJ Rumfield,Colorado Rockies,NL,8,681198
-64,Spencer Torkelson,Detroit Tigers,AL,8,679529
-64,Jacob Young,Washington Nationals,NL,8,696285
+53,Willy Adames,San Francisco Giants,NL,9,642715
+53,Jo Adell,Los Angeles Angels,AL,9,666176
+53,Samuel Basallo,Baltimore Orioles,AL,9,694212
+53,Freddie Freeman,Los Angeles Dodgers,NL,9,518692
+53,Nathaniel Lowe,Cincinnati Reds,NL,9,663993
+53,Angel Martínez,Cleveland Guardians,AL,9,682657
+53,Salvador Perez,Kansas City Royals,AL,9,521692
+53,José Ramírez,Cleveland Guardians,AL,9,608070
+53,Jorge Soler,Los Angeles Angels,AL,9,624585
+53,Spencer Steer,Cincinnati Reds,NL,9,668715
+53,JJ Wetherholt,St. Louis Cardinals,NL,9,802139
+53,Bobby Witt Jr.,Kansas City Royals,AL,9,677951
+65,Nolan Arenado,Arizona Diamondbacks,NL,8,571448
+65,Cody Bellinger,New York Yankees,AL,8,641355
+65,Xander Bogaerts,San Diego Padres,NL,8,593428
+65,Corbin Carroll,Arizona Diamondbacks,NL,8,682998
+65,Pete Crow-Armstrong,Chicago Cubs,NL,8,691718
+65,Brooks Lee,Minnesota Twins,AL,8,686797
+65,Curtis Mead,Washington Nationals,NL,8,678554
+65,Ryan O'Hearn,Pittsburgh Pirates,NL,8,656811
+65,Joc Pederson,Texas Rangers,AL,8,592626
+65,Austin Riley,Atlanta Braves,NL,8,663586
+65,Brent Rooker,Athletics,AL,8,667670
+65,TJ Rumfield,Colorado Rockies,NL,8,681198
+65,Seiya Suzuki,Chicago Cubs,NL,8,673548
+65,Spencer Torkelson,Detroit Tigers,AL,8,679529
+65,Jacob Young,Washington Nationals,NL,8,696285

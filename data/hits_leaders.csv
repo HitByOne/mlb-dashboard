@@ -1,95 +1,96 @@
 player_id,Player,Team,League,H,TB
-672640,Otto Lopez,Miami Marlins,NL,80,114
-650333,Luis Arraez,San Francisco Giants,NL,73,98
-669364,Xavier Edwards,Miami Marlins,NL,72,109
+672640,Otto Lopez,Miami Marlins,NL,81,115
+650333,Luis Arraez,San Francisco Giants,NL,74,99
+669364,Xavier Edwards,Miami Marlins,NL,73,110
+670541,Yordan Alvarez,Houston Astros,AL,71,146
+676391,Ernie Clement,Toronto Blue Jays,AL,71,105
 682985,Riley Greene,Detroit Tigers,AL,71,105
-676391,Ernie Clement,Toronto Blue Jays,AL,70,104
-677951,Bobby Witt Jr.,Kansas City Royals,AL,68,113
-670541,Yordan Alvarez,Houston Astros,AL,67,142
+677951,Bobby Witt Jr.,Kansas City Royals,AL,69,114
+645277,Ozzie Albies,Atlanta Braves,NL,68,109
+681624,Andy Pages,Los Angeles Dodgers,NL,68,124
 650490,Yandy Díaz,Tampa Bay Rays,AL,67,112
-681624,Andy Pages,Los Angeles Dodgers,NL,67,122
-645277,Ozzie Albies,Atlanta Braves,NL,66,103
-673962,Josh Jung,Texas Rangers,AL,66,103
+673962,Josh Jung,Texas Rangers,AL,67,104
+676475,Alec Burleson,St. Louis Cardinals,NL,66,102
+669016,Brandon Marsh,Philadelphia Phillies,NL,66,95
+660271,Shohei Ohtani,Los Angeles Dodgers,NL,66,114
+621566,Matt Olson,Atlanta Braves,NL,66,136
+691023,Jordan Walker,St. Louis Cardinals,NL,66,122
 682928,CJ Abrams,Washington Nationals,NL,65,118
+677800,Wilyer Abreu,Boston Red Sox,AL,65,100
 668227,Randy Arozarena,Seattle Mariners,AL,65,101
 682829,Elly De La Cruz,Cincinnati Reds,NL,65,118
+693304,Nick Gonzales,Pittsburgh Pirates,NL,65,0
+805808,Kevin McGonigle,Detroit Tigers,AL,65,93
 677594,Julio Rodríguez,Seattle Mariners,AL,65,117
-676475,Alec Burleson,St. Louis Cardinals,NL,64,99
+665833,Oneil Cruz,Pittsburgh Pirates,NL,64,116
 671739,Michael Harris II,Atlanta Braves,NL,64,110
-669016,Brandon Marsh,Philadelphia Phillies,NL,64,93
-805808,Kevin McGonigle,Detroit Tigers,AL,64,91
-677800,Wilyer Abreu,Boston Red Sox,AL,63,95
+669127,Shea Langeliers,Athletics,AL,64,119
+802415,Chandler Simpson,Tampa Bay Rays,AL,64,0
+608324,Alex Bregman,Chicago Cubs,NL,63,0
 661388,William Contreras,Milwaukee Brewers,NL,63,0
-693304,Nick Gonzales,Pittsburgh Pirates,NL,63,0
 665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,63,0
-669127,Shea Langeliers,Athletics,AL,63,117
-660271,Shohei Ohtani,Los Angeles Dodgers,NL,63,111
-621566,Matt Olson,Atlanta Braves,NL,63,133
-802415,Chandler Simpson,Tampa Bay Rays,AL,63,0
-691023,Jordan Walker,St. Louis Cardinals,NL,63,119
+687859,Troy Johnston,Colorado Rockies,NL,63,0
+808982,Jung Hoo Lee,San Francisco Giants,NL,63,0
 695578,James Wood,Washington Nationals,NL,63,126
-608324,Alex Bregman,Chicago Cubs,NL,62,0
 691406,Junior Caminero,Tampa Bay Rays,AL,62,112
-665833,Oneil Cruz,Pittsburgh Pirates,NL,62,114
+518692,Freddie Freeman,Los Angeles Dodgers,NL,62,106
+663538,Nico Hoerner,Chicago Cubs,NL,62,0
+701762,Nick Kurtz,Athletics,AL,62,109
 695734,Daylen Lile,Washington Nationals,NL,62,100
+700250,Ben Rice,New York Yankees,AL,62,132
 682998,Corbin Carroll,Arizona Diamondbacks,NL,61,115
-663538,Nico Hoerner,Chicago Cubs,NL,61,0
-687859,Troy Johnston,Colorado Rockies,NL,61,0
-701762,Nick Kurtz,Athletics,AL,61,108
-808982,Jung Hoo Lee,San Francisco Giants,NL,61,0
 805367,Chase Meidroth,Chicago White Sox,AL,61,0
-700250,Ben Rice,New York Yankees,AL,61,130
-518692,Freddie Freeman,Los Angeles Dodgers,NL,60,104
+665487,Fernando Tatis Jr.,San Diego Padres,NL,61,0
 672580,Maikel Garcia,Kansas City Royals,AL,60,0
-665487,Fernando Tatis Jr.,San Diego Padres,NL,60,0
+681198,TJ Rumfield,Colorado Rockies,NL,60,96
 545121,Ildemaro Vargas,Arizona Diamondbacks,NL,60,94
 642715,Willy Adames,San Francisco Giants,NL,59,105
 641355,Cody Bellinger,New York Yankees,AL,59,102
+575929,Willson Contreras,Boston Red Sox,AL,59,104
 606466,Ketel Marte,Arizona Diamondbacks,NL,59,104
-681198,TJ Rumfield,Colorado Rockies,NL,59,94
+607043,Brandon Nimmo,Texas Rangers,AL,59,94
+668804,Bryan Reynolds,Pittsburgh Pirates,NL,59,93
+669477,Casey Schmitt,San Francisco Giants,NL,59,109
+701398,Sal Stewart,Cincinnati Reds,NL,59,107
 666018,Jonathan Aranda,Tampa Bay Rays,AL,58,100
 646240,Rafael Devers,San Francisco Giants,NL,58,99
-607043,Brandon Nimmo,Texas Rangers,AL,58,93
-668804,Bryan Reynolds,Pittsburgh Pirates,NL,58,92
-669477,Casey Schmitt,San Francisco Giants,NL,58,108
-701398,Sal Stewart,Cincinnati Reds,NL,58,105
+671056,Iván Herrera,St. Louis Cardinals,NL,58,93
+678882,Ceddanne Rafaela,Boston Red Sox,AL,58,0
+668715,Spencer Steer,Cincinnati Reds,NL,58,97
+666176,Jo Adell,Los Angeles Angels,AL,57,92
+624413,Pete Alonso,Baltimore Orioles,AL,57,105
 686948,Drake Baldwin,Atlanta Braves,NL,57,102
-671056,Iván Herrera,St. Louis Cardinals,NL,57,92
+683002,Gunnar Henderson,Baltimore Orioles,AL,57,111
 647304,Josh Naylor,Seattle Mariners,AL,57,0
-668715,Spencer Steer,Cincinnati Reds,NL,57,95
-666176,Jo Adell,Los Angeles Angels,AL,56,91
-624413,Pete Alonso,Baltimore Orioles,AL,56,104
+608070,José Ramírez,Cleveland Guardians,AL,57,101
+572233,Christian Walker,Houston Astros,AL,57,115
+666182,Bo Bichette,New York Mets,NL,56,0
 621439,Byron Buxton,Minnesota Twins,AL,56,119
-575929,Willson Contreras,Boston Red Sox,AL,56,99
-683002,Gunnar Henderson,Baltimore Orioles,AL,56,109
 677587,Brayan Rocchio,Cleveland Guardians,AL,56,0
-572233,Christian Walker,Houston Astros,AL,56,114
-802139,JJ Wetherholt,St. Louis Cardinals,NL,56,90
+668930,Brice Turang,Milwaukee Brewers,NL,56,93
+607208,Trea Turner,Philadelphia Phillies,NL,56,0
+621493,Taylor Ward,Baltimore Orioles,AL,56,0
+802139,JJ Wetherholt,St. Louis Cardinals,NL,56,0
+691718,Pete Crow-Armstrong,Chicago Cubs,NL,55,91
 800050,Chase DeLauter,Cleveland Guardians,AL,55,0
 547180,Bryce Harper,Philadelphia Phillies,NL,55,109
 664040,Brandon Lowe,Pittsburgh Pirates,NL,55,114
-678882,Ceddanne Rafaela,Boston Red Sox,AL,55,0
-668930,Brice Turang,Milwaukee Brewers,NL,55,92
-607208,Trea Turner,Philadelphia Phillies,NL,55,0
-691718,Pete Crow-Armstrong,Chicago Cubs,NL,54,0
-687263,Zach Neto,Los Angeles Angels,AL,54,100
-608070,José Ramírez,Cleveland Guardians,AL,54,95
-702284,Cole Young,Seattle Mariners,AL,54,0
-656941,Kyle Schwarber,Philadelphia Phillies,NL,0,127
+702284,Cole Young,Seattle Mariners,AL,55,0
+656941,Kyle Schwarber,Philadelphia Phillies,NL,0,131
 592450,Aaron Judge,New York Yankees,AL,0,114
 808959,Munetaka Murakami,Chicago White Sox,AL,0,112
-678246,Miguel Vargas,Chicago White Sox,AL,0,109
-696100,Hunter Goodman,Colorado Rockies,NL,0,107
+678246,Miguel Vargas,Chicago White Sox,AL,0,110
+696100,Hunter Goodman,Colorado Rockies,NL,0,109
 695657,Colson Montgomery,Chicago White Sox,AL,0,106
+664023,Ian Happ,Chicago Cubs,NL,0,104
 545361,Mike Trout,Los Angeles Angels,AL,0,104
 693307,Dillon Dingler,Detroit Tigers,AL,0,103
-664023,Ian Happ,Chicago Cubs,NL,0,100
+687263,Zach Neto,Los Angeles Angels,AL,0,100
+571970,Max Muncy,Los Angeles Dodgers,NL,0,96
 669394,Jake Burger,Texas Rangers,AL,0,94
 689414,Liam Hicks,Miami Marlins,NL,0,94
-571970,Max Muncy,Los Angeles Dodgers,NL,0,93
-672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,93
-665742,Juan Soto,New York Mets,NL,0,93
-680776,Jarren Duran,Boston Red Sox,AL,0,91
+672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,94
+665742,Juan Soto,New York Mets,NL,0,94
+680776,Jarren Duran,Boston Red Sox,AL,0,92
+691016,Tyler Soderstrom,Athletics,AL,0,92
 666160,Mickey Moniak,Colorado Rockies,NL,0,91
-641343,Jake Bauers,Milwaukee Brewers,NL,0,90
-691016,Tyler Soderstrom,Athletics,AL,0,90
