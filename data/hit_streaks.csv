@@ -7,8 +7,8 @@ player_id,Player,Team,Streak,AVG
 605170,Victor Caratini,Minnesota Twins,8,.000
 676475,Alec Burleson,St. Louis Cardinals,8,.000
 650333,Luis Arraez,San Francisco Giants,8,.000
-687093,Vaughn Grissom,Los Angeles Angels,7,.000
 805808,Kevin McGonigle,Detroit Tigers,7,.000
+687093,Vaughn Grissom,Los Angeles Angels,7,.000
 668930,Brice Turang,Milwaukee Brewers,7,.000
 640902,Jhonny Pereda,Seattle Mariners,6,.000
 670541,Yordan Alvarez,Houston Astros,6,.000
@@ -20,6 +20,6 @@ player_id,Player,Team,Streak,AVG
 673962,Josh Jung,Texas Rangers,5,.000
 664761,Alec Bohm,Philadelphia Phillies,5,.000
 681715,Heriberto Hernández,Miami Marlins,5,.000
-673548,Seiya Suzuki,Chicago Cubs,5,.000
 694362,Blake Dunn,Cincinnati Reds,5,.000
+673548,Seiya Suzuki,Chicago Cubs,5,.000
 805999,A.J. Ewing,New York Mets,5,.000
