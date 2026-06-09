@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
 119,Los Angeles Dodgers,0.263,0.235,9,38,27
+147,New York Yankees,0.234,0.265,10,42,25
+136,Seattle Mariners,0.273,0.288,5,41,23
+146,Miami Marlins,0.226,0.198,8,50,33
+110,Baltimore Orioles,0.247,0.204,6,45,28
 134,Pittsburgh Pirates,0.228,0.181,8,43,25
 111,Boston Red Sox,0.234,0.177,10,37,24
-136,Seattle Mariners,0.273,0.288,5,41,23
-109,Arizona Diamondbacks,0.19,0.183,4,33,16
-110,Baltimore Orioles,0.247,0.204,6,45,28
-146,Miami Marlins,0.226,0.198,8,50,33
-139,Tampa Bay Rays,0.214,0.198,10,43,31
-138,St. Louis Cardinals,0.297,0.277,7,42,24
-116,Detroit Tigers,0.261,0.211,7,38,28
 141,Toronto Blue Jays,0.301,0.283,11,36,22
-114,Cleveland Guardians,0.182,0.206,12,43,24
-147,New York Yankees,0.234,0.265,10,42,25
+138,St. Louis Cardinals,0.297,0.277,7,42,24
 143,Philadelphia Phillies,0.267,0.235,8,49,32
 142,Minnesota Twins,0.216,0.222,8,36,21
-140,Texas Rangers,0.242,0.253,8,41,18
+114,Cleveland Guardians,0.182,0.206,12,43,24
+139,Tampa Bay Rays,0.214,0.198,10,43,31
+116,Detroit Tigers,0.261,0.211,7,38,28
+109,Arizona Diamondbacks,0.19,0.183,4,33,16
 121,New York Mets,0.269,0.269,7,46,25
 118,Kansas City Royals,0.261,0.248,15,45,25
-115,Colorado Rockies,0.238,0.228,7,43,26
+140,Texas Rangers,0.242,0.253,8,41,18
 144,Atlanta Braves,0.222,0.231,10,34,27
 145,Chicago White Sox,0.279,0.286,11,51,27
 112,Chicago Cubs,0.247,0.225,10,44,25
-113,Cincinnati Reds,0.26,0.267,11,44,26
-108,Los Angeles Angels,0.257,0.245,12,53,31
-137,San Francisco Giants,0.318,0.214,7,41,27
-120,Washington Nationals,0.228,0.2,8,39,23
-135,San Diego Padres,0.188,0.234,6,34,19
-133,Athletics,0.23,0.25,20,59,41
-158,Milwaukee Brewers,0.321,0.358,15,47,28
 117,Houston Astros,0.241,0.25,13,49,29
+115,Colorado Rockies,0.238,0.228,7,43,26
+137,San Francisco Giants,0.318,0.214,7,41,27
+113,Cincinnati Reds,0.26,0.267,11,44,26
+133,Athletics,0.23,0.25,20,59,41
+135,San Diego Padres,0.188,0.234,6,34,19
+158,Milwaukee Brewers,0.321,0.358,15,47,28
+120,Washington Nationals,0.228,0.2,8,39,23
+108,Los Angeles Angels,0.257,0.245,12,53,31
