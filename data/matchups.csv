@@ -1,9 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824829,2026-06-08,Seattle Mariners,136,Baltimore Orioles,110,Emerson Hancock,676106,TBD,
-822972,2026-06-08,Boston Red Sox,111,Tampa Bay Rays,139,Connelly Early,813349,Ian Seymour,693855
-824427,2026-06-08,New York Yankees,147,Cleveland Guardians,114,Will Warren,701542,Gavin Williams,668909
-822806,2026-06-08,Philadelphia Phillies,143,Toronto Blue Jays,141,Cristopher Sánchez,650911,Patrick Corbin,571578
-824025,2026-06-08,Houston Astros,117,Los Angeles Angels,108,Spencer Arrighetti,681293,Grayson Rodriguez,680570
-823289,2026-06-08,Cincinnati Reds,113,San Diego Padres,135,Andrew Abbott,671096,Walker Buehler,621111
-823218,2026-06-08,Washington Nationals,120,San Francisco Giants,137,Miles Mikolas,571945,Logan Webb,657277
-824998,2026-06-08,Milwaukee Brewers,158,Athletics,133,Kyle Harrison,690986,Jeffrey Springs,605488
+824830,2026-06-09,Seattle Mariners,136,Baltimore Orioles,110,Logan Gilbert,669302,Trevor Rogers,669432
+823374,2026-06-09,Los Angeles Dodgers,119,Pittsburgh Pirates,134,Eric Lauer,641778,Paul Skenes,694973
+822969,2026-06-09,Boston Red Sox,111,Tampa Bay Rays,139,Payton Tolle,801139,Nick Martinez,607259
+824267,2026-06-09,Minnesota Twins,142,Detroit Tigers,116,Taj Bradley,671737,Troy Melton,675512
+823858,2026-06-09,Arizona Diamondbacks,109,Miami Marlins,146,Zac Gallen,668678,Max Meyer,676974
+824429,2026-06-09,New York Yankees,147,Cleveland Guardians,114,Gerrit Cole,543037,Slade Cecconi,677944
+822805,2026-06-09,Philadelphia Phillies,143,Toronto Blue Jays,141,Zack Wheeler,554430,Dylan Cease,656302
+823620,2026-06-09,St. Louis Cardinals,138,New York Mets,121,Dustin May,669160,Freddy Peralta,642547
+824105,2026-06-09,Texas Rangers,140,Kansas City Royals,118,Nathan Eovaldi,543135,Stephen Kolek,663568
+824591,2026-06-09,Atlanta Braves,144,Chicago White Sox,145,Grant Holmes,656550,Erick Fedde,607200
+824347,2026-06-09,Chicago Cubs,112,Colorado Rockies,115,Colin Rea,607067,Tomoyuki Sugano,608372
+824023,2026-06-09,Houston Astros,117,Los Angeles Angels,108,Kai-Wei Teng,678906,Walbert Ureña,700712
+823290,2026-06-09,Cincinnati Reds,113,San Diego Padres,135,Chase Burns,695505,Lucas Giolito,608337
+823214,2026-06-09,Washington Nationals,120,San Francisco Giants,137,Andrew Alvarez,674841,Adrian Houser,605288
+824999,2026-06-09,Milwaukee Brewers,158,Athletics,133,Robert Gasser,688107,J.T. Ginn,669372
