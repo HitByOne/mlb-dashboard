@@ -19,7 +19,7 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 592332,Kevin Gausman,Toronto Blue Jays,79,8.9,3.60,80.0,14,5.7,325,0.243,23.2
 642547,Freddy Peralta,New York Mets,79,9.1,4.04,78.0,14,5.6,337,0.234,24.1
 677960,Ryan Weathers,New York Yankees,79,10.2,3.86,70.0,12,5.8,285,0.277,23.8
-800048,Parker Messick,Cleveland Guardians,78,9.4,2.40,75.0,13,5.8,295,0.264,22.7
+800048,Parker Messick,Cleveland Guardians,78,9.2,2.37,76.0,14,5.4,299,0.261,21.4
 543135,Nathan Eovaldi,Texas Rangers,77,8.7,4.26,80.1,13,6.2,337,0.228,25.9
 656427,Jack Flaherty,Detroit Tigers,77,11.1,5.31,62.2,14,4.4,293,0.263,20.9
 690986,Kyle Harrison,Milwaukee Brewers,77,11.7,2.72,59.2,12,4.9,246,0.313,20.5
@@ -42,6 +42,7 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 650633,Michael King,San Diego Padres,69,8.4,3.41,74.0,13,5.7,296,0.233,22.8
 680694,Kyle Bradish,Baltimore Orioles,68,8.9,3.89,69.1,13,5.3,302,0.225,23.2
 605400,Aaron Nola,Philadelphia Phillies,68,9.3,5.86,66.0,13,5.1,287,0.237,22.1
+656876,Drew Rasmussen,Tampa Bay Rays,68,9.1,2.96,67.0,13,5.2,261,0.261,20.1
 680732,Sean Burke,Chicago White Sox,67,8.7,3.88,69.2,10,6.9,291,0.23,29.1
 660271,Shohei Ohtani,Los Angeles Dodgers,67,9.9,0.74,61.0,10,6.1,233,0.288,23.3
 608379,Michael Wacha,Kansas City Royals,67,7.4,3.44,81.0,13,6.2,327,0.205,25.2
@@ -52,7 +53,6 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 645261,Sandy Alcantara,Miami Marlins,64,6.5,4.33,89.1,14,6.4,374,0.171,26.7
 669923,George Kirby,Seattle Mariners,64,7.4,4.04,78.0,13,6.0,323,0.198,24.8
 607625,Seth Lugo,Kansas City Royals,64,7.6,3.91,76.0,13,5.8,321,0.199,24.7
-656876,Drew Rasmussen,Tampa Bay Rays,64,8.7,3.00,66.0,12,5.5,258,0.248,21.5
 686218,Emmet Sheehan,Los Angeles Dodgers,64,9.7,4.70,59.1,12,4.9,248,0.258,20.7
 676440,Tanner Bibee,Cleveland Guardians,63,7.4,4.09,77.0,14,5.5,317,0.199,22.6
 702070,Noah Cameron,Kansas City Royals,63,8.7,3.84,65.2,12,5.4,275,0.229,22.9

@@ -15,11 +15,11 @@ player_id,Player,Team,League,H,TB
 645277,Ozzie Albies,Atlanta Braves,NL,72,115
 676475,Alec Burleson,St. Louis Cardinals,NL,72,116
 669127,Shea Langeliers,Athletics,AL,72,136
+682928,CJ Abrams,Washington Nationals,NL,71,130
 671739,Michael Harris II,Atlanta Braves,NL,71,119
 660271,Shohei Ohtani,Los Angeles Dodgers,NL,71,123
 621566,Matt Olson,Atlanta Braves,NL,71,147
 681624,Andy Pages,Los Angeles Dodgers,NL,71,133
-682928,CJ Abrams,Washington Nationals,NL,70,129
 661388,William Contreras,Milwaukee Brewers,NL,70,98
 677594,Julio Rodríguez,Seattle Mariners,AL,70,123
 695578,James Wood,Washington Nationals,NL,70,136
@@ -73,7 +73,7 @@ player_id,Player,Team,League,H,TB
 677587,Brayan Rocchio,Cleveland Guardians,AL,60,0
 545121,Ildemaro Vargas,Arizona Diamondbacks,NL,60,0
 702284,Cole Young,Seattle Mariners,AL,60,0
-683737,Michael Busch,Chicago Cubs,NL,59,96
+683737,Michael Busch,Chicago Cubs,NL,59,0
 621439,Byron Buxton,Minnesota Twins,AL,59,128
 687263,Zach Neto,Los Angeles Angels,AL,59,114
 681198,TJ Rumfield,Colorado Rockies,NL,59,0
@@ -95,4 +95,5 @@ player_id,Player,Team,League,H,TB
 669394,Jake Burger,Texas Rangers,AL,0,99
 689414,Liam Hicks,Miami Marlins,NL,0,97
 686797,Brooks Lee,Minnesota Twins,AL,0,97
+682657,Angel Martínez,Cleveland Guardians,AL,0,97
 668715,Spencer Steer,Cincinnati Reds,NL,0,97
