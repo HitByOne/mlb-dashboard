@@ -1,16 +1,9 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-822970,2026-06-10,Boston Red Sox,111,Tampa Bay Rays,139,Jake Bennett,687562,Drew Rasmussen,656876
-824428,2026-06-10,New York Yankees,147,Cleveland Guardians,114,Carlos Rodón,607074,Parker Messick,800048
-823215,2026-06-10,Washington Nationals,120,San Francisco Giants,137,Foster Griffin,656492,Robbie Ray,592662
-823287,2026-06-10,Cincinnati Reds,113,San Diego Padres,135,Brady Singer,663903,Michael King,650633
-824831,2026-06-10,Seattle Mariners,136,Baltimore Orioles,110,George Kirby,669923,Brandon Young,687064
-823372,2026-06-10,Los Angeles Dodgers,119,Pittsburgh Pirates,134,Shohei Ohtani,660271,Jared Jones,683003
-824266,2026-06-10,Minnesota Twins,142,Detroit Tigers,116,TBD,,Framber Valdez,664285
-823856,2026-06-10,Arizona Diamondbacks,109,Miami Marlins,146,Ryne Nelson,669194,Ryan Gusto,687473
-822804,2026-06-10,Philadelphia Phillies,143,Toronto Blue Jays,141,Jesús Luzardo,666200,Max Scherzer,453286
-823618,2026-06-10,St. Louis Cardinals,138,New York Mets,121,Andre Pallante,669467,Austin Warren,681810
-824103,2026-06-10,Texas Rangers,140,Kansas City Royals,118,MacKenzie Gore,669022,Seth Lugo,607625
-824590,2026-06-10,Atlanta Braves,144,Chicago White Sox,145,Chris Sale,519242,TBD,
-824348,2026-06-10,Chicago Cubs,112,Colorado Rockies,115,Shota Imanaga,684007,Michael Lorenzen,547179
-824996,2026-06-10,Milwaukee Brewers,158,Athletics,133,Brandon Sproat,687075,Jack Perkins,678022
-824022,2026-06-10,Houston Astros,117,Los Angeles Angels,108,Peter Lambert,663567,Reid Detmers,672282
+823619,2026-06-11,St. Louis Cardinals,138,New York Mets,121,Hunter Dobbins,690928,Christian Scott,681035
+824265,2026-06-11,Minnesota Twins,142,Detroit Tigers,116,Zebby Matthews,805673,Keider Montero,672456
+823855,2026-06-11,Arizona Diamondbacks,109,Miami Marlins,146,Merrill Kelly,518876,Tyler Phillips,663969
+824101,2026-06-11,Texas Rangers,140,Kansas City Royals,118,Kumar Rocker,677958,Michael Wacha,608379
+824346,2026-06-11,Chicago Cubs,112,Colorado Rockies,115,Edward Cabrera,665795,Ryan Feltner,663372
+823371,2026-06-11,Los Angeles Dodgers,119,Pittsburgh Pirates,134,Justin Wrobleski,680736,Mitch Keller,656605
+824827,2026-06-11,Seattle Mariners,136,Baltimore Orioles,110,Bryan Woo,693433,Kyle Bradish,680694
+824589,2026-06-11,Atlanta Braves,144,Chicago White Sox,145,Martín Pérez,527048,TBD,
