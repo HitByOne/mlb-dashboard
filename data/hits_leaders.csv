@@ -1,5 +1,5 @@
 player_id,Player,Team,League,H,TB
-672640,Otto Lopez,Miami Marlins,NL,91,130
+672640,Otto Lopez,Miami Marlins,NL,92,131
 650333,Luis Arraez,San Francisco Giants,NL,86,116
 676391,Ernie Clement,Toronto Blue Jays,AL,80,122
 650490,Yandy Díaz,Tampa Bay Rays,AL,79,128
@@ -10,9 +10,9 @@ player_id,Player,Team,League,H,TB
 668227,Randy Arozarena,Seattle Mariners,AL,75,116
 673962,Josh Jung,Texas Rangers,AL,75,115
 677951,Bobby Witt Jr.,Kansas City Royals,AL,75,121
+676475,Alec Burleson,St. Louis Cardinals,NL,74,124
 682985,Riley Greene,Detroit Tigers,AL,74,111
 645277,Ozzie Albies,Atlanta Braves,NL,73,116
-676475,Alec Burleson,St. Louis Cardinals,NL,73,120
 669127,Shea Langeliers,Athletics,AL,73,138
 669016,Brandon Marsh,Philadelphia Phillies,NL,73,113
 695734,Daylen Lile,Washington Nationals,NL,72,115
@@ -25,10 +25,10 @@ player_id,Player,Team,League,H,TB
 695578,James Wood,Washington Nationals,NL,71,140
 661388,William Contreras,Milwaukee Brewers,NL,70,98
 518692,Freddie Freeman,Los Angeles Dodgers,NL,70,119
+805808,Kevin McGonigle,Detroit Tigers,AL,70,103
 677594,Julio Rodríguez,Seattle Mariners,AL,70,123
 677800,Wilyer Abreu,Boston Red Sox,AL,69,105
 693304,Nick Gonzales,Pittsburgh Pirates,NL,69,0
-805808,Kevin McGonigle,Detroit Tigers,AL,69,101
 691406,Junior Caminero,Tampa Bay Rays,AL,68,121
 665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,68,0
 701762,Nick Kurtz,Athletics,AL,68,127
@@ -65,13 +65,13 @@ player_id,Player,Team,League,H,TB
 608070,José Ramírez,Cleveland Guardians,AL,63,110
 668930,Brice Turang,Milwaukee Brewers,NL,63,110
 666018,Jonathan Aranda,Tampa Bay Rays,AL,62,104
+666182,Bo Bichette,New York Mets,NL,62,0
 607208,Trea Turner,Philadelphia Phillies,NL,62,0
-666182,Bo Bichette,New York Mets,NL,61,0
+701807,Carson Benge,New York Mets,NL,61,0
 621439,Byron Buxton,Minnesota Twins,AL,61,133
 643289,Mauricio Dubón,Atlanta Braves,NL,61,0
 681198,TJ Rumfield,Colorado Rockies,NL,61,0
 702284,Cole Young,Seattle Mariners,AL,61,0
-701807,Carson Benge,New York Mets,NL,60,0
 683737,Michael Busch,Chicago Cubs,NL,60,0
 800050,Chase DeLauter,Cleveland Guardians,AL,60,0
 677587,Brayan Rocchio,Cleveland Guardians,AL,60,0
@@ -81,8 +81,8 @@ player_id,Player,Team,League,H,TB
 696100,Hunter Goodman,Colorado Rockies,NL,0,123
 664040,Brandon Lowe,Pittsburgh Pirates,NL,0,122
 678246,Miguel Vargas,Chicago White Sox,AL,0,118
+693307,Dillon Dingler,Detroit Tigers,AL,0,117
 664023,Ian Happ,Chicago Cubs,NL,0,117
-693307,Dillon Dingler,Detroit Tigers,AL,0,116
 592450,Aaron Judge,New York Yankees,AL,0,114
 687263,Zach Neto,Los Angeles Angels,AL,0,114
 695657,Colson Montgomery,Chicago White Sox,AL,0,113
@@ -94,7 +94,7 @@ player_id,Player,Team,League,H,TB
 669394,Jake Burger,Texas Rangers,AL,0,104
 672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,103
 686948,Drake Baldwin,Atlanta Braves,NL,0,102
-689414,Liam Hicks,Miami Marlins,NL,0,101
+689414,Liam Hicks,Miami Marlins,NL,0,102
 668715,Spencer Steer,Cincinnati Reds,NL,0,101
 686797,Brooks Lee,Minnesota Twins,AL,0,98
 682657,Angel Martínez,Cleveland Guardians,AL,0,98
