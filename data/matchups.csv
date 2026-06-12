@@ -1,9 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823619,2026-06-11,St. Louis Cardinals,138,New York Mets,121,Hunter Dobbins,690928,Christian Scott,681035
-824265,2026-06-11,Minnesota Twins,142,Detroit Tigers,116,Zebby Matthews,805673,Keider Montero,672456
-823855,2026-06-11,Arizona Diamondbacks,109,Miami Marlins,146,Merrill Kelly,518876,Tyler Phillips,663969
-824101,2026-06-11,Texas Rangers,140,Kansas City Royals,118,Kumar Rocker,677958,Michael Wacha,608379
-824346,2026-06-11,Chicago Cubs,112,Colorado Rockies,115,Edward Cabrera,665795,Ryan Feltner,663372
-823371,2026-06-11,Los Angeles Dodgers,119,Pittsburgh Pirates,134,Justin Wrobleski,680736,Mitch Keller,656605
-824827,2026-06-11,Seattle Mariners,136,Baltimore Orioles,110,Bryan Woo,693433,Kyle Bradish,680694
-824589,2026-06-11,Atlanta Braves,144,Chicago White Sox,145,Martín Pérez,527048,TBD,
+823370,2026-06-12,Miami Marlins,146,Pittsburgh Pirates,134,Sandy Alcantara,645261,Braxton Ashcraft,677952
+822726,2026-06-12,Seattle Mariners,136,Washington Nationals,120,Bryce Miller,682243,Zack Littell,641793
+824826,2026-06-12,San Diego Padres,135,Baltimore Orioles,110,Griffin Canning,656288,Shane Baz,669358
+824425,2026-06-12,Detroit Tigers,116,Cleveland Guardians,114,Jack Flaherty,656427,Tanner Bibee,676440
+824752,2026-06-12,Texas Rangers,140,Boston Red Sox,111,Jack Leiter,683004,Sonny Gray,543243
+824507,2026-06-12,Arizona Diamondbacks,109,Cincinnati Reds,113,Eduardo Rodriguez,593958,Nick Lodolo,666157
+823617,2026-06-12,Atlanta Braves,144,New York Mets,121,Spencer Strider,675911,Nolan McLean,690997
+822803,2026-06-12,New York Yankees,147,Toronto Blue Jays,141,Ryan Weathers,677960,TBD,
+824588,2026-06-12,Los Angeles Dodgers,119,Chicago White Sox,145,Roki Sasaki,808963,Anthony Kay,641743
+823778,2026-06-12,Philadelphia Phillies,143,Milwaukee Brewers,158,Andrew Painter,691725,Jacob Misiorowski,694819
+824102,2026-06-12,Houston Astros,117,Kansas City Royals,118,Tatsuya Imai,837227,Luinder Avila,679883
+823695,2026-06-12,St. Louis Cardinals,138,Minnesota Twins,142,Kyle Leahy,681517,Joe Ryan,657746
+824020,2026-06-12,Tampa Bay Rays,139,Los Angeles Angels,108,Shane McClanahan,663556,Sam Aldegheri,691951
+824997,2026-06-12,Colorado Rockies,115,Athletics,133,TBD,,Gage Jump,695611
+823211,2026-06-12,Chicago Cubs,112,San Francisco Giants,137,Javier Assad,665871,Landen Roupp,694738

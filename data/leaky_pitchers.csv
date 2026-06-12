@@ -12,11 +12,14 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 678394,Brayan Bello,Boston Red Sox,78,10,6.34,61.0,1.67,11.51
 607259,Nick Martinez,Tampa Bay Rays,77,6,2.43,77.2,1.16,8.92
 669358,Shane Baz,Baltimore Orioles,76,8,4.09,77.0,1.38,8.88
+680694,Kyle Bradish,Baltimore Orioles,76,11,4.30,73.1,1.57,9.33
 605288,Adrian Houser,San Francisco Giants,76,11,5.54,65.0,1.54,10.52
 676917,Cade Cavalli,Washington Nationals,75,5,3.88,69.2,1.44,9.69
 543135,Nathan Eovaldi,Texas Rangers,75,15,4.26,80.1,1.18,8.40
 664285,Framber Valdez,Detroit Tigers,75,9,4.40,77.2,1.34,8.69
+608379,Michael Wacha,Kansas City Royals,75,10,3.58,88.0,1.16,7.67
 607536,Kyle Freeland,Colorado Rockies,74,13,7.81,53.0,1.70,12.57
+656605,Mitch Keller,Pittsburgh Pirates,74,6,5.14,77.0,1.31,8.65
 669461,Matthew Liberatore,St. Louis Cardinals,74,11,4.48,66.1,1.51,10.04
 605400,Aaron Nola,Philadelphia Phillies,74,11,5.86,66.0,1.45,10.09
 656849,David Peterson,New York Mets,74,4,5.75,61.0,1.64,10.92
@@ -31,27 +34,20 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 642547,Freddy Peralta,New York Mets,71,10,4.04,78.0,1.32,8.19
 605135,Chris Bassitt,Baltimore Orioles,70,6,5.27,56.1,1.63,11.18
 681190,Randy Vásquez,San Diego Padres,70,10,3.63,69.1,1.30,9.09
+693433,Bryan Woo,Seattle Mariners,70,9,4.28,82.0,1.04,7.68
 677952,Braxton Ashcraft,Pittsburgh Pirates,69,8,3.28,79.2,1.08,7.79
-680694,Kyle Bradish,Baltimore Orioles,69,8,3.89,69.1,1.51,8.96
 681517,Kyle Leahy,St. Louis Cardinals,69,8,4.42,59.0,1.58,10.53
 663436,Davis Martin,Chicago White Sox,69,3,2.41,78.1,1.10,7.93
 669432,Trevor Rogers,Baltimore Orioles,69,9,6.15,60.0,1.48,10.35
 647336,Michael Soroka,Arizona Diamondbacks,68,6,3.28,74.0,1.15,8.27
 608372,Tomoyuki Sugano,Colorado Rockies,68,12,4.08,68.1,1.29,8.96
 669302,Logan Gilbert,Seattle Mariners,67,13,3.62,79.2,1.08,7.57
-656605,Mitch Keller,Pittsburgh Pirates,67,5,4.81,73.0,1.23,8.26
 668909,Gavin Williams,Cleveland Guardians,67,13,3.32,86.2,1.10,6.96
+665795,Edward Cabrera,Chicago Cubs,66,13,4.86,63.0,1.41,9.43
 656427,Jack Flaherty,Detroit Tigers,66,8,5.31,62.2,1.58,9.48
+518876,Merrill Kelly,Arizona Diamondbacks,66,13,5.46,64.1,1.45,9.23
 683004,Jack Leiter,Texas Rangers,66,11,4.69,71.0,1.37,8.37
 571945,Miles Mikolas,Washington Nationals,66,14,5.90,61.0,1.34,9.74
 592662,Robbie Ray,San Francisco Giants,66,14,4.42,73.1,1.39,8.10
 593958,Eduardo Rodriguez,Arizona Diamondbacks,66,7,2.52,78.2,1.18,7.55
-608379,Michael Wacha,Kansas City Royals,66,9,3.44,81.0,1.14,7.33
 680573,Simeon Woods Richardson,Toronto Blue Jays,66,9,7.14,51.2,1.76,11.50
-676282,Joey Cantillo,Cleveland Guardians,65,11,4.57,67.0,1.51,8.73
-650644,Aaron Civale,Athletics,65,12,4.20,55.2,1.47,10.51
-684007,Shota Imanaga,Chicago Cubs,65,17,4.44,81.0,1.06,7.22
-676083,Janson Junk,Miami Marlins,65,8,4.80,60.0,1.30,9.75
-686799,Jack Kochanowicz,Los Angeles Angels,65,7,6.19,64.0,1.58,9.14
-669387,Carmen Mlodzinski,Pittsburgh Pirates,65,5,4.02,62.2,1.40,9.34
-592791,Jameson Taillon,Chicago Cubs,65,20,5.19,67.2,1.30,8.65
