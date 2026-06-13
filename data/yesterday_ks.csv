@@ -1,19 +1,31 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-06-11,Christian Scott,New York Mets,St. Louis Cardinals,4.2,6,5.5,+117,-157,46,Over Hit
-2026-06-11,Hunter Dobbins,St. Louis Cardinals,New York Mets,4.1,5,3.5,-104,-129,51,Over Hit
-2026-06-11,Tyler Phillips,Miami Marlins,Arizona Diamondbacks,5.0,5,3.5,-152,+114,60,Over Hit
-2026-06-11,Edward Cabrera,Chicago Cubs,Colorado Rockies,5.1,5,4.5,-118,-113,54,Over Hit
-2026-06-11,Kyle Bradish,Baltimore Orioles,Seattle Mariners,4.0,5,5.5,+100,-132,50,Under Hit
-2026-06-11,Keider Montero,Detroit Tigers,Minnesota Twins,6.1,4,3.5,-134,+100,57,Over Hit
-2026-06-11,Beck Way,Kansas City Royals,Texas Rangers,2.0,4,—,—,—,0,—
-2026-06-11,Tyler Wells,Baltimore Orioles,Seattle Mariners,3.0,4,—,—,—,0,—
-2026-06-11,Bryan Woo,Seattle Mariners,Baltimore Orioles,5.0,4,6.5,+114,-152,47,Under Hit
-2026-06-11,Zebby Matthews,Minnesota Twins,Detroit Tigers,6.0,4,4.5,-150,+112,60,Under Hit
-2026-06-11,Kumar Rocker,Texas Rangers,Kansas City Royals,4.2,3,3.5,-150,+112,60,Under Hit
-2026-06-11,Jacob Latz,Texas Rangers,Kansas City Royals,2.0,3,—,—,—,0,—
-2026-06-11,Anthony Bender,Miami Marlins,Arizona Diamondbacks,1.0,3,—,—,—,0,—
-2026-06-11,Tyler Ferguson,Chicago Cubs,Colorado Rockies,1.1,3,—,—,—,0,—
-2026-06-11,Tanner Scott,Los Angeles Dodgers,Pittsburgh Pirates,1.1,3,—,—,—,0,—
-2026-06-11,Sammy Peralta,Colorado Rockies,Chicago Cubs,2.0,3,—,—,—,0,—
-2026-06-11,Ryan Feltner,Colorado Rockies,Chicago Cubs,4.1,3,3.5,-104,-129,51,Under Hit
-2026-06-11,Mitch Keller,Pittsburgh Pirates,Los Angeles Dodgers,4.0,3,4.5,+114,-152,47,Under Hit
+2026-06-12,Jacob Misiorowski,Milwaukee Brewers,Philadelphia Phillies,9.0,15,8.5,+100,-132,50,Over Hit
+2026-06-12,Tanner Bibee,Cleveland Guardians,Detroit Tigers,7.0,8,5.5,+114,-150,47,Over Hit
+2026-06-12,Joe Ryan,Minnesota Twins,St. Louis Cardinals,6.0,8,6.5,+123,-165,45,Over Hit
+2026-06-12,Bryce Miller,Seattle Mariners,Washington Nationals,8.0,7,4.5,-139,+105,58,Over Hit
+2026-06-12,Sonny Gray,Boston Red Sox,Texas Rangers,6.0,7,5.5,+125,-167,44,Over Hit
+2026-06-12,Sandy Alcantara,Miami Marlins,Pittsburgh Pirates,8.0,7,4.5,-112,-120,53,Over Hit
+2026-06-12,Anthony Kay,Chicago White Sox,Los Angeles Dodgers,5.0,7,3.5,-104,-129,51,Over Hit
+2026-06-12,Shane McClanahan,Tampa Bay Rays,Los Angeles Angels,4.0,7,5.5,-127,-105,56,Over Hit
+2026-06-12,Gage Jump,Athletics,Colorado Rockies,5.0,6,5.5,-109,-122,52,Over Hit
+2026-06-12,Nolan McLean,New York Mets,Atlanta Braves,4.0,6,5.5,-125,-106,56,Over Hit
+2026-06-12,Griffin Canning,San Diego Padres,Baltimore Orioles,5.0,6,4.5,-115,-115,53,Over Hit
+2026-06-12,Kyle Leahy,St. Louis Cardinals,Minnesota Twins,5.0,5,4.5,+125,-167,44,Over Hit
+2026-06-12,Nick Lodolo,Cincinnati Reds,Arizona Diamondbacks,5.1,5,4.5,-122,-108,55,Over Hit
+2026-06-12,JR Ritchie,Atlanta Braves,New York Mets,5.0,5,—,—,—,0,—
+2026-06-12,Javier Assad,Chicago Cubs,San Francisco Giants,6.0,5,2.5,-165,+123,62,Over Hit
+2026-06-12,Landen Roupp,San Francisco Giants,Chicago Cubs,4.2,5,5.5,+114,-152,47,Under Hit
+2026-06-12,Sam Aldegheri,Los Angeles Angels,Tampa Bay Rays,5.0,4,3.5,+133,-180,43,Over Hit
+2026-06-12,Huascar Brazobán,New York Mets,Atlanta Braves,1.2,4,—,—,—,0,—
+2026-06-12,Braxton Ashcraft,Pittsburgh Pirates,Miami Marlins,5.0,4,5.5,-134,+100,57,Under Hit
+2026-06-12,Roki Sasaki,Los Angeles Dodgers,Chicago White Sox,4.1,4,5.5,-110,-121,52,Under Hit
+2026-06-12,Wandy Peralta,San Diego Padres,Baltimore Orioles,1.2,3,—,—,—,0,—
+2026-06-12,Yennier Cano,Baltimore Orioles,San Diego Padres,1.0,3,—,—,—,0,—
+2026-06-12,Spencer Strider,Atlanta Braves,New York Mets,3.0,3,5.5,-132,+100,57,Under Hit
+2026-06-12,Eduardo Rodriguez,Arizona Diamondbacks,Cincinnati Reds,2.2,3,4.5,-159,+120,61,Under Hit
+2026-06-12,Ty Madden,Detroit Tigers,Cleveland Guardians,2.0,3,—,—,—,0,—
+2026-06-12,Jack Leiter,Texas Rangers,Boston Red Sox,5.0,3,5.5,+123,-162,45,Under Hit
+2026-06-12,Mason Black,Kansas City Royals,Houston Astros,2.1,3,—,—,—,0,—
+2026-06-12,Andrew Painter,Philadelphia Phillies,Milwaukee Brewers,5.0,3,3.5,—,—,0,Under Hit
+2026-06-12,Trey Yesavage,Toronto Blue Jays,New York Yankees,5.0,3,6.5,+118,-157,46,Under Hit
+2026-06-12,Mason Englert,Tampa Bay Rays,Los Angeles Angels,4.0,3,—,—,—,0,—
