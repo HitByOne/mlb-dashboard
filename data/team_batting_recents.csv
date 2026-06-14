@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
+120,Washington Nationals,0.26,0.269,7,40,21
 135,San Diego Padres,0.271,0.267,8,40,21
 110,Baltimore Orioles,0.27,0.272,7,43,25
-134,Pittsburgh Pirates,0.249,0.252,11,49,30
+117,Houston Astros,0.215,0.234,5,47,22
+121,New York Mets,0.205,0.253,10,43,27
+141,Toronto Blue Jays,0.242,0.25,11,49,30
+109,Arizona Diamondbacks,0.198,0.172,8,48,27
 146,Miami Marlins,0.287,0.237,10,29,21
 147,New York Yankees,0.233,0.225,9,43,25
 114,Cleveland Guardians,0.244,0.242,6,44,23
-120,Washington Nationals,0.26,0.269,7,40,21
-141,Toronto Blue Jays,0.242,0.25,11,49,30
-109,Arizona Diamondbacks,0.198,0.172,8,48,27
+134,Pittsburgh Pirates,0.249,0.252,11,49,30
 116,Detroit Tigers,0.238,0.238,10,46,24
-136,Seattle Mariners,0.242,0.264,8,33,21
 144,Atlanta Braves,0.222,0.221,10,46,30
-113,Cincinnati Reds,0.205,0.187,10,49,22
-121,New York Mets,0.205,0.253,10,43,27
-117,Houston Astros,0.215,0.234,5,47,22
-138,St. Louis Cardinals,0.29,0.294,5,38,25
+136,Seattle Mariners,0.242,0.264,8,33,21
 118,Kansas City Royals,0.29,0.288,6,33,19
-142,Minnesota Twins,0.269,0.24,8,35,21
-139,Tampa Bay Rays,0.272,0.253,8,37,22
-143,Philadelphia Phillies,0.234,0.262,15,62,39
+113,Cincinnati Reds,0.205,0.187,10,49,22
+138,St. Louis Cardinals,0.29,0.294,5,38,25
 145,Chicago White Sox,0.233,0.204,7,38,22
-119,Los Angeles Dodgers,0.267,0.238,11,44,27
-158,Milwaukee Brewers,0.295,0.292,6,51,23
-112,Chicago Cubs,0.237,0.257,12,44,27
+142,Minnesota Twins,0.269,0.24,8,35,21
+143,Philadelphia Phillies,0.234,0.262,15,62,39
 115,Colorado Rockies,0.286,0.267,7,43,28
+119,Los Angeles Dodgers,0.267,0.238,11,44,27
+140,Texas Rangers,0.266,0.257,12,43,26
+111,Boston Red Sox,0.239,0.29,8,39,27
+112,Chicago Cubs,0.237,0.257,12,44,27
+158,Milwaukee Brewers,0.295,0.292,6,51,23
+133,Athletics,0.299,0.297,6,47,19
 137,San Francisco Giants,0.27,0.25,7,34,21
 108,Los Angeles Angels,0.294,0.321,11,47,28
-140,Texas Rangers,0.266,0.257,12,43,26
-133,Athletics,0.299,0.297,6,47,19
-111,Boston Red Sox,0.239,0.29,8,39,27
+139,Tampa Bay Rays,0.272,0.253,8,37,22
