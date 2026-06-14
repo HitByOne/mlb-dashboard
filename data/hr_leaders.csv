@@ -1,80 +1,84 @@
 Rank,Player,Team,League,HR,player_id
 1,Yordan Alvarez,Houston Astros,AL,24,670541
 1,Kyle Schwarber,Philadelphia Phillies,NL,24,656941
-3,Byron Buxton,Minnesota Twins,AL,21,621439
+3,Byron Buxton,Minnesota Twins,AL,22,621439
 4,Munetaka Murakami,Chicago White Sox,AL,20,808959
 4,Matt Olson,Atlanta Braves,NL,20,621566
 6,James Wood,Washington Nationals,NL,19,695578
 7,Hunter Goodman,Colorado Rockies,NL,18,696100
 7,Shea Langeliers,Athletics,AL,18,669127
 7,Ben Rice,New York Yankees,AL,18,700250
-10,Aaron Judge,New York Yankees,AL,17,592450
-10,Brandon Lowe,Pittsburgh Pirates,NL,17,664040
-10,Christian Walker,Houston Astros,AL,17,572233
-10,Jordan Walker,St. Louis Cardinals,NL,17,691023
+7,Christian Walker,Houston Astros,AL,18,572233
+7,Jordan Walker,St. Louis Cardinals,NL,18,691023
+12,Aaron Judge,New York Yankees,AL,17,592450
+12,Brandon Lowe,Pittsburgh Pirates,NL,17,664040
+14,Pete Alonso,Baltimore Orioles,AL,16,624413
 14,Dillon Dingler,Detroit Tigers,AL,16,693307
+14,Ian Happ,Chicago Cubs,NL,16,664023
 14,Nick Kurtz,Athletics,AL,16,701762
 14,Colson Montgomery,Chicago White Sox,AL,16,695657
+14,Max Muncy,Los Angeles Dodgers,NL,16,571970
 14,Miguel Vargas,Chicago White Sox,AL,16,678246
-18,Pete Alonso,Baltimore Orioles,AL,15,624413
-18,Ian Happ,Chicago Cubs,NL,15,664023
-18,Bryce Harper,Philadelphia Phillies,NL,15,547180
-18,Andy Pages,Los Angeles Dodgers,NL,15,681624
-18,Casey Schmitt,San Francisco Giants,NL,15,669477
-18,Juan Soto,New York Mets,NL,15,665742
-18,Mike Trout,Los Angeles Angels,AL,15,545361
-25,CJ Abrams,Washington Nationals,NL,14,682928
-25,Junior Caminero,Tampa Bay Rays,AL,14,691406
-25,Willson Contreras,Boston Red Sox,AL,14,575929
-25,Oneil Cruz,Pittsburgh Pirates,NL,14,665833
-25,Gunnar Henderson,Baltimore Orioles,AL,14,683002
-25,Max Muncy,Los Angeles Dodgers,NL,14,571970
-25,Kazuma Okamoto,Toronto Blue Jays,AL,14,672960
-25,Luke Raley,Seattle Mariners,AL,14,670042
-33,Drake Baldwin,Atlanta Braves,NL,13,686948
-33,Jake Bauers,Milwaukee Brewers,NL,13,641343
-33,Michael Harris II,Atlanta Braves,NL,13,671739
-33,Liam Hicks,Miami Marlins,NL,13,689414
-33,Zach Neto,Los Angeles Angels,AL,13,687263
-33,Shohei Ohtani,Los Angeles Dodgers,NL,13,660271
-33,Julio Rodríguez,Seattle Mariners,AL,13,677594
-33,Sal Stewart,Cincinnati Reds,NL,13,701398
+21,Bryce Harper,Philadelphia Phillies,NL,15,547180
+21,Kazuma Okamoto,Toronto Blue Jays,AL,15,672960
+21,Andy Pages,Los Angeles Dodgers,NL,15,681624
+21,Casey Schmitt,San Francisco Giants,NL,15,669477
+21,Juan Soto,New York Mets,NL,15,665742
+21,Mike Trout,Los Angeles Angels,AL,15,545361
+27,CJ Abrams,Washington Nationals,NL,14,682928
+27,Junior Caminero,Tampa Bay Rays,AL,14,691406
+27,Willson Contreras,Boston Red Sox,AL,14,575929
+27,Oneil Cruz,Pittsburgh Pirates,NL,14,665833
+27,Michael Harris II,Atlanta Braves,NL,14,671739
+27,Gunnar Henderson,Baltimore Orioles,AL,14,683002
+27,Shohei Ohtani,Los Angeles Dodgers,NL,14,660271
+27,Luke Raley,Seattle Mariners,AL,14,670042
+35,Drake Baldwin,Atlanta Braves,NL,13,686948
+35,Jake Bauers,Milwaukee Brewers,NL,13,641343
+35,Liam Hicks,Miami Marlins,NL,13,689414
+35,Zach Neto,Los Angeles Angels,AL,13,687263
+35,Julio Rodríguez,Seattle Mariners,AL,13,677594
+35,Sal Stewart,Cincinnati Reds,NL,13,701398
+41,Jake Burger,Texas Rangers,AL,12,669394
 41,Alec Burleson,St. Louis Cardinals,NL,12,676475
+41,Corbin Carroll,Arizona Diamondbacks,NL,12,682998
+41,Pete Crow-Armstrong,Chicago Cubs,NL,12,691718
 41,Elly De La Cruz,Cincinnati Reds,NL,12,682829
 41,Yandy Díaz,Tampa Bay Rays,AL,12,650490
+41,Manny Machado,San Diego Padres,NL,12,592518
 41,Mickey Moniak,Colorado Rockies,NL,12,666160
-45,Willy Adames,San Francisco Giants,NL,11,642715
-45,Jonathan Aranda,Tampa Bay Rays,AL,11,666018
-45,JJ Bleday,Cincinnati Reds,NL,11,668709
-45,Jake Burger,Texas Rangers,AL,11,669394
-45,Corbin Carroll,Arizona Diamondbacks,NL,11,682998
-45,Pete Crow-Armstrong,Chicago Cubs,NL,11,691718
-45,Brooks Lee,Minnesota Twins,AL,11,686797
-45,Manny Machado,San Diego Padres,NL,11,592518
-45,Ketel Marte,Arizona Diamondbacks,NL,11,606466
-45,Angel Martínez,Cleveland Guardians,AL,11,682657
-45,Tyler Soderstrom,Athletics,AL,11,691016
-45,Spencer Torkelson,Detroit Tigers,AL,11,679529
-57,Jo Adell,Los Angeles Angels,AL,10,666176
-57,Ozzie Albies,Atlanta Braves,NL,10,645277
-57,Samuel Basallo,Baltimore Orioles,AL,10,694212
-57,Cody Bellinger,New York Yankees,AL,10,641355
-57,Dominic Canzone,Seattle Mariners,AL,10,686527
-57,Kody Clemens,Minnesota Twins,AL,10,665019
-57,J.P. Crawford,Seattle Mariners,AL,10,641487
-57,Jarren Duran,Boston Red Sox,AL,10,680776
-57,Freddie Freeman,Los Angeles Dodgers,NL,10,518692
-57,Curtis Mead,Washington Nationals,NL,10,678554
-57,Ryan O'Hearn,Pittsburgh Pirates,NL,10,656811
-57,José Ramírez,Cleveland Guardians,AL,10,608070
-57,Brent Rooker,Athletics,AL,10,667670
-57,Gavin Sheets,San Diego Padres,NL,10,657757
-57,Spencer Steer,Cincinnati Reds,NL,10,668715
-57,Seiya Suzuki,Chicago Cubs,NL,10,673548
-57,Brice Turang,Milwaukee Brewers,NL,10,668930
+49,Willy Adames,San Francisco Giants,NL,11,642715
+49,Jonathan Aranda,Tampa Bay Rays,AL,11,666018
+49,JJ Bleday,Cincinnati Reds,NL,11,668709
+49,Jarren Duran,Boston Red Sox,AL,11,680776
+49,Brooks Lee,Minnesota Twins,AL,11,686797
+49,Ketel Marte,Arizona Diamondbacks,NL,11,606466
+49,Angel Martínez,Cleveland Guardians,AL,11,682657
+49,Gavin Sheets,San Diego Padres,NL,11,657757
+49,Tyler Soderstrom,Athletics,AL,11,691016
+49,Spencer Torkelson,Detroit Tigers,AL,11,679529
+59,Jo Adell,Los Angeles Angels,AL,10,666176
+59,Ozzie Albies,Atlanta Braves,NL,10,645277
+59,Samuel Basallo,Baltimore Orioles,AL,10,694212
+59,Cody Bellinger,New York Yankees,AL,10,641355
+59,Dominic Canzone,Seattle Mariners,AL,10,686527
+59,Kody Clemens,Minnesota Twins,AL,10,665019
+59,J.P. Crawford,Seattle Mariners,AL,10,641487
+59,Freddie Freeman,Los Angeles Dodgers,NL,10,518692
+59,Curtis Mead,Washington Nationals,NL,10,678554
+59,Ryan O'Hearn,Pittsburgh Pirates,NL,10,656811
+59,José Ramírez,Cleveland Guardians,AL,10,608070
+59,Brent Rooker,Athletics,AL,10,667670
+59,Spencer Steer,Cincinnati Reds,NL,10,668715
+59,Seiya Suzuki,Chicago Cubs,NL,10,673548
+59,Brice Turang,Milwaukee Brewers,NL,10,668930
 74,Kerry Carpenter,Detroit Tigers,AL,9,681481
 74,Jazz Chisholm Jr.,New York Yankees,AL,9,665862
 74,Rafael Devers,San Francisco Giants,NL,9,646240
+74,Luis García Jr.,Washington Nationals,NL,9,671277
+74,Zack Gelof,Athletics,AL,9,680869
+74,Paul Goldschmidt,New York Yankees,AL,9,502671
+74,Iván Herrera,St. Louis Cardinals,NL,9,671056
 74,Spencer Horwitz,Pittsburgh Pirates,NL,9,687462
 74,Nathaniel Lowe,Cincinnati Reds,NL,9,663993
 74,Coby Mayo,Baltimore Orioles,AL,9,691723

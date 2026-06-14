@@ -1,31 +1,39 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-06-12,Jacob Misiorowski,Milwaukee Brewers,Philadelphia Phillies,9.0,15,8.5,+100,-132,50,Over Hit
-2026-06-12,Tanner Bibee,Cleveland Guardians,Detroit Tigers,7.0,8,5.5,+114,-150,47,Over Hit
-2026-06-12,Joe Ryan,Minnesota Twins,St. Louis Cardinals,6.0,8,6.5,+123,-165,45,Over Hit
-2026-06-12,Bryce Miller,Seattle Mariners,Washington Nationals,8.0,7,4.5,-139,+105,58,Over Hit
-2026-06-12,Sonny Gray,Boston Red Sox,Texas Rangers,6.0,7,5.5,+125,-167,44,Over Hit
-2026-06-12,Sandy Alcantara,Miami Marlins,Pittsburgh Pirates,8.0,7,4.5,-112,-120,53,Over Hit
-2026-06-12,Anthony Kay,Chicago White Sox,Los Angeles Dodgers,5.0,7,3.5,-104,-129,51,Over Hit
-2026-06-12,Shane McClanahan,Tampa Bay Rays,Los Angeles Angels,4.0,7,5.5,-127,-105,56,Over Hit
-2026-06-12,Gage Jump,Athletics,Colorado Rockies,5.0,6,5.5,-109,-122,52,Over Hit
-2026-06-12,Nolan McLean,New York Mets,Atlanta Braves,4.0,6,5.5,-125,-106,56,Over Hit
-2026-06-12,Griffin Canning,San Diego Padres,Baltimore Orioles,5.0,6,4.5,-115,-115,53,Over Hit
-2026-06-12,Kyle Leahy,St. Louis Cardinals,Minnesota Twins,5.0,5,4.5,+125,-167,44,Over Hit
-2026-06-12,Nick Lodolo,Cincinnati Reds,Arizona Diamondbacks,5.1,5,4.5,-122,-108,55,Over Hit
-2026-06-12,JR Ritchie,Atlanta Braves,New York Mets,5.0,5,—,—,—,0,—
-2026-06-12,Javier Assad,Chicago Cubs,San Francisco Giants,6.0,5,2.5,-165,+123,62,Over Hit
-2026-06-12,Landen Roupp,San Francisco Giants,Chicago Cubs,4.2,5,5.5,+114,-152,47,Under Hit
-2026-06-12,Sam Aldegheri,Los Angeles Angels,Tampa Bay Rays,5.0,4,3.5,+133,-180,43,Over Hit
-2026-06-12,Huascar Brazobán,New York Mets,Atlanta Braves,1.2,4,—,—,—,0,—
-2026-06-12,Braxton Ashcraft,Pittsburgh Pirates,Miami Marlins,5.0,4,5.5,-134,+100,57,Under Hit
-2026-06-12,Roki Sasaki,Los Angeles Dodgers,Chicago White Sox,4.1,4,5.5,-110,-121,52,Under Hit
-2026-06-12,Wandy Peralta,San Diego Padres,Baltimore Orioles,1.2,3,—,—,—,0,—
-2026-06-12,Yennier Cano,Baltimore Orioles,San Diego Padres,1.0,3,—,—,—,0,—
-2026-06-12,Spencer Strider,Atlanta Braves,New York Mets,3.0,3,5.5,-132,+100,57,Under Hit
-2026-06-12,Eduardo Rodriguez,Arizona Diamondbacks,Cincinnati Reds,2.2,3,4.5,-159,+120,61,Under Hit
-2026-06-12,Ty Madden,Detroit Tigers,Cleveland Guardians,2.0,3,—,—,—,0,—
-2026-06-12,Jack Leiter,Texas Rangers,Boston Red Sox,5.0,3,5.5,+123,-162,45,Under Hit
-2026-06-12,Mason Black,Kansas City Royals,Houston Astros,2.1,3,—,—,—,0,—
-2026-06-12,Andrew Painter,Philadelphia Phillies,Milwaukee Brewers,5.0,3,3.5,—,—,0,Under Hit
-2026-06-12,Trey Yesavage,Toronto Blue Jays,New York Yankees,5.0,3,6.5,+118,-157,46,Under Hit
-2026-06-12,Mason Englert,Tampa Bay Rays,Los Angeles Angels,4.0,3,—,—,—,0,—
+2026-06-13,Kevin Gausman,Toronto Blue Jays,New York Yankees,7.0,7,6.5,+115,-152,47,Over Hit
+2026-06-13,Cam Schlittler,New York Yankees,Toronto Blue Jays,7.0,7,5.5,+104,-139,49,Over Hit
+2026-06-13,Trey Gibson,Baltimore Orioles,San Diego Padres,4.1,7,3.5,+116,-155,46,Over Hit
+2026-06-13,Shane Drohan,Milwaukee Brewers,Philadelphia Phillies,5.0,7,5.5,+123,-165,45,Over Hit
+2026-06-13,Ranger Suarez,Boston Red Sox,Texas Rangers,5.0,7,5.5,-108,-124,52,Over Hit
+2026-06-13,Michael Soroka,Arizona Diamondbacks,Cincinnati Reds,7.0,7,5.5,-157,+118,61,Over Hit
+2026-06-13,Yoshinobu Yamamoto,Los Angeles Dodgers,Chicago White Sox,8.1,7,6.5,+114,-152,47,Over Hit
+2026-06-13,Sean Manaea,New York Mets,Atlanta Braves,6.0,6,4.5,-129,-103,56,Over Hit
+2026-06-13,Rhett Lowder,Cincinnati Reds,Arizona Diamondbacks,5.2,6,3.5,-113,-118,53,Over Hit
+2026-06-13,Sean Burke,Chicago White Sox,Los Angeles Dodgers,4.0,6,4.5,-143,+108,59,Over Hit
+2026-06-13,Bubba Chandler,Pittsburgh Pirates,Miami Marlins,5.2,6,4.5,-103,-130,51,Over Hit
+2026-06-13,Mike Burrows,Houston Astros,Kansas City Royals,5.0,5,3.5,-177,+130,64,Over Hit
+2026-06-13,Randy Vásquez,San Diego Padres,Baltimore Orioles,5.0,5,3.5,-122,-108,55,Over Hit
+2026-06-13,Jacob deGrom,Texas Rangers,Boston Red Sox,6.0,5,5.5,-165,+123,62,Under Hit
+2026-06-13,Cade Cavalli,Washington Nationals,Seattle Mariners,5.0,5,5.5,+116,-155,46,Under Hit
+2026-06-13,José Soriano,Los Angeles Angels,Tampa Bay Rays,5.0,5,5.5,-117,-114,54,Under Hit
+2026-06-13,Griffin Jax,Tampa Bay Rays,Los Angeles Angels,5.0,5,5.5,+112,-150,47,Under Hit
+2026-06-13,Matthew Liberatore,St. Louis Cardinals,Minnesota Twins,4.1,4,4.5,-117,-114,54,Under Hit
+2026-06-13,Joey Estes,Athletics,Colorado Rockies,4.1,4,3.5,+107,-141,48,Over Hit
+2026-06-13,Tarik Skubal,Detroit Tigers,Cleveland Guardians,4.2,4,5.5,+102,-136,50,Under Hit
+2026-06-13,Joey Cantillo,Cleveland Guardians,Detroit Tigers,5.0,4,4.5,-152,+114,60,Under Hit
+2026-06-13,Luis Castillo,Seattle Mariners,Washington Nationals,5.2,4,4.5,-115,-115,53,Under Hit
+2026-06-13,Lake Bachar,Miami Marlins,Pittsburgh Pirates,2.0,4,—,—,—,0,—
+2026-06-13,Martín Pérez,Atlanta Braves,New York Mets,5.1,4,3.5,-155,+116,61,Over Hit
+2026-06-13,Kyle Freeland,Colorado Rockies,Athletics,5.2,4,4.5,+112,-148,47,Under Hit
+2026-06-13,Trevor McDonald,San Francisco Giants,Chicago Cubs,3.2,4,4.5,-103,-130,51,Under Hit
+2026-06-13,David Bednar,New York Yankees,Toronto Blue Jays,1.0,3,—,—,—,0,—
+2026-06-13,Michael Petersen,Miami Marlins,Pittsburgh Pirates,2.0,3,—,—,—,0,—
+2026-06-13,Yohan Ramírez,Pittsburgh Pirates,Miami Marlins,1.0,3,—,—,—,0,—
+2026-06-13,Juan Morillo,Arizona Diamondbacks,Cincinnati Reds,1.0,3,—,—,—,0,—
+2026-06-13,Didier Fuentes,Atlanta Braves,New York Mets,1.0,3,—,—,—,0,—
+2026-06-13,Drew Rom,Milwaukee Brewers,Philadelphia Phillies,1.2,3,—,—,—,0,—
+2026-06-13,John Schreiber,Kansas City Royals,Houston Astros,1.2,3,—,—,—,0,—
+2026-06-13,Joe Rock,Chicago White Sox,Los Angeles Dodgers,3.0,3,—,—,—,0,—
+2026-06-13,Austin Warren,New York Mets,Atlanta Braves,2.0,3,—,—,—,0,—
+2026-06-13,Aaron Nola,Philadelphia Phillies,Milwaukee Brewers,4.2,3,4.5,-157,+117,61,Under Hit
+2026-06-13,Trevor Megill,Milwaukee Brewers,Philadelphia Phillies,1.0,3,—,—,—,0,—
+2026-06-13,Ben Brown,Chicago Cubs,San Francisco Giants,5.0,3,4.5,-125,-113,56,Under Hit
