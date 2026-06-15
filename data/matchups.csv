@@ -1,16 +1,11 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823368,2026-06-14,Miami Marlins,146,Pittsburgh Pirates,134,Max Meyer,676974,Paul Skenes,694973
-824823,2026-06-14,San Diego Padres,135,Baltimore Orioles,110,Walker Buehler,621111,Trevor Rogers,669432
-822722,2026-06-14,Seattle Mariners,136,Washington Nationals,120,Emerson Hancock,676106,PJ Poulin,676571
-822801,2026-06-14,New York Yankees,147,Toronto Blue Jays,141,Will Warren,701542,Patrick Corbin,571578
-824506,2026-06-14,Arizona Diamondbacks,109,Cincinnati Reds,113,Zac Gallen,668678,Andrew Abbott,671096
-824424,2026-06-14,Detroit Tigers,116,Cleveland Guardians,114,Casey Mize,663554,Gavin Williams,668909
-823615,2026-06-14,Atlanta Braves,144,New York Mets,121,Bryce Elder,693821,Freddy Peralta,642547
-824099,2026-06-14,Houston Astros,117,Kansas City Royals,118,Spencer Arrighetti,681293,Stephen Kolek,663568
-823693,2026-06-14,St. Louis Cardinals,138,Minnesota Twins,142,Michael McGreevy,700241,Taj Bradley,671737
-824586,2026-06-14,Los Angeles Dodgers,119,Chicago White Sox,145,Emmet Sheehan,686218,Bryan Hudson,663542
-823777,2026-06-14,Philadelphia Phillies,143,Milwaukee Brewers,158,Cristopher Sánchez,650911,Kyle Harrison,690986
-824994,2026-06-14,Colorado Rockies,115,Athletics,133,Tomoyuki Sugano,608372,Jeffrey Springs,605488
-823212,2026-06-14,Chicago Cubs,112,San Francisco Giants,137,Ryan Rolison,669020,Logan Webb,657277
-824021,2026-06-14,Tampa Bay Rays,139,Los Angeles Angels,108,Casey Legumina,668984,Grayson Rodriguez,680570
-824751,2026-06-14,Texas Rangers,140,Boston Red Sox,111,Nathan Eovaldi,543135,Connelly Early,813349
+823452,2026-06-15,Miami Marlins,146,Philadelphia Phillies,143,Ryan Gusto,687473,Zack Wheeler,554430
+822724,2026-06-15,Kansas City Royals,118,Washington Nationals,120,Mitch Spence,687765,Andrew Alvarez,674841
+824505,2026-06-15,New York Mets,121,Cincinnati Reds,113,Tobias Myers,668964,Chase Burns,695505
+823046,2026-06-15,San Diego Padres,135,St. Louis Cardinals,138,TBD,,Dustin May,669160
+824666,2026-06-15,Colorado Rockies,115,Chicago Cubs,112,Michael Lorenzen,547179,Shota Imanaga,684007
+822887,2026-06-15,Minnesota Twins,142,Texas Rangers,140,TBD,,MacKenzie Gore,669022
+824181,2026-06-15,Detroit Tigers,116,Houston Astros,117,Troy Melton,675512,Kai-Wei Teng,678906
+825071,2026-06-15,Los Angeles Angels,108,Arizona Diamondbacks,109,Walbert Ureña,700712,Ryne Nelson,669194
+824993,2026-06-15,Pittsburgh Pirates,134,Athletics,133,Jared Jones,683003,J.T. Ginn,669372
+823938,2026-06-15,Tampa Bay Rays,139,Los Angeles Dodgers,119,Nick Martinez,607259,Eric Lauer,641778
