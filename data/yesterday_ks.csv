@@ -1,27 +1,19 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-06-14,Paul Skenes,Pittsburgh Pirates,Miami Marlins,6.0,10,7.5,+114,-152,47,Over Hit
-2026-06-14,Max Meyer,Miami Marlins,Pittsburgh Pirates,6.0,9,5.5,-127,-105,56,Over Hit
-2026-06-14,Emmet Sheehan,Los Angeles Dodgers,Chicago White Sox,5.0,8,5.5,+104,-137,49,Over Hit
-2026-06-14,Spencer Arrighetti,Houston Astros,Kansas City Royals,6.0,7,4.5,-141,+106,59,Over Hit
-2026-06-14,Taj Bradley,Minnesota Twins,St. Louis Cardinals,6.2,7,5.5,+118,-157,46,Over Hit
-2026-06-14,Logan Webb,San Francisco Giants,Chicago Cubs,8.0,7,5.5,+102,-136,50,Over Hit
-2026-06-14,Nathan Eovaldi,Texas Rangers,Boston Red Sox,7.0,6,4.5,-159,+120,61,Over Hit
-2026-06-14,Walker Buehler,San Diego Padres,Baltimore Orioles,5.0,5,3.5,-150,+112,60,Over Hit
-2026-06-14,Andrew Abbott,Cincinnati Reds,Arizona Diamondbacks,5.0,5,3.5,-152,+114,60,Over Hit
-2026-06-14,Jeffrey Springs,Athletics,Colorado Rockies,4.0,5,4.5,-143,+108,59,Over Hit
-2026-06-14,Trevor Rogers,Baltimore Orioles,San Diego Padres,6.0,4,4.5,-103,-130,51,Under Hit
-2026-06-14,Sean Newcomb,Chicago White Sox,Los Angeles Dodgers,2.1,4,—,—,—,0,—
-2026-06-14,Erick Fedde,Chicago White Sox,Los Angeles Dodgers,2.2,4,—,—,—,0,—
-2026-06-14,Zac Gallen,Arizona Diamondbacks,Cincinnati Reds,6.0,4,4.5,-157,+117,61,Under Hit
-2026-06-14,Stephen Kolek,Kansas City Royals,Houston Astros,7.1,4,3.5,-148,+112,60,Over Hit
-2026-06-14,Patrick Corbin,Toronto Blue Jays,New York Yankees,3.2,3,3.5,-152,+114,60,Under Hit
-2026-06-14,Mason Miller,San Diego Padres,Baltimore Orioles,1.1,3,—,—,—,0,—
-2026-06-14,Miles Mikolas,Washington Nationals,Seattle Mariners,7.0,3,3.5,+125,-167,44,Under Hit
-2026-06-14,Cristopher Sánchez,Philadelphia Phillies,Milwaukee Brewers,5.2,3,7.5,+116,-155,46,Under Hit
-2026-06-14,Andrew Morris,Minnesota Twins,St. Louis Cardinals,1.0,3,—,—,—,0,—
-2026-06-14,George Soriano,St. Louis Cardinals,Minnesota Twins,1.2,3,—,—,—,0,—
-2026-06-14,Aaron Ashby,Milwaukee Brewers,Philadelphia Phillies,2.0,3,—,—,—,0,—
-2026-06-14,Kyle Harrison,Milwaukee Brewers,Philadelphia Phillies,6.0,3,6.5,-148,+112,60,Under Hit
-2026-06-14,Ian Seymour,Tampa Bay Rays,Los Angeles Angels,3.1,3,—,—,—,0,—
-2026-06-14,Kevin Kelly,Tampa Bay Rays,Los Angeles Angels,2.0,3,—,—,—,0,—
-2026-06-14,Connelly Early,Boston Red Sox,Texas Rangers,4.2,3,5.5,-105,-129,51,Under Hit
+2026-06-15,MacKenzie Gore,Texas Rangers,Minnesota Twins,7.0,10,5.5,-162,+120,62,Over Hit
+2026-06-15,Zack Wheeler,Philadelphia Phillies,Miami Marlins,6.0,9,6.5,+108,-143,48,Over Hit
+2026-06-15,Kai-Wei Teng,Houston Astros,Detroit Tigers,3.1,9,4.5,-157,+118,61,Over Hit
+2026-06-15,Dustin May,St. Louis Cardinals,San Diego Padres,9.0,9,5.5,+120,-162,45,Over Hit
+2026-06-15,Chase Burns,Cincinnati Reds,New York Mets,5.0,7,7.5,+112,-148,47,Under Hit
+2026-06-15,Nick Martinez,Tampa Bay Rays,Los Angeles Dodgers,5.1,6,3.5,+104,-139,49,Over Hit
+2026-06-15,Andrew Alvarez,Washington Nationals,Kansas City Royals,4.0,5,4.5,+105,-139,49,Over Hit
+2026-06-15,Ryne Nelson,Arizona Diamondbacks,Los Angeles Angels,7.0,5,4.5,-159,+120,61,Over Hit
+2026-06-15,Drew Anderson,Detroit Tigers,Houston Astros,2.2,5,—,—,—,0,—
+2026-06-15,Michael Lorenzen,Colorado Rockies,Chicago Cubs,5.0,5,3.5,-162,+120,62,Over Hit
+2026-06-15,Eric Lauer,Los Angeles Dodgers,Tampa Bay Rays,6.0,4,3.5,+118,-157,46,Over Hit
+2026-06-15,Jared Jones,Pittsburgh Pirates,Athletics,4.0,4,4.5,-139,+105,58,Under Hit
+2026-06-15,Jonathan Pintaro,New York Mets,Cincinnati Reds,3.2,4,—,—,—,0,—
+2026-06-15,Shota Imanaga,Chicago Cubs,Colorado Rockies,5.2,3,6.5,+118,-157,46,Under Hit
+2026-06-15,Daniel Palencia,Chicago Cubs,Colorado Rockies,1.0,3,—,—,—,0,—
+2026-06-15,Jayden Murray,Houston Astros,Detroit Tigers,2.0,3,—,—,—,0,—
+2026-06-15,Walbert Ureña,Los Angeles Angels,Arizona Diamondbacks,7.0,3,4.5,+114,-152,47,Under Hit
+2026-06-15,J.T. Ginn,Athletics,Pittsburgh Pirates,6.0,3,4.5,-159,+120,61,Under Hit

@@ -1,5 +1,5 @@
 pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
-547179,Michael Lorenzen,Colorado Rockies,101,11,7.54,65.2,1.90,13.84
+547179,Michael Lorenzen,Colorado Rockies,106,12,7.13,70.2,1.85,13.50
 645261,Sandy Alcantara,Miami Marlins,96,12,4.25,97.1,1.22,8.88
 681347,Mike Burrows,Houston Astros,94,18,5.86,78.1,1.58,10.80
 668678,Zac Gallen,Arizona Diamondbacks,93,13,5.35,75.2,1.53,11.06
@@ -9,7 +9,9 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 669358,Shane Baz,Baltimore Orioles,82,8,4.06,82.0,1.39,9.00
 677944,Slade Cecconi,Cleveland Guardians,82,10,4.83,72.2,1.44,10.16
 607625,Seth Lugo,Kansas City Royals,82,7,3.86,79.1,1.35,9.30
+607259,Nick Martinez,Tampa Bay Rays,82,7,2.60,83.0,1.16,8.89
 543135,Nathan Eovaldi,Texas Rangers,81,17,4.23,87.1,1.17,8.35
+669194,Ryne Nelson,Arizona Diamondbacks,81,18,4.97,83.1,1.24,8.75
 605488,Jeffrey Springs,Athletics,81,19,5.13,79.0,1.32,9.23
 666200,Jesús Luzardo,Philadelphia Phillies,80,8,4.35,78.2,1.33,9.15
 605400,Aaron Nola,Philadelphia Phillies,80,13,5.86,70.2,1.47,10.19
@@ -19,12 +21,12 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 669461,Matthew Liberatore,St. Louis Cardinals,79,14,4.71,70.2,1.50,10.06
 678394,Brayan Bello,Boston Red Sox,78,10,6.34,61.0,1.67,11.51
 681517,Kyle Leahy,St. Louis Cardinals,77,9,4.64,64.0,1.59,10.83
-607259,Nick Martinez,Tampa Bay Rays,77,6,2.43,77.2,1.16,8.92
 691725,Andrew Painter,Philadelphia Phillies,77,12,6.43,63.0,1.57,11.00
 608372,Tomoyuki Sugano,Colorado Rockies,77,13,4.79,73.1,1.35,9.45
 671096,Andrew Abbott,Cincinnati Reds,76,11,3.95,79.2,1.41,8.59
 680694,Kyle Bradish,Baltimore Orioles,76,11,4.30,73.1,1.57,9.33
 605288,Adrian Houser,San Francisco Giants,76,11,5.54,65.0,1.54,10.52
+656849,David Peterson,New York Mets,76,5,5.91,64.0,1.63,10.69
 681190,Randy Vásquez,San Diego Padres,76,11,3.63,74.1,1.32,9.20
 642547,Freddy Peralta,New York Mets,75,10,3.90,83.0,1.30,8.13
 664285,Framber Valdez,Detroit Tigers,75,9,4.40,77.2,1.34,8.69
@@ -34,15 +36,15 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 592332,Kevin Gausman,Toronto Blue Jays,74,10,3.41,87.0,1.03,7.66
 656605,Mitch Keller,Pittsburgh Pirates,74,6,5.14,77.0,1.31,8.65
 683004,Jack Leiter,Texas Rangers,74,12,4.97,76.0,1.41,8.76
-656849,David Peterson,New York Mets,74,4,5.75,61.0,1.64,10.92
 669432,Trevor Rogers,Baltimore Orioles,74,9,5.86,66.0,1.45,10.09
 676440,Tanner Bibee,Cleveland Guardians,73,15,3.96,84.0,1.18,7.82
-669194,Ryne Nelson,Arizona Diamondbacks,72,17,5.19,76.1,1.23,8.49
+669160,Dustin May,St. Louis Cardinals,72,5,3.75,81.2,1.14,7.93
+669387,Carmen Mlodzinski,Pittsburgh Pirates,72,6,3.97,65.2,1.46,9.87
 676282,Joey Cantillo,Cleveland Guardians,71,11,4.38,72.0,1.49,8.88
 813349,Connelly Early,Boston Red Sox,71,14,3.81,75.2,1.32,8.44
-669160,Dustin May,St. Louis Cardinals,71,5,4.21,72.2,1.25,8.79
 605135,Chris Bassitt,Baltimore Orioles,70,6,5.27,56.1,1.63,11.18
 571578,Patrick Corbin,Toronto Blue Jays,70,7,4.57,61.0,1.48,10.33
+684007,Shota Imanaga,Chicago Cubs,70,17,4.26,86.2,1.06,7.27
 647336,Michael Soroka,Arizona Diamondbacks,70,6,3.11,81.0,1.07,7.78
 701542,Will Warren,New York Yankees,70,7,3.47,72.2,1.29,8.67
 693433,Bryan Woo,Seattle Mariners,70,9,4.28,82.0,1.04,7.68
