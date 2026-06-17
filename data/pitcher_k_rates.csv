@@ -14,8 +14,8 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 519242,Chris Sale,Atlanta Braves,92,10.6,2.30,78.1,13,6.0,319,0.288,24.5
 667755,José Soriano,Los Angeles Angels,92,9.5,2.79,87.0,15,5.8,360,0.256,24.0
 677952,Braxton Ashcraft,Pittsburgh Pirates,90,9.6,3.30,84.2,14,6.0,344,0.262,24.6
+690997,Nolan McLean,New York Mets,89,10.4,3.96,77.1,15,5.1,320,0.278,21.3
 594798,Jacob deGrom,Texas Rangers,89,10.5,3.17,76.2,14,5.4,305,0.292,21.8
-690997,Nolan McLean,New York Mets,88,10.4,4.01,76.1,14,5.4,317,0.278,22.6
 592332,Kevin Gausman,Toronto Blue Jays,86,8.9,3.41,87.0,15,5.8,349,0.246,23.3
 669022,MacKenzie Gore,Texas Rangers,86,9.9,4.27,78.0,15,5.2,336,0.256,22.4
 684007,Shota Imanaga,Chicago Cubs,84,8.8,4.26,86.2,15,5.7,349,0.241,23.3
