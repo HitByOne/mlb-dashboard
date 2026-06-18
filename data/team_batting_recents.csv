@@ -1,29 +1,19 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-118,Kansas City Royals,0.297,0.277,8,39,27
-121,New York Mets,0.244,0.203,0,40,22
-135,San Diego Padres,0.188,0.143,8,38,24
-120,Washington Nationals,0.28,0.317,4,30,15
-146,Miami Marlins,0.228,0.208,12,54,37
-113,Cincinnati Reds,0.211,0.234,1,37,20
-116,Detroit Tigers,0.238,0.243,9,51,37
-137,San Francisco Giants,0.259,0.217,2,29,16
-144,Atlanta Braves,0.225,0.202,4,40,27
-108,Los Angeles Angels,0.311,0.274,10,49,28
-119,Los Angeles Dodgers,0.218,0.217,8,48,28
-143,Philadelphia Phillies,0.232,0.213,7,47,17
-117,Houston Astros,0.246,0.216,8,32,23
-109,Arizona Diamondbacks,0.2,0.2,6,30,16
-139,Tampa Bay Rays,0.211,0.229,8,36,19
-138,St. Louis Cardinals,0.281,0.24,3,34,18
-141,Toronto Blue Jays,0.255,0.24,7,43,24
-145,Chicago White Sox,0.199,0.141,9,41,26
-111,Boston Red Sox,0.266,0.272,12,48,29
-114,Cleveland Guardians,0.23,0.226,11,43,25
-115,Colorado Rockies,0.294,0.325,8,41,24
-133,Athletics,0.326,0.342,13,39,25
-147,New York Yankees,0.283,0.3,10,43,27
-158,Milwaukee Brewers,0.275,0.263,5,33,16
-112,Chicago Cubs,0.241,0.24,8,44,25
-136,Seattle Mariners,0.239,0.209,2,28,15
-110,Baltimore Orioles,0.242,0.23,12,47,29
-134,Pittsburgh Pirates,0.244,0.262,9,47,27
+111,Boston Red Sox,0.271,0.235,6,39,27
+140,Texas Rangers,0.241,0.248,8,41,21
+143,Philadelphia Phillies,0.27,0.26,12,44,23
+141,Toronto Blue Jays,0.249,0.25,10,42,23
+114,Cleveland Guardians,0.194,0.167,13,47,30
+137,San Francisco Giants,0.242,0.283,6,26,12
+144,Atlanta Braves,0.228,0.225,7,47,24
+110,Baltimore Orioles,0.253,0.23,9,49,31
+142,Minnesota Twins,0.301,0.312,6,37,23
+158,Milwaukee Brewers,0.279,0.263,9,33,19
+147,New York Yankees,0.293,0.353,6,41,24
+121,New York Mets,0.275,0.267,4,44,26
+136,Seattle Mariners,0.233,0.202,14,33,21
+145,Chicago White Sox,0.21,0.23,11,44,30
+138,St. Louis Cardinals,0.259,0.242,4,27,11
+118,Kansas City Royals,0.295,0.286,3,36,21
+108,Los Angeles Angels,0.286,0.286,7,46,24
+133,Athletics,0.294,0.264,12,43,33
