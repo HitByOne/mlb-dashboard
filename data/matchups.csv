@@ -1,10 +1,15 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824748,2026-06-18,Toronto Blue Jays,141,Boston Red Sox,111,Trey Yesavage,702056,Sonny Gray,543243
-823772,2026-06-18,Cleveland Guardians,114,Milwaukee Brewers,158,Parker Messick,800048,Shane Drohan,675660
-822889,2026-06-18,Minnesota Twins,142,Texas Rangers,140,Joe Ryan,657746,Jack Leiter,683004
-823125,2026-06-18,Baltimore Orioles,110,Seattle Mariners,136,Shane Baz,669358,Bryan Woo,693433
-823448,2026-06-18,New York Mets,121,Philadelphia Phillies,143,Sean Manaea,640455,Aaron Nola,605400
-823533,2026-06-18,Chicago White Sox,145,New York Yankees,147,Sean Burke,680732,Ryan Weathers,677960
-824911,2026-06-18,San Francisco Giants,137,Atlanta Braves,144,Landen Roupp,694738,Martín Pérez,527048
-824098,2026-06-18,St. Louis Cardinals,138,Kansas City Royals,118,Matthew Liberatore,669461,Noah Cameron,702070
-824989,2026-06-18,Los Angeles Angels,108,Athletics,133,TBD,,Gage Jump,695611
+824663,2026-06-19,Toronto Blue Jays,141,Chicago Cubs,112,Kevin Gausman,592332,Ben Brown,676962
+824264,2026-06-19,Chicago White Sox,145,Detroit Tigers,116,Erick Fedde,607200,Tarik Skubal,669373
+823534,2026-06-19,Cincinnati Reds,113,New York Yankees,147,Rhett Lowder,695076,Cam Schlittler,693645
+822966,2026-06-19,Washington Nationals,120,Tampa Bay Rays,139,Cade Cavalli,676917,Griffin Jax,643377
+823853,2026-06-19,San Francisco Giants,137,Miami Marlins,146,Landen Roupp,694738,TBD,
+824910,2026-06-19,Milwaukee Brewers,158,Atlanta Braves,144,Jacob Misiorowski,694819,Martín Pérez,527048
+822886,2026-06-19,San Diego Padres,135,Texas Rangers,140,Randy Vásquez,681190,Jacob deGrom,594798
+824179,2026-06-19,Cleveland Guardians,114,Houston Astros,117,Tanner Bibee,676440,Tatsuya Imai,837227
+824097,2026-06-19,St. Louis Cardinals,138,Kansas City Royals,118,Michael McGreevy,700241,Seth Lugo,607625
+824345,2026-06-19,Pittsburgh Pirates,134,Colorado Rockies,115,Bubba Chandler,696149,Kyle Freeland,607536
+824990,2026-06-19,Los Angeles Angels,108,Athletics,133,José Soriano,667755,Jeffrey Springs,605488
+825069,2026-06-19,Minnesota Twins,142,Arizona Diamondbacks,109,Connor Prielipp,687570,Michael Soroka,647336
+823936,2026-06-19,Baltimore Orioles,110,Los Angeles Dodgers,119,Trey Gibson,694346,Roki Sasaki,808963
+823124,2026-06-19,Boston Red Sox,111,Seattle Mariners,136,Ranger Suarez,624133,Bryce Miller,682243
