@@ -1,29 +1,29 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-147,New York Yankees,0.311,0.273,6,40,22
-113,Cincinnati Reds,0.203,0.163,17,52,39
 116,Detroit Tigers,0.221,0.18,7,53,25
-141,Toronto Blue Jays,0.241,0.228,7,36,23
-112,Chicago Cubs,0.305,0.333,4,35,18
 145,Chicago White Sox,0.223,0.243,12,53,34
-137,San Francisco Giants,0.267,0.272,5,24,15
+141,Toronto Blue Jays,0.241,0.228,7,36,23
 139,Tampa Bay Rays,0.248,0.223,3,29,18
-114,Cleveland Guardians,0.185,0.175,15,54,37
 135,San Diego Padres,0.223,0.267,10,43,27
+137,San Francisco Giants,0.267,0.272,5,24,15
 144,Atlanta Braves,0.222,0.252,10,44,30
-120,Washington Nationals,0.268,0.232,7,28,17
 158,Milwaukee Brewers,0.255,0.27,7,39,29
-146,Miami Marlins,0.256,0.286,8,54,29
-117,Houston Astros,0.255,0.294,11,38,23
+113,Cincinnati Reds,0.203,0.163,17,52,39
 140,Texas Rangers,0.279,0.296,5,36,23
-108,Los Angeles Angels,0.26,0.214,12,47,30
-115,Colorado Rockies,0.304,0.245,2,29,13
+114,Cleveland Guardians,0.185,0.175,15,54,37
+112,Chicago Cubs,0.305,0.333,4,35,18
+117,Houston Astros,0.255,0.294,11,38,23
+120,Washington Nationals,0.268,0.232,7,28,17
+146,Miami Marlins,0.256,0.286,8,54,29
+147,New York Yankees,0.311,0.273,6,40,22
 121,New York Mets,0.292,0.3,9,43,24
+115,Colorado Rockies,0.304,0.245,2,29,13
+108,Los Angeles Angels,0.26,0.214,12,47,30
 143,Philadelphia Phillies,0.23,0.238,10,39,29
-134,Pittsburgh Pirates,0.28,0.312,9,46,28
 119,Los Angeles Dodgers,0.253,0.273,13,46,26
 110,Baltimore Orioles,0.204,0.206,10,52,30
+134,Pittsburgh Pirates,0.28,0.312,9,46,28
+109,Arizona Diamondbacks,0.259,0.275,8,27,17
 111,Boston Red Sox,0.234,0.224,11,44,23
 133,Athletics,0.274,0.255,10,48,27
 136,Seattle Mariners,0.17,0.156,8,39,32
 142,Minnesota Twins,0.308,0.336,6,37,20
-109,Arizona Diamondbacks,0.259,0.275,8,27,17
