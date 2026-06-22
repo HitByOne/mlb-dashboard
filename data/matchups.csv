@@ -1,16 +1,14 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823531,2026-06-21,Cincinnati Reds,113,New York Yankees,147,Chase Burns,695505,Elmer Rodríguez,695684
-824908,2026-06-21,Milwaukee Brewers,158,Atlanta Braves,144,Robert Gasser,688107,Bryce Elder,693821
-822968,2026-06-21,Washington Nationals,120,Tampa Bay Rays,139,Andrew Alvarez,674841,Nick Martinez,607259
-824260,2026-06-21,Chicago White Sox,145,Detroit Tigers,116,Davis Martin,663436,Keider Montero,672456
-823852,2026-06-21,San Francisco Giants,137,Miami Marlins,146,Logan Webb,657277,Ryan Gusto,687473
-824177,2026-06-21,Cleveland Guardians,114,Houston Astros,117,Slade Cecconi,677944,Kai-Wei Teng,678906
-824095,2026-06-21,St. Louis Cardinals,138,Kansas City Royals,118,Dustin May,669160,Stephen Kolek,663568
-824664,2026-06-21,Toronto Blue Jays,141,Chicago Cubs,112,Dylan Cease,656302,Shota Imanaga,684007
-822883,2026-06-21,San Diego Padres,135,Texas Rangers,140,Wandy Peralta,593974,Nathan Eovaldi,543135
-824343,2026-06-21,Pittsburgh Pirates,134,Colorado Rockies,115,Jared Jones,683003,Michael Lorenzen,547179
-825067,2026-06-21,Minnesota Twins,142,Arizona Diamondbacks,109,Mike Paredes,702474,Jose Cabrera,703615
-824987,2026-06-21,Los Angeles Angels,108,Athletics,133,Reid Detmers,672282,Jack Perkins,678022
-823934,2026-06-21,Baltimore Orioles,110,Los Angeles Dodgers,119,Brandon Young,687064,Emmet Sheehan,686218
-823123,2026-06-21,Boston Red Sox,111,Seattle Mariners,136,Payton Tolle,801139,Logan Gilbert,669302
-823449,2026-06-21,New York Mets,121,Philadelphia Phillies,143,David Peterson,656849,Zack Wheeler,554430
+824261,2026-06-22,New York Yankees,147,Detroit Tigers,116,Gerrit Cole,543037,Framber Valdez,664285
+822964,2026-06-22,Kansas City Royals,118,Tampa Bay Rays,139,Michael Wacha,608379,Drew Rasmussen,656876
+823851,2026-06-22,Texas Rangers,140,Miami Marlins,146,Kumar Rocker,677958,Tyler Phillips,663969
+822720,2026-06-22,Philadelphia Phillies,143,Washington Nationals,120,TBD,,Foster Griffin,656492
+822800,2026-06-22,Houston Astros,117,Toronto Blue Jays,141,Hunter Brown,686613,TBD,
+823613,2026-06-22,Chicago Cubs,112,New York Mets,121,Shota Imanaga,684007,Kodai Senga,673540
+824502,2026-06-22,Milwaukee Brewers,158,Cincinnati Reds,113,TBD,,Brady Singer,663903
+823692,2026-06-22,Los Angeles Dodgers,119,Minnesota Twins,142,Eric Lauer,641778,Zebby Matthews,805673
+824585,2026-06-22,Cleveland Guardians,114,Chicago White Sox,145,Gavin Williams,668909,Anthony Kay,641743
+823040,2026-06-22,Arizona Diamondbacks,109,St. Louis Cardinals,138,Merrill Kelly,518876,Andre Pallante,669467
+824344,2026-06-22,Boston Red Sox,111,Colorado Rockies,115,Jake Bennett,687562,Ryan Feltner,663372
+824016,2026-06-22,Baltimore Orioles,110,Los Angeles Angels,108,Kyle Bradish,680694,Sam Aldegheri,691951
+823288,2026-06-22,Atlanta Braves,144,San Diego Padres,135,Grant Holmes,656550,Michael King,650633
