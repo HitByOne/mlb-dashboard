@@ -13,8 +13,8 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 669302,Logan Gilbert,Seattle Mariners,100,9.7,3.29,93.0,16,5.8,368,0.272,23.0
 657746,Joe Ryan,Minnesota Twins,99,10.2,2.99,87.1,16,5.4,352,0.281,22.0
 519242,Chris Sale,Atlanta Braves,99,10.6,2.14,84.0,14,6.0,342,0.289,24.4
+594798,Jacob deGrom,Texas Rangers,99,10.7,3.56,83.1,16,5.2,335,0.296,20.9
 667755,José Soriano,Los Angeles Angels,98,9.6,3.03,92.0,16,5.8,384,0.255,24.0
-594798,Jacob deGrom,Texas Rangers,98,10.7,3.59,82.2,15,5.5,332,0.295,22.1
 677952,Braxton Ashcraft,Pittsburgh Pirates,97,9.7,3.18,90.2,15,6.0,369,0.263,24.6
 690997,Nolan McLean,New York Mets,97,10.5,3.67,83.1,15,5.5,344,0.282,22.9
 680694,Kyle Bradish,Baltimore Orioles,94,9.5,3.64,89.0,16,5.6,381,0.247,23.8
@@ -58,7 +58,7 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 669372,J.T. Ginn,Athletics,73,8.0,3.16,82.2,14,5.9,342,0.213,24.4
 663556,Shane McClanahan,Tampa Bay Rays,73,9.0,3.30,73.2,15,4.9,312,0.234,20.8
 687075,Brandon Sproat,Milwaukee Brewers,73,9.5,5.43,69.2,13,5.3,295,0.247,22.7
-691587,Eury Pérez,Miami Marlins,72,10.4,4.60,62.2,12,5.2,265,0.272,22.1
+691587,Eury Pérez,Miami Marlins,72,10.3,4.52,63.2,13,4.9,268,0.269,20.6
 605488,Jeffrey Springs,Athletics,72,7.9,5.55,82.2,16,5.1,358,0.201,22.4
 702070,Noah Cameron,Kansas City Royals,70,8.4,4.20,75.0,14,5.4,322,0.217,23.0
 593958,Eduardo Rodriguez,Arizona Diamondbacks,70,6.6,2.27,95.0,16,5.9,388,0.18,24.2

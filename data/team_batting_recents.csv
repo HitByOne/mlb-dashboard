@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-121,New York Mets,0.261,0.202,10,45,32
-115,Colorado Rockies,0.266,0.28,12,43,31
-145,Chicago White Sox,0.191,0.196,11,50,31
-112,Chicago Cubs,0.302,0.312,9,34,20
+140,Texas Rangers,0.266,0.264,0,36,14
 114,Cleveland Guardians,0.213,0.188,8,59,33
-140,Texas Rangers,0.289,0.286,7,41,19
-134,Pittsburgh Pirates,0.282,0.264,10,45,26
+145,Chicago White Sox,0.191,0.196,11,50,31
+121,New York Mets,0.261,0.202,10,45,32
+112,Chicago Cubs,0.302,0.312,9,34,20
 111,Boston Red Sox,0.228,0.219,4,41,19
-146,Miami Marlins,0.256,0.253,6,36,24
+139,Tampa Bay Rays,0.268,0.242,9,40,27
 110,Baltimore Orioles,0.247,0.269,13,55,34
+146,Miami Marlins,0.244,0.282,1,29,20
+118,Kansas City Royals,0.308,0.275,6,30,22
+115,Colorado Rockies,0.266,0.28,12,43,31
 136,Seattle Mariners,0.153,0.174,9,41,23
 108,Los Angeles Angels,0.28,0.255,8,49,30
-139,Tampa Bay Rays,0.268,0.242,9,40,27
-118,Kansas City Royals,0.308,0.275,6,30,22
 147,New York Yankees,0.234,0.228,13,49,35
-116,Detroit Tigers,0.274,0.291,7,35,21
+134,Pittsburgh Pirates,0.282,0.264,10,45,26
 143,Philadelphia Phillies,0.302,0.29,12,47,31
-117,Houston Astros,0.259,0.262,10,44,22
-141,Toronto Blue Jays,0.271,0.297,10,37,24
-113,Cincinnati Reds,0.182,0.12,13,60,33
-135,San Diego Padres,0.241,0.229,8,48,29
-109,Arizona Diamondbacks,0.243,0.206,5,27,11
+116,Detroit Tigers,0.274,0.291,7,35,21
 120,Washington Nationals,0.253,0.265,17,49,34
+117,Houston Astros,0.259,0.262,10,44,22
 138,St. Louis Cardinals,0.298,0.297,9,29,20
-158,Milwaukee Brewers,0.235,0.21,14,51,34
-144,Atlanta Braves,0.214,0.217,14,51,32
-119,Los Angeles Dodgers,0.263,0.282,10,46,24
-137,San Francisco Giants,0.25,0.24,11,40,29
 142,Minnesota Twins,0.283,0.21,5,24,15
+119,Los Angeles Dodgers,0.263,0.282,10,46,24
 133,Athletics,0.215,0.16,7,41,26
+141,Toronto Blue Jays,0.271,0.297,10,37,24
+135,San Diego Padres,0.241,0.229,8,48,29
+158,Milwaukee Brewers,0.235,0.21,14,51,34
+109,Arizona Diamondbacks,0.243,0.206,5,27,11
+144,Atlanta Braves,0.214,0.217,14,51,32
+113,Cincinnati Reds,0.182,0.12,13,60,33
+137,San Francisco Giants,0.25,0.24,11,40,29
