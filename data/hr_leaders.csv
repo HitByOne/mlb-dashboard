@@ -33,46 +33,50 @@ Rank,Player,Team,League,HR,player_id
 27,Casey Schmitt,San Francisco Giants,NL,16,669477
 33,Andy Pages,Los Angeles Dodgers,NL,15,681624
 34,Drake Baldwin,Atlanta Braves,NL,14,686948
+34,Jake Bauers,Milwaukee Brewers,NL,14,641343
 34,Jac Caglianone,Kansas City Royals,AL,14,695506
 34,Oneil Cruz,Pittsburgh Pirates,NL,14,665833
+34,Paul Goldschmidt,New York Yankees,AL,14,502671
 34,Michael Harris II,Atlanta Braves,NL,14,671739
 34,Manny Machado,San Diego Padres,NL,14,592518
 34,Luke Raley,Seattle Mariners,AL,14,670042
 34,Julio Rodríguez,Seattle Mariners,AL,14,677594
 34,Sal Stewart,Cincinnati Reds,NL,14,701398
-42,Willy Adames,San Francisco Giants,NL,13,642715
-42,Jake Bauers,Milwaukee Brewers,NL,13,641343
-42,JJ Bleday,Cincinnati Reds,NL,13,668709
-42,Jake Burger,Texas Rangers,AL,13,669394
-42,Alec Burleson,St. Louis Cardinals,NL,13,676475
-42,Corbin Carroll,Arizona Diamondbacks,NL,13,682998
-42,Freddie Freeman,Los Angeles Dodgers,NL,13,518692
-42,Liam Hicks,Miami Marlins,NL,13,689414
-42,Brooks Lee,Minnesota Twins,AL,13,686797
-42,Tyler Soderstrom,Athletics,AL,13,691016
-52,Ozzie Albies,Atlanta Braves,NL,12,645277
-52,Jonathan Aranda,Tampa Bay Rays,AL,12,666018
-52,Dominic Canzone,Seattle Mariners,AL,12,686527
-52,Jazz Chisholm Jr.,New York Yankees,AL,12,665862
-52,Elly De La Cruz,Cincinnati Reds,NL,12,682829
-52,Jarren Duran,Boston Red Sox,AL,12,680776
-52,Yandy Díaz,Tampa Bay Rays,AL,12,650490
-52,Luis García Jr.,Washington Nationals,NL,12,671277
-52,Paul Goldschmidt,New York Yankees,AL,12,502671
-52,Ketel Marte,Arizona Diamondbacks,NL,12,606466
-52,Curtis Mead,Washington Nationals,NL,12,678554
-52,Mickey Moniak,Colorado Rockies,NL,12,666160
-52,TJ Rumfield,Colorado Rockies,NL,12,681198
-52,Gavin Sheets,San Diego Padres,NL,12,657757
-52,Spencer Steer,Cincinnati Reds,NL,12,668715
-52,Spencer Torkelson,Detroit Tigers,AL,12,679529
-52,JJ Wetherholt,St. Louis Cardinals,NL,12,802139
-69,Cody Bellinger,New York Yankees,AL,11,641355
-69,Kody Clemens,Minnesota Twins,AL,11,665019
-69,Rafael Devers,San Francisco Giants,NL,11,646240
-69,Zack Gelof,Athletics,AL,11,680869
-69,Brandon Marsh,Philadelphia Phillies,NL,11,669016
-69,Angel Martínez,Cleveland Guardians,AL,11,682657
-69,Ryan O'Hearn,Pittsburgh Pirates,NL,11,656811
-69,Bryan Reynolds,Pittsburgh Pirates,NL,11,668804
-69,Brice Turang,Milwaukee Brewers,NL,11,668930
+44,Willy Adames,San Francisco Giants,NL,13,642715
+44,JJ Bleday,Cincinnati Reds,NL,13,668709
+44,Jake Burger,Texas Rangers,AL,13,669394
+44,Alec Burleson,St. Louis Cardinals,NL,13,676475
+44,Corbin Carroll,Arizona Diamondbacks,NL,13,682998
+44,Freddie Freeman,Los Angeles Dodgers,NL,13,518692
+44,Luis García Jr.,Washington Nationals,NL,13,671277
+44,Liam Hicks,Miami Marlins,NL,13,689414
+44,Brooks Lee,Minnesota Twins,AL,13,686797
+44,Ketel Marte,Arizona Diamondbacks,NL,13,606466
+44,Curtis Mead,Washington Nationals,NL,13,678554
+44,Tyler Soderstrom,Athletics,AL,13,691016
+44,Spencer Steer,Cincinnati Reds,NL,13,668715
+57,Ozzie Albies,Atlanta Braves,NL,12,645277
+57,Jonathan Aranda,Tampa Bay Rays,AL,12,666018
+57,Samuel Basallo,Baltimore Orioles,AL,12,694212
+57,Dominic Canzone,Seattle Mariners,AL,12,686527
+57,Jazz Chisholm Jr.,New York Yankees,AL,12,665862
+57,Elly De La Cruz,Cincinnati Reds,NL,12,682829
+57,Rafael Devers,San Francisco Giants,NL,12,646240
+57,Jarren Duran,Boston Red Sox,AL,12,680776
+57,Yandy Díaz,Tampa Bay Rays,AL,12,650490
+57,Mickey Moniak,Colorado Rockies,NL,12,666160
+57,TJ Rumfield,Colorado Rockies,NL,12,681198
+57,Gavin Sheets,San Diego Padres,NL,12,657757
+57,Spencer Torkelson,Detroit Tigers,AL,12,679529
+57,JJ Wetherholt,St. Louis Cardinals,NL,12,802139
+71,Cody Bellinger,New York Yankees,AL,11,641355
+71,Kody Clemens,Minnesota Twins,AL,11,665019
+71,Zack Gelof,Athletics,AL,11,680869
+71,Brandon Marsh,Philadelphia Phillies,NL,11,669016
+71,Angel Martínez,Cleveland Guardians,AL,11,682657
+71,Ryan O'Hearn,Pittsburgh Pirates,NL,11,656811
+71,Joc Pederson,Texas Rangers,AL,11,592626
+71,Bryan Reynolds,Pittsburgh Pirates,NL,11,668804
+71,Jorge Soler,Los Angeles Angels,AL,11,624585
+71,Dansby Swanson,Chicago Cubs,NL,11,621020
+71,Brice Turang,Milwaukee Brewers,NL,11,668930
