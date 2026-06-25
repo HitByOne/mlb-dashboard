@@ -16,6 +16,7 @@ Rank,Player,Team,League,HR,player_id
 12,Christian Walker,Houston Astros,AL,18,572233
 12,Jordan Walker,St. Louis Cardinals,NL,18,691023
 17,CJ Abrams,Washington Nationals,NL,17,682928
+17,Junior Caminero,Tampa Bay Rays,AL,17,691406
 17,Pete Crow-Armstrong,Chicago Cubs,NL,17,691718
 17,Bryce Harper,Philadelphia Phillies,NL,17,547180
 17,Aaron Judge,New York Yankees,AL,17,592450
@@ -25,12 +26,11 @@ Rank,Player,Team,League,HR,player_id
 17,Juan Soto,New York Mets,NL,17,665742
 17,Mike Trout,Los Angeles Angels,AL,17,545361
 17,Miguel Vargas,Chicago White Sox,AL,17,678246
-27,Junior Caminero,Tampa Bay Rays,AL,16,691406
-27,Willson Contreras,Boston Red Sox,AL,16,575929
-27,Ian Happ,Chicago Cubs,NL,16,664023
-27,Gunnar Henderson,Baltimore Orioles,AL,16,683002
-27,Max Muncy,Los Angeles Dodgers,NL,16,571970
-27,Casey Schmitt,San Francisco Giants,NL,16,669477
+28,Willson Contreras,Boston Red Sox,AL,16,575929
+28,Ian Happ,Chicago Cubs,NL,16,664023
+28,Gunnar Henderson,Baltimore Orioles,AL,16,683002
+28,Max Muncy,Los Angeles Dodgers,NL,16,571970
+28,Casey Schmitt,San Francisco Giants,NL,16,669477
 33,Andy Pages,Los Angeles Dodgers,NL,15,681624
 34,Drake Baldwin,Atlanta Braves,NL,14,686948
 34,Jake Bauers,Milwaukee Brewers,NL,14,641343
