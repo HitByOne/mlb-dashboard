@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-111,Boston Red Sox,0.261,0.273,2,26,20
-140,Texas Rangers,0.262,0.253,10,36,22
-117,Houston Astros,0.204,0.151,5,39,20
-147,New York Yankees,0.199,0.175,7,55,30
-141,Toronto Blue Jays,0.25,0.198,11,43,25
-121,New York Mets,0.208,0.212,7,42,23
-134,Pittsburgh Pirates,0.307,0.305,10,46,30
 116,Detroit Tigers,0.229,0.204,9,47,33
-120,Washington Nationals,0.225,0.188,10,57,32
-143,Philadelphia Phillies,0.286,0.28,9,49,25
-113,Cincinnati Reds,0.186,0.219,13,52,32
-139,Tampa Bay Rays,0.279,0.31,0,28,11
-118,Kansas City Royals,0.185,0.13,10,44,31
+117,Houston Astros,0.204,0.151,5,39,20
 109,Arizona Diamondbacks,0.235,0.248,4,20,14
+139,Tampa Bay Rays,0.279,0.31,0,28,11
+143,Philadelphia Phillies,0.286,0.28,9,49,25
+121,New York Mets,0.208,0.212,7,42,23
+141,Toronto Blue Jays,0.25,0.198,11,43,25
 145,Chicago White Sox,0.291,0.33,9,45,25
+134,Pittsburgh Pirates,0.307,0.305,10,46,30
+113,Cincinnati Reds,0.186,0.219,13,52,32
+111,Boston Red Sox,0.261,0.273,2,26,20
+120,Washington Nationals,0.225,0.188,10,57,32
+140,Texas Rangers,0.262,0.253,10,36,22
+147,New York Yankees,0.199,0.175,7,55,30
+118,Kansas City Royals,0.185,0.13,10,44,31
+110,Baltimore Orioles,0.261,0.206,12,56,35
 136,Seattle Mariners,0.206,0.198,13,46,33
 114,Cleveland Guardians,0.183,0.182,7,52,27
-110,Baltimore Orioles,0.261,0.206,12,56,35
-112,Chicago Cubs,0.214,0.187,8,54,31
 158,Milwaukee Brewers,0.246,0.257,8,50,30
+112,Chicago Cubs,0.214,0.187,8,54,31
 115,Colorado Rockies,0.298,0.295,8,50,31
-142,Minnesota Twins,0.247,0.269,4,33,23
 137,San Francisco Giants,0.201,0.191,5,45,28
 133,Athletics,0.229,0.269,10,39,26
-138,St. Louis Cardinals,0.25,0.189,7,34,23
-146,Miami Marlins,0.244,0.268,4,39,21
-119,Los Angeles Dodgers,0.274,0.315,6,41,27
-108,Los Angeles Angels,0.243,0.238,11,58,36
-135,San Diego Padres,0.237,0.253,4,41,20
 144,Atlanta Braves,0.211,0.211,6,44,26
+138,St. Louis Cardinals,0.25,0.189,7,34,23
+119,Los Angeles Dodgers,0.274,0.315,6,41,27
+146,Miami Marlins,0.244,0.268,4,39,21
+135,San Diego Padres,0.237,0.253,4,41,20
+142,Minnesota Twins,0.247,0.269,4,33,23
+108,Los Angeles Angels,0.243,0.238,11,58,36
