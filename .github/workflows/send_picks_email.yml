@@ -2,7 +2,7 @@ name: Send Daily Picks Email
 
 on:
   schedule:
-    - cron: '30 14 * * *'  # 9:30am CT — 30 min after refresh completes
+    - cron: '0 12 * * *'  # 9:30am CT — 30 min after refresh completes
   workflow_dispatch:
 
 jobs:
