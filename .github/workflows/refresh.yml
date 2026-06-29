@@ -3,7 +3,7 @@ name: Daily MLB Data Refresh
  
 on:
   schedule:
-    - cron: '0 14 * * *'   # 9am CT — morning data refresh
+    - cron: '0 12 * * *'   # 9am CT — morning data refresh
     - cron: '0 4 * * *'    # 11pm CT — nightly results check
   workflow_dispatch:
  
