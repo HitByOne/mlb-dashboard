@@ -1,16 +1,14 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824821,2026-06-28,Washington Nationals,120,Baltimore Orioles,110,Zack Littell,641793,Kyle Bradish,680694
-823362,2026-06-28,Cincinnati Reds,113,Pittsburgh Pirates,134,Brady Singer,663903,Mitch Keller,656605
-822795,2026-06-28,Texas Rangers,140,Toronto Blue Jays,141,Kumar Rocker,677958,Shane Bieber,669456
-824256,2026-06-28,Houston Astros,117,Detroit Tigers,116,Hunter Brown,686613,Jack Flaherty,656427
-824422,2026-06-28,Seattle Mariners,136,Cleveland Guardians,114,Emerson Hancock,676106,Gavin Williams,668909
-822959,2026-06-28,Arizona Diamondbacks,109,Tampa Bay Rays,139,Merrill Kelly,518876,Drew Rasmussen,656876
-823608,2026-06-28,Philadelphia Phillies,143,New York Mets,121,Jesús Luzardo,666200,Cionel Pérez,672335
-823686,2026-06-28,Colorado Rockies,115,Minnesota Twins,142,Ryan Feltner,663372,Connor Prielipp,687570
-824580,2026-06-28,Kansas City Royals,118,Chicago White Sox,145,Luinder Avila,679883,Anthony Kay,641743
-823769,2026-06-28,Chicago Cubs,112,Milwaukee Brewers,158,Ryan Rolison,669020,Brandon Woodruff,605540
-823037,2026-06-28,Miami Marlins,146,St. Louis Cardinals,138,Tyler Phillips,663969,Kyle Leahy,681517
-824011,2026-06-28,Athletics,133,Los Angeles Angels,108,Aaron Civale,650644,Sam Aldegheri,691951
-823204,2026-06-28,Atlanta Braves,144,San Francisco Giants,137,Chris Sale,519242,Robbie Ray,592662
-823281,2026-06-28,Los Angeles Dodgers,119,San Diego Padres,135,Emmet Sheehan,686218,Michael King,650633
-824744,2026-06-28,New York Yankees,147,Boston Red Sox,111,Carlos Rodón,607074,Sonny Gray,543243
+824822,2026-06-29,Chicago White Sox,145,Baltimore Orioles,110,Sean Burke,680732,Shane Baz,669358
+823444,2026-06-29,Pittsburgh Pirates,134,Philadelphia Phillies,143,Braxton Ashcraft,677952,Aaron Nola,605400
+823529,2026-06-29,Detroit Tigers,116,New York Yankees,147,Casey Mize,663554,Ryan Weathers,677960
+822792,2026-06-29,New York Mets,121,Toronto Blue Jays,141,Sean Manaea,640455,Trey Yesavage,702056
+824741,2026-06-29,Washington Nationals,120,Boston Red Sox,111,Miles Mikolas,571945,Ranger Suarez,624133
+824420,2026-06-29,Texas Rangers,140,Cleveland Guardians,114,Tyler Alexander,641302,Parker Messick,800048
+823771,2026-06-29,Cincinnati Reds,113,Milwaukee Brewers,158,Nick Lodolo,666157,Robert Gasser,688107
+824662,2026-06-29,San Diego Padres,135,Chicago Cubs,112,TBD,,Shota Imanaga,684007
+824176,2026-06-29,Minnesota Twins,142,Houston Astros,117,Zebby Matthews,805673,Peter Lambert,663567
+824339,2026-06-29,Miami Marlins,146,Colorado Rockies,115,Sandy Alcantara,645261,TBD,
+824986,2026-06-29,Los Angeles Dodgers,119,Athletics,133,Eric Lauer,641778,Gage Jump,695611
+823121,2026-06-29,Los Angeles Angels,108,Seattle Mariners,136,Ryan Johnson,696270,George Kirby,669923
+825065,2026-06-29,San Francisco Giants,137,Arizona Diamondbacks,109,Tyler Mahle,641816,Eduardo Rodriguez,593958

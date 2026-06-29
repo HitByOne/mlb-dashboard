@@ -1,29 +1,30 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-06-27,Chase Burns,Cincinnati Reds,Pittsburgh Pirates,6.0,10,7.5,+120,-162,45,Over Hit
-2026-06-27,Dylan Cease,Toronto Blue Jays,Texas Rangers,4.2,10,7.5,-136,+102,58,Over Hit
-2026-06-27,Kyle Harrison,Milwaukee Brewers,Chicago Cubs,5.0,9,5.5,-139,+105,58,Over Hit
-2026-06-27,Foster Griffin,Washington Nationals,Baltimore Orioles,7.0,9,5.5,-155,+115,61,Over Hit
-2026-06-27,Reid Detmers,Los Angeles Angels,Athletics,5.2,8,7.5,+112,-148,47,Over Hit
-2026-06-27,Brandon Young,Baltimore Orioles,Washington Nationals,5.0,8,4.5,+120,-162,45,Over Hit
-2026-06-27,Michael Wacha,Kansas City Royals,Chicago White Sox,7.2,7,4.5,-121,-108,55,Over Hit
-2026-06-27,Logan Gilbert,Seattle Mariners,Cleveland Guardians,7.0,7,6.5,-134,+100,57,Over Hit
-2026-06-27,Logan Webb,San Francisco Giants,Atlanta Braves,7.0,6,5.5,+123,-165,45,Over Hit
-2026-06-27,Christian Scott,New York Mets,Philadelphia Phillies,4.1,6,4.5,-117,-114,54,Over Hit
-2026-06-27,Cal Quantrill,Texas Rangers,Toronto Blue Jays,4.0,5,—,—,—,0,—
-2026-06-27,Gerrit Cole,New York Yankees,Boston Red Sox,5.1,5,5.5,+117,-157,46,Under Hit
-2026-06-27,Jack Perkins,Athletics,Los Angeles Angels,5.0,5,5.5,-141,+107,59,Under Hit
-2026-06-27,Grant Taylor,Chicago White Sox,Kansas City Royals,2.0,4,—,—,—,0,—
-2026-06-27,Slade Cecconi,Cleveland Guardians,Seattle Mariners,6.0,4,4.5,+108,-143,48,Under Hit
-2026-06-27,Alan Rangel,Philadelphia Phillies,New York Mets,4.0,4,3.5,—,—,0,Over Hit
-2026-06-27,Jared Jones,Pittsburgh Pirates,Cincinnati Reds,4.2,4,5.5,+107,-141,48,Under Hit
-2026-06-27,Peyton Gray,Texas Rangers,Toronto Blue Jays,2.1,4,—,—,—,0,—
-2026-06-27,Jose Cabrera,Arizona Diamondbacks,Tampa Bay Rays,5.0,4,3.5,-130,-103,57,Over Hit
-2026-06-27,Michael Grove,Tampa Bay Rays,Arizona Diamondbacks,3.0,4,—,—,—,0,—
-2026-06-27,Grant Holmes,Atlanta Braves,San Francisco Giants,4.0,4,—,—,—,0,—
-2026-06-27,Yoshinobu Yamamoto,Los Angeles Dodgers,San Diego Padres,6.0,4,6.5,+114,-152,47,Under Hit
-2026-06-27,Andre Pallante,St. Louis Cardinals,Miami Marlins,6.2,4,4.5,-110,-121,52,Under Hit
-2026-06-27,Ryan Gusto,Miami Marlins,St. Louis Cardinals,3.1,4,3.5,-120,-112,55,Over Hit
-2026-06-27,Bryce Elder,Atlanta Braves,San Francisco Giants,4.0,4,4.5,+114,-152,47,Under Hit
-2026-06-27,Davis Martin,Chicago White Sox,Kansas City Royals,5.1,3,5.5,+106,-141,49,Under Hit
-2026-06-27,Brent Headrick,New York Yankees,Boston Red Sox,1.0,3,—,—,—,0,—
-2026-06-27,Jake Bennett,Boston Red Sox,New York Yankees,6.1,3,4.5,+120,-162,45,Under Hit
+2026-06-28,Connor Prielipp,Minnesota Twins,Colorado Rockies,6.0,10,5.5,-107,-124,52,Over Hit
+2026-06-28,Chris Sale,Atlanta Braves,San Francisco Giants,6.0,10,7.5,-159,+120,61,Over Hit
+2026-06-28,Sonny Gray,Boston Red Sox,New York Yankees,7.1,9,5.5,-139,+105,58,Over Hit
+2026-06-28,Jack Flaherty,Detroit Tigers,Houston Astros,5.0,9,5.5,-106,-125,51,Over Hit
+2026-06-28,Emerson Hancock,Seattle Mariners,Cleveland Guardians,5.2,6,4.5,-139,+105,58,Over Hit
+2026-06-28,Jesús Luzardo,Philadelphia Phillies,New York Mets,5.0,6,6.5,-155,+116,61,Under Hit
+2026-06-28,Gavin Williams,Cleveland Guardians,Seattle Mariners,5.0,6,6.5,-137,+102,58,Under Hit
+2026-06-28,Carlos Rodón,New York Yankees,Boston Red Sox,5.0,6,5.5,-130,-103,57,Over Hit
+2026-06-28,Brandon Woodruff,Milwaukee Brewers,Chicago Cubs,5.2,6,5.5,-134,+100,57,Over Hit
+2026-06-28,Brady Singer,Cincinnati Reds,Pittsburgh Pirates,4.1,6,4.5,-137,+104,58,Over Hit
+2026-06-28,Kyle Leahy,St. Louis Cardinals,Miami Marlins,5.0,5,4.5,+105,-139,49,Over Hit
+2026-06-28,Drew Rasmussen,Tampa Bay Rays,Arizona Diamondbacks,6.0,5,5.5,-110,-120,52,Under Hit
+2026-06-28,Kumar Rocker,Texas Rangers,Toronto Blue Jays,6.0,5,3.5,-175,+130,64,Over Hit
+2026-06-28,Emmet Sheehan,Los Angeles Dodgers,San Diego Padres,5.0,5,5.5,-124,-108,55,Under Hit
+2026-06-28,Michael King,San Diego Padres,Los Angeles Dodgers,4.1,5,4.5,-157,+117,61,Over Hit
+2026-06-28,Luinder Avila,Kansas City Royals,Chicago White Sox,4.0,4,3.5,-148,+110,60,Over Hit
+2026-06-28,Kodai Senga,New York Mets,Philadelphia Phillies,5.0,4,—,—,—,0,—
+2026-06-28,Shane Bieber,Toronto Blue Jays,Texas Rangers,5.1,4,4.5,-129,-104,56,Under Hit
+2026-06-28,Mitch Keller,Pittsburgh Pirates,Cincinnati Reds,6.0,4,4.5,-162,+120,62,Under Hit
+2026-06-28,Hunter Brown,Houston Astros,Detroit Tigers,6.0,4,6.5,-143,+108,59,Under Hit
+2026-06-28,Bryse Wilson,Chicago Cubs,Milwaukee Brewers,4.1,4,—,—,—,0,—
+2026-06-28,Sam Aldegheri,Los Angeles Angels,Athletics,5.0,4,3.5,-157,+118,61,Over Hit
+2026-06-28,Kyle Finnegan,Detroit Tigers,Houston Astros,1.1,3,—,—,—,0,—
+2026-06-28,Louis Varland,Toronto Blue Jays,Texas Rangers,1.0,3,—,—,—,0,—
+2026-06-28,Zack Littell,Washington Nationals,Baltimore Orioles,5.0,3,3.5,-113,-118,53,Under Hit
+2026-06-28,Merrill Kelly,Arizona Diamondbacks,Tampa Bay Rays,6.0,3,3.5,-127,-105,56,Under Hit
+2026-06-28,Tobias Myers,New York Mets,Philadelphia Phillies,3.0,3,—,—,—,0,—
+2026-06-28,Jacob Webb,Chicago Cubs,Milwaukee Brewers,1.0,3,—,—,—,0,—
+2026-06-28,Trevor Megill,Milwaukee Brewers,Chicago Cubs,1.0,3,—,—,—,0,—
