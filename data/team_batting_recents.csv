@@ -1,29 +1,19 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-111,Boston Red Sox,0.226,0.204,13,36,25
-143,Philadelphia Phillies,0.265,0.295,8,49,30
-135,San Diego Padres,0.275,0.288,4,31,21
-140,Texas Rangers,0.257,0.245,5,48,25
-141,Toronto Blue Jays,0.212,0.172,9,47,25
-120,Washington Nationals,0.249,0.255,8,50,26
-121,New York Mets,0.209,0.208,11,42,26
-112,Chicago Cubs,0.235,0.26,5,45,26
-145,Chicago White Sox,0.328,0.264,13,44,27
-110,Baltimore Orioles,0.202,0.189,6,48,24
-116,Detroit Tigers,0.265,0.272,8,38,24
-147,New York Yankees,0.104,0.105,11,49,36
-134,Pittsburgh Pirates,0.267,0.26,13,59,37
-114,Cleveland Guardians,0.232,0.262,12,39,24
-138,St. Louis Cardinals,0.192,0.204,6,31,17
-144,Atlanta Braves,0.167,0.14,12,34,22
-158,Milwaukee Brewers,0.283,0.301,12,43,30
-139,Tampa Bay Rays,0.312,0.319,2,19,14
-142,Minnesota Twins,0.264,0.224,9,26,18
-118,Kansas City Royals,0.178,0.23,7,43,24
-117,Houston Astros,0.237,0.208,9,40,30
-146,Miami Marlins,0.321,0.33,5,30,20
-133,Athletics,0.228,0.233,15,54,31
-109,Arizona Diamondbacks,0.226,0.226,5,29,17
-115,Colorado Rockies,0.256,0.224,12,43,31
-137,San Francisco Giants,0.231,0.24,3,31,18
-119,Los Angeles Dodgers,0.323,0.321,3,34,22
-113,Cincinnati Reds,0.246,0.232,10,48,26
+145,Chicago White Sox,0.247,0.24,6,41,27
+146,Miami Marlins,0.315,0.345,11,37,22
+113,Cincinnati Reds,0.246,0.232,10,45,30
+158,Milwaukee Brewers,0.268,0.302,4,39,22
+114,Cleveland Guardians,0.266,0.25,8,40,25
+134,Pittsburgh Pirates,0.278,0.259,13,62,39
+138,St. Louis Cardinals,0.159,0.157,11,35,19
+116,Detroit Tigers,0.251,0.243,10,39,27
+139,Tampa Bay Rays,0.293,0.323,10,24,17
+115,Colorado Rockies,0.244,0.227,6,41,23
+108,Los Angeles Angels,0.245,0.221,6,38,19
+118,Kansas City Royals,0.205,0.228,7,41,22
+143,Philadelphia Phillies,0.273,0.305,13,53,34
+144,Atlanta Braves,0.171,0.189,5,33,20
+140,Texas Rangers,0.254,0.245,8,46,23
+135,San Diego Padres,0.286,0.318,7,34,18
+136,Seattle Mariners,0.266,0.299,16,52,31
+119,Los Angeles Dodgers,0.31,0.321,11,39,24

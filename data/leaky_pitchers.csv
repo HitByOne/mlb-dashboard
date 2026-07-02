@@ -1,24 +1,27 @@
 pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 547179,Michael Lorenzen,Colorado Rockies,120,13,6.83,81.2,1.79,13.22
 645261,Sandy Alcantara,Miami Marlins,116,12,4.20,115.2,1.28,9.03
+668678,Zac Gallen,Arizona Diamondbacks,116,17,6.36,92.0,1.57,11.35
 669923,George Kirby,Seattle Mariners,113,10,3.81,104.0,1.32,9.78
-668678,Zac Gallen,Arizona Diamondbacks,109,15,6.15,86.1,1.58,11.36
+607536,Kyle Freeland,Colorado Rockies,105,16,7.25,77.0,1.60,12.27
 650911,Cristopher Sánchez,Philadelphia Phillies,104,8,2.00,117.0,1.09,8.00
 681347,Mike Burrows,Houston Astros,103,19,5.58,90.1,1.51,10.26
+607625,Seth Lugo,Kansas City Royals,103,12,4.20,96.1,1.38,9.62
 669358,Shane Baz,Baltimore Orioles,99,9,4.19,101.0,1.37,8.82
-607536,Kyle Freeland,Colorado Rockies,99,16,7.50,72.0,1.61,12.38
 605400,Aaron Nola,Philadelphia Phillies,98,19,6.04,85.0,1.49,10.38
+642547,Freddy Peralta,New York Mets,97,13,4.81,95.1,1.42,9.16
 592332,Kevin Gausman,Toronto Blue Jays,96,15,4.19,101.0,1.19,8.55
 605488,Jeffrey Springs,Athletics,96,24,5.79,93.1,1.38,9.26
 669461,Matthew Liberatore,St. Louis Cardinals,95,17,5.33,82.2,1.55,10.34
 677944,Slade Cecconi,Cleveland Guardians,94,12,4.18,90.1,1.36,9.37
-607625,Seth Lugo,Kansas City Royals,94,10,4.18,90.1,1.37,9.37
 666200,Jesús Luzardo,Philadelphia Phillies,94,9,3.88,97.1,1.30,8.69
+607067,Colin Rea,Chicago Cubs,94,13,4.74,89.1,1.43,9.47
 663903,Brady Singer,Cincinnati Reds,94,19,5.12,77.1,1.54,10.94
+664285,Framber Valdez,Detroit Tigers,94,10,4.05,95.2,1.34,8.84
 608379,Michael Wacha,Kansas City Royals,94,10,3.31,108.2,1.14,7.79
 702070,Noah Cameron,Kansas City Royals,93,10,4.95,83.2,1.41,10.00
 543135,Nathan Eovaldi,Texas Rangers,93,17,3.95,100.1,1.16,8.34
-664285,Framber Valdez,Detroit Tigers,93,10,4.05,95.2,1.33,8.75
+671096,Andrew Abbott,Cincinnati Reds,92,15,3.88,95.0,1.44,8.72
 518876,Merrill Kelly,Arizona Diamondbacks,92,18,5.84,81.2,1.53,10.14
 607259,Nick Martinez,Tampa Bay Rays,92,9,2.66,94.2,1.15,8.75
 571945,Miles Mikolas,Washington Nationals,92,18,5.44,84.1,1.29,9.82
@@ -26,23 +29,23 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 676917,Cade Cavalli,Washington Nationals,91,7,3.69,90.1,1.33,9.07
 693821,Bryce Elder,Atlanta Braves,91,12,4.01,98.2,1.23,8.30
 656605,Mitch Keller,Pittsburgh Pirates,90,9,4.87,94.1,1.30,8.59
-642547,Freddy Peralta,New York Mets,90,12,4.53,91.1,1.37,8.87
+701542,Will Warren,New York Yankees,90,10,3.73,89.1,1.33,9.07
 681517,Kyle Leahy,St. Louis Cardinals,89,9,4.09,81.1,1.48,9.85
 677952,Braxton Ashcraft,Pittsburgh Pirates,88,11,3.33,102.2,1.08,7.71
 680694,Kyle Bradish,Baltimore Orioles,88,11,3.77,93.0,1.45,8.52
-607067,Colin Rea,Chicago Cubs,88,12,4.80,84.1,1.41,9.39
 608372,Tomoyuki Sugano,Colorado Rockies,88,16,4.80,84.1,1.32,9.39
-671096,Andrew Abbott,Cincinnati Reds,87,15,3.90,90.0,1.41,8.70
 650644,Aaron Civale,Athletics,87,14,5.05,67.2,1.58,11.57
+571578,Patrick Corbin,Toronto Blue Jays,87,11,5.11,74.0,1.50,10.58
 656849,David Peterson,Chicago Cubs,87,7,5.86,73.2,1.59,10.63
 663436,Davis Martin,Chicago White Sox,86,6,3.00,93.0,1.18,8.32
 676440,Tanner Bibee,Cleveland Guardians,85,17,3.69,102.1,1.11,7.48
-701542,Will Warren,New York Yankees,85,9,3.75,84.0,1.36,9.11
 668909,Gavin Williams,Cleveland Guardians,85,15,3.81,101.2,1.17,7.52
 605288,Adrian Houser,San Francisco Giants,84,13,5.38,73.2,1.49,10.26
+700241,Michael McGreevy,St. Louis Cardinals,84,13,3.12,95.1,1.11,7.93
 691725,Andrew Painter,Philadelphia Phillies,84,14,7.06,65.0,1.66,11.63
 669467,Andre Pallante,St. Louis Cardinals,84,9,3.83,89.1,1.23,8.46
-571578,Patrick Corbin,Toronto Blue Jays,83,9,5.09,69.0,1.55,10.83
+621111,Walker Buehler,San Diego Padres,83,9,4.61,82.0,1.38,9.11
+669022,MacKenzie Gore,Texas Rangers,83,9,4.31,96.0,1.27,7.78
 684007,Shota Imanaga,Chicago Cubs,83,20,4.30,98.1,1.08,7.60
 641743,Anthony Kay,Chicago White Sox,83,11,4.50,80.0,1.43,9.34
 641793,Zack Littell,Washington Nationals,83,22,5.29,80.0,1.35,9.34
