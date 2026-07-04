@@ -1,19 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-06-26,Houston Astros,0,Detroit Tigers,8,Detroit Tigers,8
-2026-06-26,Cincinnati Reds,6,Pittsburgh Pirates,4,Cincinnati Reds,10
-2026-06-26,Washington Nationals,1,Baltimore Orioles,3,Baltimore Orioles,4
-2026-06-26,Texas Rangers,5,Toronto Blue Jays,4,Texas Rangers,9
-2026-06-26,Seattle Mariners,3,Cleveland Guardians,1,Seattle Mariners,4
-2026-06-26,Arizona Diamondbacks,1,Tampa Bay Rays,6,Tampa Bay Rays,7
-2026-06-26,Philadelphia Phillies,2,New York Mets,1,Philadelphia Phillies,3
-2026-06-26,New York Yankees,1,Boston Red Sox,6,Boston Red Sox,7
-2026-06-26,Kansas City Royals,1,Chicago White Sox,22,Chicago White Sox,23
-2026-06-26,Chicago Cubs,2,Milwaukee Brewers,6,Milwaukee Brewers,8
-2026-06-26,Colorado Rockies,8,Minnesota Twins,9,Minnesota Twins,17
-2026-06-26,Miami Marlins,4,St. Louis Cardinals,0,Miami Marlins,4
-2026-06-26,Athletics,9,Los Angeles Angels,3,Athletics,12
-2026-06-26,Los Angeles Dodgers,1,San Diego Padres,7,San Diego Padres,8
-2026-06-26,Atlanta Braves,3,San Francisco Giants,1,Atlanta Braves,4
 2026-06-27,Houston Astros,8,Detroit Tigers,6,Houston Astros,14
 2026-06-27,New York Yankees,1,Boston Red Sox,4,Boston Red Sox,5
 2026-06-27,Texas Rangers,7,Toronto Blue Jays,4,Texas Rangers,11
@@ -95,3 +80,16 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-07-02,Detroit Tigers,4,Texas Rangers,10,Texas Rangers,14
 2026-07-02,Los Angeles Angels,0,Seattle Mariners,1,Seattle Mariners,1
 2026-07-02,San Diego Padres,7,Los Angeles Dodgers,12,Los Angeles Dodgers,19
+2026-07-03,St. Louis Cardinals,17,Chicago Cubs,1,St. Louis Cardinals,18
+2026-07-03,Pittsburgh Pirates,5,Washington Nationals,9,Washington Nationals,14
+2026-07-03,Minnesota Twins,2,New York Yankees,5,New York Yankees,7
+2026-07-03,Baltimore Orioles,3,Cincinnati Reds,0,Baltimore Orioles,3
+2026-07-03,Chicago White Sox,3,Cleveland Guardians,4,Cleveland Guardians,7
+2026-07-03,New York Mets,3,Atlanta Braves,5,Atlanta Braves,8
+2026-07-03,San Francisco Giants,3,Colorado Rockies,15,Colorado Rockies,18
+2026-07-03,Tampa Bay Rays,3,Houston Astros,1,Tampa Bay Rays,4
+2026-07-03,Boston Red Sox,5,Los Angeles Angels,2,Boston Red Sox,7
+2026-07-03,Miami Marlins,12,Athletics,5,Miami Marlins,17
+2026-07-03,Milwaukee Brewers,7,Arizona Diamondbacks,4,Milwaukee Brewers,11
+2026-07-03,San Diego Padres,3,Los Angeles Dodgers,4,Los Angeles Dodgers,7
+2026-07-03,Toronto Blue Jays,2,Seattle Mariners,0,Toronto Blue Jays,2

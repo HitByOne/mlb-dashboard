@@ -12,42 +12,44 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 669358,Shane Baz,Baltimore Orioles,99,9,4.19,101.0,1.37,8.82
 543135,Nathan Eovaldi,Texas Rangers,99,19,4.02,105.1,1.17,8.46
 681190,Randy Vásquez,San Diego Padres,99,14,4.71,84.0,1.50,10.61
+656605,Mitch Keller,Pittsburgh Pirates,98,12,5.02,100.1,1.31,8.79
 605400,Aaron Nola,Philadelphia Phillies,98,19,6.04,85.0,1.49,10.38
 642547,Freddy Peralta,New York Mets,97,13,4.81,95.1,1.42,9.16
+663903,Brady Singer,Cincinnati Reds,97,20,5.03,82.1,1.54,10.60
 592332,Kevin Gausman,Toronto Blue Jays,96,15,4.19,101.0,1.19,8.55
+656849,David Peterson,Chicago Cubs,96,8,6.75,77.1,1.67,11.17
 605488,Jeffrey Springs,Athletics,96,24,5.79,93.1,1.38,9.26
 669461,Matthew Liberatore,St. Louis Cardinals,95,17,5.33,82.2,1.55,10.34
+607259,Nick Martinez,Tampa Bay Rays,95,10,2.61,100.0,1.13,8.55
 666200,Jesús Luzardo,Philadelphia Phillies,94,9,3.88,97.1,1.30,8.69
 607067,Colin Rea,Chicago Cubs,94,13,4.74,89.1,1.43,9.47
-663903,Brady Singer,Cincinnati Reds,94,19,5.12,77.1,1.54,10.94
 608379,Michael Wacha,Kansas City Royals,94,10,3.31,108.2,1.14,7.79
 702070,Noah Cameron,Kansas City Royals,93,10,4.95,83.2,1.41,10.00
 671096,Andrew Abbott,Cincinnati Reds,92,15,3.88,95.0,1.44,8.72
 518876,Merrill Kelly,Arizona Diamondbacks,92,18,5.84,81.2,1.53,10.14
 663436,Davis Martin,Chicago White Sox,92,6,3.08,96.1,1.26,8.60
-607259,Nick Martinez,Tampa Bay Rays,92,9,2.66,94.2,1.15,8.75
 571945,Miles Mikolas,Washington Nationals,92,18,5.44,84.1,1.29,9.82
 676917,Cade Cavalli,Washington Nationals,91,7,3.69,90.1,1.33,9.07
 693821,Bryce Elder,Atlanta Braves,91,12,4.01,98.2,1.23,8.30
-656605,Mitch Keller,Pittsburgh Pirates,90,9,4.87,94.1,1.30,8.59
 701542,Will Warren,New York Yankees,90,10,3.73,89.1,1.33,9.07
+668909,Gavin Williams,Cleveland Guardians,90,16,3.89,106.1,1.18,7.62
 681517,Kyle Leahy,St. Louis Cardinals,89,9,4.09,81.1,1.48,9.85
+669467,Andre Pallante,St. Louis Cardinals,89,9,3.60,95.0,1.22,8.43
 677952,Braxton Ashcraft,Pittsburgh Pirates,88,11,3.33,102.2,1.08,7.71
 680694,Kyle Bradish,Baltimore Orioles,88,11,3.77,93.0,1.45,8.52
 608372,Tomoyuki Sugano,Colorado Rockies,88,16,4.80,84.1,1.32,9.39
-650644,Aaron Civale,Athletics,87,14,5.05,67.2,1.58,11.57
 571578,Patrick Corbin,Toronto Blue Jays,87,11,5.11,74.0,1.50,10.58
-656849,David Peterson,Chicago Cubs,87,7,5.86,73.2,1.59,10.63
+650644,Aaron Civale,Athletics,86,14,4.92,67.2,1.57,11.44
 676440,Tanner Bibee,Cleveland Guardians,85,17,3.69,102.1,1.11,7.48
-668909,Gavin Williams,Cleveland Guardians,85,15,3.81,101.2,1.17,7.52
+657277,Logan Webb,San Francisco Giants,85,7,3.66,93.1,1.17,8.20
 605288,Adrian Houser,San Francisco Giants,84,13,5.38,73.2,1.49,10.26
+641743,Anthony Kay,Chicago White Sox,84,11,4.39,84.0,1.39,9.00
 700241,Michael McGreevy,St. Louis Cardinals,84,13,3.12,95.1,1.11,7.93
 691725,Andrew Painter,Philadelphia Phillies,84,14,7.06,65.0,1.66,11.63
-669467,Andre Pallante,St. Louis Cardinals,84,9,3.83,89.1,1.23,8.46
 621111,Walker Buehler,San Diego Padres,83,9,4.61,82.0,1.38,9.11
+622491,Luis Castillo,Seattle Mariners,83,9,4.79,82.2,1.33,9.04
 669022,MacKenzie Gore,Texas Rangers,83,9,4.31,96.0,1.27,7.78
 684007,Shota Imanaga,Chicago Cubs,83,20,4.30,98.1,1.08,7.60
-641743,Anthony Kay,Chicago White Sox,83,11,4.50,80.0,1.43,9.34
 641793,Zack Littell,Washington Nationals,83,22,5.29,80.0,1.35,9.34
 669160,Dustin May,St. Louis Cardinals,83,7,4.80,84.1,1.27,8.86
 657746,Joe Ryan,Minnesota Twins,83,10,3.61,97.1,1.08,7.67
