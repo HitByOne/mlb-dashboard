@@ -4,30 +4,30 @@ Rank,Player,Team,League,HR,player_id
 3,Hunter Goodman,Colorado Rockies,NL,27,696100
 4,Junior Caminero,Tampa Bay Rays,AL,26,691406
 5,Byron Buxton,Minnesota Twins,AL,25,621439
-6,Ben Rice,New York Yankees,AL,24,700250
-7,Colson Montgomery,Chicago White Sox,AL,23,695657
-7,James Wood,Washington Nationals,NL,23,695578
-9,Matt Olson,Atlanta Braves,NL,22,621566
+5,Ben Rice,New York Yankees,AL,25,700250
+7,Matt Olson,Atlanta Braves,NL,24,621566
+7,James Wood,Washington Nationals,NL,24,695578
+9,Colson Montgomery,Chicago White Sox,AL,23,695657
 10,Brandon Lowe,Pittsburgh Pirates,NL,21,664040
 11,Willson Contreras,Boston Red Sox,AL,20,575929
 11,Bryce Harper,Philadelphia Phillies,NL,20,547180
 11,Nick Kurtz,Athletics,AL,20,701762
 11,Shea Langeliers,Athletics,AL,20,669127
 11,Munetaka Murakami,Chicago White Sox,AL,20,808959
+11,Kazuma Okamoto,Toronto Blue Jays,AL,20,672960
 11,Miguel Vargas,Chicago White Sox,AL,20,678246
 11,Christian Walker,Houston Astros,AL,20,572233
 11,Jordan Walker,St. Louis Cardinals,NL,20,691023
-19,Pete Alonso,Baltimore Orioles,AL,19,624413
-19,Pete Crow-Armstrong,Chicago Cubs,NL,19,691718
-19,Dillon Dingler,Detroit Tigers,AL,19,693307
-19,Luis García Jr.,Washington Nationals,NL,19,671277
-19,Zach Neto,Los Angeles Angels,AL,19,687263
-19,Kazuma Okamoto,Toronto Blue Jays,AL,19,672960
-25,CJ Abrams,Washington Nationals,NL,18,682928
-25,Rafael Devers,San Francisco Giants,NL,18,646240
-25,Manny Machado,San Diego Padres,NL,18,592518
-25,Shohei Ohtani,Los Angeles Dodgers,NL,18,660271
-25,Juan Soto,New York Mets,NL,18,665742
+20,CJ Abrams,Washington Nationals,NL,19,682928
+20,Pete Alonso,Baltimore Orioles,AL,19,624413
+20,Pete Crow-Armstrong,Chicago Cubs,NL,19,691718
+20,Dillon Dingler,Detroit Tigers,AL,19,693307
+20,Luis García Jr.,Washington Nationals,NL,19,671277
+20,Zach Neto,Los Angeles Angels,AL,19,687263
+20,Shohei Ohtani,Los Angeles Dodgers,NL,19,660271
+20,Juan Soto,New York Mets,NL,19,665742
+28,Rafael Devers,San Francisco Giants,NL,18,646240
+28,Manny Machado,San Diego Padres,NL,18,592518
 30,Ian Happ,Chicago Cubs,NL,17,664023
 30,Aaron Judge,New York Yankees,AL,17,592450
 30,Ketel Marte,Arizona Diamondbacks,NL,17,606466
@@ -45,23 +45,23 @@ Rank,Player,Team,League,HR,player_id
 43,Jake Burger,Texas Rangers,AL,15,669394
 43,Freddie Freeman,Los Angeles Dodgers,NL,15,518692
 43,Brandon Marsh,Philadelphia Phillies,NL,15,669016
+43,Curtis Mead,Washington Nationals,NL,15,678554
 43,Mickey Moniak,Colorado Rockies,NL,15,666160
-48,Willy Adames,San Francisco Giants,NL,14,642715
-48,Ozzie Albies,Atlanta Braves,NL,14,645277
-48,Samuel Basallo,Baltimore Orioles,AL,14,694212
-48,Alec Burleson,St. Louis Cardinals,NL,14,676475
-48,Jac Caglianone,Kansas City Royals,AL,14,695506
-48,Dominic Canzone,Seattle Mariners,AL,14,686527
-48,Oneil Cruz,Pittsburgh Pirates,NL,14,665833
-48,Paul Goldschmidt,New York Yankees,AL,14,502671
-48,Brooks Lee,Minnesota Twins,AL,14,686797
-48,Curtis Mead,Washington Nationals,NL,14,678554
-48,Joc Pederson,Texas Rangers,AL,14,592626
-48,Luke Raley,Seattle Mariners,AL,14,670042
-48,Julio Rodríguez,Seattle Mariners,AL,14,677594
-48,Gavin Sheets,San Diego Padres,NL,14,657757
-48,Spencer Steer,Cincinnati Reds,NL,14,668715
-48,Spencer Torkelson,Detroit Tigers,AL,14,679529
+49,Willy Adames,San Francisco Giants,NL,14,642715
+49,Ozzie Albies,Atlanta Braves,NL,14,645277
+49,Samuel Basallo,Baltimore Orioles,AL,14,694212
+49,Alec Burleson,St. Louis Cardinals,NL,14,676475
+49,Jac Caglianone,Kansas City Royals,AL,14,695506
+49,Dominic Canzone,Seattle Mariners,AL,14,686527
+49,Oneil Cruz,Pittsburgh Pirates,NL,14,665833
+49,Paul Goldschmidt,New York Yankees,AL,14,502671
+49,Brooks Lee,Minnesota Twins,AL,14,686797
+49,Joc Pederson,Texas Rangers,AL,14,592626
+49,Luke Raley,Seattle Mariners,AL,14,670042
+49,Julio Rodríguez,Seattle Mariners,AL,14,677594
+49,Gavin Sheets,San Diego Padres,NL,14,657757
+49,Spencer Steer,Cincinnati Reds,NL,14,668715
+49,Spencer Torkelson,Detroit Tigers,AL,14,679529
 64,Jonathan Aranda,Tampa Bay Rays,AL,13,666018
 64,Josh Bell,Minnesota Twins,AL,13,605137
 64,JJ Bleday,Cincinnati Reds,NL,13,668709

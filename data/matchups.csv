@@ -1,9 +1,17 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824089,2026-07-06,Philadelphia Phillies,143,Kansas City Royals,118,Cristopher Sánchez,650911,Noah Cameron,702070
-822958,2026-07-06,New York Yankees,147,Tampa Bay Rays,139,Cam Schlittler,693645,Griffin Jax,643377
-822712,2026-07-06,Houston Astros,117,Washington Nationals,120,Mike Burrows,681347,Miles Mikolas,571945
-824900,2026-07-06,New York Mets,121,Atlanta Braves,144,Freddy Peralta,642547,Reynaldo López,625643
-823036,2026-07-06,Milwaukee Brewers,158,St. Louis Cardinals,138,Shane Drohan,675660,Dustin May,669160
-823282,2026-07-06,Arizona Diamondbacks,109,San Diego Padres,135,Brandon Pfaadt,694297,Walker Buehler,621111
-823205,2026-07-06,Toronto Blue Jays,141,San Francisco Giants,137,Kevin Gausman,592332,Landen Roupp,694738
-823930,2026-07-06,Colorado Rockies,115,Los Angeles Dodgers,119,Kyle Freeland,607536,Eric Lauer,641778
+823062,2026-07-07,Milwaukee Brewers,158,St. Louis Cardinals,138,Jacob Misiorowski,694819,TBD,
+823035,2026-07-07,Milwaukee Brewers,158,St. Louis Cardinals,138,TBD,,TBD,
+824820,2026-07-07,Chicago Cubs,112,Baltimore Orioles,110,Matthew Boyd,571510,Shane Baz,669358
+824254,2026-07-07,Athletics,133,Detroit Tigers,116,J.T. Ginn,669372,Tarik Skubal,669373
+823361,2026-07-07,Atlanta Braves,144,Pittsburgh Pirates,134,Hurston Waldrep,694462,Paul Skenes,694973
+823847,2026-07-07,Seattle Mariners,136,Miami Marlins,146,TBD,,Max Meyer,676974
+822956,2026-07-07,New York Yankees,147,Tampa Bay Rays,139,Will Warren,701542,Ian Seymour,693855
+822713,2026-07-07,Houston Astros,117,Washington Nationals,120,Tatsuya Imai,837227,Andrew Alvarez,674841
+823607,2026-07-07,Kansas City Royals,118,New York Mets,121,Seth Lugo,607625,TBD,
+824495,2026-07-07,Philadelphia Phillies,143,Cincinnati Reds,113,TBD,,Andrew Abbott,671096
+823687,2026-07-07,Cleveland Guardians,114,Minnesota Twins,142,Joey Cantillo,676282,Taj Bradley,671737
+824579,2026-07-07,Boston Red Sox,111,Chicago White Sox,145,Payton Tolle,801139,Noah Schultz,702273
+822881,2026-07-07,Los Angeles Angels,108,Texas Rangers,140,José Soriano,667755,Jacob deGrom,594798
+823280,2026-07-07,Arizona Diamondbacks,109,San Diego Padres,135,Zac Gallen,668678,Germán Márquez,608566
+823203,2026-07-07,Toronto Blue Jays,141,San Francisco Giants,137,TBD,,Trevor McDonald,686790
+823929,2026-07-07,Colorado Rockies,115,Los Angeles Dodgers,119,Michael Lorenzen,547179,Justin Wrobleski,680736
