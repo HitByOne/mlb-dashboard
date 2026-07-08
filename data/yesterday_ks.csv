@@ -1,20 +1,35 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-07-06,Griffin Jax,Tampa Bay Rays,New York Yankees,5.0,10,5.5,+100,-134,50,Over Hit
-2026-07-06,Kevin Gausman,Toronto Blue Jays,San Francisco Giants,5.1,8,5.5,-107,-125,52,Over Hit
-2026-07-06,Cam Schlittler,New York Yankees,Tampa Bay Rays,8.0,8,5.5,-150,+112,60,Over Hit
-2026-07-06,Dustin May,St. Louis Cardinals,Milwaukee Brewers,4.2,7,4.5,-143,+105,59,Over Hit
-2026-07-06,Noah Cameron,Kansas City Royals,Philadelphia Phillies,5.0,7,4.5,-150,+112,60,Over Hit
-2026-07-06,Brandon Pfaadt,Arizona Diamondbacks,San Diego Padres,5.0,6,3.5,-127,-106,56,Over Hit
-2026-07-06,Freddy Peralta,New York Mets,Atlanta Braves,4.2,6,4.5,-148,+110,60,Over Hit
-2026-07-06,Reynaldo López,Atlanta Braves,New York Mets,5.0,5,4.5,+100,-134,50,Over Hit
-2026-07-06,Landen Roupp,San Francisco Giants,Toronto Blue Jays,8.0,5,4.5,-157,+118,61,Over Hit
-2026-07-06,Walker Buehler,San Diego Padres,Arizona Diamondbacks,5.0,4,3.5,-139,+105,58,Over Hit
-2026-07-06,Chris Roycroft,Tampa Bay Rays,New York Yankees,2.0,4,—,—,—,0,—
-2026-07-06,Ryan Thompson,Arizona Diamondbacks,San Diego Padres,2.0,4,—,—,—,0,—
-2026-07-06,Jose Cuas,Kansas City Royals,Philadelphia Phillies,2.0,3,—,—,—,0,—
-2026-07-06,AJ Blubaugh,Houston Astros,Washington Nationals,1.2,3,—,—,—,0,—
-2026-07-06,Mike Burrows,Houston Astros,Washington Nationals,4.1,3,3.5,-159,+120,61,Under Hit
-2026-07-06,Miles Mikolas,Washington Nationals,Houston Astros,6.0,3,3.5,+135,-182,43,Under Hit
-2026-07-06,Cionel Pérez,New York Mets,Atlanta Braves,1.1,3,—,—,—,0,—
-2026-07-06,Alek Jacob,San Diego Padres,Arizona Diamondbacks,3.0,3,—,—,—,0,—
-2026-07-06,Eric Lauer,Los Angeles Dodgers,Colorado Rockies,6.0,3,4.5,+108,-143,48,Under Hit
+2026-07-07,Zack Wheeler,Philadelphia Phillies,Cincinnati Reds,7.0,14,7.5,+110,-148,48,Over Hit
+2026-07-07,Ian Seymour,Tampa Bay Rays,New York Yankees,5.1,12,5.5,-109,-122,52,Over Hit
+2026-07-07,Jacob Misiorowski,Milwaukee Brewers,St. Louis Cardinals,7.0,11,7.5,-120,-112,55,Over Hit
+2026-07-07,Taj Bradley,Minnesota Twins,Cleveland Guardians,7.0,10,6.5,+115,-152,47,Over Hit
+2026-07-07,Justin Wrobleski,Los Angeles Dodgers,Colorado Rockies,7.0,9,5.5,+128,-175,44,Over Hit
+2026-07-07,Tarik Skubal,Detroit Tigers,Athletics,5.0,9,8.5,+120,-159,45,Over Hit
+2026-07-07,Andrew Abbott,Cincinnati Reds,Philadelphia Phillies,6.0,8,4.5,-150,+112,60,Over Hit
+2026-07-07,Joey Cantillo,Cleveland Guardians,Minnesota Twins,5.0,7,4.5,-152,+115,60,Over Hit
+2026-07-07,Matthew Boyd,Chicago Cubs,Baltimore Orioles,6.0,7,4.5,-170,+125,63,Over Hit
+2026-07-07,Jacob deGrom,Texas Rangers,Los Angeles Angels,5.0,7,7.5,-115,-115,53,Under Hit
+2026-07-07,Payton Tolle,Boston Red Sox,Chicago White Sox,6.0,6,5.5,-130,-103,57,Over Hit
+2026-07-07,Zac Gallen,Arizona Diamondbacks,San Diego Padres,6.0,5,3.5,-175,+128,64,Over Hit
+2026-07-07,Adrian Houser,San Francisco Giants,Toronto Blue Jays,5.2,5,—,—,—,0,—
+2026-07-07,Bryan Woo,Seattle Mariners,Miami Marlins,5.0,5,5.5,+123,-165,45,Under Hit
+2026-07-07,Michael Lorenzen,Colorado Rockies,Los Angeles Dodgers,6.0,5,3.5,-129,-104,56,Over Hit
+2026-07-07,Robert Gasser,Milwaukee Brewers,St. Louis Cardinals,7.2,4,—,—,—,0,—
+2026-07-07,Paul Skenes,Pittsburgh Pirates,Atlanta Braves,6.0,4,6.5,-118,-113,54,Under Hit
+2026-07-07,Jacob Lopez,Athletics,Detroit Tigers,3.0,4,—,—,—,0,—
+2026-07-07,Hunter Dobbins,St. Louis Cardinals,Milwaukee Brewers,5.0,4,3.5,-148,+110,60,Over Hit
+2026-07-07,J.T. Ginn,Athletics,Detroit Tigers,4.0,4,4.5,-139,+106,58,Under Hit
+2026-07-07,Seth Lugo,Kansas City Royals,New York Mets,4.1,4,4.5,+108,-145,48,Under Hit
+2026-07-07,Kodai Senga,New York Mets,Kansas City Royals,3.0,4,—,—,—,0,—
+2026-07-07,Germán Márquez,San Diego Padres,Arizona Diamondbacks,5.0,4,2.5,+100,-130,50,Over Hit
+2026-07-07,José Soriano,Los Angeles Angels,Texas Rangers,6.0,4,5.5,+120,-162,45,Under Hit
+2026-07-07,Max Meyer,Miami Marlins,Seattle Mariners,5.0,4,6.5,+115,-152,47,Under Hit
+2026-07-07,Shane Baz,Baltimore Orioles,Chicago Cubs,6.0,3,5.5,+115,-155,47,Under Hit
+2026-07-07,Andrew Alvarez,Washington Nationals,Houston Astros,5.2,3,4.5,-115,-115,53,Under Hit
+2026-07-07,Riley Cornelio,Washington Nationals,Houston Astros,1.1,3,—,—,—,0,—
+2026-07-07,Tatsuya Imai,Houston Astros,Washington Nationals,3.2,3,4.5,-124,-107,55,Under Hit
+2026-07-07,Steven Okert,Houston Astros,Washington Nationals,1.1,3,—,—,—,0,—
+2026-07-07,Will Warren,New York Yankees,Tampa Bay Rays,4.0,3,4.5,-114,-117,53,Under Hit
+2026-07-07,Elvis Alvarado,Athletics,Detroit Tigers,1.0,3,—,—,—,0,—
+2026-07-07,Jhoan Duran,Philadelphia Phillies,Cincinnati Reds,1.0,3,—,—,—,0,—
+2026-07-07,Noah Schultz,Chicago White Sox,Boston Red Sox,5.0,3,4.5,-118,-113,54,Under Hit

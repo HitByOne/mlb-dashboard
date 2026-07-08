@@ -1,17 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823062,2026-07-07,Milwaukee Brewers,158,St. Louis Cardinals,138,Jacob Misiorowski,694819,TBD,
-823035,2026-07-07,Milwaukee Brewers,158,St. Louis Cardinals,138,TBD,,TBD,
-824820,2026-07-07,Chicago Cubs,112,Baltimore Orioles,110,Matthew Boyd,571510,Shane Baz,669358
-824254,2026-07-07,Athletics,133,Detroit Tigers,116,J.T. Ginn,669372,Tarik Skubal,669373
-823361,2026-07-07,Atlanta Braves,144,Pittsburgh Pirates,134,Hurston Waldrep,694462,Paul Skenes,694973
-823847,2026-07-07,Seattle Mariners,136,Miami Marlins,146,TBD,,Max Meyer,676974
-822956,2026-07-07,New York Yankees,147,Tampa Bay Rays,139,Will Warren,701542,Ian Seymour,693855
-822713,2026-07-07,Houston Astros,117,Washington Nationals,120,Tatsuya Imai,837227,Andrew Alvarez,674841
-823607,2026-07-07,Kansas City Royals,118,New York Mets,121,Seth Lugo,607625,TBD,
-824495,2026-07-07,Philadelphia Phillies,143,Cincinnati Reds,113,TBD,,Andrew Abbott,671096
-823687,2026-07-07,Cleveland Guardians,114,Minnesota Twins,142,Joey Cantillo,676282,Taj Bradley,671737
-824579,2026-07-07,Boston Red Sox,111,Chicago White Sox,145,Payton Tolle,801139,Noah Schultz,702273
-822881,2026-07-07,Los Angeles Angels,108,Texas Rangers,140,José Soriano,667755,Jacob deGrom,594798
-823280,2026-07-07,Arizona Diamondbacks,109,San Diego Padres,135,Zac Gallen,668678,Germán Márquez,608566
-823203,2026-07-07,Toronto Blue Jays,141,San Francisco Giants,137,TBD,,Trevor McDonald,686790
-823929,2026-07-07,Colorado Rockies,115,Los Angeles Dodgers,119,Michael Lorenzen,547179,Justin Wrobleski,680736
+823202,2026-07-08,Toronto Blue Jays,141,San Francisco Giants,137,Dylan Cease,656302,Logan Webb,657277
+824815,2026-07-08,Chicago Cubs,112,Baltimore Orioles,110,Colin Rea,607067,Dean Kremer,665152
+824253,2026-07-08,Athletics,133,Detroit Tigers,116,Jeffrey Springs,605488,Troy Melton,675512
+823360,2026-07-08,Atlanta Braves,144,Pittsburgh Pirates,134,Grant Holmes,656550,Jared Jones,683003
+823848,2026-07-08,Seattle Mariners,136,Miami Marlins,146,George Kirby,669923,Tyler Phillips,663969
+822957,2026-07-08,New York Yankees,147,Tampa Bay Rays,139,Gerrit Cole,543037,Shane McClanahan,663556
+822710,2026-07-08,Houston Astros,117,Washington Nationals,120,Spencer Arrighetti,681293,Foster Griffin,656492
+823605,2026-07-08,Kansas City Royals,118,New York Mets,121,Steven Cruz,674444,Christian Scott,681035
+824496,2026-07-08,Philadelphia Phillies,143,Cincinnati Reds,113,TBD,,Chase Burns,695505
+823684,2026-07-08,Cleveland Guardians,114,Minnesota Twins,142,Slade Cecconi,677944,Connor Prielipp,687570
+824578,2026-07-08,Boston Red Sox,111,Chicago White Sox,145,Jake Bennett,687562,Davis Martin,663436
+823032,2026-07-08,Milwaukee Brewers,158,St. Louis Cardinals,138,Kyle Harrison,690986,Michael McGreevy,700241
+822880,2026-07-08,Los Angeles Angels,108,Texas Rangers,140,Walbert Ureña,700712,MacKenzie Gore,669022
+823928,2026-07-08,Colorado Rockies,115,Los Angeles Dodgers,119,Gabriel Hughes,687312,Roki Sasaki,808963
+823279,2026-07-08,Arizona Diamondbacks,109,San Diego Padres,135,Jose Cabrera,703615,Michael King,650633
