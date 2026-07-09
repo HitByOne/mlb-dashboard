@@ -1,18 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-07-01,Chicago White Sox,1,Baltimore Orioles,6,Baltimore Orioles,7
-2026-07-01,Texas Rangers,4,Cleveland Guardians,9,Cleveland Guardians,13
-2026-07-01,Washington Nationals,10,Boston Red Sox,2,Washington Nationals,12
-2026-07-01,Detroit Tigers,6,New York Yankees,2,Detroit Tigers,8
-2026-07-01,San Diego Padres,3,Chicago Cubs,23,Chicago Cubs,26
-2026-07-01,New York Mets,3,Toronto Blue Jays,9,Toronto Blue Jays,12
-2026-07-01,Pittsburgh Pirates,6,Philadelphia Phillies,10,Philadelphia Phillies,16
-2026-07-01,St. Louis Cardinals,1,Atlanta Braves,5,Atlanta Braves,6
-2026-07-01,Tampa Bay Rays,4,Kansas City Royals,0,Tampa Bay Rays,4
-2026-07-01,Minnesota Twins,8,Houston Astros,3,Minnesota Twins,11
-2026-07-01,Cincinnati Reds,2,Milwaukee Brewers,4,Milwaukee Brewers,6
-2026-07-01,Miami Marlins,3,Colorado Rockies,6,Colorado Rockies,9
-2026-07-01,Los Angeles Dodgers,1,Athletics,7,Athletics,8
-2026-07-01,San Francisco Giants,6,Arizona Diamondbacks,4,San Francisco Giants,10
 2026-07-02,Pittsburgh Pirates,6,Philadelphia Phillies,1,Pittsburgh Pirates,7
 2026-07-02,Cincinnati Reds,7,Milwaukee Brewers,2,Cincinnati Reds,9
 2026-07-02,Miami Marlins,4,Colorado Rockies,14,Colorado Rockies,18
@@ -89,3 +75,18 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-07-07,Arizona Diamondbacks,1,San Diego Padres,4,San Diego Padres,5
 2026-07-07,Toronto Blue Jays,9,San Francisco Giants,3,Toronto Blue Jays,12
 2026-07-07,Colorado Rockies,4,Los Angeles Dodgers,3,Colorado Rockies,7
+2026-07-08,Toronto Blue Jays,10,San Francisco Giants,0,Toronto Blue Jays,10
+2026-07-08,Chicago Cubs,9,Baltimore Orioles,7,Chicago Cubs,16
+2026-07-08,Athletics,1,Detroit Tigers,6,Detroit Tigers,7
+2026-07-08,Atlanta Braves,3,Pittsburgh Pirates,0,Atlanta Braves,3
+2026-07-08,Seattle Mariners,0,Miami Marlins,2,Miami Marlins,2
+2026-07-08,New York Yankees,0,Tampa Bay Rays,3,Tampa Bay Rays,3
+2026-07-08,Houston Astros,2,Washington Nationals,8,Washington Nationals,10
+2026-07-08,Kansas City Royals,2,New York Mets,6,New York Mets,8
+2026-07-08,Philadelphia Phillies,5,Cincinnati Reds,11,Cincinnati Reds,16
+2026-07-08,Cleveland Guardians,5,Minnesota Twins,6,Minnesota Twins,11
+2026-07-08,Boston Red Sox,5,Chicago White Sox,0,Boston Red Sox,5
+2026-07-08,Milwaukee Brewers,1,St. Louis Cardinals,5,St. Louis Cardinals,6
+2026-07-08,Los Angeles Angels,13,Texas Rangers,1,Los Angeles Angels,14
+2026-07-08,Colorado Rockies,3,Los Angeles Dodgers,4,Los Angeles Dodgers,7
+2026-07-08,Arizona Diamondbacks,4,San Diego Padres,10,San Diego Padres,14
