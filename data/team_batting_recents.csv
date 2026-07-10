@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-116,Detroit Tigers,0.227,0.226,9,44,28
-147,New York Yankees,0.235,0.292,7,63,35
-120,Washington Nationals,0.293,0.32,3,37,22
-134,Pittsburgh Pirates,0.282,0.255,7,41,22
 143,Philadelphia Phillies,0.221,0.216,7,43,23
-136,Seattle Mariners,0.224,0.2,9,45,26
-111,Boston Red Sox,0.247,0.255,6,42,25
+113,Cincinnati Reds,0.217,0.196,14,53,42
+116,Detroit Tigers,0.227,0.226,9,44,28
 110,Baltimore Orioles,0.242,0.24,5,37,21
-139,Tampa Bay Rays,0.211,0.263,9,40,22
-112,Chicago Cubs,0.241,0.262,5,35,16
-114,Cleveland Guardians,0.213,0.173,9,58,35
-146,Miami Marlins,0.337,0.304,4,30,19
 158,Milwaukee Brewers,0.264,0.271,8,37,23
 118,Kansas City Royals,0.344,0.306,9,40,27
-113,Cincinnati Reds,0.217,0.196,14,53,42
-121,New York Mets,0.309,0.311,7,31,17
-117,Houston Astros,0.262,0.257,10,40,24
+147,New York Yankees,0.235,0.292,7,63,35
+112,Chicago Cubs,0.241,0.262,5,35,16
+136,Seattle Mariners,0.224,0.2,9,45,26
+120,Washington Nationals,0.293,0.32,3,37,22
+111,Boston Red Sox,0.247,0.255,6,42,25
+134,Pittsburgh Pirates,0.282,0.255,7,41,22
+146,Miami Marlins,0.337,0.304,4,30,19
+114,Cleveland Guardians,0.213,0.173,9,58,35
 133,Athletics,0.2,0.19,11,54,35
 140,Texas Rangers,0.211,0.255,10,41,31
+139,Tampa Bay Rays,0.211,0.263,9,40,22
+121,New York Mets,0.309,0.311,7,31,17
 142,Minnesota Twins,0.27,0.242,14,49,29
-137,San Francisco Giants,0.246,0.23,9,46,26
-144,Atlanta Braves,0.277,0.257,10,53,29
-119,Los Angeles Dodgers,0.227,0.264,9,38,21
-138,St. Louis Cardinals,0.175,0.168,7,38,19
 145,Chicago White Sox,0.199,0.158,9,36,25
+117,Houston Astros,0.262,0.257,10,40,24
+108,Los Angeles Angels,0.267,0.306,15,57,35
+144,Atlanta Braves,0.277,0.257,10,53,29
 109,Arizona Diamondbacks,0.244,0.235,10,37,22
+138,St. Louis Cardinals,0.175,0.168,7,38,19
+141,Toronto Blue Jays,0.188,0.25,3,29,15
 135,San Diego Padres,0.233,0.237,9,38,18
 115,Colorado Rockies,0.229,0.188,9,46,30
-141,Toronto Blue Jays,0.188,0.25,3,29,15
-108,Los Angeles Angels,0.267,0.306,15,57,35
+119,Los Angeles Dodgers,0.227,0.264,9,38,21
+137,San Francisco Giants,0.246,0.23,9,46,26
