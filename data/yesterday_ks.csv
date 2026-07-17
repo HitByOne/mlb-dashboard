@@ -1,36 +1,3 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-07-11,Kyle Freeland,Colorado Rockies,San Francisco Giants,6.0,9,4.5,+123,-165,45,Over Hit
-2026-07-11,Noah Cameron,Kansas City Royals,Baltimore Orioles,7.0,9,5.5,+112,-150,47,Over Hit
-2026-07-11,Cristopher Sánchez,Philadelphia Phillies,Detroit Tigers,7.0,7,6.5,-132,+100,57,Over Hit
-2026-07-11,Peter Lambert,Houston Astros,Texas Rangers,6.0,7,4.5,-114,-117,53,Over Hit
-2026-07-11,Gage Jump,Athletics,Chicago White Sox,5.2,7,5.5,+104,-139,49,Over Hit
-2026-07-11,Yoshinobu Yamamoto,Los Angeles Dodgers,Arizona Diamondbacks,6.0,6,5.5,-150,+114,60,Over Hit
-2026-07-11,Kumar Rocker,Texas Rangers,Houston Astros,5.2,6,4.5,+118,-157,46,Over Hit
-2026-07-11,Eury Pérez,Miami Marlins,Cleveland Guardians,6.0,6,6.5,+107,-141,48,Under Hit
-2026-07-11,Joe Ryan,Minnesota Twins,Los Angeles Angels,6.0,6,7.5,+100,-134,50,Under Hit
-2026-07-11,Braxton Ashcraft,Pittsburgh Pirates,Milwaukee Brewers,5.0,6,6.5,+120,-159,45,Under Hit
-2026-07-11,Shane Drohan,Milwaukee Brewers,Pittsburgh Pirates,6.1,6,4.5,-148,+112,60,Over Hit
-2026-07-11,Freddy Peralta,New York Mets,Boston Red Sox,4.1,6,5.5,-118,-113,54,Over Hit
-2026-07-11,Bubba Chandler,Pittsburgh Pirates,Milwaukee Brewers,4.2,6,4.5,+112,-150,47,Over Hit
-2026-07-11,Cam Schlittler,New York Yankees,Washington Nationals,6.2,6,6.5,+107,-141,48,Under Hit
-2026-07-11,Matthew Liberatore,St. Louis Cardinals,Atlanta Braves,6.0,6,4.5,-110,-118,52,Over Hit
-2026-07-11,Casey Mize,Detroit Tigers,Philadelphia Phillies,5.2,5,5.5,+112,-150,47,Under Hit
-2026-07-11,Kyle Bradish,Baltimore Orioles,Kansas City Royals,6.2,5,5.5,+107,-143,48,Under Hit
-2026-07-11,Logan Gilbert,Seattle Mariners,Tampa Bay Rays,6.2,5,5.5,-125,-107,56,Under Hit
-2026-07-11,Cam Booser,Tampa Bay Rays,Seattle Mariners,2.0,5,—,—,—,0,—
-2026-07-11,Nick Lodolo,Cincinnati Reds,Chicago Cubs,5.0,4,4.5,-148,+110,60,Under Hit
-2026-07-11,Tyler Mahle,San Francisco Giants,Colorado Rockies,7.0,4,4.5,-152,+115,60,Under Hit
-2026-07-11,Javier Assad,Chicago Cubs,Cincinnati Reds,5.0,4,3.5,-121,-110,55,Over Hit
-2026-07-11,AJ Blubaugh,Houston Astros,Texas Rangers,2.0,4,—,—,—,0,—
-2026-07-11,Brandon Sproat,Milwaukee Brewers,Pittsburgh Pirates,3.0,3,5.5,+105,-139,49,Under Hit
-2026-07-11,Aaron Ashby,Milwaukee Brewers,Pittsburgh Pirates,1.0,3,—,—,—,0,—
-2026-07-11,Craig Yoho,Milwaukee Brewers,Pittsburgh Pirates,2.0,3,—,—,—,0,—
-2026-07-11,Erick Fedde,Chicago White Sox,Athletics,4.0,3,3.5,—,—,0,Under Hit
-2026-07-11,Tanner Bibee,Cleveland Guardians,Miami Marlins,6.2,3,4.5,-104,-129,51,Under Hit
-2026-07-11,Griffin Jax,Tampa Bay Rays,Seattle Mariners,5.0,3,5.5,-124,-108,55,Under Hit
-2026-07-11,PJ Poulin,Washington Nationals,New York Yankees,1.2,3,—,—,—,0,—
-2026-07-11,Eduardo Rivera,Boston Red Sox,New York Mets,3.2,3,—,—,—,0,—
-2026-07-11,William Kempner,Miami Marlins,Cleveland Guardians,2.0,3,—,—,—,0,—
-2026-07-11,Owen Murphy,Atlanta Braves,St. Louis Cardinals,3.0,3,—,—,—,0,—
-2026-07-11,Reynaldo López,Atlanta Braves,St. Louis Cardinals,5.0,3,3.5,-105,-125,51,Under Hit
-2026-07-11,Matt Waldron,San Diego Padres,Toronto Blue Jays,3.0,3,—,—,—,0,—
+2026-07-16,Christian Scott,New York Mets,Philadelphia Phillies,5.2,7,5.5,+105,-139,49,Over Hit
+2026-07-16,Aaron Nola,Philadelphia Phillies,New York Mets,6.0,6,5.5,+117,-157,46,Over Hit

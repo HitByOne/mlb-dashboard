@@ -34,31 +34,31 @@ player_id,Player,Team,League,H,TB
 682928,CJ Abrams,Washington Nationals,NL,95,176
 606466,Ketel Marte,Arizona Diamondbacks,NL,95,171
 668930,Brice Turang,Milwaukee Brewers,NL,95,166
+701807,Carson Benge,New York Mets,NL,94,143
 700250,Ben Rice,New York Yankees,AL,94,202
 668227,Randy Arozarena,Seattle Mariners,AL,93,149
-701807,Carson Benge,New York Mets,NL,93,142
 805367,Chase Meidroth,Chicago White Sox,AL,93,0
 701398,Sal Stewart,Cincinnati Reds,NL,93,172
 677800,Wilyer Abreu,Boston Red Sox,AL,92,151
 802415,Chandler Simpson,Tampa Bay Rays,AL,92,0
+607208,Trea Turner,Philadelphia Phillies,NL,92,0
 666176,Jo Adell,Los Angeles Angels,AL,91,147
 624413,Pete Alonso,Baltimore Orioles,AL,91,171
 646240,Rafael Devers,San Francisco Giants,NL,91,175
 643289,Mauricio Dubón,Atlanta Braves,NL,91,144
 695734,Daylen Lile,Washington Nationals,NL,91,148
 607043,Brandon Nimmo,Texas Rangers,AL,91,147
-607208,Trea Turner,Philadelphia Phillies,NL,91,0
 621493,Taylor Ward,Baltimore Orioles,AL,91,0
 802139,JJ Wetherholt,St. Louis Cardinals,NL,91,0
+547180,Bryce Harper,Philadelphia Phillies,NL,90,172
 669127,Shea Langeliers,Athletics,AL,90,169
+656941,Kyle Schwarber,Philadelphia Phillies,NL,90,198
 608324,Alex Bregman,Chicago Cubs,NL,89,0
 575929,Willson Contreras,Boston Red Sox,AL,89,169
-547180,Bryce Harper,Philadelphia Phillies,NL,89,170
 683002,Gunnar Henderson,Baltimore Orioles,AL,89,160
 701762,Nick Kurtz,Athletics,AL,89,166
 647304,Josh Naylor,Seattle Mariners,AL,89,0
 677594,Julio Rodríguez,Seattle Mariners,AL,89,146
-656941,Kyle Schwarber,Philadelphia Phillies,NL,89,196
 641355,Cody Bellinger,New York Yankees,AL,88,146
 665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,88,0
 664040,Brandon Lowe,Pittsburgh Pirates,NL,88,174
@@ -80,7 +80,7 @@ player_id,Player,Team,League,H,TB
 678246,Miguel Vargas,Chicago White Sox,AL,0,169
 695657,Colson Montgomery,Chicago White Sox,AL,0,160
 672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,159
-665742,Juan Soto,New York Mets,NL,0,155
+665742,Juan Soto,New York Mets,NL,0,156
 642715,Willy Adames,San Francisco Giants,NL,0,150
 641343,Jake Bauers,Milwaukee Brewers,NL,0,150
 682829,Elly De La Cruz,Cincinnati Reds,NL,0,149
