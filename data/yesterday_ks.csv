@@ -1,3 +1,33 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-07-16,Christian Scott,New York Mets,Philadelphia Phillies,5.2,7,5.5,+105,-139,49,Over Hit
-2026-07-16,Aaron Nola,Philadelphia Phillies,New York Mets,6.0,6,5.5,+117,-157,46,Over Hit
+2026-07-17,Peter Lambert,Houston Astros,Baltimore Orioles,6.0,10,5.5,+106,-139,49,Over Hit
+2026-07-17,Troy Melton,Detroit Tigers,Los Angeles Angels,5.2,9,5.5,-129,-104,56,Over Hit
+2026-07-17,Cade Cavalli,Washington Nationals,Athletics,6.0,9,4.5,-134,+100,57,Over Hit
+2026-07-17,Gerrit Cole,New York Yankees,Los Angeles Dodgers,6.0,8,5.5,+104,-137,49,Over Hit
+2026-07-17,Gage Jump,Athletics,Washington Nationals,3.2,8,5.5,+118,-157,46,Over Hit
+2026-07-17,Sandy Alcantara,Miami Marlins,Milwaukee Brewers,6.0,7,4.5,-148,+110,60,Over Hit
+2026-07-17,Bailey Ober,Minnesota Twins,Chicago Cubs,5.1,7,3.5,-129,-104,56,Over Hit
+2026-07-17,Reid Detmers,Los Angeles Angels,Detroit Tigers,6.0,7,6.5,-120,-112,55,Over Hit
+2026-07-17,Gabriel Hughes,Colorado Rockies,Cincinnati Reds,5.1,6,4.5,-113,-118,53,Over Hit
+2026-07-17,Brady Singer,Cincinnati Reds,Colorado Rockies,7.0,6,4.5,+118,-159,46,Over Hit
+2026-07-17,Bryce Miller,Seattle Mariners,San Francisco Giants,5.2,6,5.5,-148,+110,60,Over Hit
+2026-07-17,Griffin Jax,Tampa Bay Rays,Boston Red Sox,5.0,6,4.5,-148,+110,60,Over Hit
+2026-07-17,Chris Sale,Atlanta Braves,Texas Rangers,7.0,6,7.5,+108,-143,48,Under Hit
+2026-07-17,Colin Rea,Chicago Cubs,Minnesota Twins,6.0,6,3.5,-139,+104,58,Over Hit
+2026-07-17,Anthony Kay,Chicago White Sox,Toronto Blue Jays,4.0,5,3.5,-104,-129,51,Over Hit
+2026-07-17,Roki Sasaki,Los Angeles Dodgers,New York Yankees,5.2,5,4.5,-157,+117,61,Over Hit
+2026-07-17,Michael McGreevy,St. Louis Cardinals,Arizona Diamondbacks,6.1,5,2.5,-159,+120,61,Over Hit
+2026-07-17,Riley Cornelio,Washington Nationals,Athletics,2.0,5,—,—,—,0,—
+2026-07-17,Keider Montero,Detroit Tigers,Los Angeles Angels,3.1,5,—,—,—,0,—
+2026-07-17,Dean Kremer,Baltimore Orioles,Houston Astros,4.0,5,4.5,-136,+102,58,Over Hit
+2026-07-17,Mason Englert,Tampa Bay Rays,Boston Red Sox,5.0,4,3.5,-159,+118,61,Over Hit
+2026-07-17,Logan Henderson,Milwaukee Brewers,Miami Marlins,5.0,4,5.5,+112,-150,47,Under Hit
+2026-07-17,Spencer Miles,Toronto Blue Jays,Chicago White Sox,4.0,4,3.5,-136,+106,58,Over Hit
+2026-07-17,Michael King,San Diego Padres,Kansas City Royals,5.0,4,4.5,+116,-155,46,Under Hit
+2026-07-17,Tyler Schweitzer,Chicago White Sox,Toronto Blue Jays,3.0,3,—,—,—,0,—
+2026-07-17,Jake Bennett,Boston Red Sox,Tampa Bay Rays,6.0,3,3.5,-141,+106,59,Under Hit
+2026-07-17,Eduardo Rivera,Boston Red Sox,Tampa Bay Rays,2.1,3,3.5,+102,-136,50,Under Hit
+2026-07-17,Cal Quantrill,Texas Rangers,Atlanta Braves,4.0,3,3.5,+125,-167,44,Under Hit
+2026-07-17,Mason Miller,San Diego Padres,Kansas City Royals,1.0,3,—,—,—,0,—
+2026-07-17,Seth Lugo,Kansas City Royals,San Diego Padres,6.0,3,4.5,+125,-167,44,Under Hit
+2026-07-17,Sam Bachman,Los Angeles Angels,Detroit Tigers,1.0,3,—,—,—,0,—
+2026-07-17,Merrill Kelly,Arizona Diamondbacks,St. Louis Cardinals,5.0,3,3.5,-121,-110,55,Under Hit
