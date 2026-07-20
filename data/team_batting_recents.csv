@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-142,Minnesota Twins,0.25,0.237,4,31,21
-139,Tampa Bay Rays,0.196,0.245,8,35,23
-114,Cleveland Guardians,0.275,0.253,11,51,34
-147,New York Yankees,0.22,0.194,9,38,24
-119,Los Angeles Dodgers,0.178,0.2,8,43,31
-135,San Diego Padres,0.281,0.297,4,29,13
-143,Philadelphia Phillies,0.23,0.224,14,54,33
-110,Baltimore Orioles,0.211,0.163,10,58,38
-141,Toronto Blue Jays,0.202,0.172,6,35,21
 134,Pittsburgh Pirates,0.291,0.269,15,55,39
-118,Kansas City Royals,0.241,0.28,7,44,24
 111,Boston Red Sox,0.245,0.22,5,33,19
-144,Atlanta Braves,0.304,0.365,9,40,23
+135,San Diego Padres,0.281,0.297,4,29,13
+119,Los Angeles Dodgers,0.178,0.2,8,43,31
+114,Cleveland Guardians,0.275,0.253,11,51,34
+142,Minnesota Twins,0.25,0.237,4,31,21
+147,New York Yankees,0.22,0.194,9,38,24
+110,Baltimore Orioles,0.211,0.163,10,58,38
 137,San Francisco Giants,0.229,0.222,16,50,37
+144,Atlanta Braves,0.304,0.365,9,40,23
 121,New York Mets,0.199,0.235,8,49,27
-140,Texas Rangers,0.263,0.262,7,43,23
-158,Milwaukee Brewers,0.215,0.208,12,52,35
-112,Chicago Cubs,0.275,0.284,9,43,29
+143,Philadelphia Phillies,0.23,0.224,14,54,33
+118,Kansas City Royals,0.241,0.28,7,44,24
+141,Toronto Blue Jays,0.202,0.172,6,35,21
+139,Tampa Bay Rays,0.196,0.245,8,35,23
 145,Chicago White Sox,0.225,0.222,12,50,30
+158,Milwaukee Brewers,0.215,0.208,12,52,35
 116,Detroit Tigers,0.205,0.212,7,47,26
-115,Colorado Rockies,0.225,0.264,9,37,25
+140,Texas Rangers,0.263,0.262,7,43,23
+112,Chicago Cubs,0.275,0.284,9,43,29
 146,Miami Marlins,0.21,0.198,10,50,32
-117,Houston Astros,0.233,0.214,8,43,26
-120,Washington Nationals,0.257,0.288,10,48,34
-133,Athletics,0.251,0.308,6,40,26
 109,Arizona Diamondbacks,0.241,0.26,7,40,23
-113,Cincinnati Reds,0.282,0.283,6,35,21
-138,St. Louis Cardinals,0.231,0.275,7,34,19
+117,Houston Astros,0.233,0.214,8,43,26
+115,Colorado Rockies,0.225,0.264,9,37,25
 136,Seattle Mariners,0.197,0.172,7,38,19
+133,Athletics,0.251,0.308,6,40,26
 108,Los Angeles Angels,0.232,0.223,10,51,34
+138,St. Louis Cardinals,0.231,0.275,7,34,19
+120,Washington Nationals,0.257,0.288,10,48,34
+113,Cincinnati Reds,0.282,0.283,6,35,21
