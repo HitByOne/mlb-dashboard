@@ -1,17 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-822786,2026-07-19,Chicago White Sox,145,Toronto Blue Jays,141,Sean Burke,680732,Trey Yesavage,702056
-823523,2026-07-19,Los Angeles Dodgers,119,New York Yankees,147,Yoshinobu Yamamoto,808967,Cam Schlittler,693645
-823521,2026-07-19,Los Angeles Dodgers,119,New York Yankees,147,TBD,,TBD,
-824739,2026-07-19,Tampa Bay Rays,139,Boston Red Sox,111,Shane McClanahan,663556,Sonny Gray,543243
-823439,2026-07-19,New York Mets,121,Philadelphia Phillies,143,Nolan McLean,690997,Alan Rangel,660604
-824897,2026-07-19,Texas Rangers,140,Atlanta Braves,144,Nathan Eovaldi,543135,Grant Holmes,656550
-824411,2026-07-19,Pittsburgh Pirates,134,Cleveland Guardians,114,Paul Skenes,694973,Joey Cantillo,676282
-824168,2026-07-19,Baltimore Orioles,110,Houston Astros,117,Brandon Young,687064,Hunter Brown,686613
-824086,2026-07-19,San Diego Padres,135,Kansas City Royals,118,Germán Márquez,608566,Noah Cameron,702070
-823764,2026-07-19,Miami Marlins,146,Milwaukee Brewers,158,Eury Pérez,691587,Robert Gasser,688107
-824653,2026-07-19,Minnesota Twins,142,Chicago Cubs,112,Zebby Matthews,805673,Shota Imanaga,684007
-824330,2026-07-19,Cincinnati Reds,113,Colorado Rockies,115,Hunter Greene,668881,Ryan Feltner,663372
-824978,2026-07-19,Washington Nationals,120,Athletics,133,Foster Griffin,656492,Jacob Lopez,682052
-824007,2026-07-19,Detroit Tigers,116,Los Angeles Angels,108,Casey Mize,663554,Ryan Johnson,696270
-823113,2026-07-19,San Francisco Giants,137,Seattle Mariners,136,Robbie Ray,592662,Logan Gilbert,669302
-825057,2026-07-19,St. Louis Cardinals,138,Arizona Diamondbacks,109,Andre Pallante,669467,Eduardo Rodriguez,593958
+824410,2026-07-20,Minnesota Twins,142,Cleveland Guardians,114,Joe Ryan,657746,Tanner Bibee,676440
+823522,2026-07-20,Pittsburgh Pirates,134,New York Yankees,147,Braxton Ashcraft,677952,Ryan Weathers,677960
+822788,2026-07-20,Tampa Bay Rays,139,Toronto Blue Jays,141,Nick Martinez,607259,Dylan Cease,656302
+824736,2026-07-20,Baltimore Orioles,110,Boston Red Sox,111,Shane Baz,669358,Payton Tolle,801139
+823436,2026-07-20,Los Angeles Dodgers,119,Philadelphia Phillies,143,Emmet Sheehan,686218,Cristopher Sánchez,650911
+824898,2026-07-20,San Diego Padres,135,Atlanta Braves,144,JP Sears,676664,Bryce Elder,693821
+824087,2026-07-20,San Francisco Giants,137,Kansas City Royals,118,Trevor McDonald,686790,Michael Wacha,608379
+823762,2026-07-20,New York Mets,121,Milwaukee Brewers,158,Freddy Peralta,642547,Jacob Misiorowski,694819
+824654,2026-07-20,Detroit Tigers,116,Chicago Cubs,112,Jack Flaherty,656427,Jameson Taillon,592791
+822874,2026-07-20,Chicago White Sox,145,Texas Rangers,140,Erick Fedde,607200,Jacob deGrom,594798
+824167,2026-07-20,Miami Marlins,146,Houston Astros,117,Janson Junk,676083,Ronel Blanco,669854
+824328,2026-07-20,Washington Nationals,120,Colorado Rockies,115,Andrew Alvarez,674841,Kyle Freeland,607536
+825058,2026-07-20,Athletics,133,Arizona Diamondbacks,109,Jeffrey Springs,605488,Mitch Bratt,683352
+823112,2026-07-20,Cincinnati Reds,113,Seattle Mariners,136,Andrew Abbott,671096,George Kirby,669923
+824006,2026-07-20,St. Louis Cardinals,138,Los Angeles Angels,108,Kyle Leahy,681517,José Soriano,667755

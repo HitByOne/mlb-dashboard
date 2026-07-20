@@ -1,36 +1,37 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-07-18,Gavin Williams,Cleveland Guardians,Pittsburgh Pirates,6.0,11,7.5,+116,-155,46,Over Hit
-2026-07-18,Jared Jones,Pittsburgh Pirates,Cleveland Guardians,5.0,9,5.5,+114,-152,47,Over Hit
-2026-07-18,Shane Drohan,Milwaukee Brewers,Miami Marlins,6.0,9,4.5,-148,+112,60,Over Hit
-2026-07-18,Tarik Skubal,Detroit Tigers,Los Angeles Angels,7.0,9,8.5,+102,-136,50,Over Hit
-2026-07-18,Trevor Rogers,Baltimore Orioles,Houston Astros,6.1,8,4.5,+108,-143,48,Over Hit
-2026-07-18,J.T. Ginn,Athletics,Washington Nationals,6.1,7,4.5,+118,-157,46,Over Hit
-2026-07-18,Sean Manaea,New York Mets,Philadelphia Phillies,4.2,7,4.5,-165,+123,62,Over Hit
-2026-07-18,Jesús Luzardo,Philadelphia Phillies,New York Mets,5.0,7,6.5,-143,+108,59,Over Hit
-2026-07-18,MacKenzie Gore,Texas Rangers,Atlanta Braves,5.2,7,5.5,+102,-136,50,Over Hit
-2026-07-18,Bryan Woo,Seattle Mariners,San Francisco Giants,6.0,7,5.5,-132,+100,57,Over Hit
-2026-07-18,Shane Bieber,Toronto Blue Jays,Chicago White Sox,6.0,6,5.5,+117,+102,46,Over Hit
-2026-07-18,Dustin May,St. Louis Cardinals,Arizona Diamondbacks,5.0,6,4.5,+130,-175,43,Over Hit
-2026-07-18,Spencer Arrighetti,Houston Astros,Baltimore Orioles,5.0,6,5.5,-150,+112,60,Over Hit
-2026-07-18,Taj Bradley,Minnesota Twins,Chicago Cubs,5.0,6,5.5,-143,+108,59,Over Hit
-2026-07-18,Max Meyer,Miami Marlins,Milwaukee Brewers,3.0,5,5.5,-143,+108,59,Under Hit
-2026-07-18,Davis Martin,Chicago White Sox,Toronto Blue Jays,5.2,5,3.5,-124,+100,55,Over Hit
-2026-07-18,Patrick Sandoval,Boston Red Sox,Tampa Bay Rays,5.0,5,3.5,-124,-108,55,Over Hit
-2026-07-18,Logan Webb,San Francisco Giants,Seattle Mariners,6.2,5,5.5,+100,-132,50,Under Hit
-2026-07-18,Khristian Curtis,Pittsburgh Pirates,Cleveland Guardians,5.0,4,—,—,—,0,—
-2026-07-18,Matthew Boyd,Chicago Cubs,Minnesota Twins,6.0,4,4.5,-157,+118,61,Under Hit
-2026-07-18,Zack Littell,Washington Nationals,Athletics,6.0,4,2.5,-148,+110,60,Over Hit
-2026-07-18,Ian Seymour,Tampa Bay Rays,Boston Red Sox,3.0,4,4.5,-157,+117,61,Under Hit
-2026-07-18,Griffin Canning,San Diego Padres,Kansas City Royals,3.2,4,3.5,-134,+100,57,Over Hit
-2026-07-18,Mike Paredes,Minnesota Twins,Chicago Cubs,2.0,4,—,—,—,0,—
-2026-07-18,Matt Festa,Cleveland Guardians,Pittsburgh Pirates,1.1,3,—,—,—,0,—
-2026-07-18,Logan Allen,Cleveland Guardians,Pittsburgh Pirates,3.1,3,4.5,-134,+100,57,Under Hit
-2026-07-18,Shawn Armstrong,Cleveland Guardians,Pittsburgh Pirates,1.0,3,—,—,—,0,—
-2026-07-18,AJ Blubaugh,Houston Astros,Baltimore Orioles,2.0,3,—,—,—,0,—
-2026-07-18,Josh Hader,Houston Astros,Baltimore Orioles,1.0,3,—,—,—,0,—
-2026-07-18,Brennan Bernardino,Colorado Rockies,Cincinnati Reds,1.0,3,—,—,—,0,—
-2026-07-18,Tomoyuki Sugano,Colorado Rockies,Cincinnati Reds,6.1,3,2.5,-162,+120,62,Over Hit
-2026-07-18,Randy Dobnak,Kansas City Royals,San Diego Padres,4.1,3,2.5,-122,-108,55,Over Hit
-2026-07-18,Brandon Pfaadt,Arizona Diamondbacks,St. Louis Cardinals,5.1,3,3.5,-117,-114,54,Under Hit
-2026-07-18,Abner Uribe,Milwaukee Brewers,Miami Marlins,1.0,3,—,—,—,0,—
-2026-07-18,Grayson Rodriguez,Los Angeles Angels,Detroit Tigers,4.0,3,5.5,+125,-167,44,Under Hit
+2026-07-19,Logan Gilbert,Seattle Mariners,San Francisco Giants,6.0,10,6.5,-137,+104,58,Over Hit
+2026-07-19,Nolan McLean,New York Mets,Philadelphia Phillies,6.0,10,6.5,+100,-134,50,Over Hit
+2026-07-19,Trey Yesavage,Toronto Blue Jays,Chicago White Sox,6.0,9,5.5,-148,+114,60,Over Hit
+2026-07-19,Eury Pérez,Miami Marlins,Milwaukee Brewers,6.0,9,6.5,+120,-162,45,Over Hit
+2026-07-19,Paul Skenes,Pittsburgh Pirates,Cleveland Guardians,7.0,8,7.5,+123,-165,45,Over Hit
+2026-07-19,Cam Schlittler,New York Yankees,Los Angeles Dodgers,4.1,8,6.5,-136,+102,58,Over Hit
+2026-07-19,Yoshinobu Yamamoto,Los Angeles Dodgers,New York Yankees,9.0,7,6.5,-130,-103,57,Over Hit
+2026-07-19,Hunter Greene,Cincinnati Reds,Colorado Rockies,6.0,7,6.5,-139,+104,58,Over Hit
+2026-07-19,Brandon Young,Baltimore Orioles,Houston Astros,7.0,7,4.5,-124,-107,55,Over Hit
+2026-07-19,Joey Cantillo,Cleveland Guardians,Pittsburgh Pirates,5.0,7,6.5,+120,-162,45,Over Hit
+2026-07-19,Jacob Lopez,Athletics,Washington Nationals,4.1,6,3.5,-137,+104,58,Over Hit
+2026-07-19,Robbie Ray,San Francisco Giants,Seattle Mariners,4.0,6,5.5,+100,-134,50,Over Hit
+2026-07-19,Robert Gasser,Milwaukee Brewers,Miami Marlins,5.0,5,4.5,-129,-104,56,Over Hit
+2026-07-19,Sean Burke,Chicago White Sox,Toronto Blue Jays,6.2,5,5.5,-107,-125,52,Under Hit
+2026-07-19,Ryan Johnson,Los Angeles Angels,Detroit Tigers,5.0,5,4.5,-132,+100,57,Over Hit
+2026-07-19,Casey Mize,Detroit Tigers,Los Angeles Angels,3.1,5,5.5,-148,+110,60,Under Hit
+2026-07-19,Sonny Gray,Boston Red Sox,Tampa Bay Rays,6.0,5,4.5,-141,+107,59,Over Hit
+2026-07-19,Zebby Matthews,Minnesota Twins,Chicago Cubs,3.0,4,4.5,-113,-118,53,Under Hit
+2026-07-19,Will Dion,Cleveland Guardians,Pittsburgh Pirates,2.0,4,—,—,—,0,—
+2026-07-19,Alan Rangel,Philadelphia Phillies,New York Mets,4.0,4,3.5,-141,+106,59,Over Hit
+2026-07-19,Hunter Brown,Houston Astros,Baltimore Orioles,4.2,4,7.5,+106,-141,49,Under Hit
+2026-07-19,Shota Imanaga,Chicago Cubs,Minnesota Twins,7.0,4,5.5,-104,-129,51,Under Hit
+2026-07-19,Angel Chivilli,New York Yankees,Los Angeles Dodgers,1.1,3,—,—,—,0,—
+2026-07-19,Franco Aleman,Cleveland Guardians,Pittsburgh Pirates,1.0,3,—,—,—,0,—
+2026-07-19,Shane McClanahan,Tampa Bay Rays,Boston Red Sox,5.0,3,4.5,-159,+120,61,Under Hit
+2026-07-19,Brent Headrick,New York Yankees,Los Angeles Dodgers,2.0,3,—,—,—,0,—
+2026-07-19,Alex Vesia,Los Angeles Dodgers,New York Yankees,1.0,3,—,—,—,0,—
+2026-07-19,Robby Ahlstrom,Texas Rangers,Atlanta Braves,1.0,3,—,—,—,0,—
+2026-07-19,Yuki Matsui,San Diego Padres,Kansas City Royals,2.0,3,—,—,—,0,—
+2026-07-19,Kai-Wei Teng,Houston Astros,Baltimore Orioles,2.1,3,—,—,—,0,—
+2026-07-19,Ryan Feltner,Colorado Rockies,Cincinnati Reds,2.1,3,4.5,+123,-165,45,Under Hit
+2026-07-19,Chad Patrick,Milwaukee Brewers,Miami Marlins,2.0,3,—,—,—,0,—
+2026-07-19,Brady Basso,Athletics,Washington Nationals,2.0,3,—,—,—,0,—
+2026-07-19,Eduard Bazardo,Seattle Mariners,San Francisco Giants,1.0,3,—,—,—,0,—
+2026-07-19,Andre Pallante,St. Louis Cardinals,Arizona Diamondbacks,5.1,3,3.5,+115,-155,47,Under Hit
+2026-07-19,Eduardo Rodriguez,Arizona Diamondbacks,St. Louis Cardinals,2.2,3,3.5,-162,+120,62,Under Hit
