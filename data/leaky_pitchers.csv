@@ -32,8 +32,10 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 650644,Aaron Civale,Chicago Cubs,102,17,5.49,77.0,1.65,11.92
 666200,Jesús Luzardo,Philadelphia Phillies,102,10,3.43,115.1,1.21,7.96
 663436,Davis Martin,Chicago White Sox,102,6,3.31,106.0,1.27,8.66
+700241,Michael McGreevy,St. Louis Cardinals,102,15,3.07,114.1,1.13,8.03
 669467,Andre Pallante,St. Louis Cardinals,102,10,4.02,105.1,1.26,8.72
 701542,Will Warren,New York Yankees,102,14,4.00,99.0,1.37,9.27
+668909,Gavin Williams,Cleveland Guardians,102,20,3.78,126.1,1.10,7.27
 693821,Bryce Elder,Atlanta Braves,101,17,4.06,108.2,1.23,8.37
 656849,David Peterson,Chicago Cubs,101,9,5.97,89.0,1.56,10.21
 593958,Eduardo Rodriguez,Arizona Diamondbacks,101,12,2.62,116.2,1.22,7.79
@@ -42,11 +44,8 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 669022,MacKenzie Gore,Texas Rangers,100,14,4.80,110.2,1.28,8.13
 684007,Shota Imanaga,Chicago Cubs,100,22,3.91,115.0,1.11,7.83
 641793,Zack Littell,Washington Nationals,100,25,5.34,96.0,1.35,9.38
-668909,Gavin Williams,Cleveland Guardians,100,20,4.00,119.1,1.15,7.54
 680694,Kyle Bradish,Baltimore Orioles,99,12,3.49,113.1,1.32,7.86
 676282,Joey Cantillo,Cleveland Guardians,99,12,3.74,106.0,1.42,8.41
 571578,Patrick Corbin,Toronto Blue Jays,98,12,5.51,80.0,1.54,11.03
 693433,Bryan Woo,Seattle Mariners,98,12,4.16,110.1,1.09,7.99
 669160,Dustin May,St. Louis Cardinals,97,7,4.78,98.0,1.32,8.91
-622491,Luis Castillo,Seattle Mariners,96,14,4.85,94.2,1.33,9.13
-681517,Kyle Leahy,St. Louis Cardinals,96,10,3.59,95.1,1.35,9.06
