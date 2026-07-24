@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-158,Milwaukee Brewers,0.229,0.232,9,42,20
-110,Baltimore Orioles,0.24,0.287,8,53,28
-134,Pittsburgh Pirates,0.213,0.188,12,64,39
-109,Arizona Diamondbacks,0.33,0.375,6,36,22
 121,New York Mets,0.25,0.255,15,56,37
-112,Chicago Cubs,0.278,0.248,12,51,31
-120,Washington Nationals,0.27,0.324,8,46,25
-143,Philadelphia Phillies,0.257,0.25,9,53,29
-139,Tampa Bay Rays,0.296,0.296,6,39,22
-144,Atlanta Braves,0.273,0.267,8,44,27
-147,New York Yankees,0.212,0.224,6,42,26
 119,Los Angeles Dodgers,0.249,0.267,7,49,28
-114,Cleveland Guardians,0.285,0.234,10,36,18
-118,Kansas City Royals,0.253,0.263,7,35,22
-115,Colorado Rockies,0.266,0.24,10,36,19
+144,Atlanta Braves,0.273,0.267,8,44,27
+120,Washington Nationals,0.27,0.324,8,46,25
 116,Detroit Tigers,0.24,0.257,6,42,24
-135,San Diego Padres,0.304,0.283,15,45,36
-111,Boston Red Sox,0.231,0.25,5,33,20
+114,Cleveland Guardians,0.285,0.234,10,36,18
+134,Pittsburgh Pirates,0.213,0.188,12,64,39
+147,New York Yankees,0.212,0.224,6,42,26
+109,Arizona Diamondbacks,0.33,0.375,6,36,22
+115,Colorado Rockies,0.266,0.24,10,36,19
+110,Baltimore Orioles,0.24,0.287,8,53,28
+112,Chicago Cubs,0.278,0.248,12,51,31
+158,Milwaukee Brewers,0.229,0.232,9,42,20
+118,Kansas City Royals,0.253,0.263,7,35,22
+143,Philadelphia Phillies,0.257,0.25,9,53,29
 141,Toronto Blue Jays,0.192,0.194,9,31,23
-146,Miami Marlins,0.216,0.229,6,56,33
+139,Tampa Bay Rays,0.296,0.296,6,39,22
+135,San Diego Padres,0.304,0.283,15,45,36
 117,Houston Astros,0.244,0.269,5,36,18
+146,Miami Marlins,0.216,0.229,6,56,33
+111,Boston Red Sox,0.231,0.25,5,33,20
 136,Seattle Mariners,0.24,0.255,6,37,22
 145,Chicago White Sox,0.205,0.228,7,45,23
 133,Athletics,0.322,0.315,5,33,21
-140,Texas Rangers,0.294,0.286,12,46,30
-142,Minnesota Twins,0.225,0.2,14,45,32
-113,Cincinnati Reds,0.212,0.17,5,30,18
-138,St. Louis Cardinals,0.233,0.228,2,41,23
-108,Los Angeles Angels,0.247,0.245,10,46,26
 137,San Francisco Giants,0.17,0.165,6,52,24
+142,Minnesota Twins,0.225,0.2,14,45,32
+108,Los Angeles Angels,0.247,0.245,10,46,26
+138,St. Louis Cardinals,0.233,0.228,2,41,23
+140,Texas Rangers,0.294,0.286,12,46,30
+113,Cincinnati Reds,0.212,0.17,5,30,18
