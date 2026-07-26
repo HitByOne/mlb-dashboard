@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-109,Arizona Diamondbacks,0.322,0.3,2,33,17
-112,Chicago Cubs,0.261,0.236,16,58,39
-139,Tampa Bay Rays,0.316,0.273,9,41,25
-110,Baltimore Orioles,0.267,0.245,14,53,33
-134,Pittsburgh Pirates,0.189,0.165,7,52,25
 120,Washington Nationals,0.297,0.294,6,38,21
-121,New York Mets,0.219,0.184,11,59,37
+114,Cleveland Guardians,0.215,0.146,8,33,25
+109,Arizona Diamondbacks,0.322,0.3,2,33,17
+110,Baltimore Orioles,0.267,0.245,14,53,33
 141,Toronto Blue Jays,0.25,0.298,9,40,26
-111,Boston Red Sox,0.228,0.194,12,45,30
-116,Detroit Tigers,0.242,0.25,5,37,19
+134,Pittsburgh Pirates,0.189,0.165,7,52,25
+139,Tampa Bay Rays,0.316,0.273,9,41,25
 119,Los Angeles Dodgers,0.266,0.291,9,42,21
-118,Kansas City Royals,0.228,0.204,5,40,25
+121,New York Mets,0.219,0.184,11,59,37
+111,Boston Red Sox,0.228,0.194,12,45,30
+112,Chicago Cubs,0.261,0.236,16,58,39
+116,Detroit Tigers,0.242,0.25,5,37,19
 144,Atlanta Braves,0.253,0.248,9,48,29
 135,San Diego Padres,0.272,0.253,3,47,26
-114,Cleveland Guardians,0.215,0.146,8,33,25
+118,Kansas City Royals,0.228,0.204,5,40,25
 146,Miami Marlins,0.225,0.214,5,49,22
-133,Athletics,0.251,0.196,10,36,20
-117,Houston Astros,0.267,0.269,12,39,26
-158,Milwaukee Brewers,0.27,0.3,9,37,26
 142,Minnesota Twins,0.181,0.144,8,46,28
-113,Cincinnati Reds,0.186,0.216,12,41,28
-136,Seattle Mariners,0.243,0.22,9,40,24
+133,Athletics,0.251,0.196,10,36,20
 145,Chicago White Sox,0.216,0.202,10,41,25
-115,Colorado Rockies,0.24,0.22,7,34,25
-140,Texas Rangers,0.301,0.273,7,41,23
-108,Los Angeles Angels,0.252,0.248,6,42,26
+117,Houston Astros,0.267,0.269,12,39,26
 138,St. Louis Cardinals,0.216,0.25,6,38,17
+115,Colorado Rockies,0.24,0.22,7,34,25
+113,Cincinnati Reds,0.186,0.216,12,41,28
+140,Texas Rangers,0.301,0.273,7,41,23
+158,Milwaukee Brewers,0.27,0.3,9,37,26
+136,Seattle Mariners,0.243,0.22,9,40,24
 137,San Francisco Giants,0.219,0.247,8,40,22
 143,Philadelphia Phillies,0.221,0.186,7,49,29
+108,Los Angeles Angels,0.252,0.248,6,42,26
 147,New York Yankees,0.199,0.167,11,49,29
