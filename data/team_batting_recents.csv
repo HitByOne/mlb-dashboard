@@ -1,25 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-110,Baltimore Orioles,0.236,0.206,9,47,34
-109,Arizona Diamondbacks,0.326,0.24,2,27,13
-116,Detroit Tigers,0.25,0.226,5,36,18
-144,Atlanta Braves,0.267,0.227,6,45,27
-134,Pittsburgh Pirates,0.204,0.238,8,50,21
-146,Miami Marlins,0.209,0.202,10,45,26
-136,Seattle Mariners,0.244,0.274,7,40,25
-140,Texas Rangers,0.297,0.28,12,39,23
-143,Philadelphia Phillies,0.233,0.25,10,50,30
-121,New York Mets,0.223,0.172,9,53,31
-141,Toronto Blue Jays,0.259,0.3,9,43,26
-147,New York Yankees,0.179,0.182,13,54,36
-120,Washington Nationals,0.314,0.304,4,35,17
+116,Detroit Tigers,0.264,0.267,10,34,20
+134,Pittsburgh Pirates,0.217,0.248,9,42,24
 114,Cleveland Guardians,0.17,0.14,11,41,26
-145,Chicago White Sox,0.215,0.25,6,39,24
 113,Cincinnati Reds,0.216,0.229,13,45,36
-112,Chicago Cubs,0.269,0.291,9,57,36
-138,St. Louis Cardinals,0.213,0.198,8,35,23
-108,Los Angeles Angels,0.255,0.248,9,44,25
-111,Boston Red Sox,0.239,0.25,7,43,32
-117,Houston Astros,0.257,0.248,7,38,28
-158,Milwaukee Brewers,0.291,0.346,3,32,20
-137,San Francisco Giants,0.222,0.26,10,42,26
-133,Athletics,0.219,0.176,6,35,21
+110,Baltimore Orioles,0.242,0.229,3,45,26
+109,Arizona Diamondbacks,0.272,0.223,8,27,12
+140,Texas Rangers,0.267,0.29,10,45,29
+139,Tampa Bay Rays,0.256,0.303,6,40,25
+120,Washington Nationals,0.305,0.308,13,38,23
+118,Kansas City Royals,0.212,0.175,8,41,26
+144,Atlanta Braves,0.233,0.2,9,44,24
+146,Miami Marlins,0.24,0.247,9,41,24
+121,New York Mets,0.254,0.298,7,53,27
+141,Toronto Blue Jays,0.273,0.29,3,38,21
+143,Philadelphia Phillies,0.25,0.303,9,48,26
+142,Minnesota Twins,0.218,0.226,6,43,20
+147,New York Yankees,0.202,0.234,10,52,34
+117,Houston Astros,0.234,0.18,9,42,28
+112,Chicago Cubs,0.277,0.347,9,57,34
+138,St. Louis Cardinals,0.232,0.238,6,31,20
+111,Boston Red Sox,0.216,0.184,6,43,25
+145,Chicago White Sox,0.249,0.265,9,40,25
+108,Los Angeles Angels,0.229,0.222,9,44,24
+137,San Francisco Giants,0.231,0.245,6,38,24
+133,Athletics,0.203,0.177,13,39,29
+135,San Diego Padres,0.267,0.284,8,44,19
+158,Milwaukee Brewers,0.288,0.316,7,36,19
+115,Colorado Rockies,0.232,0.212,15,46,30
+136,Seattle Mariners,0.253,0.257,9,40,25
+119,Los Angeles Dodgers,0.259,0.269,10,42,24

@@ -1,13 +1,17 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-822868,2026-07-27,Seattle Mariners,136,Texas Rangers,140,George Kirby,669923,Kumar Rocker,677958
-824245,2026-07-27,Baltimore Orioles,110,Detroit Tigers,116,Kyle Bradish,680694,Keider Montero,672456
-823353,2026-07-27,Arizona Diamondbacks,109,Pittsburgh Pirates,134,Merrill Kelly,518876,Mitch Keller,656605
-823839,2026-07-27,Philadelphia Phillies,143,Miami Marlins,146,Zack Wheeler,554430,Tyler Phillips,663969
-822705,2026-07-27,Toronto Blue Jays,141,Washington Nationals,120,Max Scherzer,453286,Andrew Alvarez,674841
-824490,2026-07-27,Cleveland Guardians,114,Cincinnati Reds,113,Slade Cecconi,677944,Chase Burns,695505
-823597,2026-07-27,Atlanta Braves,144,New York Mets,121,Martín Pérez,527048,Zac Thornton,804267
-824570,2026-07-27,New York Yankees,147,Chicago White Sox,145,Max Fried,608331,Noah Schultz,702273
-823025,2026-07-27,Chicago Cubs,112,St. Louis Cardinals,138,David Peterson,656849,TBD,
-824001,2026-07-27,Houston Astros,117,Los Angeles Angels,108,Tatsuya Imai,837227,Walbert Ureña,700712
-824977,2026-07-27,Boston Red Sox,111,Athletics,133,Payton Tolle,801139,Jack Perkins,678022
-823195,2026-07-27,Milwaukee Brewers,158,San Francisco Giants,137,Brandon Sproat,687075,Tyler Mahle,641816
+824490,2026-07-28,Cleveland Guardians,114,Cincinnati Reds,113,Slade Cecconi,677944,Chase Burns,695505
+824489,2026-07-28,Cleveland Guardians,114,Cincinnati Reds,113,Gavin Williams,668909,TBD,
+824243,2026-07-28,Baltimore Orioles,110,Detroit Tigers,116,Dean Kremer,665152,Troy Melton,675512
+823350,2026-07-28,Arizona Diamondbacks,109,Pittsburgh Pirates,134,Brandon Pfaadt,694297,Bubba Chandler,696149
+822949,2026-07-28,Texas Rangers,140,Tampa Bay Rays,139,TBD,,Griffin Jax,643377
+823838,2026-07-28,Philadelphia Phillies,143,Miami Marlins,146,Aaron Nola,605400,Sandy Alcantara,645261
+822703,2026-07-28,Toronto Blue Jays,141,Washington Nationals,120,Shane Bieber,669456,Cade Cavalli,676917
+823598,2026-07-28,Atlanta Braves,144,New York Mets,121,Chris Sale,519242,Christian Scott,681035
+823676,2026-07-28,Kansas City Royals,118,Minnesota Twins,142,Seth Lugo,607625,Taj Bradley,671737
+824569,2026-07-28,New York Yankees,147,Chicago White Sox,145,Gerrit Cole,543037,Anthony Kay,641743
+823026,2026-07-28,Chicago Cubs,112,St. Louis Cardinals,138,Colin Rea,607067,TBD,
+824003,2026-07-28,Houston Astros,117,Los Angeles Angels,108,Peter Lambert,663567,Reid Detmers,672282
+824976,2026-07-28,Boston Red Sox,111,Athletics,133,Jake Bennett,687562,Gage Jump,695611
+823275,2026-07-28,Colorado Rockies,115,San Diego Padres,135,Michael Lorenzen,547179,Michael King,650633
+823193,2026-07-28,Milwaukee Brewers,158,San Francisco Giants,137,Logan Henderson,701656,Landen Roupp,694738
+823923,2026-07-28,Seattle Mariners,136,Los Angeles Dodgers,119,Luis Castillo,622491,TBD,
