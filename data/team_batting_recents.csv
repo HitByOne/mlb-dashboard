@@ -1,21 +1,21 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
 142,Minnesota Twins,0.229,0.277,4,28,14
-140,Texas Rangers,0.247,0.229,8,50,31
-118,Kansas City Royals,0.201,0.218,8,48,30
 121,New York Mets,0.242,0.276,12,48,28
-144,Atlanta Braves,0.206,0.211,12,42,27
-134,Pittsburgh Pirates,0.244,0.243,4,38,23
-147,New York Yankees,0.219,0.221,11,55,31
-111,Boston Red Sox,0.228,0.248,12,48,29
-138,St. Louis Cardinals,0.226,0.21,10,32,18
-146,Miami Marlins,0.245,0.289,6,36,21
-139,Tampa Bay Rays,0.242,0.159,9,43,24
-133,Athletics,0.207,0.225,14,48,32
-112,Chicago Cubs,0.323,0.307,8,52,27
-120,Washington Nationals,0.277,0.229,5,35,25
-137,San Francisco Giants,0.278,0.291,5,38,20
-113,Cincinnati Reds,0.201,0.208,16,66,41
 145,Chicago White Sox,0.229,0.211,12,47,31
+118,Kansas City Royals,0.201,0.218,8,48,30
+146,Miami Marlins,0.245,0.289,6,36,21
+144,Atlanta Braves,0.206,0.211,12,42,27
+138,St. Louis Cardinals,0.226,0.21,10,32,18
+140,Texas Rangers,0.247,0.229,8,50,31
+147,New York Yankees,0.219,0.221,11,55,31
+139,Tampa Bay Rays,0.242,0.159,9,43,24
+112,Chicago Cubs,0.323,0.307,8,52,27
+134,Pittsburgh Pirates,0.244,0.243,4,38,23
+120,Washington Nationals,0.277,0.229,5,35,25
+111,Boston Red Sox,0.228,0.248,12,48,29
+113,Cincinnati Reds,0.201,0.208,16,66,41
+133,Athletics,0.207,0.225,14,48,32
+137,San Francisco Giants,0.278,0.291,5,38,20
+136,Seattle Mariners,0.244,0.224,5,41,25
 135,San Diego Padres,0.309,0.343,3,27,16
 119,Los Angeles Dodgers,0.295,0.306,7,35,21
-136,Seattle Mariners,0.244,0.224,5,41,25
