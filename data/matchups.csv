@@ -1,17 +1,11 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823837,2026-07-29,Philadelphia Phillies,143,Miami Marlins,146,Jesús Luzardo,666200,Ryan Gusto,687473
-823351,2026-07-29,Arizona Diamondbacks,109,Pittsburgh Pirates,134,Eduardo Rodriguez,593958,Jared Jones,683003
-822702,2026-07-29,Toronto Blue Jays,141,Washington Nationals,120,Trey Yesavage,702056,Zack Littell,641793
-824242,2026-07-29,Baltimore Orioles,110,Detroit Tigers,116,Trevor Rogers,669432,Tarik Skubal,669373
-823596,2026-07-29,Atlanta Braves,144,New York Mets,121,AJ Smith-Shawver,700363,Sean Manaea,640455
-823598,2026-07-29,Atlanta Braves,144,New York Mets,121,Chris Sale,519242,Christian Scott,681035
-823192,2026-07-29,Milwaukee Brewers,158,San Francisco Giants,137,Shane Drohan,675660,Logan Webb,657277
-823273,2026-07-29,Colorado Rockies,115,San Diego Padres,135,Gabriel Hughes,687312,TBD,
-822947,2026-07-29,Texas Rangers,140,Tampa Bay Rays,139,MacKenzie Gore,669022,Casey Legumina,668984
-824487,2026-07-29,Cleveland Guardians,114,Cincinnati Reds,113,Joey Cantillo,676282,Brady Singer,663903
-823677,2026-07-29,Kansas City Royals,118,Minnesota Twins,142,Randy Dobnak,677976,Joe Ryan,657746
-824567,2026-07-29,New York Yankees,147,Chicago White Sox,145,Cam Schlittler,693645,Davis Martin,663436
-823022,2026-07-29,Chicago Cubs,112,St. Louis Cardinals,138,Matthew Boyd,571510,Dustin May,669160
-824002,2026-07-29,Houston Astros,117,Los Angeles Angels,108,Hayden Wesneski,669713,Grayson Rodriguez,680570
-824973,2026-07-29,Boston Red Sox,111,Athletics,133,Patrick Sandoval,663776,Jacob Lopez,682052
-823924,2026-07-29,Seattle Mariners,136,Los Angeles Dodgers,119,Emerson Hancock,676106,Eric Lauer,641778
+822946,2026-07-30,Texas Rangers,140,Tampa Bay Rays,139,Cole Winn,668390,Shane McClanahan,663556
+823674,2026-07-30,Kansas City Royals,118,Minnesota Twins,142,Noah Cameron,702070,Bailey Ober,641927
+824568,2026-07-30,New York Yankees,147,Chicago White Sox,145,Ryan Weathers,677960,Sean Burke,680732
+823023,2026-07-30,Chicago Cubs,112,St. Louis Cardinals,138,Javier Assad,665871,Andre Pallante,669467
+824488,2026-07-30,Pittsburgh Pirates,134,Cincinnati Reds,113,Yohan Ramírez,670990,Rhett Lowder,695076
+823595,2026-07-30,Miami Marlins,146,New York Mets,121,Eury Pérez,691587,Nolan McLean,690997
+824894,2026-07-30,Washington Nationals,120,Atlanta Braves,144,Jake Irvin,663623,Grant Holmes,656550
+824974,2026-07-30,Boston Red Sox,111,Athletics,133,Sonny Gray,543243,Mason Barnett,686930
+823271,2026-07-30,San Francisco Giants,137,San Diego Padres,135,TBD,,JP Sears,676664
+823921,2026-07-30,Seattle Mariners,136,Los Angeles Dodgers,119,Bryan Woo,693433,Roki Sasaki,808963

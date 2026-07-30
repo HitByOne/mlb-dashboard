@@ -1,31 +1,21 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-146,Miami Marlins,0.242,0.258,6,41,25
-144,Atlanta Braves,0.233,0.2,9,44,24
-134,Pittsburgh Pirates,0.253,0.288,10,40,27
-137,San Francisco Giants,0.242,0.207,9,41,25
-141,Toronto Blue Jays,0.27,0.233,6,35,18
-158,Milwaukee Brewers,0.311,0.303,3,30,13
-143,Philadelphia Phillies,0.235,0.273,7,46,26
-109,Arizona Diamondbacks,0.254,0.268,11,32,21
-110,Baltimore Orioles,0.215,0.202,7,44,19
-120,Washington Nationals,0.281,0.301,7,37,24
-135,San Diego Padres,0.31,0.37,5,39,16
-116,Detroit Tigers,0.304,0.352,7,35,22
-121,New York Mets,0.254,0.298,7,53,27
-140,Texas Rangers,0.279,0.247,13,46,35
-139,Tampa Bay Rays,0.237,0.22,9,40,24
-115,Colorado Rockies,0.219,0.214,11,51,33
-142,Minnesota Twins,0.223,0.293,4,38,18
-114,Cleveland Guardians,0.16,0.143,7,38,23
-112,Chicago Cubs,0.332,0.367,10,55,28
-118,Kansas City Royals,0.185,0.175,14,47,27
-138,St. Louis Cardinals,0.205,0.21,2,31,16
-117,Houston Astros,0.229,0.204,17,54,33
-113,Cincinnati Reds,0.226,0.238,15,61,38
-108,Los Angeles Angels,0.226,0.202,11,45,29
-147,New York Yankees,0.202,0.229,10,56,33
-111,Boston Red Sox,0.237,0.256,11,49,24
-119,Los Angeles Dodgers,0.294,0.278,4,35,23
-145,Chicago White Sox,0.247,0.279,10,43,25
-133,Athletics,0.199,0.237,5,39,24
-136,Seattle Mariners,0.266,0.292,11,45,27
+142,Minnesota Twins,0.229,0.277,4,28,14
+140,Texas Rangers,0.247,0.229,8,50,31
+118,Kansas City Royals,0.201,0.218,8,48,30
+121,New York Mets,0.242,0.276,12,48,28
+144,Atlanta Braves,0.206,0.211,12,42,27
+134,Pittsburgh Pirates,0.244,0.243,4,38,23
+147,New York Yankees,0.219,0.221,11,55,31
+111,Boston Red Sox,0.228,0.248,12,48,29
+138,St. Louis Cardinals,0.226,0.21,10,32,18
+146,Miami Marlins,0.245,0.289,6,36,21
+139,Tampa Bay Rays,0.242,0.159,9,43,24
+133,Athletics,0.207,0.225,14,48,32
+112,Chicago Cubs,0.323,0.307,8,52,27
+120,Washington Nationals,0.277,0.229,5,35,25
+137,San Francisco Giants,0.278,0.291,5,38,20
+113,Cincinnati Reds,0.201,0.208,16,66,41
+145,Chicago White Sox,0.229,0.211,12,47,31
+135,San Diego Padres,0.309,0.343,3,27,16
+119,Los Angeles Dodgers,0.295,0.306,7,35,21
+136,Seattle Mariners,0.244,0.224,5,41,25
