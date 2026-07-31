@@ -1,11 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-822946,2026-07-30,Texas Rangers,140,Tampa Bay Rays,139,Cole Winn,668390,Shane McClanahan,663556
-823674,2026-07-30,Kansas City Royals,118,Minnesota Twins,142,Noah Cameron,702070,Bailey Ober,641927
-824568,2026-07-30,New York Yankees,147,Chicago White Sox,145,Ryan Weathers,677960,Sean Burke,680732
-823023,2026-07-30,Chicago Cubs,112,St. Louis Cardinals,138,Javier Assad,665871,Andre Pallante,669467
-824488,2026-07-30,Pittsburgh Pirates,134,Cincinnati Reds,113,Yohan Ramírez,670990,Rhett Lowder,695076
-823595,2026-07-30,Miami Marlins,146,New York Mets,121,Eury Pérez,691587,Nolan McLean,690997
-824894,2026-07-30,Washington Nationals,120,Atlanta Braves,144,Jake Irvin,663623,Grant Holmes,656550
-824974,2026-07-30,Boston Red Sox,111,Athletics,133,Sonny Gray,543243,Mason Barnett,686930
-823271,2026-07-30,San Francisco Giants,137,San Diego Padres,135,TBD,,JP Sears,676664
-823921,2026-07-30,Seattle Mariners,136,Los Angeles Dodgers,119,Bryan Woo,693433,Roki Sasaki,808963
+824651,2026-07-31,New York Yankees,147,Chicago Cubs,112,Will Warren,701542,Shota Imanaga,684007
+824486,2026-07-31,Pittsburgh Pirates,134,Cincinnati Reds,113,Paul Skenes,694973,Hunter Greene,668881
+824809,2026-07-31,Philadelphia Phillies,143,Baltimore Orioles,110,TBD,,Brandon Young,687064
+822782,2026-07-31,St. Louis Cardinals,138,Toronto Blue Jays,141,Kyle Leahy,681517,Dylan Cease,656302
+824407,2026-07-31,Arizona Diamondbacks,109,Cleveland Guardians,114,Mitch Bratt,683352,Tanner Bibee,676440
+822945,2026-07-31,Chicago White Sox,145,Tampa Bay Rays,139,Erick Fedde,607200,Nick Martinez,607259
+823593,2026-07-31,Miami Marlins,146,New York Mets,121,Janson Junk,676083,Freddy Peralta,642547
+824892,2026-07-31,Washington Nationals,120,Atlanta Braves,144,Foster Griffin,656492,Bryce Elder,693821
+824164,2026-07-31,Texas Rangers,140,Houston Astros,117,Nathan Eovaldi,543135,Hunter Brown,686613
+824325,2026-07-31,Kansas City Royals,118,Colorado Rockies,115,Michael Wacha,608379,Tomoyuki Sugano,608372
+823999,2026-07-31,Milwaukee Brewers,158,Los Angeles Angels,108,Shane Drohan,675660,Ryan Johnson,696270
+824975,2026-07-31,Detroit Tigers,116,Athletics,133,Casey Mize,663554,Jeffrey Springs,605488
+823272,2026-07-31,San Francisco Giants,137,San Diego Padres,135,Carson Whisenhunt,687931,Bradgley Rodriguez,699134
+823922,2026-07-31,Boston Red Sox,111,Los Angeles Dodgers,119,Ranger Suarez,624133,Edgardo Henriquez,683618
+823111,2026-07-31,Minnesota Twins,142,Seattle Mariners,136,Zebby Matthews,805673,Bryce Miller,682243
