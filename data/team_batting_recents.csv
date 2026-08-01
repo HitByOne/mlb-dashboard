@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
 142,Minnesota Twins,0.235,0.161,8,30,20
-138,St. Louis Cardinals,0.212,0.21,11,38,30
-141,Toronto Blue Jays,0.262,0.279,4,27,15
-136,Seattle Mariners,0.207,0.175,14,50,30
-145,Chicago White Sox,0.212,0.183,2,44,25
-113,Cincinnati Reds,0.252,0.27,12,65,40
-139,Tampa Bay Rays,0.185,0.189,9,38,23
-146,Miami Marlins,0.267,0.245,6,36,21
-110,Baltimore Orioles,0.206,0.182,9,39,27
-117,Houston Astros,0.273,0.328,8,52,36
-140,Texas Rangers,0.201,0.149,7,51,28
-143,Philadelphia Phillies,0.25,0.196,7,40,21
-121,New York Mets,0.245,0.16,12,48,32
 109,Arizona Diamondbacks,0.237,0.239,4,31,21
+136,Seattle Mariners,0.207,0.175,14,50,30
+138,St. Louis Cardinals,0.212,0.21,11,38,30
+139,Tampa Bay Rays,0.185,0.189,9,38,23
+140,Texas Rangers,0.201,0.149,7,51,28
+117,Houston Astros,0.273,0.328,8,52,36
+141,Toronto Blue Jays,0.262,0.279,4,27,15
+110,Baltimore Orioles,0.206,0.182,9,39,27
+121,New York Mets,0.245,0.16,12,48,32
+146,Miami Marlins,0.267,0.245,6,36,21
+145,Chicago White Sox,0.212,0.183,2,44,25
 134,Pittsburgh Pirates,0.253,0.238,8,41,22
+113,Cincinnati Reds,0.252,0.27,12,65,40
+143,Philadelphia Phillies,0.25,0.196,7,40,21
 120,Washington Nationals,0.229,0.218,7,38,18
-144,Atlanta Braves,0.229,0.24,7,37,22
 114,Cleveland Guardians,0.177,0.186,5,34,18
 118,Kansas City Royals,0.217,0.255,4,39,17
-147,New York Yankees,0.196,0.173,8,51,31
-135,San Diego Padres,0.321,0.267,6,32,19
-112,Chicago Cubs,0.277,0.186,10,42,23
+119,Los Angeles Dodgers,0.291,0.287,5,39,25
 137,San Francisco Giants,0.256,0.28,6,30,15
+147,New York Yankees,0.196,0.173,8,51,31
+144,Atlanta Braves,0.229,0.24,7,37,22
+111,Boston Red Sox,0.262,0.286,9,47,30
 115,Colorado Rockies,0.199,0.21,8,55,33
 133,Athletics,0.212,0.2,7,47,29
-158,Milwaukee Brewers,0.278,0.283,8,28,18
-111,Boston Red Sox,0.262,0.286,9,47,30
-119,Los Angeles Dodgers,0.291,0.287,5,39,25
-108,Los Angeles Angels,0.205,0.208,10,44,26
 116,Detroit Tigers,0.326,0.341,7,38,23
+158,Milwaukee Brewers,0.278,0.283,8,28,18
+135,San Diego Padres,0.321,0.267,6,32,19
+108,Los Angeles Angels,0.205,0.208,10,44,26
+112,Chicago Cubs,0.277,0.186,10,42,23
