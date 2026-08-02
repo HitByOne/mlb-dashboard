@@ -1,11 +1,11 @@
 Rank,Player,Team,League,HR,player_id
 1,Yordan Alvarez,Houston Astros,AL,35,670541
+2,Hunter Goodman,Colorado Rockies,NL,33,696100
 2,Kyle Schwarber,Philadelphia Phillies,NL,33,656941
-3,Hunter Goodman,Colorado Rockies,NL,31,696100
-3,Ben Rice,New York Yankees,AL,31,700250
+4,Ben Rice,New York Yankees,AL,31,700250
 5,Junior Caminero,Tampa Bay Rays,AL,30,691406
+5,Matt Olson,Atlanta Braves,NL,30,621566
 5,James Wood,Washington Nationals,NL,30,695578
-7,Matt Olson,Atlanta Braves,NL,29,621566
 8,CJ Abrams,Washington Nationals,NL,28,682928
 9,Byron Buxton,Minnesota Twins,AL,25,621439
 9,Colson Montgomery,Chicago White Sox,AL,25,695657
@@ -31,17 +31,18 @@ Rank,Player,Team,League,HR,player_id
 28,Casey Schmitt,San Francisco Giants,NL,21,669477
 28,Juan Soto,New York Mets,NL,21,665742
 32,Drake Baldwin,Atlanta Braves,NL,20,686948
+32,Jake Bauers,Milwaukee Brewers,NL,20,641343
 32,Michael Harris II,Atlanta Braves,NL,20,671739
 32,Joc Pederson,Texas Rangers,AL,20,592626
 32,Spencer Torkelson,Detroit Tigers,AL,20,679529
-36,Jake Bauers,Milwaukee Brewers,NL,19,641343
-36,JJ Bleday,Cincinnati Reds,NL,19,668709
-36,Jake Burger,Texas Rangers,AL,19,669394
-36,Kody Clemens,Minnesota Twins,AL,19,665019
-36,Ketel Marte,Arizona Diamondbacks,NL,19,606466
-36,Zach Neto,Los Angeles Angels,AL,19,687263
+37,JJ Bleday,Cincinnati Reds,NL,19,668709
+37,Jake Burger,Texas Rangers,AL,19,669394
+37,Kody Clemens,Minnesota Twins,AL,19,665019
+37,Ketel Marte,Arizona Diamondbacks,NL,19,606466
+37,Zach Neto,Los Angeles Angels,AL,19,687263
 42,Willy Adames,San Francisco Giants,NL,18,642715
 42,Ozzie Albies,Atlanta Braves,NL,18,645277
+42,Jac Caglianone,Kansas City Royals,AL,18,695506
 42,Dominic Canzone,Seattle Mariners,AL,18,686527
 42,Elly De La Cruz,Cincinnati Reds,NL,18,682829
 42,Ian Happ,Chicago Cubs,NL,18,664023
@@ -49,21 +50,22 @@ Rank,Player,Team,League,HR,player_id
 42,Andy Pages,Los Angeles Dodgers,NL,18,681624
 42,Seiya Suzuki,Chicago Cubs,NL,18,673548
 42,Mike Trout,Los Angeles Angels,AL,18,545361
-51,Jac Caglianone,Kansas City Royals,AL,17,695506
-51,Aaron Judge,New York Yankees,AL,17,592450
-51,Curtis Mead,Boston Red Sox,AL,17,678554
-51,Mickey Moniak,Colorado Rockies,NL,17,666160
-51,Ryan O'Hearn,Pittsburgh Pirates,NL,17,656811
-51,Tyler Soderstrom,Athletics,AL,17,691016
+52,Aaron Judge,New York Yankees,AL,17,592450
+52,Curtis Mead,Boston Red Sox,AL,17,678554
+52,Mickey Moniak,Colorado Rockies,NL,17,666160
+52,Ryan O'Hearn,Pittsburgh Pirates,NL,17,656811
+52,Tyler Soderstrom,Athletics,AL,17,691016
 57,Wilyer Abreu,Boston Red Sox,AL,16,677800
 57,Jo Adell,Los Angeles Angels,AL,16,666176
 57,Samuel Basallo,Baltimore Orioles,AL,16,694212
+57,Corbin Carroll,Arizona Diamondbacks,NL,16,682998
 57,Jazz Chisholm Jr.,New York Yankees,AL,16,665862
 57,Ty France,San Diego Padres,NL,16,664034
 57,Paul Goldschmidt,New York Yankees,AL,16,502671
 57,Heriberto Hernández,Miami Marlins,NL,16,681715
 57,Brooks Lee,Minnesota Twins,AL,16,686797
 57,Brandon Marsh,Philadelphia Phillies,NL,16,669016
+57,Salvador Perez,Kansas City Royals,AL,16,521692
 57,Julio Rodríguez,Seattle Mariners,AL,16,677594
 57,Spencer Steer,Cincinnati Reds,NL,16,668715
 57,Kyle Stowers,Miami Marlins,NL,16,669065
@@ -71,14 +73,13 @@ Rank,Player,Team,League,HR,player_id
 57,Brice Turang,Milwaukee Brewers,NL,16,668930
 57,Trea Turner,Philadelphia Phillies,NL,16,607208
 57,JJ Wetherholt,St. Louis Cardinals,NL,16,802139
-73,Alec Burleson,St. Louis Cardinals,NL,15,676475
-73,Corbin Carroll,Arizona Diamondbacks,NL,15,682998
-73,Yandy Díaz,Tampa Bay Rays,AL,15,650490
-73,Freddie Freeman,Los Angeles Dodgers,NL,15,518692
-73,Riley Greene,Detroit Tigers,AL,15,682985
-73,Carter Jensen,Kansas City Royals,AL,15,695600
-73,Jackson Merrill,San Diego Padres,NL,15,701538
-73,Isaac Paredes,Houston Astros,AL,15,670623
-73,Salvador Perez,Kansas City Royals,AL,15,521692
-73,Luke Raley,Seattle Mariners,AL,15,670042
-73,Bryan Reynolds,Pittsburgh Pirates,NL,15,668804
+75,Nolan Arenado,Arizona Diamondbacks,NL,15,571448
+75,Alec Burleson,St. Louis Cardinals,NL,15,676475
+75,Yandy Díaz,Tampa Bay Rays,AL,15,650490
+75,Freddie Freeman,Los Angeles Dodgers,NL,15,518692
+75,Riley Greene,Detroit Tigers,AL,15,682985
+75,Carter Jensen,Kansas City Royals,AL,15,695600
+75,Jackson Merrill,San Diego Padres,NL,15,701538
+75,Isaac Paredes,Houston Astros,AL,15,670623
+75,Luke Raley,Seattle Mariners,AL,15,670042
+75,Bryan Reynolds,Pittsburgh Pirates,NL,15,668804

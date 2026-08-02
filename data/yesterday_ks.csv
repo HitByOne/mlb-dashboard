@@ -1,35 +1,37 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-07-31,Zebby Matthews,Minnesota Twins,Seattle Mariners,5.0,10,4.5,-134,+102,57,Over Hit
-2026-07-31,Will Warren,New York Yankees,Chicago Cubs,6.2,7,4.5,-122,-109,55,Over Hit
-2026-07-31,Shane Drohan,Milwaukee Brewers,Los Angeles Angels,6.0,7,5.5,-155,+116,61,Over Hit
-2026-07-31,Paul Skenes,Pittsburgh Pirates,Cincinnati Reds,4.0,7,7.5,-162,+120,62,Under Hit
-2026-07-31,Michael Wacha,Kansas City Royals,Colorado Rockies,6.0,7,4.5,-108,-122,52,Over Hit
-2026-07-31,Dylan Cease,Toronto Blue Jays,St. Louis Cardinals,6.0,7,7.5,-148,+112,60,Under Hit
-2026-07-31,Andrew Painter,Philadelphia Phillies,Baltimore Orioles,6.0,6,3.5,-152,+114,60,Over Hit
-2026-07-31,Erick Fedde,Chicago White Sox,Tampa Bay Rays,5.0,6,3.5,+125,-170,44,Over Hit
-2026-07-31,Shota Imanaga,Chicago Cubs,New York Yankees,6.2,6,5.5,-139,+105,58,Over Hit
-2026-07-31,Hunter Brown,Houston Astros,Texas Rangers,5.2,5,5.5,-165,+123,62,Under Hit
-2026-07-31,Nathan Eovaldi,Texas Rangers,Houston Astros,5.0,5,6.5,+115,-152,47,Under Hit
-2026-07-31,Brandon Young,Baltimore Orioles,Philadelphia Phillies,5.2,5,4.5,-139,+105,58,Over Hit
-2026-07-31,Cole Irvin,Los Angeles Dodgers,Boston Red Sox,6.0,5,—,—,—,0,—
-2026-07-31,Kodai Senga,New York Mets,Miami Marlins,4.0,4,3.5,-129,-102,56,Over Hit
-2026-07-31,Elieser Hernández,Atlanta Braves,Washington Nationals,3.0,4,—,—,—,0,—
-2026-07-31,Trevor Williams,Washington Nationals,Atlanta Braves,2.2,4,—,—,—,0,—
-2026-07-31,Calvin Faucher,Miami Marlins,New York Mets,1.1,4,—,—,—,0,—
-2026-07-31,Hunter Greene,Cincinnati Reds,Pittsburgh Pirates,6.0,4,7.5,+110,-148,48,Under Hit
-2026-07-31,José Fermin,Los Angeles Angels,Milwaukee Brewers,2.2,4,—,—,—,0,—
-2026-07-31,Janson Junk,Miami Marlins,New York Mets,5.0,4,3.5,-162,+120,62,Over Hit
-2026-07-31,Paul Blackburn,New York Yankees,Chicago Cubs,1.1,3,—,—,—,0,—
-2026-07-31,Kyle Leahy,St. Louis Cardinals,Toronto Blue Jays,6.0,3,4.5,-157,+119,61,Under Hit
-2026-07-31,Foster Griffin,Washington Nationals,Atlanta Braves,5.1,3,4.5,-167,+125,63,Under Hit
-2026-07-31,Tanner Bibee,Cleveland Guardians,Arizona Diamondbacks,7.1,3,4.5,-103,-130,51,Under Hit
-2026-07-31,Antwone Kelly,Pittsburgh Pirates,Cincinnati Reds,3.0,3,—,—,—,0,—
-2026-07-31,Bryce Elder,Atlanta Braves,Washington Nationals,6.0,3,4.5,-107,-124,52,Under Hit
-2026-07-31,Drew Sommers,Detroit Tigers,Athletics,2.0,3,—,—,—,0,—
-2026-07-31,Ryan Johnson,Los Angeles Angels,Milwaukee Brewers,4.1,3,3.5,-167,+125,63,Under Hit
-2026-07-31,Adrian Houser,San Francisco Giants,San Diego Padres,4.2,3,—,—,—,0,—
-2026-07-31,Carson Whisenhunt,San Francisco Giants,San Diego Padres,3.1,3,3.5,-150,+112,60,Under Hit
-2026-07-31,Brayan Bello,Boston Red Sox,Los Angeles Dodgers,4.0,3,—,—,—,0,—
-2026-07-31,Will Klein,Los Angeles Dodgers,Boston Red Sox,1.1,3,—,—,—,0,—
-2026-07-31,Bryce Miller,Seattle Mariners,Minnesota Twins,5.1,3,5.5,-113,-118,53,Under Hit
-2026-07-31,Eduard Bazardo,Seattle Mariners,Minnesota Twins,1.2,3,—,—,—,0,—
+2026-08-01,Cristopher Sánchez,Philadelphia Phillies,Baltimore Orioles,6.0,11,6.5,-159,+120,61,Over Hit
+2026-08-01,Drew Rasmussen,Tampa Bay Rays,Chicago White Sox,6.0,10,5.5,-137,+104,58,Over Hit
+2026-08-01,Tyler Mahle,San Francisco Giants,San Diego Padres,5.2,9,4.5,+128,-175,44,Over Hit
+2026-08-01,Jack Perkins,Athletics,Detroit Tigers,5.1,9,4.5,-122,-109,55,Over Hit
+2026-08-01,David Peterson,Chicago Cubs,New York Yankees,6.1,8,4.5,-157,+117,61,Over Hit
+2026-08-01,Max Fried,New York Yankees,Chicago Cubs,5.1,7,4.5,-175,+128,64,Over Hit
+2026-08-01,Payton Tolle,Boston Red Sox,Los Angeles Dodgers,6.0,7,5.5,+116,-155,46,Over Hit
+2026-08-01,Logan Gilbert,Seattle Mariners,Minnesota Twins,7.0,6,6.5,+116,-155,46,Under Hit
+2026-08-01,Martín Pérez,Atlanta Braves,Washington Nationals,7.0,6,—,—,—,0,—
+2026-08-01,Robert Gasser,Milwaukee Brewers,Los Angeles Angels,5.0,6,4.5,-143,+108,59,Over Hit
+2026-08-01,Framber Valdez,Detroit Tigers,Athletics,7.0,6,4.5,-130,-103,57,Over Hit
+2026-08-01,Kohl Drake,Arizona Diamondbacks,Cleveland Guardians,4.0,6,3.5,-109,-122,52,Over Hit
+2026-08-01,Parker Messick,Cleveland Guardians,Arizona Diamondbacks,4.1,6,5.5,+125,-167,44,Over Hit
+2026-08-01,Braxton Ashcraft,Pittsburgh Pirates,Cincinnati Reds,5.0,5,6.5,-108,-124,52,Under Hit
+2026-08-01,Connor Prielipp,Minnesota Twins,Seattle Mariners,5.1,5,5.5,-127,-105,56,Under Hit
+2026-08-01,Chad Patrick,Milwaukee Brewers,Los Angeles Angels,2.0,5,—,—,—,0,—
+2026-08-01,Noah Schultz,Chicago White Sox,Tampa Bay Rays,5.0,4,—,—,—,0,—
+2026-08-01,Kevin Gausman,Toronto Blue Jays,St. Louis Cardinals,5.2,4,5.5,+105,-139,49,Under Hit
+2026-08-01,Carmen Mlodzinski,Pittsburgh Pirates,Cincinnati Reds,3.0,4,—,—,—,0,—
+2026-08-01,Shane Baz,Baltimore Orioles,Philadelphia Phillies,6.1,4,5.5,+106,-141,49,Under Hit
+2026-08-01,Ronel Blanco,Houston Astros,Texas Rangers,4.2,4,5.5,+123,-165,45,Under Hit
+2026-08-01,Samy Natera Jr.,Los Angeles Angels,Milwaukee Brewers,2.0,4,—,—,—,0,—
+2026-08-01,Quinn Mathews,St. Louis Cardinals,Toronto Blue Jays,5.0,3,—,—,—,0,—
+2026-08-01,Yaramil Hiraldo,Baltimore Orioles,Philadelphia Phillies,1.1,3,—,—,—,0,—
+2026-08-01,Jonathan Pintaro,New York Mets,Miami Marlins,2.0,3,—,—,—,0,—
+2026-08-01,Tyler Phillips,Miami Marlins,New York Mets,5.0,3,3.5,+107,-140,48,Under Hit
+2026-08-01,Jonathan Bowlan,Philadelphia Phillies,Baltimore Orioles,1.0,3,—,—,—,0,—
+2026-08-01,Jacob deGrom,Texas Rangers,Houston Astros,3.1,3,6.5,-115,-115,53,Under Hit
+2026-08-01,Miles Mikolas,Washington Nationals,Atlanta Braves,6.0,3,2.5,-107,-125,52,Over Hit
+2026-08-01,Gerardo Carrillo,Arizona Diamondbacks,Cleveland Guardians,2.0,3,—,—,—,0,—
+2026-08-01,Ryan Feltner,Colorado Rockies,Kansas City Royals,6.0,3,3.5,-143,+108,59,Under Hit
+2026-08-01,Alex Lange,Kansas City Royals,Colorado Rockies,2.0,3,—,—,—,0,—
+2026-08-01,Adrian Morejon,San Diego Padres,San Francisco Giants,1.1,3,—,—,—,0,—
+2026-08-01,Mason Miller,San Diego Padres,San Francisco Giants,1.2,3,—,—,—,0,—
+2026-08-01,Yoshinobu Yamamoto,Los Angeles Dodgers,Boston Red Sox,8.0,3,6.5,-113,-118,53,Under Hit
+2026-08-01,Brett Kerry,Los Angeles Angels,Milwaukee Brewers,4.0,3,—,—,—,0,—
