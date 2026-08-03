@@ -1,25 +1,27 @@
 player_id,Player,Team,Streak,AVG
-665161,Jeremy Peña,Houston Astros,13,.000
-518692,Freddie Freeman,Los Angeles Dodgers,11,.000
-663968,Jake Mangum,Pittsburgh Pirates,9,.000
-808959,Munetaka Murakami,Chicago White Sox,9,.000
+665161,Jeremy Peña,Houston Astros,14,.000
+518692,Freddie Freeman,Los Angeles Dodgers,12,.000
+808959,Munetaka Murakami,Chicago White Sox,10,.000
+680777,Ryan Jeffers,Minnesota Twins,9,.000
+668904,Royce Lewis,Minnesota Twins,8,.000
+678882,Ceddanne Rafaela,Boston Red Sox,8,.000
+641343,Jake Bauers,Milwaukee Brewers,8,.000
+543807,George Springer,Toronto Blue Jays,8,.000
 543510,James McCann,Arizona Diamondbacks,8,.000
-680777,Ryan Jeffers,Minnesota Twins,8,.000
-702284,Cole Young,Seattle Mariners,7,.000
-664040,Brandon Lowe,Pittsburgh Pirates,7,.000
-641343,Jake Bauers,Milwaukee Brewers,7,.000
-678882,Ceddanne Rafaela,Boston Red Sox,7,.000
-668904,Royce Lewis,Minnesota Twins,7,.000
-543807,George Springer,Toronto Blue Jays,7,.000
-608324,Alex Bregman,Chicago Cubs,6,.000
-606466,Ketel Marte,Arizona Diamondbacks,6,.000
-547180,Bryce Harper,Philadelphia Phillies,6,.000
+702284,Cole Young,Seattle Mariners,8,.000
+667472,Dane Myers,Cincinnati Reds,7,.000
+547180,Bryce Harper,Philadelphia Phillies,7,.000
+681624,Andy Pages,Los Angeles Dodgers,6,.000
 814439,Ryan Waldschmidt,Arizona Diamondbacks,6,.000
-667472,Dane Myers,Cincinnati Reds,6,.000
-682848,Endy Rodríguez,Pittsburgh Pirates,5,.000
+572233,Christian Walker,Houston Astros,6,.000
+660271,Shohei Ohtani,Los Angeles Dodgers,6,.000
 805779,Jacob Wilson,Athletics,5,.000
-666160,Mickey Moniak,Colorado Rockies,5,.000
-572233,Christian Walker,Houston Astros,5,.000
-681624,Andy Pages,Los Angeles Dodgers,5,.000
-660271,Shohei Ohtani,Los Angeles Dodgers,5,.000
-701807,Carson Benge,New York Mets,5,.000
+669134,Luis Campusano,San Diego Padres,5,.000
+645277,Ozzie Albies,Atlanta Braves,5,.000
+691023,Jordan Walker,St. Louis Cardinals,5,.000
+676475,Alec Burleson,St. Louis Cardinals,5,.000
+806198,Cooper Pratt,Milwaukee Brewers,5,.000
+655316,Andruw Monasterio,Boston Red Sox,5,.000
+668930,Brice Turang,Milwaukee Brewers,5,.000
+650489,Willi Castro,Colorado Rockies,5,.000
+663886,Tyler Stephenson,Cincinnati Reds,5,.000
