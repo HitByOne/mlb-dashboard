@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-121,New York Mets,0.17,0.192,8,45,25
-114,Cleveland Guardians,0.24,0.255,8,36,23
-110,Baltimore Orioles,0.17,0.171,7,48,30
-120,Washington Nationals,0.184,0.151,10,40,27
-145,Chicago White Sox,0.191,0.214,12,53,30
-108,Los Angeles Angels,0.186,0.144,11,50,34
 113,Cincinnati Reds,0.245,0.255,9,59,31
-146,Miami Marlins,0.236,0.23,7,34,19
-147,New York Yankees,0.195,0.223,9,47,27
+108,Los Angeles Angels,0.186,0.144,11,50,34
 142,Minnesota Twins,0.204,0.245,6,35,23
-144,Atlanta Braves,0.253,0.302,4,32,17
-111,Boston Red Sox,0.253,0.24,11,45,24
-138,St. Louis Cardinals,0.263,0.294,11,43,23
-133,Athletics,0.243,0.245,7,45,23
 143,Philadelphia Phillies,0.258,0.279,6,31,17
+145,Chicago White Sox,0.191,0.214,12,53,30
+138,St. Louis Cardinals,0.263,0.294,11,43,23
+120,Washington Nationals,0.184,0.151,10,40,27
+133,Athletics,0.243,0.245,7,45,23
+114,Cleveland Guardians,0.24,0.255,8,36,23
+144,Atlanta Braves,0.253,0.302,4,32,17
+121,New York Mets,0.17,0.192,8,45,25
+110,Baltimore Orioles,0.17,0.171,7,48,30
+111,Boston Red Sox,0.253,0.24,11,45,24
+147,New York Yankees,0.195,0.223,9,47,27
+146,Miami Marlins,0.236,0.23,7,34,19
 118,Kansas City Royals,0.251,0.228,8,31,18
-158,Milwaukee Brewers,0.204,0.174,12,47,32
 134,Pittsburgh Pirates,0.22,0.186,13,47,29
+158,Milwaukee Brewers,0.204,0.174,12,47,32
 119,Los Angeles Dodgers,0.276,0.282,4,37,19
-137,San Francisco Giants,0.228,0.245,6,33,23
 112,Chicago Cubs,0.228,0.228,10,42,27
-140,Texas Rangers,0.188,0.206,10,53,33
+137,San Francisco Giants,0.228,0.245,6,33,23
+116,Detroit Tigers,0.34,0.342,7,41,25
 139,Tampa Bay Rays,0.269,0.298,3,30,16
+140,Texas Rangers,0.188,0.206,10,53,33
 117,Houston Astros,0.339,0.321,10,42,23
 141,Toronto Blue Jays,0.255,0.219,7,30,21
-136,Seattle Mariners,0.225,0.243,5,43,27
-109,Arizona Diamondbacks,0.236,0.265,7,38,28
-116,Detroit Tigers,0.34,0.342,7,41,25
-135,San Diego Padres,0.263,0.247,5,42,26
 115,Colorado Rockies,0.297,0.367,9,44,22
+135,San Diego Padres,0.263,0.247,5,42,26
+109,Arizona Diamondbacks,0.236,0.265,7,38,28
+136,Seattle Mariners,0.225,0.243,5,43,27
