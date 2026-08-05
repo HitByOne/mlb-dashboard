@@ -4,14 +4,14 @@ player_id,Player,Team,Streak,AVG
 543510,James McCann,Arizona Diamondbacks,10,.000
 543807,George Springer,Toronto Blue Jays,10,.000
 668904,Royce Lewis,Minnesota Twins,9,.000
-678882,Ceddanne Rafaela,Boston Red Sox,9,.000
 641343,Jake Bauers,Milwaukee Brewers,9,.000
+678882,Ceddanne Rafaela,Boston Red Sox,9,.000
 572233,Christian Walker,Houston Astros,8,.000
 660271,Shohei Ohtani,Los Angeles Dodgers,8,.000
 650489,Willi Castro,Colorado Rockies,7,.000
 701358,Cam Smith,Houston Astros,6,.000
-645277,Ozzie Albies,Atlanta Braves,6,.000
 655316,Andruw Monasterio,Boston Red Sox,6,.000
+645277,Ozzie Albies,Atlanta Braves,6,.000
 691458,Blaze Jordan,St. Louis Cardinals,6,.000
 669134,Luis Campusano,San Diego Padres,6,.000
 805779,Jacob Wilson,Athletics,6,.000
@@ -21,6 +21,6 @@ player_id,Player,Team,Streak,AVG
 701675,Nathan Church,St. Louis Cardinals,5,.000
 672695,Geraldo Perdomo,Arizona Diamondbacks,5,.000
 680757,Steven Kwan,Cleveland Guardians,5,.000
+679529,Spencer Torkelson,Detroit Tigers,5,.000
 693307,Dillon Dingler,Detroit Tigers,5,.000
 670541,Yordan Alvarez,Houston Astros,5,.000
-679529,Spencer Torkelson,Detroit Tigers,5,.000
