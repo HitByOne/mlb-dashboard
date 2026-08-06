@@ -1,31 +1,23 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-112,Chicago Cubs,0.224,0.24,8,45,28
-139,Tampa Bay Rays,0.268,0.319,11,36,19
-137,San Francisco Giants,0.201,0.194,8,37,22
-117,Houston Astros,0.343,0.327,4,35,20
-113,Cincinnati Reds,0.248,0.2,7,50,26
-108,Los Angeles Angels,0.21,0.211,11,50,35
-119,Los Angeles Dodgers,0.257,0.235,4,28,14
-133,Athletics,0.247,0.28,9,40,25
-140,Texas Rangers,0.234,0.238,5,45,28
-110,Baltimore Orioles,0.177,0.145,7,48,28
-115,Colorado Rockies,0.309,0.312,8,38,22
-141,Toronto Blue Jays,0.223,0.179,6,31,23
-121,New York Mets,0.206,0.21,9,42,22
-120,Washington Nationals,0.175,0.163,9,43,30
-114,Cleveland Guardians,0.268,0.287,8,37,26
-138,St. Louis Cardinals,0.25,0.26,10,44,27
-143,Philadelphia Phillies,0.27,0.301,4,28,14
-147,New York Yankees,0.2,0.206,5,40,23
-145,Chicago White Sox,0.201,0.202,8,49,36
-144,Atlanta Braves,0.256,0.255,6,26,16
-111,Boston Red Sox,0.277,0.275,2,35,17
-118,Kansas City Royals,0.247,0.267,5,28,19
-142,Minnesota Twins,0.215,0.245,4,35,19
-158,Milwaukee Brewers,0.221,0.232,8,48,31
-116,Detroit Tigers,0.315,0.339,11,45,29
-109,Arizona Diamondbacks,0.236,0.185,3,35,23
-146,Miami Marlins,0.233,0.232,7,35,20
-135,San Diego Padres,0.302,0.28,6,38,20
-134,Pittsburgh Pirates,0.211,0.177,11,48,37
-136,Seattle Mariners,0.22,0.245,8,46,21
+121,New York Mets,0.208,0.208,16,50,33
+158,Milwaukee Brewers,0.201,0.226,10,50,30
+133,Athletics,0.222,0.194,7,39,23
+112,Chicago Cubs,0.273,0.321,6,41,24
+110,Baltimore Orioles,0.173,0.187,12,49,26
+145,Chicago White Sox,0.196,0.194,14,52,34
+114,Cleveland Guardians,0.251,0.252,13,44,29
+136,Seattle Mariners,0.224,0.258,3,38,16
+113,Cincinnati Reds,0.235,0.239,11,49,27
+134,Pittsburgh Pirates,0.167,0.17,14,54,38
+116,Detroit Tigers,0.31,0.276,9,45,27
+141,Toronto Blue Jays,0.191,0.173,13,40,26
+120,Washington Nationals,0.175,0.2,11,47,30
+108,Los Angeles Angels,0.179,0.202,11,56,33
+143,Philadelphia Phillies,0.263,0.226,5,26,15
+111,Boston Red Sox,0.28,0.31,8,34,21
+146,Miami Marlins,0.209,0.17,6,32,20
+144,Atlanta Braves,0.284,0.255,12,35,22
+142,Minnesota Twins,0.207,0.2,10,37,20
+109,Arizona Diamondbacks,0.281,0.303,7,38,17
+135,San Diego Padres,0.253,0.238,10,42,21
+118,Kansas City Royals,0.239,0.222,4,27,17

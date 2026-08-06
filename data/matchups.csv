@@ -1,16 +1,12 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824158,2026-08-05,Toronto Blue Jays,141,Houston Astros,117,Jameson Taillon,592791,Hunter Brown,686613
-824646,2026-08-05,Los Angeles Dodgers,119,Chicago Cubs,112,Eric Lauer,641778,Shota Imanaga,684007
-822866,2026-08-05,San Francisco Giants,137,Texas Rangers,140,Carson Whisenhunt,687931,Cody Bradford,674003
-824322,2026-08-05,Tampa Bay Rays,139,Colorado Rockies,115,Nick Martinez,607259,Tomoyuki Sugano,608372
-824806,2026-08-05,Los Angeles Angels,108,Baltimore Orioles,110,Reid Detmers,672282,Trevor Rogers,669432
-824402,2026-08-05,New York Mets,121,Cleveland Guardians,114,Christian Scott,681035,Tanner Bibee,676440
-824482,2026-08-05,Athletics,133,Cincinnati Reds,113,Jacob Lopez,682052,Rhett Lowder,695076
-823429,2026-08-05,Washington Nationals,120,Philadelphia Phillies,143,Jake Irvin,663623,Andrew Painter,691725
-823516,2026-08-05,St. Louis Cardinals,138,New York Yankees,147,Andre Pallante,669467,Will Warren,701542
-824728,2026-08-05,Chicago White Sox,145,Boston Red Sox,111,Sean Burke,680732,Sonny Gray,543243
-824889,2026-08-05,Miami Marlins,146,Atlanta Braves,144,Eury Pérez,691587,Bryce Elder,693821
-824082,2026-08-05,Minnesota Twins,142,Kansas City Royals,118,Dean Kremer,665152,Noah Cameron,702070
-823753,2026-08-05,Pittsburgh Pirates,134,Milwaukee Brewers,158,Paul Skenes,694973,Kyle Harrison,690986
-825052,2026-08-05,San Diego Padres,135,Arizona Diamondbacks,109,Casey Mize,663554,Mitch Bratt,683352
-823106,2026-08-05,Detroit Tigers,116,Seattle Mariners,136,Drew Anderson,623454,Bryan Woo,693433
+824804,2026-08-06,Los Angeles Angels,108,Baltimore Orioles,110,Ryan Johnson,696270,Brandon Young,687064
+824481,2026-08-06,Athletics,133,Cincinnati Reds,113,Mason Barnett,686930,Andrew Abbott,671096
+824401,2026-08-06,New York Mets,121,Cleveland Guardians,114,Nolan McLean,690997,Foster Griffin,656492
+823754,2026-08-06,Pittsburgh Pirates,134,Milwaukee Brewers,158,Braxton Ashcraft,677952,Dustin May,669160
+824664,2026-08-06,Toronto Blue Jays,141,Chicago Cubs,112,Dylan Cease,656302,David Peterson,656849
+823105,2026-08-06,Detroit Tigers,116,Seattle Mariners,136,Framber Valdez,664285,Bryce Miller,682243
+823430,2026-08-06,Washington Nationals,120,Philadelphia Phillies,143,Miles Mikolas,571945,Cristopher Sánchez,650911
+824729,2026-08-06,Chicago White Sox,145,Boston Red Sox,111,Luis Castillo,622491,Ranger Suarez,624133
+824885,2026-08-06,Miami Marlins,146,Atlanta Braves,144,Janson Junk,676083,Martín Pérez,527048
+824080,2026-08-06,Minnesota Twins,142,Kansas City Royals,118,Bailey Ober,641927,Michael Wacha,608379
+825053,2026-08-06,San Diego Padres,135,Arizona Diamondbacks,109,Walker Buehler,621111,Kohl Drake,684442
