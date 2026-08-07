@@ -3,27 +3,27 @@ Rank,Player,Team,League,HR,player_id
 2,Junior Caminero,Tampa Bay Rays,AL,33,691406
 2,Hunter Goodman,Colorado Rockies,NL,33,696100
 2,Kyle Schwarber,Philadelphia Phillies,NL,33,656941
-5,Matt Olson,Atlanta Braves,NL,31,621566
-5,Ben Rice,New York Yankees,AL,31,700250
+5,Matt Olson,Atlanta Braves,NL,32,621566
+6,Ben Rice,New York Yankees,AL,31,700250
 7,James Wood,Washington Nationals,NL,30,695578
 8,CJ Abrams,Washington Nationals,NL,28,682928
 9,Pete Crow-Armstrong,Chicago Cubs,NL,26,691718
+9,Dillon Dingler,Detroit Tigers,AL,26,693307
 9,Shohei Ohtani,Los Angeles Dodgers,NL,26,660271
-11,Byron Buxton,Minnesota Twins,AL,25,621439
-11,Dillon Dingler,Detroit Tigers,AL,25,693307
-11,Colson Montgomery,Chicago White Sox,AL,25,695657
-14,Luis García Jr.,New York Yankees,AL,24,671277
-14,Bryce Harper,Philadelphia Phillies,NL,24,547180
-14,Munetaka Murakami,Chicago White Sox,AL,24,808959
-14,Kazuma Okamoto,Toronto Blue Jays,AL,24,672960
-14,Sal Stewart,Cincinnati Reds,NL,24,701398
-14,Miguel Vargas,Chicago White Sox,AL,24,678246
-20,Pete Alonso,Baltimore Orioles,AL,23,624413
-20,Willson Contreras,Boston Red Sox,AL,23,575929
-20,Rafael Devers,San Francisco Giants,NL,23,646240
-20,Shea Langeliers,Athletics,AL,23,669127
-20,Brandon Lowe,Pittsburgh Pirates,NL,23,664040
-20,Manny Machado,San Diego Padres,NL,23,592518
+12,Byron Buxton,Minnesota Twins,AL,25,621439
+12,Colson Montgomery,Chicago White Sox,AL,25,695657
+12,Sal Stewart,Cincinnati Reds,NL,25,701398
+15,Luis García Jr.,New York Yankees,AL,24,671277
+15,Bryce Harper,Philadelphia Phillies,NL,24,547180
+15,Brandon Lowe,Pittsburgh Pirates,NL,24,664040
+15,Munetaka Murakami,Chicago White Sox,AL,24,808959
+15,Kazuma Okamoto,Toronto Blue Jays,AL,24,672960
+15,Miguel Vargas,Chicago White Sox,AL,24,678246
+21,Pete Alonso,Baltimore Orioles,AL,23,624413
+21,Willson Contreras,Boston Red Sox,AL,23,575929
+21,Rafael Devers,San Francisco Giants,NL,23,646240
+21,Shea Langeliers,Athletics,AL,23,669127
+21,Manny Machado,San Diego Padres,NL,23,592518
 26,Max Muncy,Los Angeles Dodgers,NL,22,571970
 26,Christian Walker,Houston Astros,AL,22,572233
 26,Jordan Walker,St. Louis Cardinals,NL,22,691023
@@ -33,26 +33,26 @@ Rank,Player,Team,League,HR,player_id
 32,Wilyer Abreu,Boston Red Sox,AL,20,677800
 32,Drake Baldwin,Atlanta Braves,NL,20,686948
 32,Jake Bauers,Milwaukee Brewers,NL,20,641343
+32,JJ Bleday,Cincinnati Reds,NL,20,668709
 32,Michael Harris II,Atlanta Braves,NL,20,671739
+32,Zach Neto,Los Angeles Angels,AL,20,687263
 32,Joc Pederson,Texas Rangers,AL,20,592626
 32,Spencer Torkelson,Detroit Tigers,AL,20,679529
-38,Ozzie Albies,Atlanta Braves,NL,19,645277
-38,JJ Bleday,Cincinnati Reds,NL,19,668709
-38,Jake Burger,Texas Rangers,AL,19,669394
-38,Kody Clemens,Minnesota Twins,AL,19,665019
-38,Ketel Marte,Arizona Diamondbacks,NL,19,606466
-38,Mickey Moniak,Colorado Rockies,NL,19,666160
-38,Zach Neto,Los Angeles Angels,AL,19,687263
-38,Seiya Suzuki,Chicago Cubs,NL,19,673548
-46,Willy Adames,San Francisco Giants,NL,18,642715
-46,Alec Burleson,St. Louis Cardinals,NL,18,676475
-46,Jac Caglianone,Kansas City Royals,AL,18,695506
-46,Dominic Canzone,Seattle Mariners,AL,18,686527
-46,Elly De La Cruz,Cincinnati Reds,NL,18,682829
-46,Ian Happ,Chicago Cubs,NL,18,664023
-46,Gunnar Henderson,Baltimore Orioles,AL,18,683002
-46,Andy Pages,Los Angeles Dodgers,NL,18,681624
-46,Mike Trout,Los Angeles Angels,AL,18,545361
+40,Ozzie Albies,Atlanta Braves,NL,19,645277
+40,Jake Burger,Texas Rangers,AL,19,669394
+40,Kody Clemens,Minnesota Twins,AL,19,665019
+40,Elly De La Cruz,Cincinnati Reds,NL,19,682829
+40,Ketel Marte,Arizona Diamondbacks,NL,19,606466
+40,Mickey Moniak,Colorado Rockies,NL,19,666160
+40,Seiya Suzuki,Chicago Cubs,NL,19,673548
+47,Willy Adames,San Francisco Giants,NL,18,642715
+47,Alec Burleson,St. Louis Cardinals,NL,18,676475
+47,Jac Caglianone,Kansas City Royals,AL,18,695506
+47,Dominic Canzone,Seattle Mariners,AL,18,686527
+47,Ian Happ,Chicago Cubs,NL,18,664023
+47,Gunnar Henderson,Baltimore Orioles,AL,18,683002
+47,Andy Pages,Los Angeles Dodgers,NL,18,681624
+47,Mike Trout,Los Angeles Angels,AL,18,545361
 55,Jazz Chisholm Jr.,New York Yankees,AL,17,665862
 55,Aaron Judge,New York Yankees,AL,17,592450
 55,Curtis Mead,Boston Red Sox,AL,17,678554

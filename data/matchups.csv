@@ -1,12 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824804,2026-08-06,Los Angeles Angels,108,Baltimore Orioles,110,Ryan Johnson,696270,Brandon Young,687064
-824481,2026-08-06,Athletics,133,Cincinnati Reds,113,Mason Barnett,686930,Andrew Abbott,671096
-824401,2026-08-06,New York Mets,121,Cleveland Guardians,114,Nolan McLean,690997,Foster Griffin,656492
-823754,2026-08-06,Pittsburgh Pirates,134,Milwaukee Brewers,158,Braxton Ashcraft,677952,Dustin May,669160
-824664,2026-08-06,Toronto Blue Jays,141,Chicago Cubs,112,Dylan Cease,656302,David Peterson,656849
-823105,2026-08-06,Detroit Tigers,116,Seattle Mariners,136,Framber Valdez,664285,Bryce Miller,682243
-823430,2026-08-06,Washington Nationals,120,Philadelphia Phillies,143,Miles Mikolas,571945,Cristopher Sánchez,650911
-824729,2026-08-06,Chicago White Sox,145,Boston Red Sox,111,Luis Castillo,622491,Ranger Suarez,624133
-824885,2026-08-06,Miami Marlins,146,Atlanta Braves,144,Janson Junk,676083,Martín Pérez,527048
-824080,2026-08-06,Minnesota Twins,142,Kansas City Royals,118,Bailey Ober,641927,Michael Wacha,608379
-825053,2026-08-06,San Diego Padres,135,Arizona Diamondbacks,109,Walker Buehler,621111,Kohl Drake,684442
+823349,2026-08-07,New York Mets,121,Pittsburgh Pirates,134,Zac Thornton,804267,Carmen Mlodzinski,669387
+823428,2026-08-07,Toronto Blue Jays,141,Philadelphia Phillies,143,José Soriano,667755,Zack Wheeler,554430
+822699,2026-08-07,Cincinnati Reds,113,Washington Nationals,120,TBD,,Cade Cavalli,676917
+823515,2026-08-07,Atlanta Braves,144,New York Yankees,147,Tyler Mahle,641816,Max Fried,608331
+824727,2026-08-07,Athletics,133,Boston Red Sox,111,Jack Perkins,678022,Payton Tolle,801139
+823836,2026-08-07,Los Angeles Angels,108,Miami Marlins,146,George Klassen,691946,Tyler Phillips,663969
+824566,2026-08-07,Cleveland Guardians,114,Chicago White Sox,145,Parker Messick,800048,Noah Schultz,702273
+823750,2026-08-07,Minnesota Twins,142,Milwaukee Brewers,158,Zebby Matthews,805673,Shane Drohan,675660
+824081,2026-08-07,Chicago Cubs,112,Kansas City Royals,118,TBD,,Daniel Lynch IV,663738
+823024,2026-08-07,Colorado Rockies,115,St. Louis Cardinals,138,Ryan Feltner,663372,Kyle Leahy,681517
+822863,2026-08-07,Baltimore Orioles,110,Texas Rangers,140,Shane Baz,669358,Nathan Eovaldi,543135
+825051,2026-08-07,Los Angeles Dodgers,119,Arizona Diamondbacks,109,Roki Sasaki,808963,Merrill Kelly,518876
+823266,2026-08-07,Houston Astros,117,San Diego Padres,135,Ronel Blanco,669854,Robbie Ray,592662
+823103,2026-08-07,Tampa Bay Rays,139,Seattle Mariners,136,Drew Rasmussen,656876,Logan Gilbert,669302
+823191,2026-08-07,Detroit Tigers,116,San Francisco Giants,137,Keider Montero,672456,TBD,
