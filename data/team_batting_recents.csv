@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
+121,New York Mets,0.258,0.299,11,49,36
 147,New York Yankees,0.199,0.202,10,42,24
-134,Pittsburgh Pirates,0.17,0.159,9,60,34
-113,Cincinnati Reds,0.215,0.221,13,50,31
-133,Athletics,0.25,0.212,6,38,22
-146,Miami Marlins,0.209,0.198,8,34,21
-111,Boston Red Sox,0.29,0.345,11,36,21
+142,Minnesota Twins,0.213,0.179,4,33,18
 144,Atlanta Braves,0.291,0.301,4,32,22
 120,Washington Nationals,0.196,0.215,12,53,32
+108,Los Angeles Angels,0.206,0.24,7,53,29
+111,Boston Red Sox,0.29,0.345,11,36,21
 141,Toronto Blue Jays,0.193,0.196,7,43,26
 114,Cleveland Guardians,0.278,0.255,12,51,33
-145,Chicago White Sox,0.207,0.209,14,64,36
-121,New York Mets,0.258,0.299,11,49,36
 143,Philadelphia Phillies,0.305,0.317,3,22,12
-142,Minnesota Twins,0.213,0.179,4,33,18
-108,Los Angeles Angels,0.206,0.24,7,53,29
+145,Chicago White Sox,0.207,0.209,14,64,36
+146,Miami Marlins,0.209,0.198,8,34,21
+133,Athletics,0.25,0.212,6,38,22
+113,Cincinnati Reds,0.215,0.221,13,50,31
 158,Milwaukee Brewers,0.219,0.242,10,51,28
-118,Kansas City Royals,0.245,0.244,4,27,13
-115,Colorado Rockies,0.313,0.286,10,40,27
-138,St. Louis Cardinals,0.269,0.272,8,41,29
+134,Pittsburgh Pirates,0.17,0.159,9,60,34
 112,Chicago Cubs,0.251,0.269,12,46,26
-110,Baltimore Orioles,0.159,0.167,9,49,28
-119,Los Angeles Dodgers,0.272,0.269,11,34,19
-116,Detroit Tigers,0.316,0.3,11,49,31
-140,Texas Rangers,0.242,0.267,8,46,23
-137,San Francisco Giants,0.229,0.2,10,41,24
+118,Kansas City Royals,0.245,0.244,4,27,13
+138,St. Louis Cardinals,0.269,0.272,8,41,29
+115,Colorado Rockies,0.313,0.286,10,40,27
+135,San Diego Padres,0.26,0.284,4,34,20
 139,Tampa Bay Rays,0.273,0.286,5,32,19
 109,Arizona Diamondbacks,0.245,0.282,10,40,20
+140,Texas Rangers,0.242,0.267,8,46,23
 117,Houston Astros,0.303,0.276,9,36,23
+119,Los Angeles Dodgers,0.272,0.269,11,34,19
+137,San Francisco Giants,0.229,0.2,10,41,24
+110,Baltimore Orioles,0.159,0.167,9,49,28
 136,Seattle Mariners,0.244,0.205,7,31,18
-135,San Diego Padres,0.26,0.284,4,34,20
+116,Detroit Tigers,0.316,0.3,11,49,31
