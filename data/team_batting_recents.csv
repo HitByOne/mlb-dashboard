@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-108,Los Angeles Angels,0.206,0.196,9,49,27
 133,Athletics,0.186,0.16,16,45,29
-144,Atlanta Braves,0.271,0.292,11,37,27
-141,Toronto Blue Jays,0.214,0.227,7,40,27
-118,Kansas City Royals,0.218,0.207,7,28,15
-142,Minnesota Twins,0.24,0.23,7,31,21
 121,New York Mets,0.272,0.308,7,51,34
-134,Pittsburgh Pirates,0.217,0.231,4,51,27
-111,Boston Red Sox,0.339,0.342,5,37,24
-120,Washington Nationals,0.213,0.236,10,52,33
-143,Philadelphia Phillies,0.264,0.263,6,24,14
-147,New York Yankees,0.191,0.172,15,48,30
+141,Toronto Blue Jays,0.214,0.227,7,40,27
 112,Chicago Cubs,0.273,0.264,5,41,23
+111,Boston Red Sox,0.339,0.342,5,37,24
+108,Los Angeles Angels,0.206,0.196,9,49,27
 113,Cincinnati Reds,0.238,0.231,10,50,34
+147,New York Yankees,0.191,0.172,15,48,30
+143,Philadelphia Phillies,0.264,0.263,6,24,14
+142,Minnesota Twins,0.24,0.23,7,31,21
+118,Kansas City Royals,0.218,0.207,7,28,15
 146,Miami Marlins,0.218,0.225,6,34,20
+144,Atlanta Braves,0.271,0.292,11,37,27
 158,Milwaukee Brewers,0.237,0.222,9,49,29
+134,Pittsburgh Pirates,0.217,0.231,4,51,27
+120,Washington Nationals,0.213,0.236,10,52,33
 117,Houston Astros,0.311,0.288,3,32,16
 135,San Diego Padres,0.256,0.227,7,32,21
-137,San Francisco Giants,0.198,0.196,8,40,26
-140,Texas Rangers,0.229,0.247,9,45,22
 116,Detroit Tigers,0.303,0.284,7,45,27
-110,Baltimore Orioles,0.185,0.191,6,41,27
+137,San Francisco Giants,0.198,0.196,8,40,26
 115,Colorado Rockies,0.285,0.25,10,42,28
-109,Arizona Diamondbacks,0.273,0.291,9,36,26
-139,Tampa Bay Rays,0.275,0.225,8,32,24
-136,Seattle Mariners,0.229,0.205,12,35,22
-119,Los Angeles Dodgers,0.259,0.248,7,32,22
-138,St. Louis Cardinals,0.241,0.204,7,42,25
 114,Cleveland Guardians,0.26,0.267,6,47,31
+110,Baltimore Orioles,0.185,0.191,6,41,27
+138,St. Louis Cardinals,0.241,0.204,7,42,25
+119,Los Angeles Dodgers,0.259,0.248,7,32,22
+140,Texas Rangers,0.229,0.247,9,45,22
+136,Seattle Mariners,0.229,0.205,12,35,22
+139,Tampa Bay Rays,0.275,0.225,8,32,24
+109,Arizona Diamondbacks,0.273,0.291,9,36,26
 145,Chicago White Sox,0.219,0.217,12,60,40
