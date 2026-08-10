@@ -1,31 +1,21 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-120,Washington Nationals,0.237,0.26,7,49,29
-111,Boston Red Sox,0.341,0.339,15,41,31
-108,Los Angeles Angels,0.209,0.206,11,49,27
-133,Athletics,0.19,0.194,7,45,29
-141,Toronto Blue Jays,0.221,0.261,13,46,27
-147,New York Yankees,0.214,0.2,13,52,38
-134,Pittsburgh Pirates,0.242,0.306,8,46,21
-113,Cincinnati Reds,0.207,0.211,6,47,29
-118,Kansas City Royals,0.252,0.247,1,21,12
-121,New York Mets,0.265,0.29,9,52,27
-146,Miami Marlins,0.246,0.288,9,36,23
-144,Atlanta Braves,0.27,0.278,10,43,25
-114,Cleveland Guardians,0.266,0.279,6,45,24
-112,Chicago Cubs,0.254,0.202,10,41,27
-143,Philadelphia Phillies,0.267,0.283,7,25,16
-145,Chicago White Sox,0.217,0.243,7,55,33
-158,Milwaukee Brewers,0.248,0.253,14,51,33
-115,Colorado Rockies,0.293,0.267,5,42,25
-142,Minnesota Twins,0.224,0.262,6,31,17
-138,St. Louis Cardinals,0.251,0.232,5,41,20
-110,Baltimore Orioles,0.182,0.187,10,44,25
-116,Detroit Tigers,0.293,0.316,5,43,23
-140,Texas Rangers,0.234,0.214,9,41,26
-119,Los Angeles Dodgers,0.243,0.255,5,31,23
-117,Houston Astros,0.262,0.248,11,37,23
-137,San Francisco Giants,0.172,0.163,7,39,25
-136,Seattle Mariners,0.199,0.204,5,35,24
-109,Arizona Diamondbacks,0.251,0.216,9,38,28
-139,Tampa Bay Rays,0.256,0.194,7,34,20
-135,San Diego Padres,0.254,0.25,5,32,16
+141,Toronto Blue Jays,0.232,0.246,15,55,35
+110,Baltimore Orioles,0.236,0.267,10,47,26
+144,Atlanta Braves,0.251,0.192,14,51,35
+121,New York Mets,0.29,0.269,10,53,26
+133,Athletics,0.194,0.19,11,47,34
+158,Milwaukee Brewers,0.234,0.255,11,54,34
+138,St. Louis Cardinals,0.262,0.286,3,33,15
+143,Philadelphia Phillies,0.249,0.212,9,30,22
+109,Arizona Diamondbacks,0.254,0.204,7,42,25
+115,Colorado Rockies,0.27,0.295,5,38,20
+140,Texas Rangers,0.237,0.193,6,37,24
+139,Tampa Bay Rays,0.25,0.26,4,35,19
+142,Minnesota Twins,0.207,0.234,15,42,28
+108,Los Angeles Angels,0.189,0.182,12,50,32
+111,Boston Red Sox,0.298,0.29,4,43,24
+135,San Diego Padres,0.241,0.25,6,32,18
+117,Houston Astros,0.224,0.188,5,32,19
+137,San Francisco Giants,0.175,0.152,14,47,29
+118,Kansas City Royals,0.227,0.24,5,21,13
+119,Los Angeles Dodgers,0.222,0.196,11,38,23
