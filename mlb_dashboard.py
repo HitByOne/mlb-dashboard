@@ -285,6 +285,7 @@ app.layout = html.Div(style={
                     ("🏆 Game Predictions",    "predictions"),
                     ("⭐ Top Picks",           "toppicks"),
                     ("🎲 K Matchups",          "kmatch"),
+                    ("🥎 Pitching",            "pitching"),
                     ("💣 HR Leaders",          "hrleaders"),
                     ("🔥 Hit Streaks",         "streaks"),
                     ("⚔️ Batter vs Pitcher",   "bvp"),
@@ -466,6 +467,7 @@ def render_tab(n_clicks_list, current_tab):
         "scores":      scores_layout,
         "streaks":     streaks_layout,
         "kmatch":      kmatch_layout,
+        "pitching":    pitching_layout,
         "bvp":         bvp_layout,
         "hrleaders":   hrleaders_layout,
         "toppicks":    toppicks_layout,
@@ -1795,6 +1797,292 @@ def load_hotcold(_, team_id, sort_col):
             hidden_columns=["_l7","_l14"],
         )),
     ])
+
+# ─────────────────────────────────────────────
+# PITCHING
+# ─────────────────────────────────────────────
+TEAM_ABBR = {
+    "Arizona Diamondbacks": "ARI", "Atlanta Braves": "ATL", "Baltimore Orioles": "BAL",
+    "Boston Red Sox": "BOS", "Chicago Cubs": "CHC", "Chicago White Sox": "CWS",
+    "Cincinnati Reds": "CIN", "Cleveland Guardians": "CLE", "Colorado Rockies": "COL",
+    "Detroit Tigers": "DET", "Houston Astros": "HOU", "Kansas City Royals": "KC",
+    "Los Angeles Angels": "LAA", "Los Angeles Dodgers": "LAD", "Miami Marlins": "MIA",
+    "Milwaukee Brewers": "MIL", "Minnesota Twins": "MIN", "New York Mets": "NYM",
+    "New York Yankees": "NYY", "Athletics": "ATH", "Oakland Athletics": "ATH",
+    "Philadelphia Phillies": "PHI", "Pittsburgh Pirates": "PIT", "San Diego Padres": "SD",
+    "San Francisco Giants": "SF", "Seattle Mariners": "SEA", "St. Louis Cardinals": "STL",
+    "Tampa Bay Rays": "TB", "Texas Rangers": "TEX", "Toronto Blue Jays": "TOR",
+    "Washington Nationals": "WSH",
+}
+
+def team_badge(team_name):
+    abbr = TEAM_ABBR.get(team_name, team_name[:3].upper() if team_name else "—")
+    return html.Div(abbr, style={
+        "width": "40px", "height": "40px", "borderRadius": "50%",
+        "backgroundColor": C["card2"], "border": f"1px solid {C['border2']}",
+        "display": "flex", "alignItems": "center", "justifyContent": "center",
+        "fontSize": "11px", "fontWeight": "700", "color": C["text"], "flexShrink": "0",
+    })
+
+def _pmc_stat(v, dec=None):
+    if v is None or v == "" or v == "—":
+        return "—"
+    if isinstance(v, float) and v != v:  # NaN
+        return "—"
+    if dec is not None:
+        try: return f"{float(v):.{dec}f}"
+        except Exception: return "—"
+    return str(v)
+
+def pitcher_matchup_card(away_team, home_team, away_pit, home_pit):
+    """Renders one ESPN-style 'Probable Pitchers' card for a single game."""
+    def pit_name_block(p, align):
+        hand = p.get("hand", "?")
+        hand_label = f"{hand}HP" if hand in ("R", "L") else "—"
+        return html.Div([
+            html.Div(p.get("name", "TBD"), style={
+                "fontWeight": "600", "color": C["text"], "fontSize": "14px"}),
+            html.Div(hand_label, style={
+                "fontSize": "11px", "color": C["muted"], "marginTop": "2px"}),
+        ], style={"textAlign": align, "flex": "1"})
+
+    def player_row(team_name, p):
+        wl = f"{int(p['W'])}-{int(p['L'])}" if p.get("W") is not None and p.get("L") is not None else "—"
+        cells = [
+            ("PLAYER", p.get("name", "—")),
+            ("W-L",    wl),
+            ("ERA",    _pmc_stat(p.get("ERA"), 2)),
+            ("WHIP",   _pmc_stat(p.get("WHIP"), 2)),
+            ("IP",     _pmc_stat(p.get("IP"), 1)),
+            ("H",      _pmc_stat(p.get("H_allowed"))),
+            ("K",      _pmc_stat(p.get("K"))),
+            ("BB",     _pmc_stat(p.get("BB"))),
+            ("HR",     _pmc_stat(p.get("HR_allowed"))),
+        ]
+        return html.Tr([
+            html.Td([
+                html.Span(TEAM_ABBR.get(team_name, "—"), style={
+                    "color": C["muted"], "fontSize": "10px", "marginRight": "6px"}),
+                html.Span(label, style={"color": C["blue"]}),
+            ], style={**DT_CELL, "textAlign": "left"}) if i == 0 else
+            html.Td(label, style=DT_CELL)
+            for i, (_, label) in enumerate(cells)
+        ])
+
+    header = html.Tr([html.Th(c, style=DT_HEADER) for c in
+                       ["PLAYER", "W-L", "ERA", "WHIP", "IP", "H", "K", "BB", "HR"]])
+
+    return section([
+        html.Div("PROBABLE PITCHERS", style={
+            "fontSize": "10px", "color": C["muted"], "textTransform": "uppercase",
+            "letterSpacing": "1px", "marginBottom": "12px"}),
+        html.Div([
+            team_badge(away_team),
+            html.Div([
+                pit_name_block(away_pit, "right"),
+                html.Div("vs", style={"color": C["muted"], "fontSize": "11px", "padding": "0 14px"}),
+                pit_name_block(home_pit, "left"),
+            ], style={"display": "flex", "alignItems": "center", "flex": "1", "justifyContent": "center"}),
+            team_badge(home_team),
+        ], style={"display": "flex", "alignItems": "center", "gap": "12px", "marginBottom": "14px"}),
+        html.Table([
+            html.Thead(header),
+            html.Tbody([player_row(away_team, away_pit), player_row(home_team, home_pit)]),
+        ], style={"width": "100%", "borderCollapse": "collapse"}),
+    ])
+
+def pitching_layout():
+    dd = {"backgroundColor": C["card"], "color": C["text"],
+          "border": f"1px solid {C['border']}", "borderRadius": "6px",
+          "fontFamily": "IBM Plex Mono"}
+    return html.Div([
+        section([
+            html.Div([
+                html.Div([
+                    lbl("Role"),
+                    dcc.Dropdown(
+                        options=[{"label": "All", "value": "all"},
+                                 {"label": "Starters", "value": "sp"},
+                                 {"label": "Relievers", "value": "rp"}],
+                        value="all", id="pitch-role", clearable=False,
+                        style={**dd, "minWidth": "160px"},
+                    ),
+                ]),
+                html.Div([
+                    lbl("Sort By"),
+                    dcc.Dropdown(
+                        options=[{"label": "ERA", "value": "ERA"},
+                                 {"label": "WHIP", "value": "WHIP"},
+                                 {"label": "K/9", "value": "K9"},
+                                 {"label": "K%", "value": "K_pct"},
+                                 {"label": "IP", "value": "IP"},
+                                 {"label": "K Trend", "value": "k_trend"}],
+                        value="ERA", id="pitch-sort", clearable=False,
+                        style={**dd, "minWidth": "160px"},
+                    ),
+                ]),
+            ], style={"display": "flex", "alignItems": "flex-end", "gap": "16px"}),
+        ]),
+        dcc.Loading(type="circle", color=C["blue"], children=html.Div(id="pitch-results")),
+    ])
+
+@app.callback(Output("pitch-results", "children"),
+              Input("pitch-role", "value"),
+              Input("pitch-sort", "value"))
+def load_pitching(role_filter, sort_col):
+    pit_stats = read("pitcher_stats")
+    matchups  = read_matchups()
+
+    if pit_stats.empty:
+        return no_data()
+
+    # Build today's matchup lookup: pitcher_id -> {opponent, hand-neutral info}
+    start_map = {}
+    if not matchups.empty:
+        for _, m in matchups.iterrows():
+            for side, opp in [("away", "home"), ("home", "away")]:
+                pid = m.get(f"{side}_pitcher_id")
+                if pid and str(pid) != "nan":
+                    try:
+                        pid_int = int(float(pid))
+                    except Exception:
+                        continue
+                    start_map[pid_int] = {
+                        "team":     m.get(f"{side}_team", "—"),
+                        "opponent": m.get(f"{opp}_team", "—"),
+                    }
+
+    def trend_label(v):
+        try: v = float(v)
+        except Exception: return "➡️ Stable"
+        if v > 0.03:    return "📈 Hot"
+        elif v < -0.03: return "📉 Cold"
+        return "➡️ Stable"
+
+    def safe_num(v, default=0.0):
+        try:
+            f = float(v)
+            return f if f == f else default  # filter NaN
+        except Exception:
+            return default
+
+    # ---- Today's starters: one head-to-head "Probable Pitchers" card per game ----
+    ps_by_pid = {}
+    if not pit_stats.empty:
+        for _, r in pit_stats.iterrows():
+            ps_by_pid[int(r["pitcher_id"])] = r.to_dict()
+
+    def pitcher_for(pid_raw, name_fallback):
+        if pid_raw and str(pid_raw) != "nan":
+            try:
+                return ps_by_pid.get(int(float(pid_raw)), {"name": name_fallback or "TBD"})
+            except Exception:
+                pass
+        return {"name": name_fallback or "TBD"}
+
+    cards = []
+    if not matchups.empty:
+        for _, m in matchups.iterrows():
+            away_team = m.get("away_team", "—")
+            home_team = m.get("home_team", "—")
+            away_pit  = pitcher_for(m.get("away_pitcher_id"), m.get("away_pitcher"))
+            home_pit  = pitcher_for(m.get("home_pitcher_id"), m.get("home_pitcher"))
+            cards.append(pitcher_matchup_card(away_team, home_team, away_pit, home_pit))
+
+    starters_section = html.Div([
+        lbl(f"⚾ Today's Starters ({len(cards)} games)"),
+        html.Div(cards, style={
+            "display": "grid",
+            "gridTemplateColumns": "repeat(auto-fill, minmax(460px, 1fr))",
+            "gap": "14px",
+        }) if cards else no_data("No starters found for today"),
+    ])
+
+    # ---- Season leaderboard (role-filtered) ----
+    pool = pit_stats.copy()
+    if role_filter == "sp":
+        pool = pool[pool["is_reliever"] == False]
+    elif role_filter == "rp":
+        pool = pool[pool["is_reliever"] == True]
+
+    board_rows = []
+    for _, r in pool.iterrows():
+        pid = int(r["pitcher_id"])
+        info = start_map.get(pid, {})
+        board_rows.append({
+            "Pitcher":  r.get("name", "—"),
+            "Team":     info.get("team", "—"),
+            "Role":     "RP" if bool(r.get("is_reliever")) else "SP",
+            "Hand":     r.get("hand", "—"),
+            "ERA":      safe_num(r.get("ERA")),
+            "WHIP":     safe_num(r.get("WHIP")),
+            "K/9":      safe_num(r.get("K9")),
+            "K%":       round(safe_num(r.get("K_pct")) * 100, 1),
+            "IP":       safe_num(r.get("IP")),
+            "GS":       int(safe_num(r.get("GS"))),
+            "_ERA": safe_num(r.get("ERA"), 99), "_WHIP": safe_num(r.get("WHIP"), 99),
+            "_K9": safe_num(r.get("K9")), "_K_pct": safe_num(r.get("K_pct")),
+            "_IP": safe_num(r.get("IP")), "_k_trend": safe_num(r.get("k_trend")),
+        })
+
+    reverse = sort_col in ("K9", "K_pct", "IP", "k_trend")
+    board_rows.sort(key=lambda x: x[f"_{sort_col}"], reverse=reverse)
+
+    leaderboard_section = section([
+        lbl(f"📊 Season Leaderboard ({len(board_rows)})"),
+        dash_table.DataTable(
+            data=board_rows,
+            columns=[{"name": c, "id": c} for c in
+                     ["Pitcher", "Team", "Role", "Hand", "ERA", "WHIP", "K/9", "K%", "IP", "GS"]],
+            sort_action="native", page_action="native", page_size=25,
+            style_table={"overflowX": "auto"}, style_cell=DT_CELL, style_header=DT_HEADER,
+            style_data_conditional=DT_COND + [
+                {"if": {"column_id": "ERA", "filter_query": "{_ERA} <= 3.0"}, "color": C["green"], "fontWeight": "bold"},
+                {"if": {"column_id": "ERA", "filter_query": "{_ERA} >= 5.0"}, "color": C["red"], "fontWeight": "bold"},
+                {"if": {"column_id": "K/9", "filter_query": "{_K9} >= 10"}, "color": C["yellow"], "fontWeight": "bold"},
+            ],
+        ) if board_rows else no_data(),
+    ])
+
+    # ---- Hot / cold trend view ----
+    trend_rows = []
+    for _, r in pit_stats.iterrows():
+        era      = safe_num(r.get("ERA"), 99)
+        l5_era   = safe_num(r.get("l5_era"), era)
+        k_pct    = safe_num(r.get("K_pct"))
+        l5_k_pct = safe_num(r.get("l5_k_pct"), k_pct)
+        delta_era = round(era - l5_era, 2)      # positive = improving (season worse than recent)
+        delta_k   = round((l5_k_pct - k_pct) * 100, 1)
+        trend_rows.append({
+            "Pitcher":   r.get("name", "—"),
+            "Role":      "RP" if bool(r.get("is_reliever")) else "SP",
+            "ERA":       era, "L5 ERA": l5_era, "ERA \u0394": delta_era,
+            "K%":        round(k_pct * 100, 1), "L5 K%": round(l5_k_pct * 100, 1), "K% \u0394": delta_k,
+            "Trend":     trend_label(r.get("k_trend")),
+            "_delta_era": delta_era,
+        })
+    trend_rows.sort(key=lambda x: x["_delta_era"], reverse=True)  # biggest recent ERA improvement first
+
+    trend_section = section([
+        lbl("🌡️ Recent Form vs Season (L5 vs Season)"),
+        dash_table.DataTable(
+            data=trend_rows,
+            columns=[{"name": c, "id": c} for c in
+                     ["Pitcher", "Role", "ERA", "L5 ERA", "ERA \u0394", "K%", "L5 K%", "K% \u0394", "Trend"]],
+            sort_action="native", page_action="native", page_size=20,
+            style_table={"overflowX": "auto"}, style_cell=DT_CELL, style_header=DT_HEADER,
+            style_data_conditional=DT_COND + [
+                {"if": {"column_id": "ERA \u0394", "filter_query": "{ERA \u0394} >= 1"}, "color": C["green"], "fontWeight": "bold"},
+                {"if": {"column_id": "ERA \u0394", "filter_query": "{ERA \u0394} <= -1"}, "color": C["red"], "fontWeight": "bold"},
+                {"if": {"column_id": "K% \u0394", "filter_query": "{K% \u0394} >= 5"}, "color": C["green"]},
+                {"if": {"column_id": "K% \u0394", "filter_query": "{K% \u0394} <= -5"}, "color": C["red"]},
+                {"if": {"column_id": "Trend", "filter_query": '{Trend} = "📈 Hot"'}, "color": C["green"]},
+                {"if": {"column_id": "Trend", "filter_query": '{Trend} = "📉 Cold"'}, "color": C["red"]},
+            ],
+        ) if trend_rows else no_data(),
+    ])
+
+    return html.Div([starters_section, leaderboard_section, trend_section])
 
 # ─────────────────────────────────────────────
 # HR LEADERS
@@ -3445,7 +3733,7 @@ def load_yesterday_ks(n):
 )
 def highlight_tab(active_tab):
     tab_values = ["standings","tomorrow","scores","yesterday_ks","predictions","toppicks",
-                  "kmatch","hrleaders","streaks","bvp","weather"]
+                  "kmatch","pitching","hrleaders","streaks","bvp","weather"]
     styles = []
     for v in tab_values:
         if v == active_tab:
