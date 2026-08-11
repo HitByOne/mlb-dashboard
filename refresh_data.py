@@ -175,7 +175,8 @@ def fetch_pitcher_stats(matchups):
     def fetch_one_pitcher(pid):
         row = {"pitcher_id": pid, "ERA": "-", "HR_allowed": 0,
                "H_allowed": 0, "K": 0, "IP": "0.0", "WHIP": "-",
-               "K9": 0.0, "GS": 0, "H_per_G": 0.0, "hand": "?", "name": "Unknown"}
+               "K9": 0.0, "GS": 0, "H_per_G": 0.0, "hand": "?", "name": "Unknown",
+               "W": 0, "L": 0, "BB": 0}
         # Season stats
         sd = get(f"{BASE}/people/{pid}/stats?stats=season&group=pitching&season={YEAR}&sportId=1")
         stats_list = sd.get("stats", [])
@@ -204,6 +205,9 @@ def fetch_pitcher_stats(matchups):
                 "BF_per_GS":   round(bf / gs, 1) if gs > 0 else 0.0,
                 "GP":          gp,
                 "is_reliever": is_reliever,
+                "W":           int(s.get("wins", 0) or 0),
+                "L":           int(s.get("losses", 0) or 0),
+                "BB":          int(s.get("baseOnBalls", 0) or 0),
             })
         # Game log — last 5 starts for recent form, BF variance, pitch efficiency
         try:
@@ -865,6 +869,9 @@ def fetch_tomorrow_pitchers():
                         "BF_per_GS":  round(bf/gs,1) if gs>0 else 0.0,
                         "H_per_G":    round(h/gs,1) if gs>0 else 0.0,
                         "is_reliever": (gp>5) and (gs/gp<0.5) if gp>0 else False,
+                        "W":          int(s.get("wins",0) or 0),
+                        "L":          int(s.get("losses",0) or 0),
+                        "BB":         int(s.get("baseOnBalls",0) or 0),
                     })
             except Exception as e:
                 print(f"    Season stats error: {e}")
