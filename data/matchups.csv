@@ -1,11 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-822780,2026-08-10,Boston Red Sox,111,Toronto Blue Jays,141,Sonny Gray,543243,Jameson Taillon,592791
-824887,2026-08-10,New York Mets,121,Atlanta Braves,144,Christian Scott,681035,Bryce Elder,693821
-823675,2026-08-10,Baltimore Orioles,110,Minnesota Twins,142,Trevor Rogers,669432,Dean Kremer,665152
-823018,2026-08-10,Philadelphia Phillies,143,St. Louis Cardinals,138,Andrew Painter,691725,Hunter Dobbins,690928
-823998,2026-08-10,Texas Rangers,140,Los Angeles Angels,108,MacKenzie Gore,669022,Reid Detmers,672282
-825048,2026-08-10,Colorado Rockies,115,Arizona Diamondbacks,109,Gabriel Hughes,687312,Michael Soroka,647336
-824969,2026-08-10,Tampa Bay Rays,139,Athletics,133,Freddy Peralta,642547,Jacob Lopez,682052
-823265,2026-08-10,Milwaukee Brewers,158,San Diego Padres,135,Logan Henderson,701656,Casey Mize,663554
-823189,2026-08-10,Houston Astros,117,San Francisco Giants,137,Hayden Wesneski,669713,Blade Tidwell,694918
-823918,2026-08-10,Kansas City Royals,118,Los Angeles Dodgers,119,Noah Cameron,702070,Tarik Skubal,669373
+824240,2026-08-11,Cleveland Guardians,114,Detroit Tigers,116,Tanner Bibee,676440,Drew Anderson,623454
+823832,2026-08-11,Pittsburgh Pirates,134,Miami Marlins,146,Paul Skenes,694973,Eury Pérez,691587
+822697,2026-08-11,Chicago Cubs,112,Washington Nationals,120,Shota Imanaga,684007,TBD,
+823512,2026-08-11,Seattle Mariners,136,New York Yankees,147,Bryan Woo,693433,Ryan Weathers,677960
+822778,2026-08-11,Boston Red Sox,111,Toronto Blue Jays,141,Patrick Sandoval,663776,Dylan Cease,656302
+824886,2026-08-11,New York Mets,121,Atlanta Braves,144,Nolan McLean,690997,Martín Pérez,527048
+823673,2026-08-11,Baltimore Orioles,110,Minnesota Twins,142,Brandon Young,687064,Bailey Ober,641927
+824563,2026-08-11,Cincinnati Reds,113,Chicago White Sox,145,Nick Lodolo,666157,Sean Burke,680732
+823019,2026-08-11,Philadelphia Phillies,143,St. Louis Cardinals,138,Cristopher Sánchez,650911,Andre Pallante,669467
+823997,2026-08-11,Texas Rangers,140,Los Angeles Angels,108,Cody Bradford,674003,Ryan Johnson,696270
+825046,2026-08-11,Colorado Rockies,115,Arizona Diamondbacks,109,Tomoyuki Sugano,608372,Mitch Bratt,683352
+824970,2026-08-11,Tampa Bay Rays,139,Athletics,133,Nick Martinez,607259,Mason Barnett,686930
+823264,2026-08-11,Milwaukee Brewers,158,San Diego Padres,135,Kyle Harrison,690986,Walker Buehler,621111
+823186,2026-08-11,Houston Astros,117,San Francisco Giants,137,Hunter Brown,686613,TBD,
+823917,2026-08-11,Kansas City Royals,118,Los Angeles Dodgers,119,Michael Wacha,608379,Blake Snell,605483
