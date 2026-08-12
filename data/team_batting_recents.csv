@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-142,Minnesota Twins,0.261,0.245,7,44,31
-143,Philadelphia Phillies,0.213,0.223,5,37,24
-110,Baltimore Orioles,0.264,0.3,9,44,28
-114,Cleveland Guardians,0.257,0.248,5,38,20
-117,Houston Astros,0.19,0.156,4,30,16
-134,Pittsburgh Pirates,0.241,0.211,10,44,31
-137,San Francisco Giants,0.176,0.206,8,44,29
-139,Tampa Bay Rays,0.278,0.319,6,31,16
-135,San Diego Padres,0.28,0.327,5,31,19
 109,Arizona Diamondbacks,0.229,0.245,7,37,19
-116,Detroit Tigers,0.269,0.216,6,36,18
-138,St. Louis Cardinals,0.261,0.289,9,34,22
+134,Pittsburgh Pirates,0.241,0.211,10,44,31
 115,Colorado Rockies,0.258,0.223,7,33,18
-133,Athletics,0.22,0.26,5,47,24
 158,Milwaukee Brewers,0.235,0.219,7,50,27
+133,Athletics,0.22,0.26,5,47,24
+116,Detroit Tigers,0.269,0.216,6,36,18
+142,Minnesota Twins,0.261,0.245,7,44,31
+110,Baltimore Orioles,0.264,0.3,9,44,28
+138,St. Louis Cardinals,0.261,0.289,9,34,22
+114,Cleveland Guardians,0.257,0.248,5,38,20
+143,Philadelphia Phillies,0.213,0.223,5,37,24
+135,San Diego Padres,0.28,0.327,5,31,19
+137,San Francisco Giants,0.176,0.206,8,44,29
+117,Houston Astros,0.19,0.156,4,30,16
+139,Tampa Bay Rays,0.278,0.319,6,31,16
 112,Chicago Cubs,0.262,0.301,7,43,26
-146,Miami Marlins,0.287,0.29,9,44,30
 120,Washington Nationals,0.288,0.321,10,46,24
-111,Boston Red Sox,0.262,0.204,8,39,19
+146,Miami Marlins,0.287,0.29,9,44,30
 136,Seattle Mariners,0.178,0.175,8,41,22
-141,Toronto Blue Jays,0.256,0.255,6,46,26
-145,Chicago White Sox,0.223,0.202,11,54,28
-144,Atlanta Braves,0.195,0.172,4,50,29
-147,New York Yankees,0.197,0.217,8,55,30
 121,New York Mets,0.26,0.295,5,39,23
+147,New York Yankees,0.197,0.217,8,55,30
 113,Cincinnati Reds,0.194,0.165,10,48,25
+111,Boston Red Sox,0.262,0.204,8,39,19
+108,Los Angeles Angels,0.182,0.188,3,47,27
+145,Chicago White Sox,0.223,0.202,11,54,28
+118,Kansas City Royals,0.216,0.186,14,36,28
+141,Toronto Blue Jays,0.256,0.255,6,46,26
+144,Atlanta Braves,0.195,0.172,4,50,29
 140,Texas Rangers,0.197,0.212,11,45,27
 119,Los Angeles Dodgers,0.229,0.248,8,35,23
-108,Los Angeles Angels,0.182,0.188,3,47,27
-118,Kansas City Royals,0.216,0.186,14,36,28
