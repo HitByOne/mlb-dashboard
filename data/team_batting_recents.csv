@@ -1,19 +1,19 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-116,Detroit Tigers,0.23,0.19,11,36,24
 114,Cleveland Guardians,0.257,0.238,5,31,19
+111,Boston Red Sox,0.227,0.226,5,39,20
+146,Miami Marlins,0.294,0.283,5,41,26
+145,Chicago White Sox,0.233,0.235,6,46,27
+116,Detroit Tigers,0.23,0.19,11,36,24
+140,Texas Rangers,0.212,0.206,8,44,29
+147,New York Yankees,0.247,0.258,8,53,25
+120,Washington Nationals,0.299,0.312,8,42,25
+113,Cincinnati Reds,0.159,0.14,13,48,32
+136,Seattle Mariners,0.186,0.184,8,42,25
+134,Pittsburgh Pirates,0.237,0.154,5,40,28
+143,Philadelphia Phillies,0.218,0.207,8,39,23
 112,Chicago Cubs,0.298,0.336,11,42,27
 141,Toronto Blue Jays,0.272,0.302,5,44,16
-146,Miami Marlins,0.294,0.283,5,41,26
-136,Seattle Mariners,0.186,0.184,8,42,25
-120,Washington Nationals,0.299,0.312,8,42,25
-147,New York Yankees,0.247,0.258,8,53,25
-111,Boston Red Sox,0.227,0.226,5,39,20
-140,Texas Rangers,0.212,0.206,8,44,29
-134,Pittsburgh Pirates,0.237,0.154,5,40,28
-113,Cincinnati Reds,0.159,0.14,13,48,32
-143,Philadelphia Phillies,0.218,0.207,8,39,23
 142,Minnesota Twins,0.269,0.33,7,44,23
-145,Chicago White Sox,0.233,0.235,6,46,27
 158,Milwaukee Brewers,0.206,0.178,15,56,31
 108,Los Angeles Angels,0.196,0.209,7,45,22
 119,Los Angeles Dodgers,0.239,0.278,6,34,18
