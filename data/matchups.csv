@@ -1,16 +1,10 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823672,2026-08-12,Baltimore Orioles,110,Minnesota Twins,142,Shane Baz,669358,Zebby Matthews,805673
-823017,2026-08-12,Philadelphia Phillies,143,St. Louis Cardinals,138,Zack Wheeler,554430,Kyle Leahy,681517
-824967,2026-08-12,Tampa Bay Rays,139,Athletics,133,Drew Rasmussen,656876,Jack Perkins,678022
-825047,2026-08-12,Colorado Rockies,115,Arizona Diamondbacks,109,Ryan Feltner,663372,Merrill Kelly,518876
-823187,2026-08-12,Houston Astros,117,San Francisco Giants,137,Bryan King,687911,TBD,
-823263,2026-08-12,Milwaukee Brewers,158,San Diego Padres,135,Dustin May,669160,Robbie Ray,592662
-824241,2026-08-12,Cleveland Guardians,114,Detroit Tigers,116,Foster Griffin,656492,Framber Valdez,664285
-823833,2026-08-12,Pittsburgh Pirates,134,Miami Marlins,146,Carmen Mlodzinski,669387,Janson Junk,676083
-822698,2026-08-12,Chicago Cubs,112,Washington Nationals,120,David Peterson,656849,Jackson Kent,800600
-823511,2026-08-12,Seattle Mariners,136,New York Yankees,147,Bryce Miller,682243,Will Warren,701542
-822779,2026-08-12,Boston Red Sox,111,Toronto Blue Jays,141,Ranger Suarez,624133,José Soriano,667755
-824883,2026-08-12,New York Mets,121,Atlanta Braves,144,Zac Thornton,804267,Tyler Mahle,641816
-824562,2026-08-12,Cincinnati Reds,113,Chicago White Sox,145,Rhett Lowder,695076,Luis Castillo,622491
-823916,2026-08-12,Kansas City Royals,118,Los Angeles Dodgers,119,Daniel Lynch IV,663738,Eric Lauer,641778
-823994,2026-08-12,Texas Rangers,140,Los Angeles Angels,108,Cal Quantrill,615698,George Klassen,691946
+824238,2026-08-13,Cleveland Guardians,114,Detroit Tigers,116,Parker Messick,800048,Keider Montero,672456
+823829,2026-08-13,Pittsburgh Pirates,134,Miami Marlins,146,Braxton Ashcraft,677952,Tyler Phillips,663969
+823508,2026-08-13,Seattle Mariners,136,New York Yankees,147,Logan Gilbert,669302,Max Fried,608331
+824561,2026-08-13,Cincinnati Reds,113,Chicago White Sox,145,Andrew Abbott,671096,Davis Martin,663436
+822776,2026-08-13,Boston Red Sox,111,Toronto Blue Jays,141,Payton Tolle,801139,Max Scherzer,453286
+822696,2026-08-13,Chicago Cubs,112,Washington Nationals,120,Kevin Gausman,592332,Cade Cavalli,676917
+823669,2026-08-13,Philadelphia Phillies,143,Minnesota Twins,142,Aaron Nola,605400,Taj Bradley,671737
+823995,2026-08-13,Texas Rangers,140,Los Angeles Angels,108,Jacob deGrom,594798,Walbert Ureña,700712
+823915,2026-08-13,Milwaukee Brewers,158,Los Angeles Dodgers,119,Shane Drohan,675660,Roki Sasaki,808963
