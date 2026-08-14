@@ -1,31 +1,21 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-08-12,Luis Castillo,Chicago White Sox,Cincinnati Reds,7.0,10,5.5,-103,-130,51,Over Hit
-2026-08-12,Tyler Mahle,Atlanta Braves,New York Mets,6.0,7,5.5,+118,-159,46,Over Hit
-2026-08-12,Jackson Kent,Washington Nationals,Chicago Cubs,4.0,6,—,—,—,0,—
-2026-08-12,David Peterson,Chicago Cubs,Washington Nationals,5.0,6,4.5,+102,-136,50,Over Hit
-2026-08-12,Kyle Leahy,St. Louis Cardinals,Philadelphia Phillies,5.0,6,3.5,-167,+125,63,Over Hit
-2026-08-12,Dustin May,Milwaukee Brewers,San Diego Padres,7.0,6,4.5,-121,-110,55,Over Hit
-2026-08-12,Cal Quantrill,Texas Rangers,Los Angeles Angels,5.0,6,3.5,+100,-132,50,Over Hit
-2026-08-12,Eric Lauer,Los Angeles Dodgers,Kansas City Royals,6.1,6,4.5,+130,-175,43,Over Hit
-2026-08-12,George Klassen,Los Angeles Angels,Texas Rangers,6.0,5,4.5,-130,-103,57,Over Hit
-2026-08-12,Bryce Miller,Seattle Mariners,New York Yankees,6.0,5,5.5,-109,-121,52,Under Hit
-2026-08-12,Adrian Houser,San Francisco Giants,Houston Astros,6.0,5,3.5,+123,-165,45,Over Hit
-2026-08-12,Zack Wheeler,Philadelphia Phillies,St. Louis Cardinals,5.0,5,5.5,-157,+117,61,Under Hit
-2026-08-12,Gerardo Carrillo,Arizona Diamondbacks,Colorado Rockies,2.0,4,—,—,—,0,—
-2026-08-12,Zebby Matthews,Minnesota Twins,Baltimore Orioles,5.0,4,5.5,+105,-130,49,Under Hit
-2026-08-12,José Soriano,Toronto Blue Jays,Boston Red Sox,6.0,4,4.5,-162,+120,62,Under Hit
-2026-08-12,Rhett Lowder,Cincinnati Reds,Chicago White Sox,5.1,4,4.5,+125,-167,44,Under Hit
-2026-08-12,Adrian Morejon,San Diego Padres,Milwaukee Brewers,2.0,4,—,—,—,0,—
-2026-08-12,Robbie Ray,San Diego Padres,Milwaukee Brewers,4.0,4,4.5,-140,+111,58,Under Hit
-2026-08-12,Yaramil Hiraldo,Baltimore Orioles,Minnesota Twins,1.2,3,—,—,—,0,—
-2026-08-12,Drew Rasmussen,Tampa Bay Rays,Athletics,5.0,3,6.5,-114,+113,53,Under Hit
-2026-08-12,Tatsuya Imai,Houston Astros,San Francisco Giants,3.0,3,—,—,—,0,—
-2026-08-12,Bradgley Rodriguez,San Diego Padres,Milwaukee Brewers,2.0,3,—,—,—,0,—
-2026-08-12,Foster Griffin,Cleveland Guardians,Detroit Tigers,5.0,3,5.5,+128,-167,44,Under Hit
-2026-08-12,Cade Smith,Cleveland Guardians,Detroit Tigers,1.1,3,—,—,—,0,—
-2026-08-12,Framber Valdez,Detroit Tigers,Cleveland Guardians,5.2,3,4.5,+100,-132,50,Under Hit
-2026-08-12,Trevor Williams,Washington Nationals,Chicago Cubs,3.0,3,—,—,—,0,—
-2026-08-12,Will Warren,New York Yankees,Seattle Mariners,4.0,3,4.5,-136,+102,58,Under Hit
-2026-08-12,Brent Headrick,New York Yankees,Seattle Mariners,1.0,3,—,—,—,0,—
-2026-08-12,Hagen Smith,Chicago White Sox,Cincinnati Reds,1.0,3,—,—,—,0,—
-2026-08-12,Daniel Lynch IV,Kansas City Royals,Los Angeles Dodgers,2.1,3,2.5,—,—,0,Over Hit
+2026-08-13,Cade Cavalli,Washington Nationals,Chicago Cubs,8.0,10,5.5,-103,-129,51,Over Hit
+2026-08-13,Braxton Ashcraft,Pittsburgh Pirates,Miami Marlins,9.0,10,6.5,+112,-104,47,Over Hit
+2026-08-13,Aaron Nola,Philadelphia Phillies,Minnesota Twins,5.0,9,4.5,-159,+120,61,Over Hit
+2026-08-13,Logan Gilbert,Seattle Mariners,New York Yankees,6.0,7,7.5,+105,+113,49,Under Hit
+2026-08-13,Kevin Gausman,Chicago Cubs,Washington Nationals,4.2,7,5.5,+110,-148,48,Over Hit
+2026-08-13,Tyler Phillips,Miami Marlins,Pittsburgh Pirates,5.1,6,5.5,+133,+102,43,Over Hit
+2026-08-13,Parker Messick,Cleveland Guardians,Detroit Tigers,5.2,6,5.5,-106,-128,51,Over Hit
+2026-08-13,Walbert Ureña,Los Angeles Angels,Texas Rangers,6.0,5,4.5,-165,+123,62,Over Hit
+2026-08-13,Shane Drohan,Milwaukee Brewers,Los Angeles Dodgers,5.1,5,4.5,-109,-122,52,Over Hit
+2026-08-13,Max Fried,New York Yankees,Seattle Mariners,5.0,4,6.5,-124,+111,55,Under Hit
+2026-08-13,Payton Tolle,Boston Red Sox,Toronto Blue Jays,8.0,4,5.5,-129,-104,56,Under Hit
+2026-08-13,Max Scherzer,Toronto Blue Jays,Boston Red Sox,5.0,4,3.5,-167,+125,63,Over Hit
+2026-08-13,Davis Martin,Chicago White Sox,Cincinnati Reds,2.0,3,4.5,-125,-107,56,Under Hit
+2026-08-13,Andrew Abbott,Cincinnati Reds,Chicago White Sox,4.1,3,4.5,-121,-110,55,Under Hit
+2026-08-13,Tejay Antone,Cincinnati Reds,Chicago White Sox,1.0,3,—,—,—,0,—
+2026-08-13,Cade Gibson,Miami Marlins,Pittsburgh Pirates,1.2,3,—,—,—,0,—
+2026-08-13,Yerry De los Santos,New York Yankees,Seattle Mariners,1.2,3,—,—,—,0,—
+2026-08-13,Taj Bradley,Minnesota Twins,Philadelphia Phillies,4.0,3,5.5,-134,+100,57,Under Hit
+2026-08-13,Jacob deGrom,Texas Rangers,Los Angeles Angels,2.0,3,6.5,-137,+104,58,Under Hit
+2026-08-13,DL Hall,Milwaukee Brewers,Los Angeles Dodgers,2.0,3,—,—,—,0,—

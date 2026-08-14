@@ -1,10 +1,15 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824238,2026-08-13,Cleveland Guardians,114,Detroit Tigers,116,Parker Messick,800048,Keider Montero,672456
-823829,2026-08-13,Pittsburgh Pirates,134,Miami Marlins,146,Braxton Ashcraft,677952,Tyler Phillips,663969
-823508,2026-08-13,Seattle Mariners,136,New York Yankees,147,Logan Gilbert,669302,Max Fried,608331
-824561,2026-08-13,Cincinnati Reds,113,Chicago White Sox,145,Andrew Abbott,671096,Davis Martin,663436
-822776,2026-08-13,Boston Red Sox,111,Toronto Blue Jays,141,Payton Tolle,801139,Max Scherzer,453286
-822696,2026-08-13,Chicago Cubs,112,Washington Nationals,120,Kevin Gausman,592332,Cade Cavalli,676917
-823669,2026-08-13,Philadelphia Phillies,143,Minnesota Twins,142,Aaron Nola,605400,Taj Bradley,671737
-823995,2026-08-13,Texas Rangers,140,Los Angeles Angels,108,Jacob deGrom,594798,Walbert Ureña,700712
-823915,2026-08-13,Milwaukee Brewers,158,Los Angeles Dodgers,119,Shane Drohan,675660,Roki Sasaki,808963
+824643,2026-08-14,St. Louis Cardinals,138,Chicago Cubs,112,Matthew Liberatore,669461,Clay Holmes,605280
+824479,2026-08-14,Miami Marlins,146,Cincinnati Reds,113,Sandy Alcantara,645261,Chase Burns,695505
+823346,2026-08-14,Boston Red Sox,111,Pittsburgh Pirates,134,Jake Bennett,687562,Bubba Chandler,696149
+824237,2026-08-14,Chicago White Sox,145,Detroit Tigers,116,Sean Newcomb,656794,Jackson Jobe,695549
+823591,2026-08-14,Washington Nationals,120,New York Mets,121,Andrew Alvarez,674841,Robert Stock,476594
+824399,2026-08-14,San Diego Padres,135,Cleveland Guardians,114,Michael King,650633,Gavin Williams,668909
+822942,2026-08-14,Baltimore Orioles,110,Tampa Bay Rays,139,TBD,,Steven Matz,571927
+824882,2026-08-14,Arizona Diamondbacks,109,Atlanta Braves,144,Brandon Pfaadt,694297,TBD,
+822777,2026-08-14,New York Yankees,147,Toronto Blue Jays,141,Gerrit Cole,543037,Shane Bieber,669456
+824159,2026-08-14,Seattle Mariners,136,Houston Astros,117,George Kirby,669923,Peter Lambert,663567
+823993,2026-08-14,Kansas City Royals,118,Los Angeles Angels,108,Seth Lugo,607625,Grayson Rodriguez,680570
+824968,2026-08-14,Texas Rangers,140,Athletics,133,Kumar Rocker,677958,TBD,
+823913,2026-08-14,Milwaukee Brewers,158,Los Angeles Dodgers,119,Robert Gasser,688107,Yoshinobu Yamamoto,808967
+823185,2026-08-14,Colorado Rockies,115,San Francisco Giants,137,Kyle Freeland,607536,Landen Roupp,694738
