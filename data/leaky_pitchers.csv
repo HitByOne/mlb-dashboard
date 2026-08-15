@@ -1,20 +1,20 @@
 pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 547179,Michael Lorenzen,Colorado Rockies,164,18,6.83,112.0,1.88,13.18
+645261,Sandy Alcantara,Miami Marlins,153,17,3.43,170.2,1.17,8.07
 650911,Cristopher Sánchez,Philadelphia Phillies,151,13,2.54,155.2,1.19,8.73
-645261,Sandy Alcantara,Miami Marlins,150,17,3.52,163.2,1.17,8.25
+669923,George Kirby,Seattle Mariners,148,17,3.89,136.2,1.31,9.75
+607536,Kyle Freeland,Colorado Rockies,147,22,6.27,120.2,1.44,10.96
+607625,Seth Lugo,Kansas City Royals,146,16,4.59,139.1,1.38,9.43
 669358,Shane Baz,Baltimore Orioles,143,10,4.00,139.1,1.36,9.24
-607536,Kyle Freeland,Colorado Rockies,143,21,6.63,112.2,1.50,11.42
 605400,Aaron Nola,Philadelphia Phillies,143,30,5.33,130.0,1.45,9.90
-669923,George Kirby,Seattle Mariners,140,16,3.68,132.0,1.27,9.55
 592332,Kevin Gausman,Chicago Cubs,139,17,4.53,139.0,1.27,9.00
-607625,Seth Lugo,Kansas City Royals,139,16,4.41,134.2,1.37,9.29
 571945,Miles Mikolas,Washington Nationals,137,27,5.82,116.0,1.38,10.63
 642547,Freddy Peralta,Tampa Bay Rays,135,20,5.33,123.1,1.50,9.85
 664285,Framber Valdez,Detroit Tigers,135,13,4.26,133.0,1.39,9.14
 518876,Merrill Kelly,Arizona Diamondbacks,132,25,5.11,125.0,1.48,9.50
+669461,Matthew Liberatore,St. Louis Cardinals,132,20,5.07,119.0,1.48,9.98
 608379,Michael Wacha,Kansas City Royals,132,18,3.46,150.2,1.15,7.88
 663903,Brady Singer,Cincinnati Reds,131,22,4.66,119.2,1.43,9.85
-669461,Matthew Liberatore,St. Louis Cardinals,130,20,5.15,113.2,1.52,10.29
 607259,Nick Martinez,Tampa Bay Rays,130,16,2.74,138.0,1.09,8.48
 676917,Cade Cavalli,Washington Nationals,129,15,3.36,136.2,1.24,8.50
 593958,Eduardo Rodriguez,Arizona Diamondbacks,129,13,2.70,143.1,1.23,8.10
@@ -48,5 +48,4 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 605488,Jeffrey Springs,Athletics,116,28,6.17,108.0,1.48,9.67
 608372,Tomoyuki Sugano,Colorado Rockies,116,24,4.43,113.2,1.25,9.18
 677960,Ryan Weathers,New York Yankees,116,18,3.69,126.2,1.21,8.24
-607200,Erick Fedde,Chicago White Sox,115,22,4.51,109.2,1.41,9.44
-669432,Trevor Rogers,Baltimore Orioles,115,12,4.21,119.2,1.25,8.65
+668909,Gavin Williams,Cleveland Guardians,116,24,3.74,149.0,1.08,7.01
