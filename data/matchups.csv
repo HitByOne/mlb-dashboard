@@ -1,12 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824514,2026-08-17,St. Louis Cardinals,138,Cincinnati Reds,113,Quinn Mathews,687273,Kent Emanuel,592288
-824478,2026-08-17,St. Louis Cardinals,138,Cincinnati Reds,113,Andre Pallante,669467,Rhett Lowder,695076
-822939,2026-08-17,Baltimore Orioles,110,Tampa Bay Rays,139,Brandon Young,687064,Shane McClanahan,663556
-823427,2026-08-17,Miami Marlins,146,Philadelphia Phillies,143,Janson Junk,676083,Cristopher Sánchez,650911
-823343,2026-08-17,Detroit Tigers,116,Pittsburgh Pirates,134,Framber Valdez,664285,Carmen Mlodzinski,669387
-824725,2026-08-17,Arizona Diamondbacks,109,Boston Red Sox,111,Mitch Bratt,683352,Alec Gamboa,687941
-823589,2026-08-17,San Diego Padres,135,New York Mets,121,Walker Buehler,621111,Nolan McLean,690997
-824077,2026-08-17,Athletics,133,Kansas City Royals,118,Mason Barnett,686930,Michael Wacha,608379
-823668,2026-08-17,Atlanta Braves,144,Minnesota Twins,142,Martín Pérez,527048,Bailey Ober,641927
-824641,2026-08-17,Chicago White Sox,145,Chicago Cubs,112,Luis Castillo,622491,Shota Imanaga,684007
-824320,2026-08-17,Los Angeles Dodgers,119,Colorado Rockies,115,Blake Snell,605483,Tomoyuki Sugano,608372
+824803,2026-08-18,New York Yankees,147,Baltimore Orioles,110,Carlos Rodón,607074,Shane Baz,669358
+823341,2026-08-18,Detroit Tigers,116,Pittsburgh Pirates,134,Keider Montero,672456,Braxton Ashcraft,677952
+824398,2026-08-18,San Francisco Giants,137,Cleveland Guardians,114,Carson Whisenhunt,687931,Foster Griffin,656492
+824475,2026-08-18,St. Louis Cardinals,138,Cincinnati Reds,113,Kyle Leahy,681517,Andrew Abbott,671096
+822938,2026-08-18,Toronto Blue Jays,141,Tampa Bay Rays,139,José Soriano,667755,Nick Martinez,607259
+823423,2026-08-18,Miami Marlins,146,Philadelphia Phillies,143,Cade Gibson,806188,Zack Wheeler,554430
+824723,2026-08-18,Arizona Diamondbacks,109,Boston Red Sox,111,Merrill Kelly,518876,Ranger Suarez,624133
+823586,2026-08-18,San Diego Padres,135,New York Mets,121,Robbie Ray,592662,Zac Thornton,804267
+824075,2026-08-18,Athletics,133,Kansas City Royals,118,Jack Perkins,678022,TBD,
+823667,2026-08-18,Atlanta Braves,144,Minnesota Twins,142,Tyler Mahle,641816,Zebby Matthews,805673
+823749,2026-08-18,Seattle Mariners,136,Milwaukee Brewers,158,Bryce Miller,682243,Kyle Harrison,690986
+822859,2026-08-18,Washington Nationals,120,Texas Rangers,140,Jackson Kent,800600,Cal Quantrill,615698
+824639,2026-08-18,Chicago White Sox,145,Chicago Cubs,112,TBD,,Kevin Gausman,592332
+824154,2026-08-18,Los Angeles Angels,108,Houston Astros,117,George Klassen,691946,Cristian Javier,664299
+824319,2026-08-18,Los Angeles Dodgers,119,Colorado Rockies,115,Eric Lauer,641778,Ryan Feltner,663372

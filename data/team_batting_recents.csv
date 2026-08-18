@@ -1,21 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
+147,New York Yankees,0.204,0.163,12,44,26
+114,Cleveland Guardians,0.228,0.242,6,28,23
 138,St. Louis Cardinals,0.237,0.279,12,40,30
-133,Athletics,0.269,0.29,4,31,16
-134,Pittsburgh Pirates,0.277,0.235,11,45,28
-121,New York Mets,0.24,0.258,7,45,28
-110,Baltimore Orioles,0.282,0.278,10,47,32
-143,Philadelphia Phillies,0.295,0.317,2,32,17
-111,Boston Red Sox,0.282,0.286,0,40,24
-146,Miami Marlins,0.253,0.319,9,46,25
-116,Detroit Tigers,0.254,0.264,8,37,22
-142,Minnesota Twins,0.281,0.26,5,47,28
-144,Atlanta Braves,0.222,0.214,8,37,21
-109,Arizona Diamondbacks,0.254,0.225,8,39,25
+141,Toronto Blue Jays,0.247,0.258,5,32,22
 135,San Diego Padres,0.23,0.2,5,36,21
+143,Philadelphia Phillies,0.295,0.317,2,32,17
+110,Baltimore Orioles,0.282,0.278,10,47,32
 113,Cincinnati Reds,0.214,0.215,9,48,32
+116,Detroit Tigers,0.254,0.264,8,37,22
+134,Pittsburgh Pirates,0.277,0.235,11,45,28
 139,Tampa Bay Rays,0.304,0.294,8,33,23
+146,Miami Marlins,0.253,0.319,9,46,25
+111,Boston Red Sox,0.282,0.286,0,40,24
+137,San Francisco Giants,0.253,0.277,7,30,14
+109,Arizona Diamondbacks,0.254,0.225,8,39,25
+133,Athletics,0.269,0.29,4,31,16
 118,Kansas City Royals,0.23,0.229,6,45,27
-145,Chicago White Sox,0.272,0.229,14,51,33
+121,New York Mets,0.24,0.258,7,45,28
+144,Atlanta Braves,0.222,0.214,8,37,21
+142,Minnesota Twins,0.281,0.26,5,47,28
+136,Seattle Mariners,0.274,0.304,8,47,29
+120,Washington Nationals,0.228,0.177,11,47,31
+158,Milwaukee Brewers,0.208,0.208,12,56,34
 112,Chicago Cubs,0.217,0.267,6,40,23
-115,Colorado Rockies,0.21,0.208,6,39,22
 119,Los Angeles Dodgers,0.219,0.236,4,39,19
+145,Chicago White Sox,0.272,0.229,14,51,33
+108,Los Angeles Angels,0.248,0.185,8,41,24
+140,Texas Rangers,0.206,0.222,12,43,27
+115,Colorado Rockies,0.21,0.208,6,39,22
+117,Houston Astros,0.22,0.255,9,35,24
