@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-147,New York Yankees,0.156,0.161,14,50,35
+135,San Diego Padres,0.245,0.267,10,39,20
+110,Baltimore Orioles,0.265,0.25,9,47,26
+134,Pittsburgh Pirates,0.239,0.24,5,41,23
+112,Chicago Cubs,0.25,0.264,9,38,26
+142,Minnesota Twins,0.265,0.278,5,45,19
+121,New York Mets,0.232,0.228,10,46,26
+146,Miami Marlins,0.259,0.252,9,45,26
+145,Chicago White Sox,0.267,0.214,7,46,30
 116,Detroit Tigers,0.246,0.245,6,35,19
 143,Philadelphia Phillies,0.314,0.3,8,32,17
-114,Cleveland Guardians,0.241,0.265,8,31,23
-146,Miami Marlins,0.259,0.252,9,45,26
-135,San Diego Padres,0.245,0.267,10,39,20
-141,Toronto Blue Jays,0.262,0.309,7,34,21
-110,Baltimore Orioles,0.265,0.25,9,47,26
 111,Boston Red Sox,0.301,0.324,3,37,16
-113,Cincinnati Reds,0.195,0.2,9,54,33
-138,St. Louis Cardinals,0.254,0.234,8,42,29
-139,Tampa Bay Rays,0.298,0.321,3,32,21
 109,Arizona Diamondbacks,0.238,0.183,6,42,23
-134,Pittsburgh Pirates,0.239,0.24,5,41,23
-137,San Francisco Giants,0.242,0.275,12,34,24
-121,New York Mets,0.232,0.228,10,46,26
-118,Kansas City Royals,0.255,0.293,6,43,20
-133,Athletics,0.262,0.268,3,27,12
 144,Atlanta Braves,0.186,0.214,7,39,23
-142,Minnesota Twins,0.265,0.278,5,45,19
-140,Texas Rangers,0.23,0.29,8,43,30
+137,San Francisco Giants,0.242,0.275,12,34,24
+147,New York Yankees,0.156,0.161,14,50,35
+138,St. Louis Cardinals,0.254,0.234,8,42,29
+114,Cleveland Guardians,0.241,0.265,8,31,23
+113,Cincinnati Reds,0.195,0.2,9,54,33
+141,Toronto Blue Jays,0.262,0.309,7,34,21
+139,Tampa Bay Rays,0.298,0.321,3,32,21
 136,Seattle Mariners,0.256,0.262,10,49,28
-158,Milwaukee Brewers,0.293,0.328,6,47,28
-108,Los Angeles Angels,0.244,0.167,8,42,23
-112,Chicago Cubs,0.25,0.264,9,38,26
-119,Los Angeles Dodgers,0.247,0.275,5,34,16
+133,Athletics,0.262,0.268,3,27,12
+118,Kansas City Royals,0.255,0.293,6,43,20
+140,Texas Rangers,0.23,0.29,8,43,30
 117,Houston Astros,0.209,0.188,10,41,27
 120,Washington Nationals,0.209,0.194,9,48,31
-145,Chicago White Sox,0.267,0.214,7,46,30
+158,Milwaukee Brewers,0.293,0.328,6,47,28
+108,Los Angeles Angels,0.244,0.167,8,42,23
+119,Los Angeles Dodgers,0.247,0.275,5,34,16
 115,Colorado Rockies,0.218,0.248,11,43,22
