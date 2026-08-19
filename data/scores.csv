@@ -1,19 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-08-11,Cleveland Guardians,4,Detroit Tigers,6,Detroit Tigers,10
-2026-08-11,Pittsburgh Pirates,0,Miami Marlins,2,Miami Marlins,2
-2026-08-11,Chicago Cubs,8,Washington Nationals,6,Chicago Cubs,14
-2026-08-11,Seattle Mariners,1,New York Yankees,4,New York Yankees,5
-2026-08-11,Boston Red Sox,3,Toronto Blue Jays,5,Toronto Blue Jays,8
-2026-08-11,New York Mets,0,Atlanta Braves,4,Atlanta Braves,4
-2026-08-11,Baltimore Orioles,5,Minnesota Twins,2,Baltimore Orioles,7
-2026-08-11,Cincinnati Reds,5,Chicago White Sox,4,Cincinnati Reds,9
-2026-08-11,Philadelphia Phillies,0,St. Louis Cardinals,2,St. Louis Cardinals,2
-2026-08-11,Texas Rangers,2,Los Angeles Angels,3,Los Angeles Angels,5
-2026-08-11,Colorado Rockies,3,Arizona Diamondbacks,2,Colorado Rockies,5
-2026-08-11,Tampa Bay Rays,12,Athletics,4,Tampa Bay Rays,16
-2026-08-11,Milwaukee Brewers,2,San Diego Padres,11,San Diego Padres,13
-2026-08-11,Houston Astros,1,San Francisco Giants,4,San Francisco Giants,5
-2026-08-11,Kansas City Royals,4,Los Angeles Dodgers,5,Los Angeles Dodgers,9
 2026-08-12,Baltimore Orioles,5,Minnesota Twins,7,Minnesota Twins,12
 2026-08-12,Philadelphia Phillies,1,St. Louis Cardinals,7,St. Louis Cardinals,8
 2026-08-12,Tampa Bay Rays,8,Athletics,4,Tampa Bay Rays,12
@@ -93,3 +78,18 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-08-17,Atlanta Braves,2,Minnesota Twins,4,Minnesota Twins,6
 2026-08-17,Chicago White Sox,5,Chicago Cubs,7,Chicago Cubs,12
 2026-08-17,Los Angeles Dodgers,11,Colorado Rockies,5,Los Angeles Dodgers,16
+2026-08-18,New York Yankees,3,Baltimore Orioles,1,New York Yankees,4
+2026-08-18,Detroit Tigers,1,Pittsburgh Pirates,4,Pittsburgh Pirates,5
+2026-08-18,San Francisco Giants,1,Cleveland Guardians,8,Cleveland Guardians,9
+2026-08-18,St. Louis Cardinals,3,Cincinnati Reds,0,St. Louis Cardinals,3
+2026-08-18,Toronto Blue Jays,10,Tampa Bay Rays,5,Toronto Blue Jays,15
+2026-08-18,Miami Marlins,4,Philadelphia Phillies,6,Philadelphia Phillies,10
+2026-08-18,Arizona Diamondbacks,4,Boston Red Sox,9,Boston Red Sox,13
+2026-08-18,San Diego Padres,5,New York Mets,2,San Diego Padres,7
+2026-08-18,Athletics,3,Kansas City Royals,4,Kansas City Royals,7
+2026-08-18,Atlanta Braves,1,Minnesota Twins,4,Minnesota Twins,5
+2026-08-18,Seattle Mariners,0,Milwaukee Brewers,22,Milwaukee Brewers,22
+2026-08-18,Washington Nationals,0,Texas Rangers,5,Texas Rangers,5
+2026-08-18,Chicago White Sox,3,Chicago Cubs,4,Chicago Cubs,7
+2026-08-18,Los Angeles Angels,3,Houston Astros,1,Los Angeles Angels,4
+2026-08-18,Los Angeles Dodgers,7,Colorado Rockies,6,Los Angeles Dodgers,13
