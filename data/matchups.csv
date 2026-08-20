@@ -1,16 +1,10 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823342,2026-08-19,Detroit Tigers,116,Pittsburgh Pirates,134,Jackson Jobe,695549,Paul Skenes,694973
-823587,2026-08-19,San Diego Padres,135,New York Mets,121,Michael King,650633,Robert Stock,476594
-823664,2026-08-19,Atlanta Braves,144,Minnesota Twins,142,AJ Smith-Shawver,700363,Taj Bradley,671737
-824640,2026-08-19,Chicago White Sox,145,Chicago Cubs,112,Sean Newcomb,656794,Clay Holmes,605280
-824722,2026-08-19,Arizona Diamondbacks,109,Boston Red Sox,111,Brandon Pfaadt,694297,Payton Tolle,801139
-823424,2026-08-19,Miami Marlins,146,Philadelphia Phillies,143,Sandy Alcantara,645261,Aaron Nola,605400
-824801,2026-08-19,New York Yankees,147,Baltimore Orioles,110,Will Warren,701542,Chris Bassitt,605135
-824394,2026-08-19,San Francisco Giants,137,Cleveland Guardians,114,Matt Wilkinson,683363,Parker Messick,800048
-824476,2026-08-19,St. Louis Cardinals,138,Cincinnati Reds,113,Matthew Liberatore,669461,Chase Burns,695505
-822937,2026-08-19,Toronto Blue Jays,141,Tampa Bay Rays,139,Max Scherzer,453286,Drew Rasmussen,656876
-824076,2026-08-19,Athletics,133,Kansas City Royals,118,Jeffrey Springs,605488,Seth Lugo,607625
-823748,2026-08-19,Seattle Mariners,136,Milwaukee Brewers,158,Logan Gilbert,669302,Dustin May,669160
-822860,2026-08-19,Washington Nationals,120,Texas Rangers,140,Cade Cavalli,676917,Kumar Rocker,677958
-824155,2026-08-19,Los Angeles Angels,108,Houston Astros,117,Walbert Ureña,700712,Ethan Pecko,814490
-824318,2026-08-19,Los Angeles Dodgers,119,Colorado Rockies,115,Roki Sasaki,808963,Kyle Freeland,607536
+824474,2026-08-20,St. Louis Cardinals,138,Cincinnati Reds,113,Michael McGreevy,700241,Brady Singer,663903
+824395,2026-08-20,San Francisco Giants,137,Cleveland Guardians,114,Landen Roupp,694738,Gavin Williams,668909
+822934,2026-08-20,Toronto Blue Jays,141,Tampa Bay Rays,139,Shane Bieber,669456,Ian Seymour,693855
+824074,2026-08-20,Athletics,133,Kansas City Royals,118,Gage Jump,695611,Randy Dobnak,677976
+824589,2026-08-20,Atlanta Braves,144,Chicago White Sox,145,Grant Holmes,656550,Anthony Kay,641743
+823747,2026-08-20,Seattle Mariners,136,Milwaukee Brewers,158,George Kirby,669923,Robert Gasser,688107
+824802,2026-08-20,New York Yankees,147,Baltimore Orioles,110,Gerrit Cole,543037,Kyle Bradish,680694
+822861,2026-08-20,Washington Nationals,120,Texas Rangers,140,Andrew Alvarez,674841,Jacob deGrom,594798
+824153,2026-08-20,Los Angeles Angels,108,Houston Astros,117,Grayson Rodriguez,680570,Peter Lambert,663567
