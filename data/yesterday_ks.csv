@@ -1,33 +1,28 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-08-19,Cade Cavalli,Washington Nationals,Texas Rangers,6.0,11,5.5,-159,+118,61,Over Hit
-2026-08-19,Parker Messick,Cleveland Guardians,San Francisco Giants,6.2,10,6.5,+100,-134,50,Over Hit
-2026-08-19,Matthew Liberatore,St. Louis Cardinals,Cincinnati Reds,6.0,9,5.5,-114,-117,53,Over Hit
-2026-08-19,Brandon Pfaadt,Arizona Diamondbacks,Boston Red Sox,5.2,8,3.5,-141,-108,59,Over Hit
-2026-08-19,Chase Burns,Cincinnati Reds,St. Louis Cardinals,5.0,8,6.5,+112,-150,47,Over Hit
-2026-08-19,Aaron Nola,Philadelphia Phillies,Miami Marlins,7.0,8,6.5,-106,-105,51,Over Hit
-2026-08-19,José Urquidy,Chicago White Sox,Chicago Cubs,6.0,8,—,—,—,0,—
-2026-08-19,Taj Bradley,Minnesota Twins,Atlanta Braves,5.0,7,5.5,-143,+108,59,Over Hit
-2026-08-19,Walbert Ureña,Los Angeles Angels,Houston Astros,5.0,7,4.5,-117,-114,54,Over Hit
-2026-08-19,Payton Tolle,Boston Red Sox,Arizona Diamondbacks,5.0,6,6.5,+105,-108,49,Under Hit
-2026-08-19,Roki Sasaki,Los Angeles Dodgers,Colorado Rockies,5.0,6,4.5,-139,+105,58,Over Hit
-2026-08-19,Robert Stock,New York Mets,San Diego Padres,4.1,6,3.5,-139,+104,58,Over Hit
-2026-08-19,Chris Bassitt,Baltimore Orioles,New York Yankees,5.2,6,4.5,-115,-115,53,Over Hit
-2026-08-19,Will Warren,New York Yankees,Baltimore Orioles,4.0,5,5.5,+118,-157,46,Under Hit
-2026-08-19,Dylan Smith,San Francisco Giants,Cleveland Guardians,2.0,5,—,—,—,0,—
-2026-08-19,Paul Skenes,Pittsburgh Pirates,Detroit Tigers,4.1,5,6.5,+120,-162,45,Under Hit
-2026-08-19,Kyle Freeland,Colorado Rockies,Los Angeles Dodgers,3.2,5,3.5,-127,-105,56,Over Hit
-2026-08-19,Drew Rasmussen,Tampa Bay Rays,Toronto Blue Jays,5.0,5,5.5,+104,-137,49,Under Hit
-2026-08-19,Logan Gilbert,Seattle Mariners,Milwaukee Brewers,5.0,5,6.5,+106,-141,49,Under Hit
-2026-08-19,Ethan Pecko,Houston Astros,Los Angeles Angels,3.2,4,—,—,—,0,—
-2026-08-19,Michael King,San Diego Padres,New York Mets,6.2,4,4.5,-175,+128,64,Under Hit
-2026-08-19,Jackson Jobe,Detroit Tigers,Pittsburgh Pirates,5.1,3,4.5,+104,-139,49,Under Hit
-2026-08-19,Tommy Nance,Minnesota Twins,Atlanta Braves,1.0,3,—,—,—,0,—
-2026-08-19,Jeff Hoffman,Minnesota Twins,Atlanta Braves,1.0,3,—,—,—,0,—
-2026-08-19,Adrian Houser,San Francisco Giants,Cleveland Guardians,5.0,3,—,—,—,0,—
-2026-08-19,AJ Smith-Shawver,Atlanta Braves,Minnesota Twins,4.1,3,4.5,+120,-162,45,Under Hit
-2026-08-19,Luis Mey,Cincinnati Reds,St. Louis Cardinals,1.0,3,—,—,—,0,—
-2026-08-19,Seth Lugo,Kansas City Royals,Athletics,6.0,3,4.5,+115,-152,47,Under Hit
-2026-08-19,Grant Anderson,Milwaukee Brewers,Seattle Mariners,1.0,3,—,—,—,0,—
-2026-08-19,DL Hall,Milwaukee Brewers,Seattle Mariners,3.0,3,—,—,—,0,—
-2026-08-19,Kumar Rocker,Texas Rangers,Washington Nationals,5.0,3,4.5,-105,-127,51,Under Hit
-2026-08-19,Michael Fulmer,Los Angeles Angels,Houston Astros,1.0,3,—,—,—,0,—
+2026-08-20,Gavin Williams,Cleveland Guardians,San Francisco Giants,5.2,11,7.5,-103,-130,51,Over Hit
+2026-08-20,Jacob deGrom,Texas Rangers,Washington Nationals,6.0,10,6.5,-115,+125,53,Over Hit
+2026-08-20,Ian Seymour,Tampa Bay Rays,Toronto Blue Jays,5.0,8,5.5,+102,-134,50,Over Hit
+2026-08-20,Gerrit Cole,New York Yankees,Baltimore Orioles,6.0,8,7.5,+104,-110,49,Over Hit
+2026-08-20,Shane Bieber,Toronto Blue Jays,Tampa Bay Rays,7.0,7,3.5,-124,-107,55,Over Hit
+2026-08-20,Anthony Kay,Chicago White Sox,Atlanta Braves,6.0,6,4.5,+117,-157,46,Over Hit
+2026-08-20,Grayson Rodriguez,Los Angeles Angels,Houston Astros,7.0,6,4.5,-127,-105,56,Over Hit
+2026-08-20,Andrew Alvarez,Washington Nationals,Texas Rangers,5.0,5,4.5,-117,-135,54,Over Hit
+2026-08-20,Kyle Bradish,Baltimore Orioles,New York Yankees,5.2,5,6.5,-106,+115,51,Under Hit
+2026-08-20,Randy Dobnak,Kansas City Royals,Athletics,4.0,4,3.5,+118,-159,46,Over Hit
+2026-08-20,Michael McGreevy,St. Louis Cardinals,Cincinnati Reds,5.1,4,4.5,-107,-125,52,Under Hit
+2026-08-20,Ryan Yarbrough,New York Yankees,Baltimore Orioles,3.0,4,—,—,—,0,—
+2026-08-20,Robert Gasser,Milwaukee Brewers,Seattle Mariners,3.2,4,5.5,+123,-165,45,Under Hit
+2026-08-20,Aaron Ashby,Milwaukee Brewers,Seattle Mariners,2.0,4,—,—,—,0,—
+2026-08-20,Chad Patrick,Milwaukee Brewers,Seattle Mariners,2.1,4,—,—,—,0,—
+2026-08-20,Michael Rucker,Seattle Mariners,Milwaukee Brewers,2.2,4,—,—,—,0,—
+2026-08-20,Brady Singer,Cincinnati Reds,St. Louis Cardinals,6.0,3,4.5,+108,-143,48,Under Hit
+2026-08-20,Casey Legumina,Tampa Bay Rays,Toronto Blue Jays,2.0,3,—,—,—,0,—
+2026-08-20,Gage Jump,Athletics,Kansas City Royals,4.0,3,4.5,-141,+106,59,Under Hit
+2026-08-20,Grant Holmes,Atlanta Braves,Chicago White Sox,6.0,3,4.5,+123,-165,45,Under Hit
+2026-08-20,Didier Fuentes,Atlanta Braves,Chicago White Sox,1.0,3,—,—,—,0,—
+2026-08-20,Hagen Smith,Chicago White Sox,Atlanta Braves,1.1,3,—,—,—,0,—
+2026-08-20,George Kirby,Seattle Mariners,Milwaukee Brewers,3.1,3,4.5,-157,+118,61,Under Hit
+2026-08-20,Jacob Latz,Texas Rangers,Washington Nationals,1.0,3,—,—,—,0,—
+2026-08-20,Blake Weiman,Los Angeles Angels,Houston Astros,2.0,3,—,—,—,0,—
+2026-08-20,Tatsuya Imai,Houston Astros,Los Angeles Angels,3.0,3,—,—,—,0,—
+2026-08-20,Peter Lambert,Houston Astros,Los Angeles Angels,3.2,3,5.5,-114,-117,53,Under Hit
