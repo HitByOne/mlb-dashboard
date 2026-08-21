@@ -1,19 +1,19 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-118,Kansas City Royals,0.263,0.333,2,35,14
-145,Chicago White Sox,0.247,0.225,5,45,26
-113,Cincinnati Reds,0.195,0.24,12,53,30
-114,Cleveland Guardians,0.25,0.214,8,39,22
-120,Washington Nationals,0.205,0.216,5,45,25
-147,New York Yankees,0.191,0.216,10,50,36
-158,Milwaukee Brewers,0.283,0.347,10,50,28
-144,Atlanta Braves,0.207,0.2,14,42,29
-137,San Francisco Giants,0.251,0.243,15,41,34
-136,Seattle Mariners,0.276,0.232,11,50,29
-138,St. Louis Cardinals,0.261,0.248,12,50,32
-110,Baltimore Orioles,0.233,0.226,11,52,30
-139,Tampa Bay Rays,0.301,0.327,5,31,16
-141,Toronto Blue Jays,0.29,0.292,7,36,19
-133,Athletics,0.268,0.24,6,25,13
-117,Houston Astros,0.213,0.165,12,46,31
-140,Texas Rangers,0.227,0.229,13,48,33
-108,Los Angeles Angels,0.191,0.151,11,43,27
+141,Toronto Blue Jays,0.301,0.325,12,40,26
+138,St. Louis Cardinals,0.239,0.233,6,47,26
+133,Athletics,0.271,0.24,6,24,15
+113,Cincinnati Reds,0.208,0.181,9,54,30
+118,Kansas City Royals,0.311,0.323,6,28,14
+114,Cleveland Guardians,0.25,0.265,6,37,22
+145,Chicago White Sox,0.194,0.206,10,45,22
+139,Tampa Bay Rays,0.278,0.263,8,34,16
+110,Baltimore Orioles,0.215,0.146,12,49,32
+158,Milwaukee Brewers,0.31,0.363,9,47,25
+136,Seattle Mariners,0.251,0.212,13,52,34
+137,San Francisco Giants,0.238,0.194,13,52,40
+144,Atlanta Braves,0.217,0.208,11,48,32
+120,Washington Nationals,0.186,0.186,15,51,29
+147,New York Yankees,0.222,0.257,9,54,33
+108,Los Angeles Angels,0.23,0.284,7,41,26
+140,Texas Rangers,0.245,0.228,8,51,29
+117,Houston Astros,0.197,0.176,9,48,31
