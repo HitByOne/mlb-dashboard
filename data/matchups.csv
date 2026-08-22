@@ -1,7 +1,7 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
 823746,2026-08-21,Atlanta Braves,144,Milwaukee Brewers,158,Chris Sale,519242,Jacob Misiorowski,694819
-823420,2026-08-21,St. Louis Cardinals,138,Philadelphia Phillies,143,TBD,,Jesús Luzardo,666200
-823510,2026-08-21,Toronto Blue Jays,141,New York Yankees,147,TBD,,Cam Schlittler,693645
+823420,2026-08-21,St. Louis Cardinals,138,Philadelphia Phillies,143,Hunter Dobbins,690928,Jesús Luzardo,666200
+823510,2026-08-21,Toronto Blue Jays,141,New York Yankees,147,Mason Fluharty,689254,Cam Schlittler,693645
 824721,2026-08-21,San Francisco Giants,137,Boston Red Sox,111,Logan Webb,657277,Sonny Gray,543243
 823830,2026-08-21,Washington Nationals,120,Miami Marlins,146,Brad Lord,695418,Ryan Gusto,687473
 824800,2026-08-21,Tampa Bay Rays,139,Baltimore Orioles,110,Freddy Peralta,642547,Trevor Rogers,669432
@@ -11,6 +11,6 @@ game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,awa
 822857,2026-08-21,Los Angeles Angels,108,Texas Rangers,140,Reid Detmers,672282,MacKenzie Gore,669022
 824317,2026-08-21,Cleveland Guardians,114,Colorado Rockies,115,Joey Cantillo,676282,Tanner Gordon,685299
 825045,2026-08-21,Cincinnati Reds,113,Arizona Diamondbacks,109,Nick Lodolo,666157,Eduardo Rodriguez,593958
-823262,2026-08-21,Minnesota Twins,142,San Diego Padres,135,Connor Prielipp,687570,TBD,
+823262,2026-08-21,Minnesota Twins,142,San Diego Padres,135,Connor Prielipp,687570,Randy Vásquez,681190
 823911,2026-08-21,Pittsburgh Pirates,134,Los Angeles Dodgers,119,Bubba Chandler,696149,Yoshinobu Yamamoto,808967
 823101,2026-08-21,Chicago Cubs,112,Seattle Mariners,136,Matthew Boyd,571510,Emerson Hancock,676106
