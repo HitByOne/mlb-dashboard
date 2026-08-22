@@ -15,7 +15,7 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 607259,Nick Martinez,Tampa Bay Rays,139,17,3.05,141.2,1.14,8.83
 593958,Eduardo Rodriguez,Arizona Diamondbacks,138,14,2.61,155.0,1.21,8.01
 608379,Michael Wacha,Kansas City Royals,138,21,3.58,155.2,1.15,7.98
-571945,Miles Mikolas,Washington Nationals,137,27,5.82,116.0,1.38,10.63
+571945,Miles Mikolas,Washington Nationals,137,0,-,-,-,-
 669461,Matthew Liberatore,St. Louis Cardinals,136,21,5.04,125.0,1.44,9.79
 666200,Jesús Luzardo,Philadelphia Phillies,133,14,3.35,156.0,1.15,7.67
 676917,Cade Cavalli,Washington Nationals,132,15,3.22,142.2,1.22,8.33
