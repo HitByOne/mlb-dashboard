@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-108,Los Angeles Angels,0.207,0.243,14,48,32
-117,Houston Astros,0.211,0.247,6,46,27
-143,Philadelphia Phillies,0.305,0.31,6,24,15
-133,Athletics,0.216,0.222,9,28,21
-110,Baltimore Orioles,0.218,0.196,6,48,29
-138,St. Louis Cardinals,0.257,0.266,13,51,31
-140,Texas Rangers,0.241,0.216,10,51,31
-147,New York Yankees,0.225,0.26,12,57,31
-146,Miami Marlins,0.234,0.189,8,44,27
-144,Atlanta Braves,0.214,0.228,8,48,33
-121,New York Mets,0.229,0.212,9,39,23
-120,Washington Nationals,0.195,0.204,6,46,26
-141,Toronto Blue Jays,0.292,0.28,8,39,27
-139,Tampa Bay Rays,0.271,0.208,10,34,23
-158,Milwaukee Brewers,0.333,0.283,9,46,28
-145,Chicago White Sox,0.186,0.172,7,43,22
-116,Detroit Tigers,0.229,0.188,5,35,22
-134,Pittsburgh Pirates,0.235,0.222,14,45,27
-113,Cincinnati Reds,0.214,0.191,8,47,29
-137,San Francisco Giants,0.219,0.19,12,59,40
-136,Seattle Mariners,0.219,0.229,7,49,31
-119,Los Angeles Dodgers,0.255,0.243,14,42,31
-118,Kansas City Royals,0.327,0.324,4,24,12
-142,Minnesota Twins,0.244,0.232,7,30,16
-115,Colorado Rockies,0.234,0.234,10,47,36
-135,San Diego Padres,0.256,0.25,9,41,31
-112,Chicago Cubs,0.24,0.214,11,47,30
-109,Arizona Diamondbacks,0.253,0.308,4,37,20
-114,Cleveland Guardians,0.256,0.271,6,34,20
-111,Boston Red Sox,0.309,0.317,3,29,16
+147,New York Yankees,0.215,0.204,12,57,33
+120,Washington Nationals,0.185,0.141,6,41,27
+141,Toronto Blue Jays,0.325,0.321,6,40,26
+117,Houston Astros,0.203,0.242,14,51,29
+144,Atlanta Braves,0.217,0.23,6,46,25
+138,St. Louis Cardinals,0.242,0.248,9,48,28
+158,Milwaukee Brewers,0.331,0.292,5,39,23
+140,Texas Rangers,0.21,0.194,4,43,22
+133,Athletics,0.228,0.223,8,32,23
+139,Tampa Bay Rays,0.247,0.202,4,30,22
+110,Baltimore Orioles,0.189,0.213,9,47,27
+121,New York Mets,0.25,0.287,6,36,19
+143,Philadelphia Phillies,0.341,0.35,4,21,11
+146,Miami Marlins,0.238,0.213,6,42,24
+108,Los Angeles Angels,0.249,0.277,8,48,29
+145,Chicago White Sox,0.217,0.174,13,42,30
+116,Detroit Tigers,0.211,0.17,8,38,24
+119,Los Angeles Dodgers,0.261,0.226,10,45,36
+118,Kansas City Royals,0.29,0.276,8,26,18
+112,Chicago Cubs,0.247,0.21,11,47,32
+134,Pittsburgh Pirates,0.206,0.216,15,53,37
+114,Cleveland Guardians,0.271,0.278,4,32,16
+113,Cincinnati Reds,0.224,0.26,8,46,25
+137,San Francisco Giants,0.204,0.198,10,62,35
+115,Colorado Rockies,0.22,0.212,9,51,34
+109,Arizona Diamondbacks,0.269,0.318,4,32,18
+111,Boston Red Sox,0.324,0.275,9,25,22
+136,Seattle Mariners,0.218,0.212,10,51,30
+135,San Diego Padres,0.256,0.255,9,45,30
+142,Minnesota Twins,0.255,0.22,3,24,14
