@@ -1,16 +1,11 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824799,2026-08-23,Tampa Bay Rays,139,Baltimore Orioles,110,Nick Martinez,607259,Shane Baz,669358
-823421,2026-08-23,St. Louis Cardinals,138,Philadelphia Phillies,143,Kyle Leahy,681517,Cristopher Sánchez,650911
-823507,2026-08-23,Toronto Blue Jays,141,New York Yankees,147,José Soriano,667755,Carlos Rodón,607074
-823827,2026-08-23,Washington Nationals,120,Miami Marlins,146,Jackson Kent,800600,Janson Junk,676083
-824071,2026-08-23,Detroit Tigers,116,Kansas City Royals,118,Jacob Waguespack,621097,Daniel Lynch IV,663738
-824150,2026-08-23,Athletics,133,Houston Astros,117,Brady Basso,669620,Cristian Javier,664299
-824558,2026-08-23,New York Mets,121,Chicago White Sox,145,Nolan McLean,690997,Sean Newcomb,656794
-822856,2026-08-23,Los Angeles Angels,108,Texas Rangers,140,Yusei Kikuchi,579328,Cal Quantrill,615698
-824315,2026-08-23,Cleveland Guardians,114,Colorado Rockies,115,Foster Griffin,656492,Tomoyuki Sugano,608372
-824720,2026-08-23,San Francisco Giants,137,Boston Red Sox,111,Matt Wilkinson,683363,Jake Bennett,687562
-823909,2026-08-23,Pittsburgh Pirates,134,Los Angeles Dodgers,119,Lake Bachar,669199,Blake Snell,605483
-823099,2026-08-23,Chicago Cubs,112,Seattle Mariners,136,Shota Imanaga,684007,Bryce Miller,682243
-823258,2026-08-23,Minnesota Twins,142,San Diego Padres,135,Bailey Ober,641927,Walker Buehler,621111
-825043,2026-08-23,Cincinnati Reds,113,Arizona Diamondbacks,109,Andrew Abbott,671096,Mitch Bratt,683352
-823745,2026-08-23,Atlanta Braves,144,Milwaukee Brewers,158,Tyler Mahle,641816,Shane Drohan,675660
+824235,2026-08-24,Tampa Bay Rays,139,Detroit Tigers,116,Drew Rasmussen,656876,Framber Valdez,664285
+823828,2026-08-24,Boston Red Sox,111,Miami Marlins,146,Ranger Suarez,624133,Sandy Alcantara,645261
+822695,2026-08-24,Colorado Rockies,115,Washington Nationals,120,Ryan Feltner,663372,Cade Cavalli,676917
+824557,2026-08-24,Texas Rangers,140,Chicago White Sox,145,Kumar Rocker,677958,TBD,
+823992,2026-08-24,Cleveland Guardians,114,Los Angeles Angels,108,Parker Messick,800048,George Klassen,691946
+825041,2026-08-24,Chicago Cubs,112,Arizona Diamondbacks,109,Kevin Gausman,592332,Merrill Kelly,518876
+823260,2026-08-24,Pittsburgh Pirates,134,San Diego Padres,135,Braxton Ashcraft,677952,Robbie Ray,592662
+824964,2026-08-24,Minnesota Twins,142,Athletics,133,Zebby Matthews,805673,Jeffrey Springs,605488
+823097,2026-08-24,Philadelphia Phillies,143,Seattle Mariners,136,Zack Wheeler,554430,Logan Gilbert,669302
+823183,2026-08-24,Cincinnati Reds,113,San Francisco Giants,137,Chase Burns,695505,TBD,
