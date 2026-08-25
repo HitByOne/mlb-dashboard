@@ -1,32 +1,23 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-08-23,Cristian Javier,Houston Astros,Athletics,4.0,8,4.5,-125,+102,56,Over Hit
-2026-08-23,José Soriano,Toronto Blue Jays,New York Yankees,5.0,7,5.5,+106,-141,49,Over Hit
-2026-08-23,Cristopher Sánchez,Philadelphia Phillies,St. Louis Cardinals,6.2,7,6.5,-118,-113,54,Over Hit
-2026-08-23,Jack Perkins,Athletics,Houston Astros,5.0,6,—,—,—,0,—
-2026-08-23,Nolan McLean,New York Mets,Chicago White Sox,6.0,6,7.5,+133,-160,43,Under Hit
-2026-08-23,Jake Bennett,Boston Red Sox,San Francisco Giants,7.0,6,4.5,-124,-107,55,Over Hit
-2026-08-23,Cal Quantrill,Texas Rangers,Los Angeles Angels,6.0,6,4.5,+128,-175,44,Over Hit
-2026-08-23,Andrew Abbott,Cincinnati Reds,Arizona Diamondbacks,6.0,6,3.5,+106,-141,49,Over Hit
-2026-08-23,Blake Snell,Los Angeles Dodgers,Pittsburgh Pirates,6.0,6,8.5,+104,-139,49,Under Hit
-2026-08-23,Shane Drohan,Milwaukee Brewers,Atlanta Braves,5.0,5,4.5,-118,-113,54,Over Hit
-2026-08-23,Bryce Miller,Seattle Mariners,Chicago Cubs,4.1,5,4.5,-167,+125,63,Over Hit
-2026-08-23,Jackson Kent,Washington Nationals,Miami Marlins,4.2,5,3.5,-162,+120,62,Over Hit
-2026-08-23,Kai-Wei Teng,Houston Astros,Athletics,1.2,4,—,—,—,0,—
-2026-08-23,Kyle Leahy,St. Louis Cardinals,Philadelphia Phillies,4.0,4,3.5,-159,+120,61,Over Hit
-2026-08-23,Nick Martinez,Tampa Bay Rays,Baltimore Orioles,6.0,4,3.5,-134,+108,57,Over Hit
-2026-08-23,Tyler Mahle,Atlanta Braves,Milwaukee Brewers,5.0,4,4.5,-167,+125,63,Under Hit
-2026-08-23,Shota Imanaga,Chicago Cubs,Seattle Mariners,2.0,4,5.5,-117,-114,54,Under Hit
-2026-08-23,Foster Griffin,Cleveland Guardians,Colorado Rockies,5.0,4,4.5,-159,+120,61,Under Hit
-2026-08-23,Walker Buehler,San Diego Padres,Minnesota Twins,6.0,4,3.5,-143,+108,59,Over Hit
-2026-08-23,Carmen Mlodzinski,Pittsburgh Pirates,Los Angeles Dodgers,3.0,4,—,—,—,0,—
-2026-08-23,Yusei Kikuchi,Los Angeles Angels,Texas Rangers,5.0,4,4.5,-121,-109,55,Under Hit
-2026-08-23,Shane Baz,Baltimore Orioles,Tampa Bay Rays,5.2,3,4.5,-118,-145,54,Under Hit
-2026-08-23,Trevor Williams,Washington Nationals,Miami Marlins,2.1,3,—,—,—,0,—
-2026-08-23,Hagen Smith,Chicago White Sox,New York Mets,2.0,3,—,—,—,0,—
-2026-08-23,Daniel Duarte,New York Mets,Chicago White Sox,1.0,3,—,—,—,0,—
-2026-08-23,Andrew Sears,Detroit Tigers,Kansas City Royals,4.0,3,—,—,—,0,—
-2026-08-23,Ty Madden,Detroit Tigers,Kansas City Royals,1.2,3,—,—,—,0,—
-2026-08-23,Sean Newcomb,Chicago White Sox,New York Mets,2.0,3,—,—,—,0,—
-2026-08-23,Bailey Ober,Minnesota Twins,San Diego Padres,5.0,3,3.5,-104,-129,51,Under Hit
-2026-08-23,Mitch Bratt,Arizona Diamondbacks,Cincinnati Reds,3.0,3,4.5,+125,-167,44,Under Hit
-2026-08-23,Gerardo Carrillo,Arizona Diamondbacks,Cincinnati Reds,1.2,3,—,—,—,0,—
+2026-08-24,Kumar Rocker,Texas Rangers,Chicago White Sox,5.2,8,4.5,-134,+102,57,Over Hit
+2026-08-24,Cade Cavalli,Washington Nationals,Colorado Rockies,6.0,7,7.5,+108,-118,48,Under Hit
+2026-08-24,Zebby Matthews,Minnesota Twins,Athletics,7.0,7,4.5,+120,-162,45,Over Hit
+2026-08-24,Kevin Gausman,Chicago Cubs,Arizona Diamondbacks,7.0,6,4.5,-109,-122,52,Over Hit
+2026-08-24,Ryan Feltner,Colorado Rockies,Washington Nationals,5.2,6,4.5,+130,-120,43,Over Hit
+2026-08-24,Sandy Alcantara,Miami Marlins,Boston Red Sox,7.0,6,4.5,-105,-127,51,Over Hit
+2026-08-24,Logan Gilbert,Seattle Mariners,Philadelphia Phillies,5.0,5,5.5,-159,+120,61,Under Hit
+2026-08-24,Chase Burns,Cincinnati Reds,San Francisco Giants,3.2,5,6.5,+107,-141,48,Under Hit
+2026-08-24,Drew Rasmussen,Tampa Bay Rays,Detroit Tigers,6.0,5,5.5,-132,+120,57,Under Hit
+2026-08-24,Robbie Ray,San Diego Padres,Pittsburgh Pirates,5.1,5,5.5,-115,-115,53,Under Hit
+2026-08-24,Chase Shugart,Philadelphia Phillies,Seattle Mariners,2.0,4,—,—,—,0,—
+2026-08-24,Ranger Suarez,Boston Red Sox,Miami Marlins,5.0,4,4.5,-137,+104,58,Under Hit
+2026-08-24,Merrill Kelly,Arizona Diamondbacks,Chicago Cubs,5.2,4,3.5,-155,+115,61,Over Hit
+2026-08-24,Parker Messick,Cleveland Guardians,Los Angeles Angels,6.0,4,7.5,+123,-160,45,Under Hit
+2026-08-24,Zack Wheeler,Philadelphia Phillies,Seattle Mariners,4.0,4,7.5,+120,-162,45,Under Hit
+2026-08-24,Manuel Rodríguez,Tampa Bay Rays,Detroit Tigers,1.0,3,—,—,—,0,—
+2026-08-24,Colin Holderman,Cleveland Guardians,Los Angeles Angels,1.0,3,—,—,—,0,—
+2026-08-24,George Klassen,Los Angeles Angels,Cleveland Guardians,5.1,3,4.5,+110,-175,48,Under Hit
+2026-08-24,Yohan Ramírez,Pittsburgh Pirates,San Diego Padres,1.0,3,—,—,—,0,—
+2026-08-24,Jeffrey Springs,Athletics,Minnesota Twins,4.2,3,3.5,-134,+100,57,Under Hit
+2026-08-24,Jason Foley,San Francisco Giants,Cincinnati Reds,1.1,3,—,—,—,0,—
+2026-08-24,Carson Whisenhunt,San Francisco Giants,Cincinnati Reds,2.2,3,4.5,+102,-136,50,Under Hit

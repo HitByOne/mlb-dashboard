@@ -83,7 +83,7 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 656849,David Peterson,Chicago Cubs,103,7.8,5.17,118.1,17,6.9,532,0.194,31.3
 676879,Aaron Ashby,Milwaukee Brewers,102,12.6,3.33,73.0,1,73.0,319,0.32,319.0
 656427,Jack Flaherty,Detroit Tigers,102,10.7,4.59,86.1,19,4.5,389,0.262,20.5
-695243,Mason Miller,San Diego Padres,101,16.8,0.83,54.1,0,0.0,205,0.493,0.0
+695243,Mason Miller,San Diego Padres,101,16.5,0.81,55.1,0,0.0,210,0.481,0.0
 687570,Connor Prielipp,Minnesota Twins,101,9.8,5.57,93.2,18,5.2,408,0.248,22.7
 543037,Gerrit Cole,New York Yankees,100,9.8,3.11,92.2,16,5.8,376,0.266,23.5
 656550,Grant Holmes,Atlanta Braves,100,7.3,3.64,123.2,24,5.1,529,0.189,22.0
