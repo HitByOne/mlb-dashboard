@@ -24,6 +24,7 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 641793,Zack Littell,Arizona Diamondbacks,136,30,5.21,124.1,1.41,9.84
 676440,Tanner Bibee,Cleveland Guardians,135,26,3.97,156.1,1.14,7.77
 669022,MacKenzie Gore,Texas Rangers,135,18,4.40,149.1,1.28,8.14
+669432,Trevor Rogers,Baltimore Orioles,135,16,4.38,137.2,1.25,8.83
 701542,Will Warren,New York Yankees,135,20,4.39,127.0,1.42,9.57
 666200,Jesús Luzardo,Philadelphia Phillies,133,14,3.09,163.0,1.12,7.34
 677952,Braxton Ashcraft,Pittsburgh Pirates,132,21,3.59,155.1,1.07,7.65
@@ -41,7 +42,6 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 677944,Slade Cecconi,Cleveland Guardians,128,17,5.07,110.0,1.50,10.47
 543135,Nathan Eovaldi,Texas Rangers,128,24,4.21,132.2,1.21,8.68
 669467,Andre Pallante,St. Louis Cardinals,128,10,3.57,136.0,1.24,8.47
-669432,Trevor Rogers,Baltimore Orioles,128,14,4.14,132.2,1.24,8.68
 605488,Jeffrey Springs,Athletics,128,30,6.08,118.1,1.50,9.74
 681517,Kyle Leahy,St. Louis Cardinals,127,12,3.13,126.1,1.30,9.05
 663436,Davis Martin,Chicago White Sox,127,12,4.32,125.0,1.33,9.14

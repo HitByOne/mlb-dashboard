@@ -3,13 +3,13 @@ player_id,Player,Team,League,H,TB
 672640,Otto Lopez,Miami Marlins,NL,160,231
 670541,Yordan Alvarez,Houston Astros,AL,152,290
 650490,Yandy Díaz,Tampa Bay Rays,AL,152,232
-676475,Alec Burleson,St. Louis Cardinals,NL,147,245
+676475,Alec Burleson,St. Louis Cardinals,NL,149,247
 518692,Freddie Freeman,Los Angeles Dodgers,NL,147,225
 665487,Fernando Tatis Jr.,San Diego Padres,NL,147,230
+691023,Jordan Walker,St. Louis Cardinals,NL,146,256
 693304,Nick Gonzales,Pittsburgh Pirates,NL,145,0
 678882,Ceddanne Rafaela,Boston Red Sox,AL,145,231
 802415,Chandler Simpson,Tampa Bay Rays,AL,144,0
-691023,Jordan Walker,St. Louis Cardinals,NL,144,254
 691406,Junior Caminero,Tampa Bay Rays,AL,142,269
 691718,Pete Crow-Armstrong,Chicago Cubs,NL,141,281
 671739,Michael Harris II,Atlanta Braves,NL,141,236
@@ -25,21 +25,21 @@ player_id,Player,Team,League,H,TB
 621566,Matt Olson,Atlanta Braves,NL,134,277
 681624,Andy Pages,Los Angeles Dodgers,NL,134,226
 701398,Sal Stewart,Cincinnati Reds,NL,134,242
+682928,CJ Abrams,Washington Nationals,NL,133,252
 808982,Jung Hoo Lee,San Francisco Giants,NL,133,195
-682928,CJ Abrams,Washington Nationals,NL,132,251
+681198,TJ Rumfield,Colorado Rockies,NL,132,201
 608324,Alex Bregman,Chicago Cubs,NL,131,214
 647304,Josh Naylor,Seattle Mariners,AL,131,0
 668804,Bryan Reynolds,Pittsburgh Pirates,NL,131,212
-681198,TJ Rumfield,Colorado Rockies,NL,131,200
 645277,Ozzie Albies,Atlanta Braves,NL,130,213
 805367,Chase Meidroth,Chicago White Sox,AL,130,191
+695734,Daylen Lile,Washington Nationals,NL,129,218
 677951,Bobby Witt Jr.,Kansas City Royals,AL,129,205
 668227,Randy Arozarena,Seattle Mariners,AL,127,215
 661388,William Contreras,Milwaukee Brewers,NL,127,0
 643289,Mauricio Dubón,Atlanta Braves,NL,127,0
 607043,Brandon Nimmo,Texas Rangers,AL,127,204
 607208,Trea Turner,Philadelphia Phillies,NL,127,202
-695734,Daylen Lile,Washington Nationals,NL,126,212
 669016,Brandon Marsh,Philadelphia Phillies,NL,126,199
 664983,Jake McCarthy,Colorado Rockies,NL,126,206
 677800,Wilyer Abreu,Boston Red Sox,AL,125,227
@@ -71,6 +71,7 @@ player_id,Player,Team,League,H,TB
 575929,Willson Contreras,Boston Red Sox,AL,118,221
 700250,Ben Rice,New York Yankees,AL,118,249
 665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,117,0
+683002,Gunnar Henderson,Baltimore Orioles,AL,117,209
 689414,Liam Hicks,Tampa Bay Rays,AL,117,0
 686797,Brooks Lee,Minnesota Twins,AL,117,207
 606466,Ketel Marte,Arizona Diamondbacks,NL,117,209
@@ -79,7 +80,6 @@ player_id,Player,Team,League,H,TB
 656941,Kyle Schwarber,Philadelphia Phillies,NL,0,254
 695578,James Wood,Washington Nationals,NL,0,234
 696100,Hunter Goodman,Colorado Rockies,NL,0,233
-683002,Gunnar Henderson,Baltimore Orioles,AL,0,207
 672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,206
 572233,Christian Walker,Houston Astros,AL,0,203
 571970,Max Muncy,Los Angeles Dodgers,NL,0,202

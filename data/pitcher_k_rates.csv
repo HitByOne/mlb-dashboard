@@ -54,6 +54,7 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 592662,Robbie Ray,San Diego Padres,122,7.7,3.21,143.0,25,5.7,600,0.203,24.0
 669372,J.T. Ginn,Athletics,121,7.9,3.71,138.1,24,5.8,580,0.209,24.2
 676974,Max Meyer,Miami Marlins,121,9.8,2.68,111.0,20,5.5,462,0.262,23.1
+669432,Trevor Rogers,Baltimore Orioles,121,7.9,4.38,137.2,25,5.5,579,0.209,23.2
 593958,Eduardo Rodriguez,Arizona Diamondbacks,119,6.6,2.50,162.0,27,6.0,661,0.18,24.5
 693821,Bryce Elder,Atlanta Braves,118,7.4,3.95,143.2,25,5.7,606,0.195,24.2
 669160,Dustin May,Milwaukee Brewers,118,8.6,4.56,124.1,25,5.0,524,0.225,21.0
@@ -66,7 +67,6 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 607625,Seth Lugo,Kansas City Royals,116,7.0,4.61,150.1,27,5.6,640,0.181,23.7
 681517,Kyle Leahy,St. Louis Cardinals,115,8.2,3.13,126.1,25,5.0,531,0.217,21.2
 671096,Andrew Abbott,Cincinnati Reds,114,7.1,4.15,145.1,27,5.4,630,0.181,23.3
-669432,Trevor Rogers,Baltimore Orioles,114,7.8,4.14,132.2,24,5.5,556,0.205,23.2
 641816,Tyler Mahle,Atlanta Braves,112,8.5,4.41,118.1,22,5.4,497,0.225,22.6
 663903,Brady Singer,Cincinnati Reds,112,7.4,4.72,137.1,26,5.3,611,0.183,23.5
 700712,Walbert Ureña,Los Angeles Angels,112,8.7,2.94,116.1,22,5.3,500,0.224,22.7
