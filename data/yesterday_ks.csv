@@ -1,33 +1,18 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-08-26,Eduardo Rodriguez,Arizona Diamondbacks,Chicago Cubs,7.0,9,4.5,+130,-175,43,Over Hit
-2026-08-26,Jesús Luzardo,Philadelphia Phillies,Seattle Mariners,7.0,9,7.5,-143,+108,59,Over Hit
-2026-08-26,Logan Webb,San Francisco Giants,Cincinnati Reds,6.0,6,5.5,-132,+100,57,Over Hit
-2026-08-26,Elmer Rodríguez,New York Yankees,Houston Astros,6.0,6,3.5,-132,+100,57,Over Hit
-2026-08-26,Robert Gasser,Milwaukee Brewers,New York Mets,5.1,6,—,—,—,0,—
-2026-08-26,Tanner Gordon,Colorado Rockies,Washington Nationals,7.0,5,4.5,+143,-111,41,Over Hit
-2026-08-26,Sonny Gray,Boston Red Sox,Miami Marlins,5.0,5,5.5,-115,-115,53,Under Hit
-2026-08-26,Nick Lodolo,Cincinnati Reds,San Francisco Giants,4.0,5,4.5,-162,+120,62,Over Hit
-2026-08-26,Peter Lambert,Houston Astros,New York Yankees,5.2,5,4.5,-159,+118,61,Over Hit
-2026-08-26,Randy Dobnak,Kansas City Royals,Toronto Blue Jays,6.0,5,2.5,-117,-114,54,Over Hit
-2026-08-26,Bryan Woo,Seattle Mariners,Philadelphia Phillies,4.0,5,5.5,+123,-165,45,Under Hit
-2026-08-26,Connor Prielipp,Minnesota Twins,Athletics,5.1,5,5.5,-115,-115,53,Under Hit
-2026-08-26,Matthew Boyd,Chicago Cubs,Arizona Diamondbacks,6.0,5,3.5,-152,+115,60,Over Hit
-2026-08-26,Troy Melton,Detroit Tigers,Tampa Bay Rays,7.0,4,4.5,+112,+127,47,Under Hit
-2026-08-26,Freddy Peralta,Tampa Bay Rays,Detroit Tigers,6.0,4,4.5,-108,-129,52,Under Hit
-2026-08-26,Grayson Rodriguez,Los Angeles Angels,Cleveland Guardians,5.2,4,4.5,+108,-138,48,Under Hit
-2026-08-26,Jonathan Cannon,Chicago White Sox,Texas Rangers,3.0,4,—,—,—,0,—
-2026-08-26,Chad Dallas,Toronto Blue Jays,Kansas City Royals,2.2,4,—,—,—,0,—
-2026-08-26,MacKenzie Gore,Texas Rangers,Chicago White Sox,3.2,4,6.5,+120,-162,45,Under Hit
-2026-08-26,Kyle Bradish,Baltimore Orioles,St. Louis Cardinals,4.1,4,4.5,-104,-129,51,Under Hit
-2026-08-26,Sammy Peralta,Los Angeles Angels,Cleveland Guardians,1.1,3,—,—,—,0,—
-2026-08-26,Luis Perales,Washington Nationals,Colorado Rockies,2.0,3,—,—,—,0,—
-2026-08-26,Bubba Chandler,Pittsburgh Pirates,San Diego Padres,5.2,3,4.5,+115,-152,47,Under Hit
-2026-08-26,Carlos Vargas,Seattle Mariners,Philadelphia Phillies,2.0,3,—,—,—,0,—
-2026-08-26,Will Dion,Washington Nationals,Colorado Rockies,2.2,3,—,—,—,0,—
-2026-08-26,AJ Smith-Shawver,Atlanta Braves,Los Angeles Dodgers,5.0,3,4.5,+120,-185,45,Under Hit
-2026-08-26,Enyel De Los Santos,Houston Astros,New York Yankees,1.2,3,—,—,—,0,—
-2026-08-26,Roki Sasaki,Los Angeles Dodgers,Atlanta Braves,3.1,3,5.5,-113,-145,53,Under Hit
-2026-08-26,Sean Burke,Chicago White Sox,Texas Rangers,3.0,3,5.5,-148,+112,60,Under Hit
-2026-08-26,Michael McGreevy,St. Louis Cardinals,Baltimore Orioles,5.0,3,4.5,+112,-148,47,Under Hit
-2026-08-26,Luis Gastelum,St. Louis Cardinals,Baltimore Orioles,1.0,3,—,—,—,0,—
-2026-08-26,J.T. Ginn,Athletics,Minnesota Twins,6.0,3,4.5,+125,-167,44,Under Hit
+2026-08-27,Chris Sale,Atlanta Braves,Los Angeles Dodgers,9.0,11,7.5,-115,-154,53,Over Hit
+2026-08-27,Yoshinobu Yamamoto,Los Angeles Dodgers,Atlanta Braves,6.1,8,6.5,-115,-150,53,Over Hit
+2026-08-27,Trevor Rogers,Baltimore Orioles,St. Louis Cardinals,5.0,7,5.5,+140,-110,42,Over Hit
+2026-08-27,Hayden Wesneski,Houston Astros,New York Yankees,5.0,6,4.5,+104,-137,49,Over Hit
+2026-08-27,Jake Irvin,Washington Nationals,Colorado Rockies,4.1,6,4.5,-130,-125,57,Over Hit
+2026-08-27,Jacob Misiorowski,Milwaukee Brewers,New York Mets,6.0,6,8.5,-143,+107,59,Under Hit
+2026-08-27,Gerrit Cole,New York Yankees,Houston Astros,6.0,5,5.5,-141,+106,59,Under Hit
+2026-08-27,Jose Cabrera,Arizona Diamondbacks,San Francisco Giants,4.1,4,3.5,+100,-132,50,Over Hit
+2026-08-27,Gordon Graceffo,St. Louis Cardinals,Baltimore Orioles,3.0,4,—,—,—,0,—
+2026-08-27,Cam Sanders,Baltimore Orioles,St. Louis Cardinals,2.0,4,—,—,—,0,—
+2026-08-27,Spencer Arrighetti,Toronto Blue Jays,Kansas City Royals,4.0,4,4.5,+115,-148,47,Under Hit
+2026-08-27,Gabriel Hughes,Colorado Rockies,Washington Nationals,5.0,3,3.5,-134,-124,57,Under Hit
+2026-08-27,AJ Blubaugh,Houston Astros,New York Yankees,2.0,3,—,—,—,0,—
+2026-08-27,Noah Cameron,Kansas City Royals,Toronto Blue Jays,6.0,3,4.5,-120,-170,55,Under Hit
+2026-08-27,Sean Manaea,New York Mets,Milwaukee Brewers,5.2,3,4.5,-155,+116,61,Under Hit
+2026-08-27,Edgardo Henriquez,Los Angeles Dodgers,Atlanta Braves,1.0,3,—,—,—,0,—
+2026-08-27,Landen Roupp,San Francisco Giants,Arizona Diamondbacks,5.0,3,4.5,-103,-130,51,Under Hit
