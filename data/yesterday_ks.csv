@@ -1,18 +1,32 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-08-27,Chris Sale,Atlanta Braves,Los Angeles Dodgers,9.0,11,7.5,-115,-154,53,Over Hit
-2026-08-27,Yoshinobu Yamamoto,Los Angeles Dodgers,Atlanta Braves,6.1,8,6.5,-115,-150,53,Over Hit
-2026-08-27,Trevor Rogers,Baltimore Orioles,St. Louis Cardinals,5.0,7,5.5,+140,-110,42,Over Hit
-2026-08-27,Hayden Wesneski,Houston Astros,New York Yankees,5.0,6,4.5,+104,-137,49,Over Hit
-2026-08-27,Jake Irvin,Washington Nationals,Colorado Rockies,4.1,6,4.5,-130,-125,57,Over Hit
-2026-08-27,Jacob Misiorowski,Milwaukee Brewers,New York Mets,6.0,6,8.5,-143,+107,59,Under Hit
-2026-08-27,Gerrit Cole,New York Yankees,Houston Astros,6.0,5,5.5,-141,+106,59,Under Hit
-2026-08-27,Jose Cabrera,Arizona Diamondbacks,San Francisco Giants,4.1,4,3.5,+100,-132,50,Over Hit
-2026-08-27,Gordon Graceffo,St. Louis Cardinals,Baltimore Orioles,3.0,4,—,—,—,0,—
-2026-08-27,Cam Sanders,Baltimore Orioles,St. Louis Cardinals,2.0,4,—,—,—,0,—
-2026-08-27,Spencer Arrighetti,Toronto Blue Jays,Kansas City Royals,4.0,4,4.5,+115,-148,47,Under Hit
-2026-08-27,Gabriel Hughes,Colorado Rockies,Washington Nationals,5.0,3,3.5,-134,-124,57,Under Hit
-2026-08-27,AJ Blubaugh,Houston Astros,New York Yankees,2.0,3,—,—,—,0,—
-2026-08-27,Noah Cameron,Kansas City Royals,Toronto Blue Jays,6.0,3,4.5,-120,-170,55,Under Hit
-2026-08-27,Sean Manaea,New York Mets,Milwaukee Brewers,5.2,3,4.5,-155,+116,61,Under Hit
-2026-08-27,Edgardo Henriquez,Los Angeles Dodgers,Atlanta Braves,1.0,3,—,—,—,0,—
-2026-08-27,Landen Roupp,San Francisco Giants,Arizona Diamondbacks,5.0,3,4.5,-103,-130,51,Under Hit
+2026-08-28,Michael Wacha,Kansas City Royals,Cleveland Guardians,8.0,10,4.5,+125,+115,44,Over Hit
+2026-08-28,Hunter Brown,Houston Astros,New York Mets,6.2,10,5.5,+120,-162,45,Over Hit
+2026-08-28,Dylan Cease,Toronto Blue Jays,Seattle Mariners,6.0,8,8.5,+100,+100,50,Under Hit
+2026-08-28,Cam Schlittler,New York Yankees,Boston Red Sox,5.2,8,6.5,-134,+100,57,Over Hit
+2026-08-28,Tarik Skubal,Los Angeles Dodgers,Detroit Tigers,6.0,7,7.5,+117,-157,46,Under Hit
+2026-08-28,Patrick Sandoval,Boston Red Sox,New York Yankees,5.1,7,5.5,+120,-140,45,Over Hit
+2026-08-28,Logan Henderson,Milwaukee Brewers,Texas Rangers,7.0,7,6.5,-108,-124,52,Over Hit
+2026-08-28,Quinn Mathews,St. Louis Cardinals,Pittsburgh Pirates,5.2,7,5.5,-117,-114,54,Over Hit
+2026-08-28,Jared Jones,Pittsburgh Pirates,St. Louis Cardinals,4.2,6,4.5,-157,+117,61,Over Hit
+2026-08-28,Andrew Painter,Philadelphia Phillies,Los Angeles Angels,6.0,6,5.5,+108,-143,48,Over Hit
+2026-08-28,Jacob Lopez,Athletics,Baltimore Orioles,5.0,6,6.5,+110,-148,48,Under Hit
+2026-08-28,David Peterson,Chicago Cubs,Cincinnati Reds,5.0,6,4.5,-157,+118,61,Over Hit
+2026-08-28,Eury Pérez,Miami Marlins,Washington Nationals,3.0,5,5.5,-117,-114,54,Under Hit
+2026-08-28,Drew Anderson,Detroit Tigers,Los Angeles Dodgers,4.2,5,4.5,-107,-125,52,Over Hit
+2026-08-28,Rhett Lowder,Cincinnati Reds,Chicago Cubs,5.0,5,3.5,-157,+118,61,Over Hit
+2026-08-28,Tanner Bibee,Cleveland Guardians,Kansas City Royals,6.0,5,4.5,-137,-115,58,Over Hit
+2026-08-28,Kohl Drake,Arizona Diamondbacks,San Francisco Giants,4.0,4,3.5,-127,-106,56,Over Hit
+2026-08-28,Brandon Young,Baltimore Orioles,Athletics,7.0,4,4.5,+112,-148,47,Under Hit
+2026-08-28,Tomoyuki Sugano,Colorado Rockies,Atlanta Braves,4.0,4,3.5,+132,-177,43,Over Hit
+2026-08-28,Blade Tidwell,San Francisco Giants,Arizona Diamondbacks,5.0,4,3.5,-129,-104,56,Over Hit
+2026-08-28,Shane McClanahan,Tampa Bay Rays,San Diego Padres,5.2,4,4.5,-106,-126,51,Under Hit
+2026-08-28,Evan Phillips,Los Angeles Dodgers,Detroit Tigers,1.0,3,—,—,—,0,—
+2026-08-28,Drew Sommers,Detroit Tigers,Los Angeles Dodgers,1.1,3,—,—,—,0,—
+2026-08-28,Griffin Canning,San Diego Padres,Tampa Bay Rays,1.1,3,—,—,—,0,—
+2026-08-28,Craig Yoho,Cleveland Guardians,Kansas City Royals,2.0,3,—,—,—,0,—
+2026-08-28,Jackson Kent,Washington Nationals,Miami Marlins,7.0,3,3.5,-175,+128,64,Under Hit
+2026-08-28,Grant Holmes,Atlanta Braves,Colorado Rockies,5.0,3,4.5,-132,-103,57,Under Hit
+2026-08-28,Dean Kremer,Minnesota Twins,Chicago White Sox,4.0,3,5.5,-103,-155,51,Under Hit
+2026-08-28,Grant Taylor,Chicago White Sox,Minnesota Twins,2.2,3,—,—,—,0,—
+2026-08-28,DL Hall,Milwaukee Brewers,Texas Rangers,1.0,3,—,—,—,0,—
+2026-08-28,Spencer Bivens,San Francisco Giants,Arizona Diamondbacks,2.0,3,—,—,—,0,—
