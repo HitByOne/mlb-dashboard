@@ -1,15 +1,13 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-822688,2026-08-30,Miami Marlins,146,Washington Nationals,120,Janson Junk,676083,Andrew Alvarez,674841
-824876,2026-08-30,Colorado Rockies,115,Atlanta Braves,144,Mason Adams,690279,Tyler Mahle,641816
-823502,2026-08-30,Boston Red Sox,111,New York Yankees,147,Ranger Suarez,624133,Will Warren,701542
-822766,2026-08-30,Seattle Mariners,136,Toronto Blue Jays,141,Logan Gilbert,669302,Max Scherzer,453286
-824393,2026-08-30,Kansas City Royals,118,Cleveland Guardians,114,Seth Lugo,607625,Parker Messick,800048
-824232,2026-08-30,Los Angeles Dodgers,119,Detroit Tigers,116,Tyler Glasnow,607192,Framber Valdez,664285
-822933,2026-08-30,San Diego Padres,135,Tampa Bay Rays,139,Robbie Ray,592662,Drew Rasmussen,656876
-823662,2026-08-30,Chicago White Sox,145,Minnesota Twins,142,Jordan Hicks,663855,Zebby Matthews,805673
-823740,2026-08-30,Texas Rangers,140,Milwaukee Brewers,158,Kumar Rocker,677958,Dustin May,669160
-823010,2026-08-30,Pittsburgh Pirates,134,St. Louis Cardinals,138,Braxton Ashcraft,677952,Matthew Liberatore,669461
-823580,2026-08-30,Houston Astros,117,New York Mets,121,Ethan Pecko,814490,Zac Thornton,804267
-824959,2026-08-30,Baltimore Orioles,110,Athletics,133,Chris Bassitt,605135,Jeffrey Springs,605488
-823987,2026-08-30,Philadelphia Phillies,143,Los Angeles Angels,108,Zack Wheeler,554430,Yusei Kikuchi,579328
-824636,2026-08-30,Cincinnati Reds,113,Chicago Cubs,112,Chase Burns,695505,Shota Imanaga,684007
+824911,2026-08-31,San Francisco Giants,137,Atlanta Braves,144,Anthony Molina,683627,Bryce Elder,693821
+824473,2026-08-31,San Diego Padres,135,Cincinnati Reds,113,Michael King,650633,Brady Singer,663903
+822932,2026-08-31,New York Mets,121,Tampa Bay Rays,139,Robert Stock,476594,Ian Seymour,693855
+824719,2026-08-31,Seattle Mariners,136,Boston Red Sox,111,George Kirby,669923,Payton Tolle,801139
+822689,2026-08-31,Miami Marlins,146,Washington Nationals,120,Ryan Gusto,687473,Will Dion,702021
+823663,2026-08-31,Detroit Tigers,116,Minnesota Twins,142,Jackson Jobe,695549,Taj Bradley,671737
+824635,2026-08-31,Milwaukee Brewers,158,Chicago Cubs,112,Kyle Harrison,690986,Clay Holmes,605280
+822855,2026-08-31,Athletics,133,Texas Rangers,140,Gage Jump,695611,Jacob deGrom,594798
+824149,2026-08-31,Chicago White Sox,145,Houston Astros,117,Anthony Kay,641743,Peter Lambert,663567
+824314,2026-08-31,Baltimore Orioles,110,Colorado Rockies,115,TBD,,Tanner Gordon,685299
+823982,2026-08-31,New York Yankees,147,Los Angeles Angels,108,Elmer Rodríguez,695684,Walbert Ureña,700712
+825040,2026-08-31,Philadelphia Phillies,143,Arizona Diamondbacks,109,Aaron Nola,605400,TBD,
