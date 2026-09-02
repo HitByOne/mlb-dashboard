@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-144,Atlanta Braves,0.278,0.26,10,41,31
-143,Philadelphia Phillies,0.272,0.276,6,28,17
-135,San Diego Padres,0.237,0.259,10,45,32
-113,Cincinnati Reds,0.254,0.242,7,50,29
-115,Colorado Rockies,0.265,0.245,6,40,26
 133,Athletics,0.247,0.232,10,42,28
 134,Pittsburgh Pirates,0.272,0.325,8,54,36
-137,San Francisco Giants,0.262,0.327,8,43,23
-121,New York Mets,0.21,0.186,10,49,29
-110,Baltimore Orioles,0.188,0.188,9,48,27
-109,Arizona Diamondbacks,0.249,0.222,8,41,26
-140,Texas Rangers,0.248,0.301,9,39,20
-120,Washington Nationals,0.273,0.299,12,42,27
-136,Seattle Mariners,0.219,0.245,8,53,34
+115,Colorado Rockies,0.265,0.245,6,40,26
 111,Boston Red Sox,0.257,0.283,10,41,23
-141,Toronto Blue Jays,0.236,0.198,14,31,25
+140,Texas Rangers,0.248,0.301,9,39,20
+144,Atlanta Braves,0.278,0.26,10,41,31
+136,Seattle Mariners,0.219,0.245,8,53,34
+121,New York Mets,0.21,0.186,10,49,29
+109,Arizona Diamondbacks,0.249,0.222,8,41,26
+135,San Diego Padres,0.237,0.259,10,45,32
+120,Washington Nationals,0.273,0.299,12,42,27
+143,Philadelphia Phillies,0.272,0.276,6,28,17
+137,San Francisco Giants,0.262,0.327,8,43,23
+110,Baltimore Orioles,0.188,0.188,9,48,27
+113,Cincinnati Reds,0.254,0.242,7,50,29
 139,Tampa Bay Rays,0.29,0.274,4,33,20
-142,Minnesota Twins,0.287,0.31,6,28,14
+141,Toronto Blue Jays,0.236,0.198,14,31,25
 114,Cleveland Guardians,0.267,0.265,3,33,13
+158,Milwaukee Brewers,0.292,0.276,5,40,27
+142,Minnesota Twins,0.287,0.31,6,28,14
 145,Chicago White Sox,0.192,0.19,9,42,25
-116,Detroit Tigers,0.169,0.161,8,49,26
 146,Miami Marlins,0.21,0.237,8,45,24
+116,Detroit Tigers,0.169,0.161,8,49,26
 118,Kansas City Royals,0.276,0.24,6,39,21
 147,New York Yankees,0.316,0.352,12,40,26
+108,Los Angeles Angels,0.217,0.279,8,46,27
 117,Houston Astros,0.181,0.21,12,43,29
-158,Milwaukee Brewers,0.292,0.276,5,40,27
+119,Los Angeles Dodgers,0.228,0.235,7,40,20
 138,St. Louis Cardinals,0.244,0.236,10,44,23
 112,Chicago Cubs,0.342,0.31,8,31,20
-119,Los Angeles Dodgers,0.228,0.235,7,40,20
-108,Los Angeles Angels,0.217,0.279,8,46,27
