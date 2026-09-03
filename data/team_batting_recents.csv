@@ -1,19 +1,19 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-141,Toronto Blue Jays,0.263,0.269,8,36,27
-118,Kansas City Royals,0.247,0.218,6,36,21
-111,Boston Red Sox,0.273,0.312,5,38,21
-110,Baltimore Orioles,0.202,0.2,7,43,21
-146,Miami Marlins,0.246,0.302,11,52,26
-140,Texas Rangers,0.278,0.296,10,37,22
-112,Chicago Cubs,0.317,0.291,9,33,20
-134,Pittsburgh Pirates,0.281,0.299,8,55,31
-133,Athletics,0.272,0.269,8,43,29
-114,Cleveland Guardians,0.233,0.276,9,34,17
-137,San Francisco Giants,0.272,0.309,6,38,21
-158,Milwaukee Brewers,0.287,0.327,9,47,25
 145,Chicago White Sox,0.156,0.167,6,41,26
-139,Tampa Bay Rays,0.27,0.279,7,34,17
+110,Baltimore Orioles,0.202,0.2,7,43,21
+137,San Francisco Giants,0.272,0.309,6,38,21
+134,Pittsburgh Pirates,0.281,0.299,8,55,31
+118,Kansas City Royals,0.247,0.218,6,36,21
+141,Toronto Blue Jays,0.263,0.269,8,36,27
+114,Cleveland Guardians,0.233,0.276,9,34,17
+111,Boston Red Sox,0.273,0.312,5,38,21
+133,Athletics,0.272,0.269,8,43,29
+158,Milwaukee Brewers,0.287,0.327,9,47,25
+140,Texas Rangers,0.278,0.296,10,37,22
+146,Miami Marlins,0.246,0.302,11,52,26
+112,Chicago Cubs,0.317,0.291,9,33,20
 117,Houston Astros,0.199,0.191,5,40,25
 136,Seattle Mariners,0.251,0.322,5,49,24
-138,St. Louis Cardinals,0.239,0.282,9,40,25
+139,Tampa Bay Rays,0.27,0.279,7,34,17
 119,Los Angeles Dodgers,0.253,0.266,13,42,29
+138,St. Louis Cardinals,0.239,0.282,9,40,25
