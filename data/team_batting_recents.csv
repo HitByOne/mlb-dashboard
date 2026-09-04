@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-137,San Francisco Giants,0.265,0.25,9,38,23
-116,Detroit Tigers,0.203,0.237,14,51,33
-158,Milwaukee Brewers,0.273,0.296,10,46,24
-108,Los Angeles Angels,0.216,0.238,13,50,31
-114,Cleveland Guardians,0.242,0.224,6,28,18
 112,Chicago Cubs,0.256,0.163,7,36,24
+116,Detroit Tigers,0.203,0.237,14,51,33
+110,Baltimore Orioles,0.205,0.222,13,47,29
+134,Pittsburgh Pirates,0.283,0.299,6,50,22
+114,Cleveland Guardians,0.242,0.224,6,28,18
+144,Atlanta Braves,0.259,0.264,11,46,31
+143,Philadelphia Phillies,0.234,0.222,9,32,18
 111,Boston Red Sox,0.277,0.273,10,38,25
 121,New York Mets,0.25,0.252,6,41,28
-142,Minnesota Twins,0.256,0.272,14,35,25
-143,Philadelphia Phillies,0.234,0.222,9,32,18
-144,Atlanta Braves,0.259,0.264,11,46,31
-134,Pittsburgh Pirates,0.283,0.299,6,50,22
-110,Baltimore Orioles,0.205,0.222,13,47,29
-113,Cincinnati Reds,0.247,0.242,7,47,25
 146,Miami Marlins,0.249,0.257,10,45,29
-145,Chicago White Sox,0.179,0.188,10,41,25
-139,Tampa Bay Rays,0.229,0.232,6,33,17
-140,Texas Rangers,0.289,0.302,5,35,24
-117,Houston Astros,0.221,0.194,5,39,22
-141,Toronto Blue Jays,0.25,0.252,10,43,32
+113,Cincinnati Reds,0.247,0.242,7,47,25
+142,Minnesota Twins,0.256,0.272,14,35,25
+108,Los Angeles Angels,0.216,0.238,13,50,31
+137,San Francisco Giants,0.265,0.25,9,38,23
+158,Milwaukee Brewers,0.273,0.296,10,46,24
 109,Arizona Diamondbacks,0.21,0.189,8,40,25
+117,Houston Astros,0.221,0.194,5,39,22
+139,Tampa Bay Rays,0.229,0.232,6,33,17
+141,Toronto Blue Jays,0.25,0.252,10,43,32
+140,Texas Rangers,0.289,0.302,5,35,24
+145,Chicago White Sox,0.179,0.188,10,41,25
+118,Kansas City Royals,0.259,0.257,5,32,17
+138,St. Louis Cardinals,0.257,0.306,10,42,29
 115,Colorado Rockies,0.254,0.275,17,52,31
 147,New York Yankees,0.344,0.288,11,42,33
 119,Los Angeles Dodgers,0.238,0.245,8,41,28
-138,St. Louis Cardinals,0.257,0.306,10,42,29
 136,Seattle Mariners,0.263,0.31,18,57,31
-118,Kansas City Royals,0.259,0.257,5,32,17
 133,Athletics,0.287,0.339,8,44,26
-120,Washington Nationals,0.245,0.258,6,40,27
 135,San Diego Padres,0.254,0.276,10,50,30
+120,Washington Nationals,0.245,0.258,6,40,27
