@@ -1,13 +1,13 @@
 Rank,Player,Team,League,HR,player_id
 1,Kyle Schwarber,Philadelphia Phillies,NL,40,656941
-2,Pete Crow-Armstrong,Chicago Cubs,NL,38,691718
+2,Pete Crow-Armstrong,Chicago Cubs,NL,39,691718
 3,Yordan Alvarez,Houston Astros,AL,37,670541
 3,Junior Caminero,Tampa Bay Rays,AL,37,691406
 3,Matt Olson,Atlanta Braves,NL,37,621566
 6,Hunter Goodman,Colorado Rockies,NL,36,696100
 7,Ben Rice,New York Yankees,AL,35,700250
-8,Pete Alonso,Baltimore Orioles,AL,32,624413
-8,Rafael Devers,San Francisco Giants,NL,32,646240
+8,Pete Alonso,Baltimore Orioles,AL,33,624413
+9,Rafael Devers,San Francisco Giants,NL,32,646240
 10,Sal Stewart,Cincinnati Reds,NL,31,701398
 11,Shohei Ohtani,Los Angeles Dodgers,NL,30,660271
 11,James Wood,Washington Nationals,NL,30,695578
@@ -36,31 +36,31 @@ Rank,Player,Team,League,HR,player_id
 33,Jake Burger,Texas Rangers,AL,23,669394
 33,Jac Caglianone,Kansas City Royals,AL,23,695506
 33,Ian Happ,Chicago Cubs,NL,23,664023
+33,Heriberto Hernández,Miami Marlins,NL,23,681715
 33,Shea Langeliers,Athletics,AL,23,669127
 33,Zach Neto,Los Angeles Angels,AL,23,687263
 33,Juan Soto,New York Mets,NL,23,665742
-41,Randy Arozarena,Seattle Mariners,AL,22,668227
-41,Drake Baldwin,Atlanta Braves,NL,22,686948
-41,JJ Bleday,Cincinnati Reds,NL,22,668709
-41,Gunnar Henderson,Baltimore Orioles,AL,22,683002
-41,Heriberto Hernández,Miami Marlins,NL,22,681715
-41,Brooks Lee,Minnesota Twins,AL,22,686797
-41,Jackson Merrill,San Diego Padres,NL,22,701538
-48,Willy Adames,San Francisco Giants,NL,21,642715
-48,Ozzie Albies,Atlanta Braves,NL,21,645277
-48,Nolan Arenado,Arizona Diamondbacks,NL,21,571448
-48,Alec Burleson,St. Louis Cardinals,NL,21,676475
-48,Dominic Canzone,Seattle Mariners,AL,21,686527
-48,Jackson Chourio,Milwaukee Brewers,NL,21,694192
-48,Elly De La Cruz,Cincinnati Reds,NL,21,682829
-48,Yandy Díaz,Tampa Bay Rays,AL,21,650490
-48,Carter Jensen,Kansas City Royals,AL,21,695600
-48,Nick Kurtz,Athletics,AL,21,701762
-48,Ketel Marte,Arizona Diamondbacks,NL,21,606466
-48,Mickey Moniak,Colorado Rockies,NL,21,666160
-48,Andy Pages,Los Angeles Dodgers,NL,21,681624
-48,Casey Schmitt,San Francisco Giants,NL,21,669477
-48,Spencer Torkelson,Detroit Tigers,AL,21,679529
+42,Randy Arozarena,Seattle Mariners,AL,22,668227
+42,Drake Baldwin,Atlanta Braves,NL,22,686948
+42,JJ Bleday,Cincinnati Reds,NL,22,668709
+42,Gunnar Henderson,Baltimore Orioles,AL,22,683002
+42,Carter Jensen,Kansas City Royals,AL,22,695600
+42,Brooks Lee,Minnesota Twins,AL,22,686797
+42,Jackson Merrill,San Diego Padres,NL,22,701538
+49,Willy Adames,San Francisco Giants,NL,21,642715
+49,Ozzie Albies,Atlanta Braves,NL,21,645277
+49,Nolan Arenado,Arizona Diamondbacks,NL,21,571448
+49,Alec Burleson,St. Louis Cardinals,NL,21,676475
+49,Dominic Canzone,Seattle Mariners,AL,21,686527
+49,Jackson Chourio,Milwaukee Brewers,NL,21,694192
+49,Elly De La Cruz,Cincinnati Reds,NL,21,682829
+49,Yandy Díaz,Tampa Bay Rays,AL,21,650490
+49,Nick Kurtz,Athletics,AL,21,701762
+49,Ketel Marte,Arizona Diamondbacks,NL,21,606466
+49,Mickey Moniak,Colorado Rockies,NL,21,666160
+49,Andy Pages,Los Angeles Dodgers,NL,21,681624
+49,Casey Schmitt,San Francisco Giants,NL,21,669477
+49,Spencer Torkelson,Detroit Tigers,AL,21,679529
 63,Jo Adell,Cleveland Guardians,AL,20,666176
 63,Ty France,San Diego Padres,NL,20,664034
 63,Daylen Lile,Washington Nationals,NL,20,695734
