@@ -5,17 +5,17 @@ Rank,Player,Team,League,HR,player_id
 3,Junior Caminero,Tampa Bay Rays,AL,37,691406
 3,Matt Olson,Atlanta Braves,NL,37,621566
 6,Hunter Goodman,Colorado Rockies,NL,36,696100
-7,Ben Rice,New York Yankees,AL,35,700250
+6,Ben Rice,New York Yankees,AL,36,700250
 8,Pete Alonso,Baltimore Orioles,AL,33,624413
-9,Rafael Devers,San Francisco Giants,NL,32,646240
+8,Rafael Devers,San Francisco Giants,NL,33,646240
 10,Sal Stewart,Cincinnati Reds,NL,31,701398
+11,Colson Montgomery,Chicago White Sox,AL,30,695657
 11,Shohei Ohtani,Los Angeles Dodgers,NL,30,660271
+11,Miguel Vargas,Chicago White Sox,AL,30,678246
 11,James Wood,Washington Nationals,NL,30,695578
-13,CJ Abrams,Washington Nationals,NL,29,682928
-13,Brandon Lowe,Pittsburgh Pirates,NL,29,664040
-13,Colson Montgomery,Chicago White Sox,AL,29,695657
-13,Munetaka Murakami,Chicago White Sox,AL,29,808959
-13,Miguel Vargas,Chicago White Sox,AL,29,678246
+15,CJ Abrams,Washington Nationals,NL,29,682928
+15,Brandon Lowe,Pittsburgh Pirates,NL,29,664040
+15,Munetaka Murakami,Chicago White Sox,AL,29,808959
 18,Luis García Jr.,New York Yankees,AL,28,671277
 18,Kazuma Okamoto,Toronto Blue Jays,AL,28,672960
 18,Jordan Walker,St. Louis Cardinals,NL,28,691023
@@ -47,27 +47,27 @@ Rank,Player,Team,League,HR,player_id
 42,Carter Jensen,Kansas City Royals,AL,22,695600
 42,Brooks Lee,Minnesota Twins,AL,22,686797
 42,Jackson Merrill,San Diego Padres,NL,22,701538
-49,Willy Adames,San Francisco Giants,NL,21,642715
-49,Ozzie Albies,Atlanta Braves,NL,21,645277
-49,Nolan Arenado,Arizona Diamondbacks,NL,21,571448
-49,Alec Burleson,St. Louis Cardinals,NL,21,676475
-49,Dominic Canzone,Seattle Mariners,AL,21,686527
-49,Jackson Chourio,Milwaukee Brewers,NL,21,694192
-49,Elly De La Cruz,Cincinnati Reds,NL,21,682829
-49,Yandy Díaz,Tampa Bay Rays,AL,21,650490
-49,Nick Kurtz,Athletics,AL,21,701762
-49,Ketel Marte,Arizona Diamondbacks,NL,21,606466
-49,Mickey Moniak,Colorado Rockies,NL,21,666160
-49,Andy Pages,Los Angeles Dodgers,NL,21,681624
-49,Casey Schmitt,San Francisco Giants,NL,21,669477
-49,Spencer Torkelson,Detroit Tigers,AL,21,679529
-63,Jo Adell,Cleveland Guardians,AL,20,666176
-63,Ty France,San Diego Padres,NL,20,664034
-63,Daylen Lile,Washington Nationals,NL,20,695734
-63,Cal Raleigh,Seattle Mariners,AL,20,663728
-63,Julio Rodríguez,Seattle Mariners,AL,20,677594
-63,Eugenio Suárez,Cincinnati Reds,NL,20,553993
-63,Mike Trout,Los Angeles Angels,AL,20,545361
+42,Spencer Torkelson,Detroit Tigers,AL,22,679529
+50,Willy Adames,San Francisco Giants,NL,21,642715
+50,Ozzie Albies,Atlanta Braves,NL,21,645277
+50,Nolan Arenado,Arizona Diamondbacks,NL,21,571448
+50,Alec Burleson,St. Louis Cardinals,NL,21,676475
+50,Dominic Canzone,Seattle Mariners,AL,21,686527
+50,Jackson Chourio,Milwaukee Brewers,NL,21,694192
+50,Elly De La Cruz,Cincinnati Reds,NL,21,682829
+50,Yandy Díaz,Tampa Bay Rays,AL,21,650490
+50,Nick Kurtz,Athletics,AL,21,701762
+50,Ketel Marte,Arizona Diamondbacks,NL,21,606466
+50,Mickey Moniak,Colorado Rockies,NL,21,666160
+50,Andy Pages,Los Angeles Dodgers,NL,21,681624
+50,Cal Raleigh,Seattle Mariners,AL,21,663728
+50,Casey Schmitt,San Francisco Giants,NL,21,669477
+50,Eugenio Suárez,Cincinnati Reds,NL,21,553993
+65,Jo Adell,Cleveland Guardians,AL,20,666176
+65,Ty France,San Diego Padres,NL,20,664034
+65,Daylen Lile,Washington Nationals,NL,20,695734
+65,Julio Rodríguez,Seattle Mariners,AL,20,677594
+65,Mike Trout,Los Angeles Angels,AL,20,545361
 70,Corbin Carroll,Arizona Diamondbacks,NL,19,682998
 70,Jazz Chisholm Jr.,New York Yankees,AL,19,665862
 70,Jarren Duran,Boston Red Sox,AL,19,680776

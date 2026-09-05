@@ -1,17 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824424,2026-09-04,Detroit Tigers,116,Cleveland Guardians,114,Keider Montero,672456,Logan Allen,671106
-824387,2026-09-04,Detroit Tigers,116,Cleveland Guardians,114,Andrew Sears,808825,Foster Griffin,656492
-824471,2026-09-04,Milwaukee Brewers,158,Cincinnati Reds,113,Shane Drohan,675660,Rhett Lowder,695076
-823418,2026-09-04,Atlanta Braves,144,Philadelphia Phillies,143,Chris Sale,519242,Cristopher Sánchez,650911
-823338,2026-09-04,Los Angeles Angels,108,Pittsburgh Pirates,134,Ryan Johnson,696270,Jared Jones,683003
-824797,2026-09-04,Boston Red Sox,111,Baltimore Orioles,110,Ranger Suarez,624133,Shane Baz,669358
-823579,2026-09-04,San Francisco Giants,137,New York Mets,121,Matt Wilkinson,683363,Nolan McLean,690997
-823824,2026-09-04,Chicago Cubs,112,Miami Marlins,146,Shota Imanaga,684007,Janson Junk,676083
-824554,2026-09-04,Minnesota Twins,142,Chicago White Sox,145,Zebby Matthews,805673,Erick Fedde,607200
-822852,2026-09-04,Tampa Bay Rays,139,Texas Rangers,140,Nick Martinez,607259,Trevor Williams,592866
-824146,2026-09-04,Arizona Diamondbacks,109,Houston Astros,117,Merrill Kelly,518876,Cristian Javier,664299
-824067,2026-09-04,Toronto Blue Jays,141,Kansas City Royals,118,Jameson Taillon,592791,Daniel Lynch IV,663738
-824311,2026-09-04,St. Louis Cardinals,138,Colorado Rockies,115,Andre Pallante,669467,Ryan Feltner,663372
-823256,2026-09-04,New York Yankees,147,San Diego Padres,135,Max Fried,608331,Walker Buehler,621111
-823905,2026-09-04,Washington Nationals,120,Los Angeles Dodgers,119,Jackson Kent,800600,Blake Snell,605483
-823093,2026-09-04,Athletics,133,Seattle Mariners,136,Kade Morris,695034,Logan Gilbert,669302
+823577,2026-09-05,San Francisco Giants,137,New York Mets,121,Anthony Molina,683627,Zac Thornton,804267
+823823,2026-09-05,Chicago Cubs,112,Miami Marlins,146,Javier Assad,665871,Ryan Gusto,687473
+823419,2026-09-05,Atlanta Braves,144,Philadelphia Phillies,143,Martín Pérez,527048,Zack Wheeler,554430
+824389,2026-09-05,Detroit Tigers,116,Cleveland Guardians,114,Framber Valdez,664285,Parker Messick,800048
+823335,2026-09-05,Los Angeles Angels,108,Pittsburgh Pirates,134,Yusei Kikuchi,579328,Braxton Ashcraft,677952
+824468,2026-09-05,Milwaukee Brewers,158,Cincinnati Reds,113,Dustin May,669160,Andrew Abbott,671096
+824795,2026-09-05,Boston Red Sox,111,Baltimore Orioles,110,Sonny Gray,543243,Chris Bassitt,605135
+822850,2026-09-05,Tampa Bay Rays,139,Texas Rangers,140,Drew Rasmussen,656876,Jacob deGrom,594798
+824066,2026-09-05,Toronto Blue Jays,141,Kansas City Royals,118,Max Scherzer,453286,Seth Lugo,607625
+824553,2026-09-05,Minnesota Twins,142,Chicago White Sox,145,Taj Bradley,671737,Anthony Kay,641743
+824145,2026-09-05,Arizona Diamondbacks,109,Houston Astros,117,Brandon Pfaadt,694297,Ethan Pecko,814490
+823257,2026-09-05,New York Yankees,147,San Diego Padres,135,Carlos Rodón,607074,Robbie Ray,592662
+824310,2026-09-05,St. Louis Cardinals,138,Colorado Rockies,115,Matthew Liberatore,669461,Mason Adams,690279
+823904,2026-09-05,Washington Nationals,120,Los Angeles Dodgers,119,Cade Cavalli,676917,Tyler Glasnow,607192
+823094,2026-09-05,Athletics,133,Seattle Mariners,136,Jeffrey Springs,605488,George Kirby,669923
