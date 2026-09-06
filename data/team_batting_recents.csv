@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-143,Philadelphia Phillies,0.226,0.191,6,34,25
-121,New York Mets,0.236,0.259,9,41,19
-116,Detroit Tigers,0.272,0.279,16,54,32
-110,Baltimore Orioles,0.207,0.194,10,43,27
-144,Atlanta Braves,0.238,0.233,12,49,29
 158,Milwaukee Brewers,0.286,0.236,14,49,35
+144,Atlanta Braves,0.238,0.233,12,49,29
+109,Arizona Diamondbacks,0.182,0.152,8,46,29
+143,Philadelphia Phillies,0.226,0.191,6,34,25
 113,Cincinnati Reds,0.265,0.297,12,48,30
 114,Cleveland Guardians,0.211,0.213,3,35,20
-134,Pittsburgh Pirates,0.271,0.212,9,41,25
-109,Arizona Diamondbacks,0.182,0.152,8,46,29
 112,Chicago Cubs,0.228,0.26,9,40,23
+108,Los Angeles Angels,0.237,0.196,13,56,38
 137,San Francisco Giants,0.272,0.24,8,42,28
 111,Boston Red Sox,0.246,0.204,10,46,31
-108,Los Angeles Angels,0.237,0.196,13,56,38
 146,Miami Marlins,0.222,0.168,7,43,24
+134,Pittsburgh Pirates,0.271,0.212,9,41,25
 117,Houston Astros,0.212,0.242,10,38,21
-118,Kansas City Royals,0.236,0.245,5,27,15
-140,Texas Rangers,0.258,0.227,10,38,19
+121,New York Mets,0.236,0.259,9,41,19
+110,Baltimore Orioles,0.207,0.194,10,43,27
 141,Toronto Blue Jays,0.288,0.312,4,39,17
+116,Detroit Tigers,0.272,0.279,16,54,32
+118,Kansas City Royals,0.236,0.245,5,27,15
 139,Tampa Bay Rays,0.259,0.238,9,33,22
+140,Texas Rangers,0.258,0.227,10,38,19
+133,Athletics,0.317,0.309,7,45,27
 138,St. Louis Cardinals,0.304,0.312,12,48,29
-115,Colorado Rockies,0.29,0.303,6,41,27
+142,Minnesota Twins,0.257,0.219,5,35,24
+135,San Diego Padres,0.228,0.17,12,48,28
 136,Seattle Mariners,0.285,0.245,9,42,29
 145,Chicago White Sox,0.189,0.198,12,44,29
-133,Athletics,0.317,0.309,7,45,27
-135,San Diego Padres,0.228,0.17,12,48,28
 147,New York Yankees,0.263,0.25,7,55,33
-142,Minnesota Twins,0.257,0.219,5,35,24
-120,Washington Nationals,0.266,0.218,13,51,30
+115,Colorado Rockies,0.29,0.303,6,41,27
 119,Los Angeles Dodgers,0.228,0.196,11,44,24
+120,Washington Nationals,0.266,0.218,13,51,30
