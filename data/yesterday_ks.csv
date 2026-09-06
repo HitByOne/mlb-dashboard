@@ -1,36 +1,34 @@
 date,pitcher,team,opponent,ip,actual_ks,vegas_line,over_odds,under_odds,implied_over,result
-2026-09-04,Logan Gilbert,Seattle Mariners,Athletics,4.2,10,6.5,-115,-115,53,Over Hit
-2026-09-04,Jared Jones,Pittsburgh Pirates,Los Angeles Angels,6.0,9,6.5,+112,+121,47,Over Hit
-2026-09-04,Cristian Javier,Houston Astros,Arizona Diamondbacks,5.0,8,4.5,+123,-165,45,Over Hit
-2026-09-04,Nolan McLean,New York Mets,San Francisco Giants,6.0,7,6.5,+102,+113,50,Over Hit
-2026-09-04,Blake Snell,Los Angeles Dodgers,Washington Nationals,6.0,7,8.5,+106,-141,49,Under Hit
-2026-09-04,Chris Sale,Atlanta Braves,Philadelphia Phillies,6.0,7,7.5,+123,+105,45,Under Hit
-2026-09-04,Shane Baz,Baltimore Orioles,Boston Red Sox,6.1,6,5.5,+125,+118,44,Over Hit
-2026-09-04,Walker Buehler,San Diego Padres,New York Yankees,5.0,6,4.5,-104,-129,51,Over Hit
-2026-09-04,Ryan Johnson,Los Angeles Angels,Pittsburgh Pirates,6.0,6,3.5,-139,-121,58,Over Hit
-2026-09-04,Cristopher Sánchez,Philadelphia Phillies,Atlanta Braves,6.0,5,7.5,+130,-130,43,Under Hit
-2026-09-04,Shane Drohan,Milwaukee Brewers,Cincinnati Reds,4.0,5,5.5,-102,-125,50,Under Hit
-2026-09-04,Ryan Feltner,Colorado Rockies,St. Louis Cardinals,5.0,5,3.5,-150,+112,60,Over Hit
-2026-09-04,Mason Miller,San Diego Padres,New York Yankees,2.0,4,—,—,—,0,—
-2026-09-04,Keider Montero,Detroit Tigers,Cleveland Guardians,4.0,4,3.5,+138,+129,42,Over Hit
-2026-09-04,Andrew Sears,Detroit Tigers,Cleveland Guardians,5.2,4,—,—,—,0,—
-2026-09-04,Zebby Matthews,Minnesota Twins,Chicago White Sox,5.0,4,4.5,-121,-108,55,Under Hit
-2026-09-04,Nick Martinez,Tampa Bay Rays,Texas Rangers,6.1,4,3.5,+108,-143,48,Over Hit
-2026-09-04,Janson Junk,Miami Marlins,Chicago Cubs,5.0,4,3.5,+120,-140,45,Over Hit
-2026-09-04,Shota Imanaga,Chicago Cubs,Miami Marlins,6.0,4,5.5,+117,-148,46,Under Hit
-2026-09-04,Jackson Kent,Washington Nationals,Los Angeles Dodgers,5.0,4,3.5,-112,-120,53,Over Hit
-2026-09-04,Max Fried,New York Yankees,San Diego Padres,5.2,4,3.5,-162,+120,62,Over Hit
-2026-09-04,Merrill Kelly,Arizona Diamondbacks,Houston Astros,6.0,4,4.5,+117,-157,46,Under Hit
-2026-09-04,Beau Brieske,Detroit Tigers,Cleveland Guardians,1.1,3,—,—,—,0,—
-2026-09-04,Trevor Megill,Milwaukee Brewers,Cincinnati Reds,1.0,3,—,—,—,0,—
-2026-09-04,Foster Griffin,Cleveland Guardians,Detroit Tigers,6.0,3,5.5,+103,-132,49,Under Hit
-2026-09-04,Daniel Espino,Cleveland Guardians,Detroit Tigers,2.0,3,—,—,—,0,—
-2026-09-04,Tejay Antone,Cincinnati Reds,Milwaukee Brewers,1.0,3,—,—,—,0,—
-2026-09-04,Bradley Blalock,Miami Marlins,Chicago Cubs,3.0,3,—,—,—,0,—
-2026-09-04,Aaron Civale,Chicago Cubs,Miami Marlins,3.0,3,—,—,—,0,—
-2026-09-04,Ranger Suarez,Boston Red Sox,Baltimore Orioles,7.0,3,5.5,-129,-128,56,Under Hit
-2026-09-04,Josh Walker,Baltimore Orioles,Boston Red Sox,1.0,3,—,—,—,0,—
-2026-09-04,Josh Hader,Houston Astros,Arizona Diamondbacks,1.0,3,—,—,—,0,—
-2026-09-04,Kumar Rocker,Texas Rangers,Tampa Bay Rays,5.0,3,3.5,—,—,0,Under Hit
-2026-09-04,Hagen Smith,Chicago White Sox,Minnesota Twins,2.0,3,—,—,—,0,—
-2026-09-04,Adrian Morejon,San Diego Padres,New York Yankees,1.0,3,—,—,—,0,—
+2026-09-05,Parker Messick,Cleveland Guardians,Detroit Tigers,6.0,12,6.5,-107,-121,52,Over Hit
+2026-09-05,Braxton Ashcraft,Pittsburgh Pirates,Los Angeles Angels,5.0,9,6.5,+100,+110,50,Over Hit
+2026-09-05,Zack Wheeler,Philadelphia Phillies,Atlanta Braves,6.0,9,7.5,+128,-122,44,Over Hit
+2026-09-05,Cade Cavalli,Washington Nationals,Los Angeles Dodgers,6.0,8,5.5,-155,+116,61,Over Hit
+2026-09-05,Tyler Glasnow,Los Angeles Dodgers,Washington Nationals,6.0,8,7.5,+106,-141,49,Over Hit
+2026-09-05,Mason Adams,Colorado Rockies,St. Louis Cardinals,4.2,7,3.5,-122,-108,55,Over Hit
+2026-09-05,Jacob deGrom,Texas Rangers,Tampa Bay Rays,6.0,7,5.5,-130,-138,57,Over Hit
+2026-09-05,Drew Rasmussen,Tampa Bay Rays,Texas Rangers,7.0,7,5.5,-117,-104,54,Over Hit
+2026-09-05,Sonny Gray,Boston Red Sox,Baltimore Orioles,7.0,7,6.5,+114,-105,47,Over Hit
+2026-09-05,Carlos Rodón,New York Yankees,San Diego Padres,5.0,7,4.5,-155,+115,61,Over Hit
+2026-09-05,Anthony Molina,San Francisco Giants,New York Mets,5.0,6,3.5,-112,-134,53,Over Hit
+2026-09-05,Chris Bassitt,Baltimore Orioles,Boston Red Sox,5.2,6,4.5,-103,-138,51,Over Hit
+2026-09-05,Taj Bradley,Minnesota Twins,Chicago White Sox,5.0,6,6.5,-110,-138,52,Under Hit
+2026-09-05,Zac Thornton,New York Mets,San Francisco Giants,5.0,6,4.5,-137,+112,58,Over Hit
+2026-09-05,Yusei Kikuchi,Los Angeles Angels,Pittsburgh Pirates,6.0,6,6.5,+135,-127,43,Under Hit
+2026-09-05,Jeffrey Springs,Athletics,Seattle Mariners,7.0,6,4.5,+125,-167,44,Over Hit
+2026-09-05,Dustin May,Milwaukee Brewers,Cincinnati Reds,3.2,5,5.5,+112,-121,47,Under Hit
+2026-09-05,Ryan Gusto,Miami Marlins,Chicago Cubs,4.2,5,3.5,-143,+106,59,Over Hit
+2026-09-05,George Kirby,Seattle Mariners,Athletics,6.2,5,5.5,+104,-137,49,Under Hit
+2026-09-05,Andrew Abbott,Cincinnati Reds,Milwaukee Brewers,4.0,5,4.5,+143,+105,41,Over Hit
+2026-09-05,Brandon Pfaadt,Arizona Diamondbacks,Houston Astros,6.1,4,4.5,+117,-157,46,Under Hit
+2026-09-05,Martín Pérez,Atlanta Braves,Philadelphia Phillies,3.2,3,3.5,-124,-129,55,Under Hit
+2026-09-05,Javier Assad,Chicago Cubs,Miami Marlins,4.2,3,3.5,-118,-102,54,Under Hit
+2026-09-05,Framber Valdez,Detroit Tigers,Cleveland Guardians,7.0,3,4.5,-152,+119,60,Under Hit
+2026-09-05,Austin Peterson,Cleveland Guardians,Detroit Tigers,2.0,3,—,—,—,0,—
+2026-09-05,Albert Suárez,Baltimore Orioles,Boston Red Sox,3.0,3,—,—,—,0,—
+2026-09-05,Tejay Antone,Cincinnati Reds,Milwaukee Brewers,1.0,3,—,—,—,0,—
+2026-09-05,DL Hall,Milwaukee Brewers,Cincinnati Reds,1.1,3,—,—,—,0,—
+2026-09-05,Tyler Wells,Tampa Bay Rays,Texas Rangers,2.0,3,—,—,—,0,—
+2026-09-05,Anthony Kay,Chicago White Sox,Minnesota Twins,4.1,3,3.5,-139,+121,58,Under Hit
+2026-09-05,Matthew Liberatore,St. Louis Cardinals,Colorado Rockies,4.1,3,5.5,+112,-148,47,Under Hit
+2026-09-05,Griffin Canning,San Diego Padres,New York Yankees,2.2,3,—,—,—,0,—
+2026-09-05,Tanner Scott,Los Angeles Dodgers,Washington Nationals,1.0,3,—,—,—,0,—
