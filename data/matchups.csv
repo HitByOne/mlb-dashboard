@@ -1,16 +1,12 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824469,2026-09-06,Milwaukee Brewers,158,Cincinnati Reds,113,Kyle Harrison,690986,Brady Singer,663903
-823417,2026-09-06,Atlanta Braves,144,Philadelphia Phillies,143,Tyler Mahle,641816,Aaron Nola,605400
-824794,2026-09-06,Boston Red Sox,111,Baltimore Orioles,110,Payton Tolle,801139,Kyle Bradish,680694
-823336,2026-09-06,Los Angeles Angels,108,Pittsburgh Pirates,134,Walbert Ureña,700712,Paul Skenes,694973
-824385,2026-09-06,Detroit Tigers,116,Cleveland Guardians,114,Jackson Jobe,695549,Gavin Williams,668909
-823578,2026-09-06,San Francisco Giants,137,New York Mets,121,Cesar Perdomo,702885,Christian Scott,681035
-823822,2026-09-06,Chicago Cubs,112,Miami Marlins,146,Clay Holmes,605280,Tyler Phillips,663969
-824142,2026-09-06,Arizona Diamondbacks,109,Houston Astros,117,Eduardo Rodriguez,593958,Peter Lambert,663567
-824065,2026-09-06,Toronto Blue Jays,141,Kansas City Royals,118,Spencer Arrighetti,681293,Randy Dobnak,677976
-822848,2026-09-06,Tampa Bay Rays,139,Texas Rangers,140,Ian Seymour,693855,MacKenzie Gore,669022
-824309,2026-09-06,St. Louis Cardinals,138,Colorado Rockies,115,Kyle Leahy,681517,Tanner Gordon,685299
-823091,2026-09-06,Athletics,133,Seattle Mariners,136,Gage Jump,695611,Bryan Woo,693433
-823253,2026-09-06,New York Yankees,147,San Diego Padres,135,Gerrit Cole,543037,Michael King,650633
-824552,2026-09-06,Minnesota Twins,142,Chicago White Sox,145,Bailey Ober,641927,Bryan Hudson,663542
-823903,2026-09-06,Washington Nationals,120,Los Angeles Dodgers,119,Andrew Alvarez,674841,Justin Wrobleski,680736
+823415,2026-09-07,Atlanta Braves,144,Philadelphia Phillies,143,Grant Holmes,656550,Jesús Luzardo,666200
+823820,2026-09-07,New York Mets,121,Miami Marlins,146,Jonah Tong,804636,Eury Pérez,691587
+824715,2026-09-07,Los Angeles Angels,108,Boston Red Sox,111,Grayson Rodriguez,680570,TBD,
+824793,2026-09-07,Cleveland Guardians,114,Baltimore Orioles,110,Joey Cantillo,676282,Trevor Rogers,669432
+824062,2026-09-07,Arizona Diamondbacks,109,Kansas City Royals,118,TBD,,Noah Cameron,702070
+823742,2026-09-07,Chicago Cubs,112,Milwaukee Brewers,158,Matthew Boyd,571510,Robert Gasser,688107
+824229,2026-09-07,Minnesota Twins,142,Detroit Tigers,116,TBD,,Troy Melton,675512
+823254,2026-09-07,Washington Nationals,120,San Diego Padres,135,Jake Irvin,663623,Nick Pivetta,601713
+823175,2026-09-07,St. Louis Cardinals,138,San Francisco Giants,137,Michael McGreevy,700241,Logan Webb,657277
+823902,2026-09-07,Cincinnati Reds,113,Los Angeles Dodgers,119,Chase Burns,695505,TBD,
+824958,2026-09-07,Toronto Blue Jays,141,Athletics,133,Dylan Cease,656302,Jacob Lopez,682052
