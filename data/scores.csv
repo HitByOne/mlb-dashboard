@@ -1,16 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-08-31,San Francisco Giants,7,Atlanta Braves,3,San Francisco Giants,10
-2026-08-31,San Diego Padres,5,Cincinnati Reds,0,San Diego Padres,5
-2026-08-31,New York Mets,3,Tampa Bay Rays,2,New York Mets,5
-2026-08-31,Seattle Mariners,8,Boston Red Sox,9,Boston Red Sox,17
-2026-08-31,Miami Marlins,3,Washington Nationals,6,Washington Nationals,9
-2026-08-31,Detroit Tigers,1,Minnesota Twins,11,Minnesota Twins,12
-2026-08-31,Milwaukee Brewers,3,Chicago Cubs,17,Chicago Cubs,20
-2026-08-31,Athletics,1,Texas Rangers,8,Texas Rangers,9
-2026-08-31,Chicago White Sox,3,Houston Astros,6,Houston Astros,9
-2026-08-31,Baltimore Orioles,2,Colorado Rockies,1,Baltimore Orioles,3
-2026-08-31,New York Yankees,1,Los Angeles Angels,10,Los Angeles Angels,11
-2026-08-31,Philadelphia Phillies,2,Arizona Diamondbacks,1,Philadelphia Phillies,3
 2026-09-01,San Diego Padres,3,Cincinnati Reds,4,Cincinnati Reds,7
 2026-09-01,San Francisco Giants,12,Pittsburgh Pirates,13,Pittsburgh Pirates,25
 2026-09-01,New York Mets,2,Tampa Bay Rays,6,Tampa Bay Rays,8
@@ -96,3 +84,14 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-09-06,New York Yankees,3,San Diego Padres,4,San Diego Padres,7
 2026-09-06,Minnesota Twins,1,Chicago White Sox,10,Chicago White Sox,11
 2026-09-06,Washington Nationals,5,Los Angeles Dodgers,7,Los Angeles Dodgers,12
+2026-09-07,Atlanta Braves,0,Philadelphia Phillies,1,Philadelphia Phillies,1
+2026-09-07,New York Mets,9,Miami Marlins,4,New York Mets,13
+2026-09-07,Los Angeles Angels,2,Boston Red Sox,5,Boston Red Sox,7
+2026-09-07,Cleveland Guardians,4,Baltimore Orioles,6,Baltimore Orioles,10
+2026-09-07,Arizona Diamondbacks,5,Kansas City Royals,4,Arizona Diamondbacks,9
+2026-09-07,Chicago Cubs,3,Milwaukee Brewers,4,Milwaukee Brewers,7
+2026-09-07,Minnesota Twins,4,Detroit Tigers,5,Detroit Tigers,9
+2026-09-07,Washington Nationals,2,San Diego Padres,3,San Diego Padres,5
+2026-09-07,St. Louis Cardinals,4,San Francisco Giants,5,San Francisco Giants,9
+2026-09-07,Cincinnati Reds,3,Los Angeles Dodgers,6,Los Angeles Dodgers,9
+2026-09-07,Toronto Blue Jays,5,Athletics,6,Athletics,11
