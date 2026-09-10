@@ -1,11 +1,11 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-145,Chicago White Sox,0.23,0.255,14,55,36
-136,Seattle Mariners,0.233,0.227,4,36,25
-140,Texas Rangers,0.246,0.278,9,47,33
 117,Houston Astros,0.261,0.275,6,44,28
-139,Tampa Bay Rays,0.29,0.287,6,35,19
+145,Chicago White Sox,0.23,0.255,14,55,36
 134,Pittsburgh Pirates,0.273,0.304,5,31,12
-143,Philadelphia Phillies,0.255,0.265,12,40,28
+136,Seattle Mariners,0.233,0.227,4,36,25
+139,Tampa Bay Rays,0.29,0.287,6,35,19
 147,New York Yankees,0.229,0.237,6,47,25
-144,Atlanta Braves,0.162,0.114,5,39,20
 115,Colorado Rockies,0.241,0.192,11,50,40
+140,Texas Rangers,0.246,0.278,9,47,33
+144,Atlanta Braves,0.162,0.114,5,39,20
+143,Philadelphia Phillies,0.255,0.265,12,40,28
