@@ -6,22 +6,22 @@ pitcher_id,name,team,K,K9,ERA,IP,GS,avg_ip,BF,K_pct,BF_per_GS
 693645,Cam Schlittler,New York Yankees,220,11.1,2.01,178.2,30,5.9,701,0.314,23.4
 650911,Cristopher Sánchez,Philadelphia Phillies,210,10.1,2.79,187.1,30,6.2,778,0.27,25.9
 672282,Reid Detmers,Los Angeles Angels,191,10.2,3.32,168.0,29,5.8,672,0.284,23.2
+669302,Logan Gilbert,Seattle Mariners,187,9.8,3.72,172.0,29,5.9,686,0.273,23.7
+594798,Jacob deGrom,Texas Rangers,186,11.2,3.80,149.1,28,5.3,601,0.309,21.5
 676917,Cade Cavalli,Washington Nationals,185,10.5,3.12,158.2,30,5.3,663,0.279,22.1
 671737,Taj Bradley,Minnesota Twins,184,10.4,3.95,159.1,28,5.7,675,0.273,24.1
 519242,Chris Sale,Atlanta Braves,184,11.0,2.10,150.0,25,6.0,601,0.306,24.0
 694973,Paul Skenes,Pittsburgh Pirates,181,10.5,3.83,155.0,29,5.3,640,0.283,22.1
 690997,Nolan McLean,New York Mets,179,10.0,3.06,161.2,28,5.8,671,0.267,24.0
 695505,Chase Burns,Cincinnati Reds,176,10.7,2.73,148.1,27,5.5,602,0.292,22.3
-669302,Logan Gilbert,Seattle Mariners,176,9.6,3.71,165.0,28,5.9,661,0.266,23.6
-594798,Jacob deGrom,Texas Rangers,174,10.9,3.96,143.1,27,5.3,582,0.299,21.6
 677952,Braxton Ashcraft,Pittsburgh Pirates,173,9.4,3.65,165.1,28,5.9,667,0.259,23.8
 800048,Parker Messick,Cleveland Guardians,173,9.3,2.53,167.0,28,6.0,663,0.261,23.7
+554430,Zack Wheeler,Philadelphia Phillies,172,10.8,3.14,143.1,25,5.7,574,0.3,23.0
 592332,Kevin Gausman,Chicago Cubs,171,9.3,4.60,166.1,30,5.5,706,0.242,23.5
 808967,Yoshinobu Yamamoto,Los Angeles Dodgers,171,8.9,2.62,172.0,26,6.6,658,0.26,25.3
 669022,MacKenzie Gore,Texas Rangers,170,9.7,4.51,157.2,30,5.2,684,0.249,22.8
 680732,Sean Burke,Chicago White Sox,169,9.8,3.58,156.0,25,6.2,649,0.26,26.0
 669373,Tarik Skubal,Los Angeles Dodgers,164,10.6,2.84,139.2,23,6.1,548,0.299,23.8
-554430,Zack Wheeler,Philadelphia Phillies,163,10.8,3.23,136.1,24,5.7,547,0.298,22.8
 605400,Aaron Nola,Philadelphia Phillies,162,9.4,4.76,155.0,29,5.3,663,0.244,22.9
 801139,Payton Tolle,Boston Red Sox,159,10.4,3.15,137.0,24,5.7,551,0.289,23.0
 693433,Bryan Woo,Seattle Mariners,158,9.1,4.03,156.1,27,5.8,633,0.25,23.4

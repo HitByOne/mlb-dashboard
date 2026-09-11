@@ -10,20 +10,20 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 605400,Aaron Nola,Philadelphia Phillies,160,32,4.76,155.0,1.37,9.29
 664285,Framber Valdez,Detroit Tigers,157,15,4.17,157.2,1.36,8.96
 669461,Matthew Liberatore,St. Louis Cardinals,155,25,5.57,139.0,1.47,10.04
+607259,Nick Martinez,Tampa Bay Rays,154,19,2.92,166.1,1.07,8.33
 608379,Michael Wacha,Kansas City Royals,154,24,3.25,182.2,1.11,7.59
 607536,Kyle Freeland,Colorado Rockies,153,24,6.37,124.1,1.46,11.08
 518876,Merrill Kelly,Arizona Diamondbacks,153,27,5.06,147.2,1.47,9.33
 642547,Freddy Peralta,Tampa Bay Rays,153,23,4.82,153.0,1.36,9.00
 676440,Tanner Bibee,Cleveland Guardians,152,27,4.22,170.2,1.20,8.02
-607259,Nick Martinez,Tampa Bay Rays,152,19,3.04,160.0,1.10,8.55
 608372,Tomoyuki Sugano,Colorado Rockies,152,29,5.30,137.2,1.34,9.94
 700241,Michael McGreevy,St. Louis Cardinals,151,20,3.92,154.0,1.25,8.82
 593958,Eduardo Rodriguez,Arizona Diamondbacks,151,15,2.55,173.0,1.20,7.86
 656492,Foster Griffin,Cleveland Guardians,149,23,3.65,162.2,1.18,8.24
 680694,Kyle Bradish,Baltimore Orioles,148,18,3.91,152.0,1.42,8.76
+669022,MacKenzie Gore,Texas Rangers,148,18,4.51,157.2,1.34,8.45
 656849,David Peterson,Chicago Cubs,148,14,5.28,131.1,1.58,10.14
 671096,Andrew Abbott,Cincinnati Reds,147,22,4.43,152.1,1.42,8.68
-669022,MacKenzie Gore,Texas Rangers,147,18,4.51,157.2,1.33,8.39
 669432,Trevor Rogers,Baltimore Orioles,147,16,4.15,151.2,1.21,8.72
 677952,Braxton Ashcraft,Pittsburgh Pirates,145,22,3.65,165.1,1.09,7.89
 701542,Will Warren,New York Yankees,145,21,4.05,142.1,1.36,9.17
@@ -40,6 +40,7 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 657277,Logan Webb,San Francisco Giants,139,12,4.10,155.2,1.15,8.04
 640455,Sean Manaea,New York Mets,138,21,4.79,133.1,1.34,9.32
 667755,José Soriano,Toronto Blue Jays,138,16,3.48,163.0,1.28,7.62
+669302,Logan Gilbert,Seattle Mariners,137,27,3.72,172.0,1.05,7.17
 681517,Kyle Leahy,St. Louis Cardinals,137,14,3.41,132.0,1.33,9.34
 571945,Miles Mikolas,Washington Nationals,137,27,5.82,116.0,1.38,10.63
 641793,Zack Littell,Arizona Diamondbacks,136,30,5.21,124.1,1.41,9.84
@@ -48,6 +49,3 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 621111,Walker Buehler,San Diego Padres,135,19,4.61,138.2,1.36,8.76
 543243,Sonny Gray,Boston Red Sox,135,15,2.69,150.2,1.16,8.06
 669467,Andre Pallante,St. Louis Cardinals,135,10,3.45,146.0,1.23,8.32
-677944,Slade Cecconi,Cleveland Guardians,134,19,5.06,115.2,1.48,10.43
-669302,Logan Gilbert,Seattle Mariners,134,26,3.71,165.0,1.07,7.31
-607067,Colin Rea,Chicago Cubs,134,21,4.47,133.0,1.36,9.07
