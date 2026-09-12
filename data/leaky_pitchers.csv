@@ -1,19 +1,21 @@
 pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 645261,Sandy Alcantara,Miami Marlins,188,22,3.78,200.0,1.22,8.46
+669923,George Kirby,Seattle Mariners,186,21,4.25,165.1,1.36,10.13
+607625,Seth Lugo,Kansas City Royals,185,19,4.99,164.0,1.45,10.15
 650911,Cristopher Sánchez,Philadelphia Phillies,185,16,2.79,187.1,1.21,8.89
 547179,Michael Lorenzen,Toronto Blue Jays,180,22,7.02,124.1,1.86,13.03
-607625,Seth Lugo,Kansas City Royals,178,18,5.04,159.0,1.44,10.08
-669923,George Kirby,Seattle Mariners,177,20,4.18,159.1,1.34,10.00
 592332,Kevin Gausman,Chicago Cubs,168,24,4.60,166.1,1.29,9.09
 669358,Shane Baz,Baltimore Orioles,167,14,4.05,169.0,1.33,8.89
+605400,Aaron Nola,Philadelphia Phillies,166,34,4.69,161.1,1.37,9.26
 663903,Brady Singer,Cincinnati Reds,164,27,5.03,146.2,1.47,10.06
-605400,Aaron Nola,Philadelphia Phillies,160,32,4.76,155.0,1.37,9.29
-664285,Framber Valdez,Detroit Tigers,157,15,4.17,157.2,1.36,8.96
-669461,Matthew Liberatore,St. Louis Cardinals,155,25,5.57,139.0,1.47,10.04
+664285,Framber Valdez,Detroit Tigers,163,15,4.01,163.2,1.36,8.96
+669461,Matthew Liberatore,St. Louis Cardinals,161,27,5.53,143.1,1.49,10.11
+671096,Andrew Abbott,Cincinnati Reds,156,24,4.84,154.1,1.46,9.10
+518876,Merrill Kelly,Arizona Diamondbacks,155,27,4.97,152.0,1.46,9.18
 607259,Nick Martinez,Tampa Bay Rays,154,19,2.92,166.1,1.07,8.33
 608379,Michael Wacha,Kansas City Royals,154,24,3.25,182.2,1.11,7.59
 607536,Kyle Freeland,Colorado Rockies,153,24,6.37,124.1,1.46,11.08
-518876,Merrill Kelly,Arizona Diamondbacks,153,27,5.06,147.2,1.47,9.33
+669022,MacKenzie Gore,Texas Rangers,153,18,4.62,161.2,1.35,8.52
 642547,Freddy Peralta,Tampa Bay Rays,153,23,4.82,153.0,1.36,9.00
 676440,Tanner Bibee,Cleveland Guardians,152,27,4.22,170.2,1.20,8.02
 608372,Tomoyuki Sugano,Colorado Rockies,152,29,5.30,137.2,1.34,9.94
@@ -21,20 +23,20 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 593958,Eduardo Rodriguez,Arizona Diamondbacks,151,15,2.55,173.0,1.20,7.86
 656492,Foster Griffin,Cleveland Guardians,149,23,3.65,162.2,1.18,8.24
 680694,Kyle Bradish,Baltimore Orioles,148,18,3.91,152.0,1.42,8.76
-669022,MacKenzie Gore,Texas Rangers,148,18,4.51,157.2,1.34,8.45
 656849,David Peterson,Chicago Cubs,148,14,5.28,131.1,1.58,10.14
-671096,Andrew Abbott,Cincinnati Reds,147,22,4.43,152.1,1.42,8.68
+641743,Anthony Kay,Chicago White Sox,147,20,4.53,145.0,1.37,9.12
 669432,Trevor Rogers,Baltimore Orioles,147,16,4.15,151.2,1.21,8.72
 677952,Braxton Ashcraft,Pittsburgh Pirates,145,22,3.65,165.1,1.09,7.89
+684007,Shota Imanaga,Chicago Cubs,145,34,3.88,162.1,1.12,8.04
 701542,Will Warren,New York Yankees,145,21,4.05,142.1,1.36,9.17
 622491,Luis Castillo,Chicago White Sox,144,24,5.57,126.0,1.46,10.29
+676917,Cade Cavalli,Washington Nationals,144,18,3.12,164.2,1.17,7.87
 702070,Noah Cameron,Kansas City Royals,142,16,3.93,160.1,1.20,7.97
-641743,Anthony Kay,Chicago White Sox,142,20,4.47,141.0,1.36,9.06
-676917,Cade Cavalli,Washington Nationals,141,17,3.12,158.2,1.18,8.00
+605488,Jeffrey Springs,Athletics,142,33,5.93,135.0,1.45,9.47
+543243,Sonny Gray,Boston Red Sox,141,15,2.76,156.2,1.17,8.10
 666200,Jesús Luzardo,Philadelphia Phillies,141,15,2.87,178.2,1.08,7.10
 676282,Joey Cantillo,Cleveland Guardians,140,17,4.00,144.0,1.51,8.75
 693821,Bryce Elder,Atlanta Braves,140,24,4.11,149.0,1.27,8.46
-684007,Shota Imanaga,Chicago Cubs,140,33,3.91,156.1,1.12,8.06
 687064,Brandon Young,Baltimore Orioles,140,20,3.71,140.2,1.35,8.96
 677958,Kumar Rocker,Texas Rangers,139,20,4.61,134.2,1.44,9.29
 657277,Logan Webb,San Francisco Giants,139,12,4.10,155.2,1.15,8.04
@@ -45,7 +47,5 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 571945,Miles Mikolas,Washington Nationals,137,27,5.82,116.0,1.38,10.63
 641793,Zack Littell,Arizona Diamondbacks,136,30,5.21,124.1,1.41,9.84
 663436,Davis Martin,Chicago White Sox,136,13,4.05,135.2,1.31,9.02
-605488,Jeffrey Springs,Athletics,136,33,6.02,130.0,1.45,9.42
 621111,Walker Buehler,San Diego Padres,135,19,4.61,138.2,1.36,8.76
-543243,Sonny Gray,Boston Red Sox,135,15,2.69,150.2,1.16,8.06
 669467,Andre Pallante,St. Louis Cardinals,135,10,3.45,146.0,1.23,8.32

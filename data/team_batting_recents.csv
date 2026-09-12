@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-134,Pittsburgh Pirates,0.277,0.324,6,27,14
-108,Los Angeles Angels,0.292,0.324,5,48,31
-117,Houston Astros,0.261,0.287,10,48,26
-112,Chicago Cubs,0.232,0.186,9,41,27
-120,Washington Nationals,0.205,0.165,8,51,27
-115,Colorado Rockies,0.226,0.173,12,58,36
-118,Kansas City Royals,0.216,0.214,5,34,21
-110,Baltimore Orioles,0.219,0.253,10,56,29
-119,Los Angeles Dodgers,0.258,0.255,10,45,26
-116,Detroit Tigers,0.216,0.215,10,62,29
-111,Boston Red Sox,0.205,0.214,8,48,27
-121,New York Mets,0.287,0.333,7,37,24
-147,New York Yankees,0.263,0.274,5,37,21
-141,Toronto Blue Jays,0.275,0.26,9,28,19
-139,Tampa Bay Rays,0.267,0.252,6,34,21
-146,Miami Marlins,0.296,0.316,7,40,28
-143,Philadelphia Phillies,0.225,0.253,9,43,27
-113,Cincinnati Reds,0.266,0.186,13,56,35
-144,Atlanta Braves,0.178,0.169,3,30,11
-158,Milwaukee Brewers,0.253,0.273,10,51,31
-133,Athletics,0.166,0.17,5,38,21
-109,Arizona Diamondbacks,0.256,0.262,6,39,23
-138,St. Louis Cardinals,0.273,0.21,5,39,19
-114,Cleveland Guardians,0.241,0.28,8,32,20
-136,Seattle Mariners,0.205,0.204,16,50,28
-145,Chicago White Sox,0.207,0.17,11,59,35
-142,Minnesota Twins,0.192,0.198,8,38,18
-140,Texas Rangers,0.231,0.222,13,56,38
-137,San Francisco Giants,0.247,0.265,9,41,21
-135,San Diego Padres,0.258,0.323,7,33,18
+137,San Francisco Giants,0.226,0.232,11,44,26
+121,New York Mets,0.299,0.28,9,37,23
+118,Kansas City Royals,0.232,0.24,8,37,21
+134,Pittsburgh Pirates,0.269,0.242,4,22,15
+120,Washington Nationals,0.194,0.179,9,47,28
+108,Los Angeles Angels,0.259,0.316,11,46,27
+135,San Diego Padres,0.299,0.327,8,29,22
+114,Cleveland Guardians,0.256,0.264,9,38,23
+110,Baltimore Orioles,0.244,0.26,12,58,30
+147,New York Yankees,0.286,0.313,7,37,18
+111,Boston Red Sox,0.2,0.198,10,48,31
+115,Colorado Rockies,0.216,0.223,5,57,28
+112,Chicago Cubs,0.25,0.277,2,34,23
+141,Toronto Blue Jays,0.26,0.262,9,33,24
+116,Detroit Tigers,0.191,0.195,5,51,22
+142,Minnesota Twins,0.184,0.178,7,40,20
+145,Chicago White Sox,0.224,0.198,7,54,32
+158,Milwaukee Brewers,0.32,0.373,6,43,28
+143,Philadelphia Phillies,0.22,0.216,9,46,30
+140,Texas Rangers,0.235,0.176,8,54,30
+109,Arizona Diamondbacks,0.274,0.276,3,34,14
+119,Los Angeles Dodgers,0.261,0.29,6,40,23
+138,St. Louis Cardinals,0.278,0.263,5,32,13
+146,Miami Marlins,0.311,0.339,11,44,27
+133,Athletics,0.191,0.24,6,37,17
+117,Houston Astros,0.269,0.282,6,44,22
+144,Atlanta Braves,0.178,0.216,6,29,14
+113,Cincinnati Reds,0.212,0.14,8,52,29
+139,Tampa Bay Rays,0.247,0.209,5,30,17
+136,Seattle Mariners,0.22,0.206,4,45,24
