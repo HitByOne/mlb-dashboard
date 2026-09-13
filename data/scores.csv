@@ -1,19 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-09-05,San Francisco Giants,9,New York Mets,5,San Francisco Giants,14
-2026-09-05,Chicago Cubs,6,Miami Marlins,5,Chicago Cubs,11
-2026-09-05,Atlanta Braves,2,Philadelphia Phillies,4,Philadelphia Phillies,6
-2026-09-05,Detroit Tigers,6,Cleveland Guardians,0,Detroit Tigers,6
-2026-09-05,Los Angeles Angels,6,Pittsburgh Pirates,1,Los Angeles Angels,7
-2026-09-05,Milwaukee Brewers,3,Cincinnati Reds,5,Cincinnati Reds,8
-2026-09-05,Boston Red Sox,5,Baltimore Orioles,0,Boston Red Sox,5
-2026-09-05,Tampa Bay Rays,6,Texas Rangers,3,Tampa Bay Rays,9
-2026-09-05,Toronto Blue Jays,4,Kansas City Royals,3,Toronto Blue Jays,7
-2026-09-05,Minnesota Twins,6,Chicago White Sox,4,Minnesota Twins,10
-2026-09-05,Arizona Diamondbacks,4,Houston Astros,3,Arizona Diamondbacks,7
-2026-09-05,New York Yankees,5,San Diego Padres,1,New York Yankees,6
-2026-09-05,St. Louis Cardinals,7,Colorado Rockies,10,Colorado Rockies,17
-2026-09-05,Washington Nationals,5,Los Angeles Dodgers,6,Los Angeles Dodgers,11
-2026-09-05,Athletics,6,Seattle Mariners,2,Athletics,8
 2026-09-06,Milwaukee Brewers,8,Cincinnati Reds,12,Cincinnati Reds,20
 2026-09-06,Atlanta Braves,5,Philadelphia Phillies,4,Atlanta Braves,9
 2026-09-06,Boston Red Sox,3,Baltimore Orioles,1,Boston Red Sox,4
@@ -90,3 +75,18 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-09-11,Seattle Mariners,5,Athletics,6,Athletics,11
 2026-09-11,Texas Rangers,1,Arizona Diamondbacks,9,Arizona Diamondbacks,10
 2026-09-11,San Diego Padres,7,San Francisco Giants,5,San Diego Padres,12
+2026-09-12,Colorado Rockies,7,Detroit Tigers,11,Detroit Tigers,18
+2026-09-12,New York Mets,12,New York Yankees,2,New York Mets,14
+2026-09-12,Pittsburgh Pirates,3,Chicago Cubs,4,Chicago Cubs,7
+2026-09-12,Baltimore Orioles,3,Toronto Blue Jays,7,Toronto Blue Jays,10
+2026-09-12,Los Angeles Angels,5,Washington Nationals,6,Washington Nationals,11
+2026-09-12,San Diego Padres,7,San Francisco Giants,6,San Diego Padres,13
+2026-09-12,Kansas City Royals,1,Boston Red Sox,5,Boston Red Sox,6
+2026-09-12,Cleveland Guardians,3,Minnesota Twins,4,Minnesota Twins,7
+2026-09-12,Los Angeles Dodgers,3,Miami Marlins,4,Miami Marlins,7
+2026-09-12,Houston Astros,2,Tampa Bay Rays,3,Tampa Bay Rays,5
+2026-09-12,Cincinnati Reds,9,Milwaukee Brewers,13,Milwaukee Brewers,22
+2026-09-12,Philadelphia Phillies,2,Atlanta Braves,12,Atlanta Braves,14
+2026-09-12,Chicago White Sox,6,St. Louis Cardinals,5,Chicago White Sox,11
+2026-09-12,Texas Rangers,6,Arizona Diamondbacks,2,Texas Rangers,8
+2026-09-12,Seattle Mariners,19,Athletics,1,Seattle Mariners,20
