@@ -1,11 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-824465,2026-09-14,Los Angeles Dodgers,119,Cincinnati Reds,113,Tarik Skubal,669373,Nick Lodolo,666157
-824386,2026-09-14,Chicago White Sox,145,Cleveland Guardians,114,Sean Newcomb,656794,Gavin Williams,668909
-822765,2026-09-14,Detroit Tigers,116,Toronto Blue Jays,141,Troy Melton,675512,José Soriano,667755
-823575,2026-09-14,Baltimore Orioles,110,New York Mets,121,Brandon Young,687064,Jonah Tong,804636
-824629,2026-09-14,Atlanta Braves,144,Chicago Cubs,112,Reynaldo López,625643,David Peterson,656849
-823656,2026-09-14,New York Yankees,147,Minnesota Twins,142,Will Warren,701542,Dean Kremer,665152
-823006,2026-09-14,San Francisco Giants,137,St. Louis Cardinals,138,Landen Roupp,694738,Quinn Mathews,687273
-824308,2026-09-14,San Diego Padres,135,Colorado Rockies,115,Casey Mize,663554,Tomoyuki Sugano,608372
-823981,2026-09-14,Seattle Mariners,136,Los Angeles Angels,108,Kade Anderson,807739,Reid Detmers,672282
-825034,2026-09-14,Miami Marlins,146,Arizona Diamondbacks,109,Sandy Alcantara,645261,Corbin Burnes,669203
+824466,2026-09-15,Los Angeles Dodgers,119,Cincinnati Reds,113,Yoshinobu Yamamoto,808967,Rhett Lowder,695076
+822925,2026-09-15,Athletics,133,Tampa Bay Rays,139,Jack Perkins,678022,Griffin Jax,643377
+824384,2026-09-15,Chicago White Sox,145,Cleveland Guardians,114,Davis Martin,663436,Foster Griffin,656492
+823333,2026-09-15,Milwaukee Brewers,158,Pittsburgh Pirates,134,Jacob Misiorowski,694819,Lake Bachar,669199
+822683,2026-09-15,Philadelphia Phillies,143,Washington Nationals,120,Cristopher Sánchez,650911,Jackson Kent,800600
+822762,2026-09-15,Detroit Tigers,116,Toronto Blue Jays,141,Drew Anderson,623454,Braydon Fisher,680755
+823574,2026-09-15,Baltimore Orioles,110,New York Mets,121,Shane Baz,669358,Sean Manaea,640455
+824627,2026-09-15,Atlanta Braves,144,Chicago Cubs,112,Martín Pérez,527048,Kevin Gausman,592332
+823654,2026-09-15,New York Yankees,147,Minnesota Twins,142,Max Fried,608331,Bailey Ober,641927
+823007,2026-09-15,San Francisco Giants,137,St. Louis Cardinals,138,Blade Tidwell,694918,Andre Pallante,669467
+822849,2026-09-15,Boston Red Sox,111,Texas Rangers,140,Patrick Sandoval,663776,TBD,
+824143,2026-09-15,Kansas City Royals,118,Houston Astros,117,Michael Wacha,608379,Hunter Brown,686613
+824307,2026-09-15,San Diego Padres,135,Colorado Rockies,115,Walker Buehler,621111,Kyle Freeland,607536
+823980,2026-09-15,Seattle Mariners,136,Los Angeles Angels,108,Logan Gilbert,669302,Ryan Johnson,696270
+825030,2026-09-15,Miami Marlins,146,Arizona Diamondbacks,109,Janson Junk,676083,Michael Soroka,647336
