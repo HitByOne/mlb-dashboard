@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
 142,Minnesota Twins,0.199,0.192,6,44,24
-138,St. Louis Cardinals,0.239,0.189,5,38,20
-158,Milwaukee Brewers,0.333,0.283,8,39,23
 116,Detroit Tigers,0.294,0.262,8,35,22
-141,Toronto Blue Jays,0.266,0.238,6,38,19
-137,San Francisco Giants,0.236,0.252,11,51,32
-139,Tampa Bay Rays,0.24,0.292,10,30,19
-134,Pittsburgh Pirates,0.231,0.24,10,35,25
-113,Cincinnati Reds,0.191,0.161,11,49,30
+138,St. Louis Cardinals,0.239,0.189,5,38,20
 133,Athletics,0.22,0.188,12,37,26
-147,New York Yankees,0.272,0.255,6,37,24
-145,Chicago White Sox,0.222,0.219,12,54,35
+141,Toronto Blue Jays,0.266,0.238,6,38,19
+134,Pittsburgh Pirates,0.231,0.24,10,35,25
 119,Los Angeles Dodgers,0.203,0.213,7,31,20
-143,Philadelphia Phillies,0.222,0.267,5,32,14
+145,Chicago White Sox,0.222,0.219,12,54,35
+137,San Francisco Giants,0.236,0.252,11,51,32
 114,Cleveland Guardians,0.241,0.276,2,31,13
+147,New York Yankees,0.272,0.255,6,37,24
+139,Tampa Bay Rays,0.24,0.292,10,30,19
+113,Cincinnati Reds,0.191,0.161,11,49,30
+158,Milwaukee Brewers,0.333,0.283,8,39,23
+143,Philadelphia Phillies,0.222,0.267,5,32,14
 120,Washington Nationals,0.261,0.317,8,41,24
-110,Baltimore Orioles,0.236,0.236,17,67,44
 121,New York Mets,0.237,0.2,6,40,24
-112,Chicago Cubs,0.261,0.213,4,20,12
-111,Boston Red Sox,0.242,0.253,15,46,28
-144,Atlanta Braves,0.294,0.279,9,41,27
-140,Texas Rangers,0.239,0.286,10,50,29
 118,Kansas City Royals,0.196,0.147,14,50,37
-135,San Diego Padres,0.31,0.303,6,36,24
-146,Miami Marlins,0.249,0.241,11,52,32
+144,Atlanta Braves,0.294,0.279,9,41,27
+112,Chicago Cubs,0.261,0.213,4,20,12
 117,Houston Astros,0.191,0.143,5,42,26
-115,Colorado Rockies,0.315,0.321,3,30,16
+111,Boston Red Sox,0.242,0.253,15,46,28
+140,Texas Rangers,0.239,0.286,10,50,29
+110,Baltimore Orioles,0.236,0.236,17,67,44
 108,Los Angeles Angels,0.182,0.217,10,51,30
+146,Miami Marlins,0.249,0.241,11,52,32
 136,Seattle Mariners,0.316,0.262,9,34,26
+115,Colorado Rockies,0.315,0.321,3,30,16
+135,San Diego Padres,0.31,0.303,6,36,24
 109,Arizona Diamondbacks,0.272,0.283,14,43,30
