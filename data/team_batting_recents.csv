@@ -1,19 +1,19 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-139,Tampa Bay Rays,0.261,0.291,6,30,21
-134,Pittsburgh Pirates,0.254,0.292,13,42,30
-158,Milwaukee Brewers,0.333,0.242,12,41,28
 119,Los Angeles Dodgers,0.196,0.194,10,35,23
-121,New York Mets,0.235,0.229,8,39,22
-135,San Diego Padres,0.317,0.33,7,35,21
-117,Houston Astros,0.191,0.174,7,39,19
-118,Kansas City Royals,0.195,0.173,6,51,32
-113,Cincinnati Reds,0.255,0.217,5,46,27
+134,Pittsburgh Pirates,0.254,0.292,13,42,30
 143,Philadelphia Phillies,0.231,0.252,7,30,17
+117,Houston Astros,0.191,0.174,7,39,19
 115,Colorado Rockies,0.29,0.312,9,34,14
-116,Detroit Tigers,0.295,0.248,6,36,21
+139,Tampa Bay Rays,0.261,0.291,6,30,21
+113,Cincinnati Reds,0.255,0.217,5,46,27
 133,Athletics,0.235,0.216,8,40,27
+158,Milwaukee Brewers,0.333,0.242,12,41,28
+135,San Diego Padres,0.317,0.33,7,35,21
+116,Detroit Tigers,0.295,0.248,6,36,21
 111,Boston Red Sox,0.22,0.185,3,41,26
-145,Chicago White Sox,0.215,0.245,10,57,36
 140,Texas Rangers,0.281,0.291,9,46,29
+121,New York Mets,0.235,0.229,8,39,22
+118,Kansas City Royals,0.195,0.173,6,51,32
+145,Chicago White Sox,0.215,0.245,10,57,36
 142,Minnesota Twins,0.212,0.217,11,48,24
 108,Los Angeles Angels,0.212,0.268,11,51,28
