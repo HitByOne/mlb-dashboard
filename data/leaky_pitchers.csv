@@ -1,37 +1,37 @@
 pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
-645261,Sandy Alcantara,Miami Marlins,195,23,3.86,205.0,1.23,8.56
+645261,Sandy Alcantara,Miami Marlins,195,23,3.84,206.0,1.23,8.52
 650911,Cristopher Sánchez,Philadelphia Phillies,193,17,2.93,193.2,1.22,8.97
-669923,George Kirby,Seattle Mariners,186,21,4.25,165.1,1.36,10.13
+669923,George Kirby,Seattle Mariners,191,21,4.24,169.2,1.39,10.13
 547179,Michael Lorenzen,Toronto Blue Jays,186,23,7.21,127.1,1.88,13.15
 607625,Seth Lugo,Kansas City Royals,185,19,4.99,164.0,1.45,10.15
 669358,Shane Baz,Baltimore Orioles,174,15,4.11,173.0,1.35,9.05
 592332,Kevin Gausman,Chicago Cubs,173,25,4.55,172.0,1.27,9.05
 663903,Brady Singer,Cincinnati Reds,172,30,5.38,150.2,1.51,10.27
+669461,Matthew Liberatore,St. Louis Cardinals,167,27,5.36,149.1,1.49,10.06
 605400,Aaron Nola,Philadelphia Phillies,166,34,4.69,161.1,1.37,9.26
 664285,Framber Valdez,Detroit Tigers,163,15,4.01,163.2,1.36,8.96
+518876,Merrill Kelly,Arizona Diamondbacks,162,28,5.00,156.2,1.47,9.31
 607536,Kyle Freeland,Colorado Rockies,161,27,6.38,128.1,1.47,11.29
-669461,Matthew Liberatore,St. Louis Cardinals,161,27,5.53,143.1,1.49,10.11
 608372,Tomoyuki Sugano,Colorado Rockies,160,31,5.49,142.2,1.36,10.09
+671096,Andrew Abbott,Cincinnati Reds,159,24,4.70,159.0,1.47,9.00
+607259,Nick Martinez,Tampa Bay Rays,159,21,2.94,171.1,1.07,8.35
 593958,Eduardo Rodriguez,Arizona Diamondbacks,159,16,2.62,178.1,1.22,8.02
 608379,Michael Wacha,Kansas City Royals,158,27,3.34,188.2,1.10,7.54
-671096,Andrew Abbott,Cincinnati Reds,156,24,4.78,154.1,1.46,9.10
 676440,Tanner Bibee,Cleveland Guardians,156,28,4.16,177.1,1.18,7.92
 680694,Kyle Bradish,Baltimore Orioles,156,20,4.12,155.0,1.46,9.06
-518876,Merrill Kelly,Arizona Diamondbacks,155,27,4.97,152.0,1.46,9.18
+669022,MacKenzie Gore,Texas Rangers,155,19,4.67,165.2,1.35,8.42
 656492,Foster Griffin,Cleveland Guardians,154,23,3.67,166.2,1.19,8.32
-607259,Nick Martinez,Tampa Bay Rays,154,19,2.92,166.1,1.07,8.33
 700241,Michael McGreevy,St. Louis Cardinals,154,20,3.83,160.0,1.24,8.66
 669432,Trevor Rogers,Baltimore Orioles,154,19,4.22,157.2,1.22,8.79
-669022,MacKenzie Gore,Texas Rangers,153,18,4.62,161.2,1.35,8.52
 642547,Freddy Peralta,Tampa Bay Rays,153,23,4.67,158.0,1.34,8.72
 656849,David Peterson,Chicago Cubs,151,14,5.11,137.1,1.55,9.90
 701542,Will Warren,New York Yankees,150,21,3.89,148.0,1.36,9.12
+684007,Shota Imanaga,Chicago Cubs,149,34,3.80,168.1,1.10,7.97
+641743,Anthony Kay,Chicago White Sox,149,20,4.41,149.0,1.36,9.00
 622491,Luis Castillo,Chicago White Sox,148,24,5.67,128.2,1.48,10.35
-641743,Anthony Kay,Chicago White Sox,147,20,4.53,145.0,1.37,9.12
 657277,Logan Webb,San Francisco Giants,147,13,4.31,160.2,1.17,8.23
 702070,Noah Cameron,Kansas City Royals,146,17,3.84,166.1,1.19,7.90
 677952,Braxton Ashcraft,Pittsburgh Pirates,145,22,3.65,165.1,1.09,7.89
-684007,Shota Imanaga,Chicago Cubs,145,34,3.88,162.1,1.12,8.04
 687064,Brandon Young,Baltimore Orioles,145,21,3.65,145.2,1.37,8.96
 676917,Cade Cavalli,Washington Nationals,144,18,3.12,164.2,1.17,7.87
 669302,Logan Gilbert,Seattle Mariners,143,28,3.69,178.0,1.06,7.23
@@ -48,5 +48,4 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 663436,Davis Martin,Chicago White Sox,140,14,3.96,141.0,1.30,8.94
 681517,Kyle Leahy,St. Louis Cardinals,139,14,3.33,135.0,1.31,9.27
 695076,Rhett Lowder,Cincinnati Reds,138,18,5.79,124.1,1.52,9.99
-571945,Miles Mikolas,Washington Nationals,137,27,5.82,116.0,1.38,10.63
-694973,Paul Skenes,Pittsburgh Pirates,137,17,3.78,162.0,1.13,7.61
+800048,Parker Messick,Cleveland Guardians,138,17,2.57,178.1,1.04,6.96

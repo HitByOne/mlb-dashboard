@@ -1,43 +1,43 @@
 Rank,Player,Team,League,HR,player_id
 1,Kyle Schwarber,Philadelphia Phillies,NL,45,656941
-2,Pete Crow-Armstrong,Chicago Cubs,NL,42,691718
+2,Pete Crow-Armstrong,Chicago Cubs,NL,44,691718
 3,Junior Caminero,Tampa Bay Rays,AL,41,691406
 4,Yordan Alvarez,Houston Astros,AL,39,670541
 4,Matt Olson,Atlanta Braves,NL,39,621566
 6,Hunter Goodman,Colorado Rockies,NL,38,696100
 6,Ben Rice,New York Yankees,AL,38,700250
+8,Pete Alonso,Baltimore Orioles,AL,37,624413
 8,Rafael Devers,San Francisco Giants,NL,37,646240
-9,Pete Alonso,Baltimore Orioles,AL,36,624413
 10,Kazuma Okamoto,Toronto Blue Jays,AL,33,672960
+11,Brandon Lowe,Pittsburgh Pirates,NL,31,664040
 11,Colson Montgomery,Chicago White Sox,AL,31,695657
 11,Munetaka Murakami,Chicago White Sox,AL,31,808959
 11,Sal Stewart,Cincinnati Reds,NL,31,701398
 11,Miguel Vargas,Chicago White Sox,AL,31,678246
-15,CJ Abrams,Washington Nationals,NL,30,682928
-15,Luis García Jr.,New York Yankees,AL,30,671277
-15,Brandon Lowe,Pittsburgh Pirates,NL,30,664040
-15,Shohei Ohtani,Los Angeles Dodgers,NL,30,660271
-15,James Wood,Washington Nationals,NL,30,695578
+16,CJ Abrams,Washington Nationals,NL,30,682928
+16,Luis García Jr.,New York Yankees,AL,30,671277
+16,Shohei Ohtani,Los Angeles Dodgers,NL,30,660271
+16,James Wood,Washington Nationals,NL,30,695578
+20,Elly De La Cruz,Cincinnati Reds,NL,28,682829
 20,Bryce Harper,Philadelphia Phillies,NL,28,547180
 20,Manny Machado,San Diego Padres,NL,28,592518
 20,Max Muncy,Los Angeles Dodgers,NL,28,571970
 20,Jordan Walker,St. Louis Cardinals,NL,28,691023
-24,Elly De La Cruz,Cincinnati Reds,NL,27,682829
-24,Dillon Dingler,Detroit Tigers,AL,27,693307
-26,Jake Bauers,Milwaukee Brewers,NL,26,641343
-26,Jake Burger,Texas Rangers,AL,26,669394
-26,Kody Clemens,Minnesota Twins,AL,26,665019
-26,Willson Contreras,Boston Red Sox,AL,26,575929
-26,Zach Neto,Los Angeles Angels,AL,26,687263
-26,Joc Pederson,Texas Rangers,AL,26,592626
-32,Nolan Arenado,Arizona Diamondbacks,NL,25,571448
-32,Randy Arozarena,Seattle Mariners,AL,25,668227
-32,Alex Bregman,Chicago Cubs,NL,25,608324
-32,Byron Buxton,Minnesota Twins,AL,25,621439
-32,Michael Harris II,Atlanta Braves,NL,25,671739
-32,Jackson Merrill,San Diego Padres,NL,25,701538
-32,Juan Soto,New York Mets,NL,25,665742
-32,Christian Walker,Houston Astros,AL,25,572233
+25,Willson Contreras,Boston Red Sox,AL,27,575929
+25,Dillon Dingler,Detroit Tigers,AL,27,693307
+27,Nolan Arenado,Arizona Diamondbacks,NL,26,571448
+27,Jake Bauers,Milwaukee Brewers,NL,26,641343
+27,Alex Bregman,Chicago Cubs,NL,26,608324
+27,Jake Burger,Texas Rangers,AL,26,669394
+27,Kody Clemens,Minnesota Twins,AL,26,665019
+27,Zach Neto,Los Angeles Angels,AL,26,687263
+27,Joc Pederson,Texas Rangers,AL,26,592626
+34,Randy Arozarena,Seattle Mariners,AL,25,668227
+34,Byron Buxton,Minnesota Twins,AL,25,621439
+34,Michael Harris II,Atlanta Braves,NL,25,671739
+34,Jackson Merrill,San Diego Padres,NL,25,701538
+34,Juan Soto,New York Mets,NL,25,665742
+34,Christian Walker,Houston Astros,AL,25,572233
 40,Wilyer Abreu,Boston Red Sox,AL,24,677800
 40,Drake Baldwin,Atlanta Braves,NL,24,686948
 40,Heriberto Hernández,Miami Marlins,NL,24,681715
