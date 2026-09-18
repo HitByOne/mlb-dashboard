@@ -1,10 +1,16 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823334,2026-09-17,Milwaukee Brewers,158,Pittsburgh Pirates,134,Kyle Harrison,690986,Wilber Dotel,696062
-824464,2026-09-17,Los Angeles Dodgers,119,Cincinnati Reds,113,Justin Wrobleski,680736,Brady Singer,663903
-822924,2026-09-17,Athletics,133,Tampa Bay Rays,139,Jeffrey Springs,605488,Drew Rasmussen,656876
-824305,2026-09-17,San Diego Padres,135,Colorado Rockies,115,Michael King,650633,Tanner Gordon,685299
-824141,2026-09-17,Kansas City Royals,118,Houston Astros,117,Seth Lugo,607625,TBD,
-823573,2026-09-17,Philadelphia Phillies,143,New York Mets,121,Aaron Nola,605400,Nolan McLean,690997
-824548,2026-09-17,Detroit Tigers,116,Chicago White Sox,145,Framber Valdez,664285,Erick Fedde,607200
-822845,2026-09-17,Boston Red Sox,111,Texas Rangers,140,Sonny Gray,543243,Tyler Alexander,641302
-823978,2026-09-17,Minnesota Twins,142,Los Angeles Angels,108,Taj Bradley,671737,Walbert Ureña,700712
+824463,2026-09-18,Chicago Cubs,112,Cincinnati Reds,113,Clay Holmes,605280,Chase Burns,695505
+823331,2026-09-18,Kansas City Royals,118,Pittsburgh Pirates,134,Randy Dobnak,677976,Paul Skenes,694973
+824790,2026-09-18,Milwaukee Brewers,158,Baltimore Orioles,110,Dustin May,669160,TBD,
+824383,2026-09-18,Athletics,133,Cleveland Guardians,114,Mason Barnett,686930,Daniel Espino,682982
+822923,2026-09-18,Boston Red Sox,111,Tampa Bay Rays,139,Ranger Suarez,624133,Ian Seymour,693855
+823572,2026-09-18,Philadelphia Phillies,143,New York Mets,121,TBD,,Zac Thornton,804267
+824547,2026-09-18,Detroit Tigers,116,Chicago White Sox,145,Andrew Sears,808825,David Sandlin,689818
+822847,2026-09-18,Toronto Blue Jays,141,Texas Rangers,140,Dylan Cease,656302,Kumar Rocker,677958
+824303,2026-09-18,Seattle Mariners,136,Colorado Rockies,115,Bryan Woo,693433,TBD,
+824138,2026-09-18,Atlanta Braves,144,Houston Astros,117,Tyler Mahle,641816,Peter Lambert,663567
+823005,2026-09-18,Washington Nationals,120,St. Louis Cardinals,138,Cade Cavalli,676917,Kyle Leahy,681517
+823977,2026-09-18,Minnesota Twins,142,Los Angeles Angels,108,Connor Prielipp,687570,Grayson Rodriguez,680570
+823252,2026-09-18,Miami Marlins,146,San Diego Padres,135,Tyler Phillips,663969,Nick Pivetta,601713
+825032,2026-09-18,New York Yankees,147,Arizona Diamondbacks,109,Gerrit Cole,543037,Eduardo Rodriguez,593958
+823898,2026-09-18,San Francisco Giants,137,Los Angeles Dodgers,119,Cesar Perdomo,702885,Tyler Glasnow,607192

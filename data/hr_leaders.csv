@@ -2,18 +2,18 @@ Rank,Player,Team,League,HR,player_id
 1,Kyle Schwarber,Philadelphia Phillies,NL,45,656941
 2,Pete Crow-Armstrong,Chicago Cubs,NL,44,691718
 3,Junior Caminero,Tampa Bay Rays,AL,41,691406
-4,Yordan Alvarez,Houston Astros,AL,39,670541
-4,Matt Olson,Atlanta Braves,NL,39,621566
+4,Yordan Alvarez,Houston Astros,AL,40,670541
+5,Matt Olson,Atlanta Braves,NL,39,621566
 6,Hunter Goodman,Colorado Rockies,NL,38,696100
 6,Ben Rice,New York Yankees,AL,38,700250
 8,Pete Alonso,Baltimore Orioles,AL,37,624413
 8,Rafael Devers,San Francisco Giants,NL,37,646240
 10,Kazuma Okamoto,Toronto Blue Jays,AL,33,672960
-11,Brandon Lowe,Pittsburgh Pirates,NL,31,664040
-11,Colson Montgomery,Chicago White Sox,AL,31,695657
-11,Munetaka Murakami,Chicago White Sox,AL,31,808959
-11,Sal Stewart,Cincinnati Reds,NL,31,701398
-11,Miguel Vargas,Chicago White Sox,AL,31,678246
+11,Munetaka Murakami,Chicago White Sox,AL,32,808959
+11,Sal Stewart,Cincinnati Reds,NL,32,701398
+13,Brandon Lowe,Pittsburgh Pirates,NL,31,664040
+13,Colson Montgomery,Chicago White Sox,AL,31,695657
+13,Miguel Vargas,Chicago White Sox,AL,31,678246
 16,CJ Abrams,Washington Nationals,NL,30,682928
 16,Luis García Jr.,New York Yankees,AL,30,671277
 16,Shohei Ohtani,Los Angeles Dodgers,NL,30,660271
@@ -78,4 +78,5 @@ Rank,Player,Team,League,HR,player_id
 74,Ty France,San Diego Padres,NL,20,664034
 74,Riley Greene,Detroit Tigers,AL,20,682985
 74,Francisco Lindor,New York Mets,NL,20,596019
+74,Jeremy Peña,Houston Astros,AL,20,665161
 74,Cam Smith,Houston Astros,AL,20,701358
