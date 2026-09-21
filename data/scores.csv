@@ -1,19 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-09-13,Colorado Rockies,1,Detroit Tigers,8,Detroit Tigers,9
-2026-09-13,Los Angeles Angels,5,Washington Nationals,6,Washington Nationals,11
-2026-09-13,Philadelphia Phillies,9,Atlanta Braves,4,Philadelphia Phillies,13
-2026-09-13,New York Mets,0,New York Yankees,2,New York Yankees,2
-2026-09-13,Baltimore Orioles,1,Toronto Blue Jays,8,Toronto Blue Jays,9
-2026-09-13,Houston Astros,4,Tampa Bay Rays,14,Tampa Bay Rays,18
-2026-09-13,Los Angeles Dodgers,4,Miami Marlins,6,Miami Marlins,10
-2026-09-13,Cleveland Guardians,9,Minnesota Twins,2,Cleveland Guardians,11
-2026-09-13,Cincinnati Reds,4,Milwaukee Brewers,3,Cincinnati Reds,7
-2026-09-13,Chicago White Sox,1,St. Louis Cardinals,3,St. Louis Cardinals,4
-2026-09-13,Pittsburgh Pirates,4,Chicago Cubs,3,Pittsburgh Pirates,7
-2026-09-13,Kansas City Royals,1,Boston Red Sox,4,Boston Red Sox,5
-2026-09-13,Seattle Mariners,7,Athletics,8,Athletics,15
-2026-09-13,Texas Rangers,7,Arizona Diamondbacks,6,Texas Rangers,13
-2026-09-13,San Diego Padres,6,San Francisco Giants,4,San Diego Padres,10
 2026-09-14,Los Angeles Dodgers,4,Cincinnati Reds,1,Los Angeles Dodgers,5
 2026-09-14,Chicago White Sox,7,Cleveland Guardians,3,Chicago White Sox,10
 2026-09-14,Detroit Tigers,6,Toronto Blue Jays,5,Detroit Tigers,11
@@ -93,3 +78,18 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-09-19,Miami Marlins,6,San Diego Padres,7,San Diego Padres,13
 2026-09-19,San Francisco Giants,4,Los Angeles Dodgers,10,Los Angeles Dodgers,14
 2026-09-19,Minnesota Twins,5,Los Angeles Angels,6,Los Angeles Angels,11
+2026-09-20,Philadelphia Phillies,7,New York Mets,2,Philadelphia Phillies,9
+2026-09-20,Kansas City Royals,3,Pittsburgh Pirates,4,Pittsburgh Pirates,7
+2026-09-20,Chicago Cubs,9,Cincinnati Reds,1,Chicago Cubs,10
+2026-09-20,Athletics,0,Cleveland Guardians,1,Cleveland Guardians,1
+2026-09-20,Boston Red Sox,1,Tampa Bay Rays,5,Tampa Bay Rays,6
+2026-09-20,Atlanta Braves,4,Houston Astros,2,Atlanta Braves,6
+2026-09-20,Detroit Tigers,1,Chicago White Sox,8,Chicago White Sox,9
+2026-09-20,Washington Nationals,3,St. Louis Cardinals,5,St. Louis Cardinals,8
+2026-09-20,Toronto Blue Jays,7,Texas Rangers,2,Toronto Blue Jays,9
+2026-09-20,Seattle Mariners,2,Colorado Rockies,1,Seattle Mariners,3
+2026-09-20,Minnesota Twins,8,Los Angeles Angels,0,Minnesota Twins,8
+2026-09-20,San Francisco Giants,1,Los Angeles Dodgers,3,Los Angeles Dodgers,4
+2026-09-20,Miami Marlins,3,San Diego Padres,7,San Diego Padres,10
+2026-09-20,New York Yankees,4,Arizona Diamondbacks,8,Arizona Diamondbacks,12
+2026-09-20,Milwaukee Brewers,3,Baltimore Orioles,0,Milwaukee Brewers,3

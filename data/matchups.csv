@@ -1,16 +1,4 @@
 game_pk,game_date,away_team,away_team_id,home_team,home_team_id,away_pitcher,away_pitcher_id,home_pitcher,home_pitcher_id
-823570,2026-09-20,Philadelphia Phillies,143,New York Mets,121,Cristopher Sánchez,650911,Jonah Tong,804636
-823329,2026-09-20,Kansas City Royals,118,Pittsburgh Pirates,134,Michael Wacha,608379,Lake Bachar,669199
-824462,2026-09-20,Chicago Cubs,112,Cincinnati Reds,113,David Peterson,656849,Rhett Lowder,695076
-824381,2026-09-20,Athletics,133,Cleveland Guardians,114,Jack Perkins,678022,Gavin Williams,668909
-822922,2026-09-20,Boston Red Sox,111,Tampa Bay Rays,139,Patrick Sandoval,663776,Griffin Jax,643377
-824139,2026-09-20,Atlanta Braves,144,Houston Astros,117,Martín Pérez,527048,Hunter Brown,686613
-824546,2026-09-20,Detroit Tigers,116,Chicago White Sox,145,Troy Melton,675512,Davis Martin,663436
-823001,2026-09-20,Washington Nationals,120,St. Louis Cardinals,138,Jake Irvin,663623,Quinn Mathews,687273
-822844,2026-09-20,Toronto Blue Jays,141,Texas Rangers,140,Spencer Miles,693686,Jacob deGrom,594798
-824300,2026-09-20,Seattle Mariners,136,Colorado Rockies,115,Kade Anderson,807739,Tomoyuki Sugano,608372
-823975,2026-09-20,Minnesota Twins,142,Los Angeles Angels,108,Dean Kremer,665152,Ryan Johnson,696270
-823896,2026-09-20,San Francisco Giants,137,Los Angeles Dodgers,119,Matt Wilkinson,683363,TBD,
-823247,2026-09-20,Miami Marlins,146,San Diego Padres,135,Sandy Alcantara,645261,Walker Buehler,621111
-825028,2026-09-20,New York Yankees,147,Arizona Diamondbacks,109,Will Warren,701542,Corbin Burnes,669203
-824789,2026-09-20,Milwaukee Brewers,158,Baltimore Orioles,110,Jacob Misiorowski,694819,Brandon Young,687064
+824787,2026-09-21,Toronto Blue Jays,141,Baltimore Orioles,110,Trey Yesavage,702056,Shane Baz,669358
+824221,2026-09-21,Washington Nationals,120,Detroit Tigers,116,DJ Herz,687792,River Ryan,689981
+823169,2026-09-21,Minnesota Twins,142,San Francisco Giants,137,Zebby Matthews,805673,Blade Tidwell,694918
