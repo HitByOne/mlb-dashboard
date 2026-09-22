@@ -1,14 +1,4 @@
 Date,Away,Away_R,Home,Home_R,Winner,Total_R
-2026-09-14,Los Angeles Dodgers,4,Cincinnati Reds,1,Los Angeles Dodgers,5
-2026-09-14,Chicago White Sox,7,Cleveland Guardians,3,Chicago White Sox,10
-2026-09-14,Detroit Tigers,6,Toronto Blue Jays,5,Detroit Tigers,11
-2026-09-14,Baltimore Orioles,2,New York Mets,1,Baltimore Orioles,3
-2026-09-14,Atlanta Braves,3,Chicago Cubs,7,Chicago Cubs,10
-2026-09-14,New York Yankees,8,Minnesota Twins,3,New York Yankees,11
-2026-09-14,San Francisco Giants,1,St. Louis Cardinals,2,St. Louis Cardinals,3
-2026-09-14,San Diego Padres,8,Colorado Rockies,7,San Diego Padres,15
-2026-09-14,Seattle Mariners,4,Los Angeles Angels,6,Los Angeles Angels,10
-2026-09-14,Miami Marlins,7,Arizona Diamondbacks,8,Arizona Diamondbacks,15
 2026-09-15,Los Angeles Dodgers,4,Cincinnati Reds,0,Los Angeles Dodgers,4
 2026-09-15,Athletics,1,Tampa Bay Rays,2,Tampa Bay Rays,3
 2026-09-15,Chicago White Sox,6,Cleveland Guardians,7,Cleveland Guardians,13
@@ -93,3 +83,6 @@ Date,Away,Away_R,Home,Home_R,Winner,Total_R
 2026-09-20,Miami Marlins,3,San Diego Padres,7,San Diego Padres,10
 2026-09-20,New York Yankees,4,Arizona Diamondbacks,8,Arizona Diamondbacks,12
 2026-09-20,Milwaukee Brewers,3,Baltimore Orioles,0,Milwaukee Brewers,3
+2026-09-21,Toronto Blue Jays,3,Baltimore Orioles,4,Baltimore Orioles,7
+2026-09-21,Washington Nationals,2,Detroit Tigers,9,Detroit Tigers,11
+2026-09-21,Minnesota Twins,2,San Francisco Giants,5,San Francisco Giants,7

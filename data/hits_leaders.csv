@@ -19,9 +19,9 @@ player_id,Player,Team,League,H,TB
 681198,TJ Rumfield,Colorado Rockies,NL,159,239
 701807,Carson Benge,New York Mets,NL,157,239
 608324,Alex Bregman,Chicago Cubs,NL,157,271
+624413,Pete Alonso,Baltimore Orioles,AL,156,300
 666018,Jonathan Aranda,Tampa Bay Rays,AL,156,248
 664983,Jake McCarthy,Colorado Rockies,NL,156,257
-624413,Pete Alonso,Baltimore Orioles,AL,154,292
 668227,Randy Arozarena,Seattle Mariners,AL,154,265
 647304,Josh Naylor,Seattle Mariners,AL,154,0
 682829,Elly De La Cruz,Cincinnati Reds,NL,153,276
@@ -51,9 +51,9 @@ player_id,Player,Team,League,H,TB
 646240,Rafael Devers,San Francisco Giants,NL,144,293
 671056,Iván Herrera,St. Louis Cardinals,NL,144,226
 700250,Ben Rice,New York Yankees,AL,144,291
+686797,Brooks Lee,Minnesota Twins,AL,143,245
 678246,Miguel Vargas,Chicago White Sox,AL,143,275
 605137,Josh Bell,Minnesota Twins,AL,142,232
-686797,Brooks Lee,Minnesota Twins,AL,142,241
 687263,Zach Neto,Los Angeles Angels,AL,142,259
 671277,Luis García Jr.,New York Yankees,AL,141,267
 682985,Riley Greene,Detroit Tigers,AL,141,239
@@ -63,6 +63,7 @@ player_id,Player,Team,League,H,TB
 677594,Julio Rodríguez,Seattle Mariners,AL,140,228
 673548,Seiya Suzuki,Chicago Cubs,NL,140,247
 665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,139,0
+683002,Gunnar Henderson,Baltimore Orioles,AL,139,250
 672515,Gabriel Moreno,Arizona Diamondbacks,NL,139,0
 660271,Shohei Ohtani,Los Angeles Dodgers,NL,139,262
 664761,Alec Bohm,Philadelphia Phillies,NL,138,0
@@ -72,15 +73,14 @@ player_id,Player,Team,League,H,TB
 672695,Geraldo Perdomo,Arizona Diamondbacks,NL,138,0
 677649,Ezequiel Duran,Texas Rangers,AL,137,223
 702284,Cole Young,Seattle Mariners,AL,137,0
-683002,Gunnar Henderson,Baltimore Orioles,AL,136,242
 682998,Corbin Carroll,Arizona Diamondbacks,NL,134,263
 606466,Ketel Marte,Arizona Diamondbacks,NL,134,235
 681624,Andy Pages,Los Angeles Dodgers,NL,134,226
 656941,Kyle Schwarber,Philadelphia Phillies,NL,0,286
 696100,Hunter Goodman,Colorado Rockies,NL,0,261
-672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,252
-695578,James Wood,Washington Nationals,NL,0,252
-693307,Dillon Dingler,Detroit Tigers,AL,0,241
+672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,253
+695578,James Wood,Washington Nationals,NL,0,253
+693307,Dillon Dingler,Detroit Tigers,AL,0,244
 571970,Max Muncy,Los Angeles Dodgers,NL,0,236
 665019,Kody Clemens,Minnesota Twins,AL,0,235
 571448,Nolan Arenado,Arizona Diamondbacks,NL,0,232

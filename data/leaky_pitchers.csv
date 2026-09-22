@@ -5,7 +5,7 @@ pitcher_id,Player,Team,H_allowed,HR_allowed,ERA,IP,WHIP,H9
 669923,George Kirby,Seattle Mariners,191,21,4.24,169.2,1.39,10.13
 547179,Michael Lorenzen,Toronto Blue Jays,186,23,7.21,127.1,1.88,13.15
 663903,Brady Singer,Cincinnati Reds,181,31,5.67,154.0,1.56,10.58
-669358,Shane Baz,Baltimore Orioles,174,15,4.11,173.0,1.35,9.05
+669358,Shane Baz,Baltimore Orioles,179,15,4.11,179.2,1.35,8.97
 592332,Kevin Gausman,Chicago Cubs,173,25,4.55,172.0,1.27,9.05
 605400,Aaron Nola,Philadelphia Phillies,169,34,4.49,168.1,1.35,9.04
 676440,Tanner Bibee,Cleveland Guardians,168,29,4.35,182.0,1.22,8.31

@@ -2,11 +2,11 @@ Rank,Player,Team,League,HR,player_id
 1,Pete Crow-Armstrong,Chicago Cubs,NL,45,691718
 1,Kyle Schwarber,Philadelphia Phillies,NL,45,656941
 3,Junior Caminero,Tampa Bay Rays,AL,41,691406
+4,Pete Alonso,Baltimore Orioles,AL,40,624413
 4,Yordan Alvarez,Houston Astros,AL,40,670541
 4,Matt Olson,Atlanta Braves,NL,40,621566
-6,Hunter Goodman,Colorado Rockies,NL,39,696100
-6,Ben Rice,New York Yankees,AL,39,700250
-8,Pete Alonso,Baltimore Orioles,AL,38,624413
+7,Hunter Goodman,Colorado Rockies,NL,39,696100
+7,Ben Rice,New York Yankees,AL,39,700250
 9,Rafael Devers,San Francisco Giants,NL,37,646240
 10,Brandon Lowe,Pittsburgh Pirates,NL,33,664040
 10,Kazuma Okamoto,Toronto Blue Jays,AL,33,672960
@@ -40,22 +40,22 @@ Rank,Player,Team,League,HR,player_id
 38,Carter Jensen,Kansas City Royals,AL,25,695600
 38,Seiya Suzuki,Chicago Cubs,NL,25,673548
 38,Fernando Tatis Jr.,San Diego Padres,NL,25,665487
+38,Spencer Torkelson,Detroit Tigers,AL,25,679529
 38,Christian Walker,Houston Astros,AL,25,572233
-43,Wilyer Abreu,Boston Red Sox,AL,24,677800
-43,Drake Baldwin,Atlanta Braves,NL,24,686948
-43,Jackson Chourio,Milwaukee Brewers,NL,24,694192
-43,Ian Happ,Chicago Cubs,NL,24,664023
-43,Heriberto Hernández,Miami Marlins,NL,24,681715
-43,Coby Mayo,Baltimore Orioles,AL,24,691723
-43,Eugenio Suárez,Cincinnati Reds,NL,24,553993
-43,Spencer Torkelson,Detroit Tigers,AL,24,679529
-51,JJ Bleday,Cincinnati Reds,NL,23,668709
-51,Alec Burleson,St. Louis Cardinals,NL,23,676475
-51,Jac Caglianone,Kansas City Royals,AL,23,695506
-51,Gunnar Henderson,Baltimore Orioles,AL,23,683002
-51,Shea Langeliers,Athletics,AL,23,669127
-51,Brooks Lee,Minnesota Twins,AL,23,686797
-51,Cal Raleigh,Seattle Mariners,AL,23,663728
+44,Wilyer Abreu,Boston Red Sox,AL,24,677800
+44,Drake Baldwin,Atlanta Braves,NL,24,686948
+44,Jackson Chourio,Milwaukee Brewers,NL,24,694192
+44,Ian Happ,Chicago Cubs,NL,24,664023
+44,Gunnar Henderson,Baltimore Orioles,AL,24,683002
+44,Heriberto Hernández,Miami Marlins,NL,24,681715
+44,Brooks Lee,Minnesota Twins,AL,24,686797
+44,Coby Mayo,Baltimore Orioles,AL,24,691723
+44,Eugenio Suárez,Cincinnati Reds,NL,24,553993
+53,JJ Bleday,Cincinnati Reds,NL,23,668709
+53,Alec Burleson,St. Louis Cardinals,NL,23,676475
+53,Jac Caglianone,Kansas City Royals,AL,23,695506
+53,Shea Langeliers,Athletics,AL,23,669127
+53,Cal Raleigh,Seattle Mariners,AL,23,663728
 58,Jo Adell,Cleveland Guardians,AL,22,666176
 58,Ozzie Albies,Atlanta Braves,NL,22,645277
 58,Jonathan Aranda,Tampa Bay Rays,AL,22,666018
