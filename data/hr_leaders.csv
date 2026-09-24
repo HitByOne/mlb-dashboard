@@ -1,42 +1,42 @@
 Rank,Player,Team,League,HR,player_id
 1,Pete Crow-Armstrong,Chicago Cubs,NL,45,691718
 1,Kyle Schwarber,Philadelphia Phillies,NL,45,656941
+3,Pete Alonso,Baltimore Orioles,AL,41,624413
 3,Yordan Alvarez,Houston Astros,AL,41,670541
 3,Junior Caminero,Tampa Bay Rays,AL,41,691406
-5,Pete Alonso,Baltimore Orioles,AL,40,624413
-5,Matt Olson,Atlanta Braves,NL,40,621566
-7,Hunter Goodman,Colorado Rockies,NL,39,696100
-7,Ben Rice,New York Yankees,AL,39,700250
+3,Matt Olson,Atlanta Braves,NL,41,621566
+3,Ben Rice,New York Yankees,AL,41,700250
+8,Hunter Goodman,Colorado Rockies,NL,39,696100
 9,Rafael Devers,San Francisco Giants,NL,37,646240
-10,CJ Abrams,Washington Nationals,NL,33,682928
-10,Brandon Lowe,Pittsburgh Pirates,NL,33,664040
-10,Munetaka Murakami,Chicago White Sox,AL,33,808959
-10,Kazuma Okamoto,Toronto Blue Jays,AL,33,672960
-10,Miguel Vargas,Chicago White Sox,AL,33,678246
+10,Brandon Lowe,Pittsburgh Pirates,NL,34,664040
+11,CJ Abrams,Washington Nationals,NL,33,682928
+11,Munetaka Murakami,Chicago White Sox,AL,33,808959
+11,Kazuma Okamoto,Toronto Blue Jays,AL,33,672960
+11,Miguel Vargas,Chicago White Sox,AL,33,678246
 15,Sal Stewart,Cincinnati Reds,NL,32,701398
 16,Colson Montgomery,Chicago White Sox,AL,31,695657
 17,Luis García Jr.,New York Yankees,AL,30,671277
 17,Shohei Ohtani,Los Angeles Dodgers,NL,30,660271
 17,James Wood,Washington Nationals,NL,30,695578
 20,Elly De La Cruz,Cincinnati Reds,NL,29,682829
+20,Manny Machado,San Diego Padres,NL,29,592518
 20,Max Muncy,Los Angeles Dodgers,NL,29,571970
-22,Nolan Arenado,Arizona Diamondbacks,NL,28,571448
-22,Bryce Harper,Philadelphia Phillies,NL,28,547180
-22,Manny Machado,San Diego Padres,NL,28,592518
-22,Jordan Walker,St. Louis Cardinals,NL,28,691023
+23,Nolan Arenado,Arizona Diamondbacks,NL,28,571448
+23,Bryce Harper,Philadelphia Phillies,NL,28,547180
+23,Jordan Walker,St. Louis Cardinals,NL,28,691023
 26,Jake Burger,Texas Rangers,AL,27,669394
 26,Willson Contreras,Boston Red Sox,AL,27,575929
 26,Dillon Dingler,Detroit Tigers,AL,27,693307
-29,Randy Arozarena,Seattle Mariners,AL,26,668227
-29,Jake Bauers,Milwaukee Brewers,NL,26,641343
-29,Alex Bregman,Chicago Cubs,NL,26,608324
-29,Kody Clemens,Minnesota Twins,AL,26,665019
-29,Michael Harris II,Atlanta Braves,NL,26,671739
-29,Jackson Merrill,San Diego Padres,NL,26,701538
-29,Zach Neto,Los Angeles Angels,AL,26,687263
-29,Joc Pederson,Texas Rangers,AL,26,592626
-29,Juan Soto,New York Mets,NL,26,665742
-29,Christian Walker,Houston Astros,AL,26,572233
+26,Juan Soto,New York Mets,NL,27,665742
+30,Randy Arozarena,Seattle Mariners,AL,26,668227
+30,Jake Bauers,Milwaukee Brewers,NL,26,641343
+30,Alex Bregman,Chicago Cubs,NL,26,608324
+30,Kody Clemens,Minnesota Twins,AL,26,665019
+30,Michael Harris II,Atlanta Braves,NL,26,671739
+30,Jackson Merrill,San Diego Padres,NL,26,701538
+30,Zach Neto,Los Angeles Angels,AL,26,687263
+30,Joc Pederson,Texas Rangers,AL,26,592626
+30,Christian Walker,Houston Astros,AL,26,572233
 39,Byron Buxton,Minnesota Twins,AL,25,621439
 39,Carter Jensen,Kansas City Royals,AL,25,695600
 39,Seiya Suzuki,Chicago Cubs,NL,25,673548
@@ -67,11 +67,12 @@ Rank,Player,Team,League,HR,player_id
 60,Yandy Díaz,Tampa Bay Rays,AL,22,650490
 60,Daylen Lile,Washington Nationals,NL,22,695734
 60,Ketel Marte,Arizona Diamondbacks,NL,22,606466
-69,Willy Adames,San Francisco Giants,NL,21,642715
-69,Ty France,San Diego Padres,NL,21,664034
-69,Riley Greene,Detroit Tigers,AL,21,682985
-69,Nick Kurtz,Athletics,AL,21,701762
-69,Andy Pages,Los Angeles Dodgers,NL,21,681624
-69,Julio Rodríguez,Seattle Mariners,AL,21,677594
-69,Casey Schmitt,San Francisco Giants,NL,21,669477
-69,Mike Trout,Los Angeles Angels,AL,21,545361
+60,Mike Trout,Los Angeles Angels,AL,22,545361
+70,Willy Adames,San Francisco Giants,NL,21,642715
+70,Ty France,San Diego Padres,NL,21,664034
+70,Riley Greene,Detroit Tigers,AL,21,682985
+70,Nick Kurtz,Athletics,AL,21,701762
+70,Andy Pages,Los Angeles Dodgers,NL,21,681624
+70,Julio Rodríguez,Seattle Mariners,AL,21,677594
+70,Casey Schmitt,San Francisco Giants,NL,21,669477
+70,Kyle Stowers,Miami Marlins,NL,21,669065
