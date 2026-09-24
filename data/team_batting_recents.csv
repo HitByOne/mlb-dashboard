@@ -1,25 +1,25 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-121,New York Mets,0.289,0.255,7,37,19
-140,Texas Rangers,0.176,0.16,6,49,28
 134,Pittsburgh Pirates,0.264,0.202,9,36,22
+114,Cleveland Guardians,0.288,0.245,9,39,25
+112,Chicago Cubs,0.243,0.239,9,49,36
+138,St. Louis Cardinals,0.221,0.183,10,54,32
+158,Milwaukee Brewers,0.193,0.194,11,61,40
+118,Kansas City Royals,0.309,0.318,7,44,21
+145,Chicago White Sox,0.256,0.302,7,48,26
+115,Colorado Rockies,0.231,0.16,5,43,26
+121,New York Mets,0.289,0.255,7,37,19
+109,Arizona Diamondbacks,0.272,0.308,10,40,19
 111,Boston Red Sox,0.254,0.257,10,51,31
 139,Tampa Bay Rays,0.2,0.204,9,42,23
-143,Philadelphia Phillies,0.218,0.216,7,37,19
-109,Arizona Diamondbacks,0.272,0.308,10,40,19
-112,Chicago Cubs,0.243,0.239,9,49,36
-114,Cleveland Guardians,0.288,0.245,9,39,25
-158,Milwaukee Brewers,0.193,0.194,11,61,40
-145,Chicago White Sox,0.256,0.302,7,48,26
 146,Miami Marlins,0.249,0.231,10,51,30
-118,Kansas City Royals,0.309,0.318,7,44,21
-115,Colorado Rockies,0.231,0.16,5,43,26
-138,St. Louis Cardinals,0.221,0.183,10,54,32
+143,Philadelphia Phillies,0.218,0.216,7,37,19
 147,New York Yankees,0.212,0.211,11,49,35
-144,Atlanta Braves,0.246,0.204,8,41,27
 113,Cincinnati Reds,0.194,0.19,15,49,33
+140,Texas Rangers,0.176,0.16,6,49,28
+144,Atlanta Braves,0.246,0.204,8,41,27
 133,Athletics,0.286,0.32,5,33,21
-135,San Diego Padres,0.266,0.23,5,42,21
 117,Houston Astros,0.253,0.27,13,51,32
-136,Seattle Mariners,0.21,0.181,7,39,22
-119,Los Angeles Dodgers,0.326,0.3,8,33,23
 108,Los Angeles Angels,0.233,0.253,9,49,27
+119,Los Angeles Dodgers,0.326,0.3,8,33,23
+136,Seattle Mariners,0.21,0.181,7,39,22
+135,San Diego Padres,0.266,0.23,5,42,21
