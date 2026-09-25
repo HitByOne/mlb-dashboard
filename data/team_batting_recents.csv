@@ -1,31 +1,31 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-110,Baltimore Orioles,0.159,0.176,5,37,25
-143,Philadelphia Phillies,0.207,0.186,6,38,17
-114,Cleveland Guardians,0.253,0.21,8,38,26
-111,Boston Red Sox,0.222,0.224,12,52,34
 120,Washington Nationals,0.215,0.188,8,40,27
 121,New York Mets,0.249,0.216,7,36,18
-139,Tampa Bay Rays,0.204,0.245,8,38,23
+113,Cincinnati Reds,0.183,0.216,7,49,32
+114,Cleveland Guardians,0.253,0.21,8,38,26
+143,Philadelphia Phillies,0.207,0.186,6,38,17
+110,Baltimore Orioles,0.159,0.176,5,37,25
 144,Atlanta Braves,0.256,0.257,4,35,17
+146,Miami Marlins,0.227,0.236,3,47,27
+111,Boston Red Sox,0.222,0.224,12,52,34
 134,Pittsburgh Pirates,0.224,0.198,8,37,21
 141,Toronto Blue Jays,0.238,0.227,9,27,18
-147,New York Yankees,0.219,0.227,7,50,31
-113,Cincinnati Reds,0.183,0.216,7,49,32
-116,Detroit Tigers,0.25,0.27,9,45,27
-112,Chicago Cubs,0.235,0.198,5,45,31
-146,Miami Marlins,0.227,0.236,3,47,27
 118,Kansas City Royals,0.303,0.305,10,43,23
+112,Chicago Cubs,0.235,0.198,5,45,31
+147,New York Yankees,0.219,0.227,7,50,31
+139,Tampa Bay Rays,0.204,0.245,8,38,23
+116,Detroit Tigers,0.25,0.27,9,45,27
+145,Chicago White Sox,0.281,0.306,12,50,31
 115,Colorado Rockies,0.24,0.255,8,42,24
 138,St. Louis Cardinals,0.212,0.172,13,58,37
-145,Chicago White Sox,0.281,0.306,12,50,31
-142,Minnesota Twins,0.24,0.196,6,42,21
-158,Milwaukee Brewers,0.203,0.23,12,63,38
 140,Texas Rangers,0.18,0.159,8,48,29
-117,Houston Astros,0.273,0.283,10,49,31
+158,Milwaukee Brewers,0.203,0.23,12,63,38
 133,Athletics,0.316,0.352,14,39,22
+117,Houston Astros,0.273,0.283,10,49,31
 119,Los Angeles Dodgers,0.301,0.257,12,39,28
-136,Seattle Mariners,0.2,0.206,5,35,21
 109,Arizona Diamondbacks,0.318,0.339,7,36,20
 137,San Francisco Giants,0.196,0.221,7,55,30
+142,Minnesota Twins,0.24,0.196,6,42,21
+136,Seattle Mariners,0.2,0.206,5,35,21
 108,Los Angeles Angels,0.256,0.302,13,52,29
 135,San Diego Padres,0.235,0.192,16,48,31
