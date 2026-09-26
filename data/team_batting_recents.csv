@@ -1,27 +1,27 @@
 team_id,team,l5_avg,l3_avg,last_k,l5_k,l3_k
-121,New York Mets,0.238,0.214,12,38,26
 120,Washington Nationals,0.226,0.25,4,36,20
-134,Pittsburgh Pirates,0.21,0.211,14,44,31
-142,Minnesota Twins,0.251,0.257,9,39,22
-140,Texas Rangers,0.183,0.189,10,46,24
-119,Los Angeles Dodgers,0.263,0.238,7,42,27
-113,Cincinnati Reds,0.222,0.231,11,51,33
 116,Detroit Tigers,0.257,0.248,5,41,25
-144,Atlanta Braves,0.204,0.206,8,39,20
+113,Cincinnati Reds,0.222,0.231,11,51,33
+121,New York Mets,0.238,0.214,12,38,26
+141,Toronto Blue Jays,0.261,0.26,6,29,19
+142,Minnesota Twins,0.251,0.257,9,39,22
+146,Miami Marlins,0.237,0.263,1,34,14
+137,San Francisco Giants,0.17,0.156,14,58,31
+119,Los Angeles Dodgers,0.263,0.238,7,42,27
 115,Colorado Rockies,0.213,0.259,11,45,24
 114,Cleveland Guardians,0.224,0.186,3,36,20
+134,Pittsburgh Pirates,0.21,0.211,14,44,31
+140,Texas Rangers,0.183,0.189,10,46,24
 118,Kansas City Royals,0.307,0.311,6,37,23
-137,San Francisco Giants,0.17,0.156,14,58,31
-141,Toronto Blue Jays,0.261,0.26,6,29,19
-146,Miami Marlins,0.237,0.263,1,34,14
-145,Chicago White Sox,0.309,0.301,6,44,25
-158,Milwaukee Brewers,0.252,0.284,5,57,28
-139,Tampa Bay Rays,0.21,0.206,12,43,29
-109,Arizona Diamondbacks,0.322,0.309,4,30,21
+144,Atlanta Braves,0.204,0.206,8,39,20
 138,St. Louis Cardinals,0.178,0.214,12,57,35
-143,Philadelphia Phillies,0.182,0.147,6,31,19
-108,Los Angeles Angels,0.257,0.26,9,49,31
-136,Seattle Mariners,0.194,0.228,12,39,24
-133,Athletics,0.302,0.305,7,42,26
+158,Milwaukee Brewers,0.252,0.284,5,57,28
+145,Chicago White Sox,0.309,0.301,6,44,25
+109,Arizona Diamondbacks,0.322,0.309,4,30,21
+139,Tampa Bay Rays,0.21,0.206,12,43,29
 135,San Diego Padres,0.235,0.24,7,44,28
+143,Philadelphia Phillies,0.182,0.147,6,31,19
+133,Athletics,0.302,0.305,7,42,26
 117,Houston Astros,0.253,0.238,8,50,31
+136,Seattle Mariners,0.194,0.228,12,39,24
+108,Los Angeles Angels,0.257,0.26,9,49,31
