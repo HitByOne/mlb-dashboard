@@ -1,93 +1,94 @@
 player_id,Player,Team,League,H,TB
-672640,Otto Lopez,Miami Marlins,NL,188,271
+672640,Otto Lopez,Miami Marlins,NL,189,272
 650333,Luis Arraez,Philadelphia Phillies,NL,185,250
-665487,Fernando Tatis Jr.,San Diego Padres,NL,179,291
+665487,Fernando Tatis Jr.,San Diego Padres,NL,181,294
 650490,Yandy Díaz,Tampa Bay Rays,AL,177,270
-670541,Yordan Alvarez,Houston Astros,AL,175,333
+670541,Yordan Alvarez,Houston Astros,AL,176,334
 802415,Chandler Simpson,Tampa Bay Rays,AL,175,0
-691718,Pete Crow-Armstrong,Chicago Cubs,NL,173,355
+691718,Pete Crow-Armstrong,Chicago Cubs,NL,174,356
 671739,Michael Harris II,Atlanta Braves,NL,170,284
-676475,Alec Burleson,St. Louis Cardinals,NL,167,278
-691406,Junior Caminero,Tampa Bay Rays,AL,167,317
+676475,Alec Burleson,St. Louis Cardinals,NL,168,282
+691406,Junior Caminero,Tampa Bay Rays,AL,168,318
 518692,Freddie Freeman,Los Angeles Dodgers,NL,167,249
+693304,Nick Gonzales,Pittsburgh Pirates,NL,165,0
+663538,Nico Hoerner,Chicago Cubs,NL,165,0
 805808,Kevin McGonigle,Detroit Tigers,AL,165,254
-693304,Nick Gonzales,Pittsburgh Pirates,NL,164,0
-663538,Nico Hoerner,Chicago Cubs,NL,163,0
-666182,Bo Bichette,New York Mets,NL,162,241
-701398,Sal Stewart,Cincinnati Reds,NL,162,283
-691023,Jordan Walker,St. Louis Cardinals,NL,162,279
-681198,TJ Rumfield,Colorado Rockies,NL,161,242
-701807,Carson Benge,New York Mets,NL,160,244
+666182,Bo Bichette,New York Mets,NL,164,247
+681198,TJ Rumfield,Colorado Rockies,NL,163,247
+701398,Sal Stewart,Cincinnati Reds,NL,163,284
+691023,Jordan Walker,St. Louis Cardinals,NL,163,283
+701807,Carson Benge,New York Mets,NL,162,249
+624413,Pete Alonso,Baltimore Orioles,AL,161,314
+666018,Jonathan Aranda,Tampa Bay Rays,AL,158,250
+668227,Randy Arozarena,Seattle Mariners,AL,158,272
 664983,Jake McCarthy,Colorado Rockies,NL,158,259
-624413,Pete Alonso,Baltimore Orioles,AL,157,304
-666018,Jonathan Aranda,Tampa Bay Rays,AL,157,249
 608324,Alex Bregman,Chicago Cubs,NL,157,271
-668227,Randy Arozarena,Seattle Mariners,AL,156,268
-682829,Elly De La Cruz,Cincinnati Reds,NL,156,285
+682829,Elly De La Cruz,Cincinnati Reds,NL,157,287
 643289,Mauricio Dubón,Atlanta Braves,NL,156,0
 621566,Matt Olson,Atlanta Braves,NL,156,313
 805367,Chase Meidroth,Chicago White Sox,AL,155,233
 647304,Josh Naylor,Seattle Mariners,AL,155,0
-677951,Bobby Witt Jr.,Kansas City Royals,AL,154,242
+677951,Bobby Witt Jr.,Kansas City Royals,AL,155,243
+701538,Jackson Merrill,San Diego Padres,NL,154,268
+668930,Brice Turang,Milwaukee Brewers,NL,154,257
 686948,Drake Baldwin,Atlanta Braves,NL,153,246
 676391,Ernie Clement,Toronto Blue Jays,AL,153,0
-701538,Jackson Merrill,San Diego Padres,NL,153,267
+547180,Bryce Harper,Philadelphia Phillies,NL,153,275
 668804,Bryan Reynolds,Pittsburgh Pirates,NL,153,248
-547180,Bryce Harper,Philadelphia Phillies,NL,152,274
+661388,William Contreras,Milwaukee Brewers,NL,152,235
+607043,Brandon Nimmo,Texas Rangers,AL,152,237
 678882,Ceddanne Rafaela,Boston Red Sox,AL,152,238
-661388,William Contreras,Milwaukee Brewers,NL,151,234
+607208,Trea Turner,Philadelphia Phillies,NL,152,239
 664040,Brandon Lowe,Pittsburgh Pirates,NL,151,284
-607043,Brandon Nimmo,Texas Rangers,AL,151,235
-668930,Brice Turang,Milwaukee Brewers,NL,151,252
-607208,Trea Turner,Philadelphia Phillies,NL,151,238
-682928,CJ Abrams,Washington Nationals,NL,149,284
+700250,Ben Rice,New York Yankees,AL,151,306
+682928,CJ Abrams,Washington Nationals,NL,150,285
 680757,Steven Kwan,Cleveland Guardians,AL,149,0
 808982,Jung Hoo Lee,San Francisco Giants,NL,149,0
-700250,Ben Rice,New York Yankees,AL,148,302
-677800,Wilyer Abreu,Boston Red Sox,AL,147,264
+677800,Wilyer Abreu,Boston Red Sox,AL,148,266
+695734,Daylen Lile,Washington Nationals,NL,148,258
+687263,Zach Neto,Los Angeles Angels,AL,148,270
+694192,Jackson Chourio,Milwaukee Brewers,NL,147,249
+807712,Luke Keaschall,Minnesota Twins,AL,147,0
 677594,Julio Rodríguez,Seattle Mariners,AL,147,239
+673548,Seiya Suzuki,Chicago Cubs,NL,147,258
 678246,Miguel Vargas,Chicago White Sox,AL,147,279
 645277,Ozzie Albies,Atlanta Braves,NL,146,241
-694192,Jackson Chourio,Milwaukee Brewers,NL,146,248
+671056,Iván Herrera,St. Louis Cardinals,NL,146,231
 686797,Brooks Lee,Minnesota Twins,AL,146,248
-695734,Daylen Lile,Washington Nationals,NL,146,256
+672515,Gabriel Moreno,Arizona Diamondbacks,NL,146,229
+672695,Geraldo Perdomo,Arizona Diamondbacks,NL,146,0
+683737,Michael Busch,Chicago Cubs,NL,145,236
 669364,Xavier Edwards,Miami Marlins,NL,145,0
-671056,Iván Herrera,St. Louis Cardinals,NL,145,227
-687263,Zach Neto,Los Angeles Angels,AL,145,262
-673548,Seiya Suzuki,Chicago Cubs,NL,145,256
+695506,Jac Caglianone,Kansas City Royals,AL,144,246
 646240,Rafael Devers,San Francisco Giants,NL,144,293
-672515,Gabriel Moreno,Arizona Diamondbacks,NL,144,227
 670623,Isaac Paredes,Houston Astros,AL,144,245
-672695,Geraldo Perdomo,Arizona Diamondbacks,NL,144,0
 605137,Josh Bell,Minnesota Twins,AL,143,233
-807712,Luke Keaschall,Minnesota Twins,AL,143,0
-671277,Luis García Jr.,New York Yankees,AL,142,268
+671277,Luis García Jr.,New York Yankees,AL,143,269
+666176,Jo Adell,Cleveland Guardians,AL,142,236
+682985,Riley Greene,Detroit Tigers,AL,142,240
 660271,Shohei Ohtani,Los Angeles Dodgers,NL,142,266
-666176,Jo Adell,Cleveland Guardians,AL,141,234
 664761,Alec Bohm,Philadelphia Phillies,NL,141,0
-683737,Michael Busch,Chicago Cubs,NL,141,232
-695506,Jac Caglianone,Kansas City Royals,AL,141,242
-682985,Riley Greene,Detroit Tigers,AL,141,239
-800050,Chase DeLauter,Cleveland Guardians,AL,140,0
-665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,140,0
-683002,Gunnar Henderson,Baltimore Orioles,AL,139,250
+800050,Chase DeLauter,Cleveland Guardians,AL,141,0
+665489,Vladimir Guerrero Jr.,Toronto Blue Jays,AL,141,0
+683002,Gunnar Henderson,Baltimore Orioles,AL,141,252
+681624,Andy Pages,Los Angeles Dodgers,NL,139,235
 702284,Cole Young,Seattle Mariners,AL,139,0
-682998,Corbin Carroll,Arizona Diamondbacks,NL,137,269
-677649,Ezequiel Duran,Texas Rangers,AL,137,0
-606466,Ketel Marte,Arizona Diamondbacks,NL,137,239
-681624,Andy Pages,Los Angeles Dodgers,NL,137,230
+677649,Ezequiel Duran,Texas Rangers,AL,138,0
 656941,Kyle Schwarber,Philadelphia Phillies,NL,0,289
-696100,Hunter Goodman,Colorado Rockies,NL,0,264
-695578,James Wood,Washington Nationals,NL,0,254
-672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,253
-571448,Nolan Arenado,Arizona Diamondbacks,NL,0,246
-693307,Dillon Dingler,Detroit Tigers,AL,0,244
-665019,Kody Clemens,Minnesota Twins,AL,0,236
+682998,Corbin Carroll,Arizona Diamondbacks,NL,0,269
+696100,Hunter Goodman,Colorado Rockies,NL,0,266
+672960,Kazuma Okamoto,Toronto Blue Jays,AL,0,257
+695578,James Wood,Washington Nationals,NL,0,256
+571448,Nolan Arenado,Arizona Diamondbacks,NL,0,250
+693307,Dillon Dingler,Detroit Tigers,AL,0,245
+665019,Kody Clemens,Minnesota Twins,AL,0,242
+695600,Carter Jensen,Kansas City Royals,AL,0,242
+606466,Ketel Marte,Arizona Diamondbacks,NL,0,239
+572233,Christian Walker,Houston Astros,AL,0,237
 571970,Max Muncy,Los Angeles Dodgers,NL,0,236
-695600,Carter Jensen,Kansas City Royals,AL,0,234
 592518,Manny Machado,San Diego Padres,NL,0,234
-572233,Christian Walker,Houston Astros,AL,0,233
 575929,Willson Contreras,Boston Red Sox,AL,0,231
-641343,Jake Bauers,Milwaukee Brewers,NL,0,229
-669394,Jake Burger,Texas Rangers,AL,0,229
+641343,Jake Bauers,Milwaukee Brewers,NL,0,230
+669394,Jake Burger,Texas Rangers,AL,0,230
 695657,Colson Montgomery,Chicago White Sox,AL,0,229
+679529,Spencer Torkelson,Detroit Tigers,AL,0,229
